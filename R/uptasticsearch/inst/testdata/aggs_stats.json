@@ -1,0 +1,23 @@
+{
+   "took": 137,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 92958,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "affinity_score": {
+         "count": 59068,
+         "min": -37.73445,
+         "max": 70.62504577636719,
+         "avg": 1.6455430412652863,
+         "sum": 97198.93636145793
+      }
+   }
+}

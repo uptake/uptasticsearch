@@ -1,0 +1,1263 @@
+{
+   "took": 673,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 103104,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "theater_number": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 0,
+         "buckets": [
+            {
+               "key": 0,
+               "doc_count": 71331,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 5274,
+                        "top_tweet_keywords": {
+                           "doc_count": 5274,
+                           "buckets": [
+                              {
+                                 "key": "continu",
+                                 "doc_count": 3700,
+                                 "score": 187.9149264314069,
+                                 "bg_count": 279294
+                              },
+                              {
+                                 "key": "gorgeous",
+                                 "doc_count": 3708,
+                                 "score": 187.37637552831967,
+                                 "bg_count": 281304
+                              },
+                              {
+                                 "key": "sausage",
+                                 "doc_count": 3708,
+                                 "score": 187.37102689200972,
+                                 "bg_count": 281312
+                              },
+                              {
+                                 "key": "continue",
+                                 "doc_count": 3635,
+                                 "score": 183.87347222939766,
+                                 "bg_count": 275488
+                              },
+                              {
+                                 "key": "big if true",
+                                 "doc_count": 3797,
+                                 "score": 173.3055724743841,
+                                 "bg_count": 318791
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 8026,
+                        "top_tweet_keywords": {
+                           "doc_count": 8026,
+                           "buckets": [
+                              {
+                                 "key": "contin",
+                                 "doc_count": 5936,
+                                 "score": 201.231521166789,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "conti",
+                                 "doc_count": 5936,
+                                 "score": 201.22594739712682,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "flowers",
+                                 "doc_count": 5880,
+                                 "score": 198.8703515099217,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "continue",
+                                 "doc_count": 5792,
+                                 "score": 195.6326906094405,
+                                 "bg_count": 283881
+                              },
+                              {
+                                 "key": "army",
+                                 "doc_count": 6088,
+                                 "score": 186.71398484375382,
+                                 "bg_count": 328497
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 8311,
+                        "top_tweet_keywords": {
+                           "doc_count": 8311,
+                           "buckets": [
+                              {
+                                 "key": "apples",
+                                 "doc_count": 5837,
+                                 "score": 181.42395759977597,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "conti",
+                                 "doc_count": 5837,
+                                 "score": 181.41893148541945,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "gold",
+                                 "doc_count": 5781,
+                                 "score": 179.23708935950395,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "normal",
+                                 "doc_count": 6229,
+                                 "score": 176.63162657910283,
+                                 "bg_count": 338954
+                              },
+                              {
+                                 "key": "never",
+                                 "doc_count": 6237,
+                                 "score": 176.393068828753,
+                                 "bg_count": 340281
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 8121,
+                        "top_tweet_keywords": {
+                           "doc_count": 8121,
+                           "buckets": [
+                              {
+                                 "key": "continental",
+                                 "doc_count": 5830,
+                                 "score": 189.57294808892874,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "severe",
+                                 "doc_count": 5830,
+                                 "score": 189.56769665830797,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "Jean Valjean",
+                                 "doc_count": 5751,
+                                 "score": 185.79163711023577,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "always",
+                                 "doc_count": 5613,
+                                 "score": 179.4250324723471,
+                                 "bg_count": 283881
+                              },
+                              {
+                                 "key": "grip",
+                                 "doc_count": 6027,
+                                 "score": 178.7188161742572,
+                                 "bg_count": 328497
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 8128,
+                        "top_tweet_keywords": {
+                           "doc_count": 8128,
+                           "buckets": [
+                              {
+                                 "key": "windowed",
+                                 "doc_count": 5738,
+                                 "score": 183.30915822032193,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "windows",
+                                 "doc_count": 5738,
+                                 "score": 183.30407998009272,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "burger",
+                                 "doc_count": 5641,
+                                 "score": 178.43067617724523,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "normal",
+                                 "doc_count": 6078,
+                                 "score": 175.8280564192481,
+                                 "bg_count": 338954
+                              },
+                              {
+                                 "key": "norma",
+                                 "doc_count": 6078,
+                                 "score": 175.2361716470626,
+                                 "bg_count": 340094
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 7982,
+                        "top_tweet_keywords": {
+                           "doc_count": 7982,
+                           "buckets": [
+                              {
+                                 "key": "nice",
+                                 "doc_count": 5786,
+                                 "score": 193.28918009455697,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "bread",
+                                 "doc_count": 5786,
+                                 "score": 193.28382591470606,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "ever",
+                                 "doc_count": 5757,
+                                 "score": 192.7336238815817,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "continue",
+                                 "doc_count": 5656,
+                                 "score": 188.6029400734767,
+                                 "bg_count": 283881
+                              },
+                              {
+                                 "key": "normal",
+                                 "doc_count": 6112,
+                                 "score": 184.38291789756133,
+                                 "bg_count": 338954
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 7268,
+                        "top_tweet_keywords": {
+                           "doc_count": 7268,
+                           "buckets": [
+                              {
+                                 "key": "cop",
+                                 "doc_count": 5466,
+                                 "score": 208.0857854852805,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "seventeen",
+                                 "doc_count": 5466,
+                                 "score": 208.08002221534653,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "green",
+                                 "doc_count": 5391,
+                                 "score": 203.86478307849188,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "continue",
+                                 "doc_count": 5300,
+                                 "score": 199.7658112119182,
+                                 "bg_count": 283881
+                              },
+                              {
+                                 "key": "trailer",
+                                 "doc_count": 5608,
+                                 "score": 193.21548129637682,
+                                 "bg_count": 328497
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 7916,
+                        "top_tweet_keywords": {
+                           "doc_count": 7916,
+                           "buckets": [
+                              {
+                                 "key": "contin",
+                                 "doc_count": 5754,
+                                 "score": 194.3599418116036,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "tidal",
+                                 "doc_count": 5754,
+                                 "score": 194.35455802685706,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "continu",
+                                 "doc_count": 5684,
+                                 "score": 191.01953379258254,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "walls",
+                                 "doc_count": 5555,
+                                 "score": 184.96677702597103,
+                                 "bg_count": 283881
+                              },
+                              {
+                                 "key": "never",
+                                 "doc_count": 5869,
+                                 "score": 178.36176633850266,
+                                 "bg_count": 328497
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 7869,
+                        "top_tweet_keywords": {
+                           "doc_count": 7869,
+                           "buckets": [
+                              {
+                                 "key": "hangover",
+                                 "doc_count": 5620,
+                                 "score": 187.62180193041306,
+                                 "bg_count": 289880
+                              },
+                              {
+                                 "key": "walls",
+                                 "doc_count": 5620,
+                                 "score": 187.61660444733346,
+                                 "bg_count": 289888
+                              },
+                              {
+                                 "key": "breakfast",
+                                 "doc_count": 5565,
+                                 "score": 185.28806692014837,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "continue",
+                                 "doc_count": 5496,
+                                 "score": 183.22457841780408,
+                                 "bg_count": 283881
+                              },
+                              {
+                                 "key": "tidal",
+                                 "doc_count": 5823,
+                                 "score": 177.67901922646783,
+                                 "bg_count": 328497
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 2436,
+                        "top_tweet_keywords": {
+                           "doc_count": 2436,
+                           "buckets": [
+                              {
+                                 "key": "contin",
+                                 "doc_count": 1800,
+                                 "score": 203.73034627015718,
+                                 "bg_count": 285812
+                              },
+                              {
+                                 "key": "conti",
+                                 "doc_count": 1800,
+                                 "score": 203.72462324832458,
+                                 "bg_count": 285820
+                              },
+                              {
+                                 "key": "continu",
+                                 "doc_count": 1788,
+                                 "score": 199.6168278059525,
+                                 "bg_count": 287811
+                              },
+                              {
+                                 "key": "normal",
+                                 "doc_count": 1919,
+                                 "score": 195.17459513386837,
+                                 "bg_count": 338954
+                              },
+                              {
+                                 "key": "norma",
+                                 "doc_count": 1920,
+                                 "score": 194.72091822988287,
+                                 "bg_count": 340094
+                              }
+                           ]
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 1,
+               "doc_count": 25775,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 2055,
+                        "top_tweet_keywords": {
+                           "doc_count": 2055,
+                           "buckets": [
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 319,
+                                 "score": 252.33081996112358,
+                                 "bg_count": 10215
+                              },
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 319,
+                                 "score": 252.33081996112358,
+                                 "bg_count": 10215
+                              },
+                              {
+                                 "key": "strong",
+                                 "doc_count": 279,
+                                 "score": 204.3511408658132,
+                                 "bg_count": 9648
+                              },
+                              {
+                                 "key": "nbs",
+                                 "doc_count": 274,
+                                 "score": 199.61581822847415,
+                                 "bg_count": 9526
+                              },
+                              {
+                                 "key": "nbsp",
+                                 "doc_count": 274,
+                                 "score": 199.61581822847415,
+                                 "bg_count": 9526
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 2933,
+                        "top_tweet_keywords": {
+                           "doc_count": 2933,
+                           "buckets": [
+                              {
+                                 "key": "марку",
+                                 "doc_count": 11,
+                                 "score": 125.45415877118046,
+                                 "bg_count": 12
+                              },
+                              {
+                                 "key": "half",
+                                 "doc_count": 200,
+                                 "score": 115.86105988335886,
+                                 "bg_count": 4293
+                              },
+                              {
+                                 "key": "hal",
+                                 "doc_count": 200,
+                                 "score": 115.40379834260342,
+                                 "bg_count": 4310
+                              },
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 238,
+                                 "score": 114.75846526089273,
+                                 "bg_count": 6137
+                              },
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 238,
+                                 "score": 114.75846526089273,
+                                 "bg_count": 6137
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 3010,
+                        "top_tweet_keywords": {
+                           "doc_count": 3010,
+                           "buckets": [
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 475,
+                                 "score": 227.15420440030746,
+                                 "bg_count": 11726
+                              },
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 458,
+                                 "score": 217.8738773202506,
+                                 "bg_count": 11366
+                              },
+                              {
+                                 "key": "nb",
+                                 "doc_count": 443,
+                                 "score": 198.7907081567718,
+                                 "bg_count": 11654
+                              },
+                              {
+                                 "key": "nbs",
+                                 "doc_count": 420,
+                                 "score": 193.12138024283263,
+                                 "bg_count": 10783
+                              },
+                              {
+                                 "key": "nbsp",
+                                 "doc_count": 420,
+                                 "score": 193.12138024283263,
+                                 "bg_count": 10783
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 3099,
+                        "top_tweet_keywords": {
+                           "doc_count": 3099,
+                           "buckets": [
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 308,
+                                 "score": 139.3606677839526,
+                                 "bg_count": 7581
+                              },
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 308,
+                                 "score": 139.3606677839526,
+                                 "bg_count": 7581
+                              },
+                              {
+                                 "key": "type.",
+                                 "doc_count": 12,
+                                 "score": 133.73453323324796,
+                                 "bg_count": 12
+                              },
+                              {
+                                 "key": "observed",
+                                 "doc_count": 189,
+                                 "score": 126.88601463303438,
+                                 "bg_count": 3136
+                              },
+                              {
+                                 "key": "vi",
+                                 "doc_count": 516,
+                                 "score": 121.18415676733248,
+                                 "bg_count": 24453
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 2836,
+                        "top_tweet_keywords": {
+                           "doc_count": 2836,
+                           "buckets": [
+                              {
+                                 "key": "verfii",
+                                 "doc_count": 9,
+                                 "score": 97.99047509526645,
+                                 "bg_count": 11
+                              },
+                              {
+                                 "key": "verfi",
+                                 "doc_count": 9,
+                                 "score": 97.99047509526645,
+                                 "bg_count": 11
+                              },
+                              {
+                                 "key": "verf",
+                                 "doc_count": 9,
+                                 "score": 97.99047509526645,
+                                 "bg_count": 11
+                              },
+                              {
+                                 "key": "clealiness",
+                                 "doc_count": 12,
+                                 "score": 95.8117806322499,
+                                 "bg_count": 20
+                              },
+                              {
+                                 "key": "clealin",
+                                 "doc_count": 12,
+                                 "score": 91.2491133968234,
+                                 "bg_count": 21
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 2756,
+                        "top_tweet_keywords": {
+                           "doc_count": 2756,
+                           "buckets": [
+                              {
+                                 "key": "may",
+                                 "doc_count": 410,
+                                 "score": 141.238019969585,
+                                 "bg_count": 16754
+                              },
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 249,
+                                 "score": 128.3370971029496,
+                                 "bg_count": 6803
+                              },
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 249,
+                                 "score": 128.3370971029496,
+                                 "bg_count": 6803
+                              },
+                              {
+                                 "key": "metallic",
+                                 "doc_count": 136,
+                                 "score": 123.06724349740301,
+                                 "bg_count": 2117
+                              },
+                              {
+                                 "key": "observed",
+                                 "doc_count": 144,
+                                 "score": 121.4964009283169,
+                                 "bg_count": 2404
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 2706,
+                        "top_tweet_keywords": {
+                           "doc_count": 2706,
+                           "buckets": [
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 331,
+                                 "score": 193.4788255953785,
+                                 "bg_count": 8272
+                              },
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 331,
+                                 "score": 193.4788255953785,
+                                 "bg_count": 8272
+                              },
+                              {
+                                 "key": "observ",
+                                 "doc_count": 316,
+                                 "score": 178.31956973886713,
+                                 "bg_count": 8180
+                              },
+                              {
+                                 "key": "obser",
+                                 "doc_count": 305,
+                                 "score": 172.9507499520594,
+                                 "bg_count": 7857
+                              },
+                              {
+                                 "key": "obse",
+                                 "doc_count": 305,
+                                 "score": 172.9067078442994,
+                                 "bg_count": 7859
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 2756,
+                        "top_tweet_keywords": {
+                           "doc_count": 2756,
+                           "buckets": [
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 416,
+                                 "score": 229.30258284537052,
+                                 "bg_count": 10628
+                              },
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 416,
+                                 "score": 229.30258284537052,
+                                 "bg_count": 10628
+                              },
+                              {
+                                 "key": "strong",
+                                 "doc_count": 349,
+                                 "score": 184.36957917062105,
+                                 "bg_count": 9303
+                              },
+                              {
+                                 "key": "stron",
+                                 "doc_count": 347,
+                                 "score": 182.9505693409038,
+                                 "bg_count": 9268
+                              },
+                              {
+                                 "key": "nbsp",
+                                 "doc_count": 347,
+                                 "score": 177.22883144403485,
+                                 "bg_count": 9567
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 2813,
+                        "top_tweet_keywords": {
+                           "doc_count": 2813,
+                           "buckets": [
+                              {
+                                 "key": "suggeste",
+                                 "doc_count": 311,
+                                 "score": 157.87470446662732,
+                                 "bg_count": 8281
+                              },
+                              {
+                                 "key": "suggested",
+                                 "doc_count": 303,
+                                 "score": 156.57091817360026,
+                                 "bg_count": 7926
+                              },
+                              {
+                                 "key": "deb",
+                                 "doc_count": 405,
+                                 "score": 152.6660778129081,
+                                 "bg_count": 14519
+                              },
+                              {
+                                 "key": "stron",
+                                 "doc_count": 303,
+                                 "score": 146.88978108899525,
+                                 "bg_count": 8448
+                              },
+                              {
+                                 "key": "strong",
+                                 "doc_count": 303,
+                                 "score": 146.88978108899525,
+                                 "bg_count": 8448
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 811,
+                        "top_tweet_keywords": {
+                           "doc_count": 811,
+                           "buckets": [
+                              {
+                                 "key": "equivalen",
+                                 "doc_count": 5,
+                                 "score": 406.8269980736513,
+                                 "bg_count": 10
+                              },
+                              {
+                                 "key": "equival",
+                                 "doc_count": 5,
+                                 "score": 406.8269980736513,
+                                 "bg_count": 10
+                              },
+                              {
+                                 "key": "equiva",
+                                 "doc_count": 5,
+                                 "score": 406.8269980736513,
+                                 "bg_count": 10
+                              },
+                              {
+                                 "key": "equiv",
+                                 "doc_count": 5,
+                                 "score": 406.8269980736513,
+                                 "bg_count": 10
+                              },
+                              {
+                                 "key": "equivale",
+                                 "doc_count": 5,
+                                 "score": 406.8269980736513,
+                                 "bg_count": 10
+                              }
+                           ]
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 3,
+               "doc_count": 5982,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 510,
+                        "top_tweet_keywords": {
+                           "doc_count": 510,
+                           "buckets": [
+                              {
+                                 "key": "pending",
+                                 "doc_count": 23,
+                                 "score": 3628.0788603101364,
+                                 "bg_count": 60
+                              },
+                              {
+                                 "key": "pendin",
+                                 "doc_count": 23,
+                                 "score": 3628.0788603101364,
+                                 "bg_count": 60
+                              },
+                              {
+                                 "key": "effectiven",
+                                 "doc_count": 20,
+                                 "score": 2110.2553652934275,
+                                 "bg_count": 78
+                              },
+                              {
+                                 "key": "pendi",
+                                 "doc_count": 20,
+                                 "score": 1936.4663998009814,
+                                 "bg_count": 85
+                              },
+                              {
+                                 "key": "pend",
+                                 "doc_count": 20,
+                                 "score": 1870.4491629093704,
+                                 "bg_count": 88
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 652,
+                        "top_tweet_keywords": {
+                           "doc_count": 652,
+                           "buckets": [
+                              {
+                                 "key": "oil:",
+                                 "doc_count": 11,
+                                 "score": 2769.573502013625,
+                                 "bg_count": 11
+                              },
+                              {
+                                 "key": "0to",
+                                 "doc_count": 6,
+                                 "score": 1510.6764556437959,
+                                 "bg_count": 6
+                              },
+                              {
+                                 "key": "oil:l",
+                                 "doc_count": 6,
+                                 "score": 1510.6764556437959,
+                                 "bg_count": 6
+                              },
+                              {
+                                 "key": "0t",
+                                 "doc_count": 6,
+                                 "score": 1510.6764556437959,
+                                 "bg_count": 6
+                              },
+                              {
+                                 "key": "oil:lm",
+                                 "doc_count": 5,
+                                 "score": 1258.8970463698295,
+                                 "bg_count": 5
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 728,
+                        "top_tweet_keywords": {
+                           "doc_count": 728,
+                           "buckets": [
+                              {
+                                 "key": "solved",
+                                 "doc_count": 13,
+                                 "score": 1218.9267264941689,
+                                 "bg_count": 28
+                              },
+                              {
+                                 "key": "sample.si",
+                                 "doc_count": 5,
+                                 "score": 1009.769710028982,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "sample.sil",
+                                 "doc_count": 5,
+                                 "score": 1009.769710028982,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "solve",
+                                 "doc_count": 13,
+                                 "score": 898.1518360633726,
+                                 "bg_count": 38
+                              },
+                              {
+                                 "key": "high.this",
+                                 "doc_count": 5,
+                                 "score": 841.4736136688402,
+                                 "bg_count": 6
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 700,
+                        "top_tweet_keywords": {
+                           "doc_count": 700,
+                           "buckets": [
+                              {
+                                 "key": "sugget",
+                                 "doc_count": 5,
+                                 "score": 1092.1672040816327,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "125hrs",
+                                 "doc_count": 7,
+                                 "score": 891.9323833333334,
+                                 "bg_count": 12
+                              },
+                              {
+                                 "key": "125hr",
+                                 "doc_count": 7,
+                                 "score": 891.9323833333334,
+                                 "bg_count": 12
+                              },
+                              {
+                                 "key": "125h",
+                                 "doc_count": 7,
+                                 "score": 891.9323833333334,
+                                 "bg_count": 12
+                              },
+                              {
+                                 "key": "reng",
+                                 "doc_count": 4,
+                                 "score": 698.985867755102,
+                                 "bg_count": 5
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 619,
+                        "top_tweet_keywords": {
+                           "doc_count": 619,
+                           "buckets": [
+                              {
+                                 "key": "oscura",
+                                 "doc_count": 5,
+                                 "score": 872.9366995858138,
+                                 "bg_count": 8
+                              },
+                              {
+                                 "key": "pendin",
+                                 "doc_count": 10,
+                                 "score": 846.4757500071375,
+                                 "bg_count": 33
+                              },
+                              {
+                                 "key": "pending",
+                                 "doc_count": 10,
+                                 "score": 846.4757500071375,
+                                 "bg_count": 33
+                              },
+                              {
+                                 "key": "vible",
+                                 "doc_count": 3,
+                                 "score": 838.0221395183748,
+                                 "bg_count": 3
+                              },
+                              {
+                                 "key": "vibl",
+                                 "doc_count": 3,
+                                 "score": 838.0221395183748,
+                                 "bg_count": 3
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 675,
+                        "top_tweet_keywords": {
+                           "doc_count": 675,
+                           "buckets": [
+                              {
+                                 "key": "acpm",
+                                 "doc_count": 5,
+                                 "score": 1174.5669245541837,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "acp",
+                                 "doc_count": 5,
+                                 "score": 1174.5669245541837,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "brev",
+                                 "doc_count": 7,
+                                 "score": 959.2253340649291,
+                                 "bg_count": 12
+                              },
+                              {
+                                 "key": "brevedad",
+                                 "doc_count": 7,
+                                 "score": 959.2253340649291,
+                                 "bg_count": 12
+                              },
+                              {
+                                 "key": "breveda",
+                                 "doc_count": 7,
+                                 "score": 959.2253340649291,
+                                 "bg_count": 12
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 610,
+                        "top_tweet_keywords": {
+                           "doc_count": 610,
+                           "buckets": [
+                              {
+                                 "key": "barrage",
+                                 "doc_count": 4,
+                                 "score": 920.4607234614352,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "flow",
+                                 "doc_count": 4,
+                                 "score": 920.4607234614352,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "detergent",
+                                 "doc_count": 4,
+                                 "score": 920.4607234614352,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "yes",
+                                 "doc_count": 4,
+                                 "score": 920.4607234614352,
+                                 "bg_count": 5
+                              },
+                              {
+                                 "key": "condition.",
+                                 "doc_count": 3,
+                                 "score": 862.9331577532922,
+                                 "bg_count": 3
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 686,
+                        "top_tweet_keywords": {
+                           "doc_count": 686,
+                           "buckets": [
+                              {
+                                 "key": "oil prices",
+                                 "doc_count": 8,
+                                 "score": 1039.7211608865596,
+                                 "bg_count": 14
+                              },
+                              {
+                                 "key": "green",
+                                 "doc_count": 8,
+                                 "score": 1039.7211608865596,
+                                 "bg_count": 14
+                              },
+                              {
+                                 "key": "stop",
+                                 "doc_count": 8,
+                                 "score": 1039.7211608865596,
+                                 "bg_count": 14
+                              },
+                              {
+                                 "key": "wedding",
+                                 "doc_count": 8,
+                                 "score": 1039.7211608865596,
+                                 "bg_count": 14
+                              },
+                              {
+                                 "key": "ballpark",
+                                 "doc_count": 8,
+                                 "score": 970.4056393736169,
+                                 "bg_count": 15
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 614,
+                        "top_tweet_keywords": {
+                           "doc_count": 614,
+                           "buckets": [
+                              {
+                                 "key": "shoes",
+                                 "doc_count": 6,
+                                 "score": 1022.0676760496132,
+                                 "bg_count": 10
+                              },
+                              {
+                                 "key": "cold",
+                                 "doc_count": 6,
+                                 "score": 1022.0676760496132,
+                                 "bg_count": 10
+                              },
+                              {
+                                 "key": "awake",
+                                 "doc_count": 6,
+                                 "score": 1022.0676760496132,
+                                 "bg_count": 10
+                              },
+                              {
+                                 "key": "corrective",
+                                 "doc_count": 27,
+                                 "score": 923.9322904667044,
+                                 "bg_count": 224
+                              },
+                              {
+                                 "key": "possíve",
+                                 "doc_count": 4,
+                                 "score": 908.5067724856498,
+                                 "bg_count": 5
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 188,
+                        "top_tweet_keywords": {
+                           "doc_count": 188,
+                           "buckets": [
+                              {
+                                 "key": "high school",
+                                 "doc_count": 3,
+                                 "score": 8369.380121095515,
+                                 "bg_count": 3
+                              },
+                              {
+                                 "key": "never",
+                                 "doc_count": 3,
+                                 "score": 8369.380121095515,
+                                 "bg_count": 3
+                              },
+                              {
+                                 "key": "sale",
+                                 "doc_count": 3,
+                                 "score": 8369.380121095515,
+                                 "bg_count": 3
+                              },
+                              {
+                                 "key": "blue",
+                                 "doc_count": 3,
+                                 "score": 4184.682081824354,
+                                 "bg_count": 6
+                              },
+                              {
+                                 "key": "games",
+                                 "doc_count": 9,
+                                 "score": 2305.806149298787,
+                                 "bg_count": 98
+                              }
+                           ]
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 2,
+               "doc_count": 2,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 2,
+                        "top_tweet_keywords": {
+                           "doc_count": 2,
+                           "buckets": []
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

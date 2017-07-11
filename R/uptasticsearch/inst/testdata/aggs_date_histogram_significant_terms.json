@@ -1,0 +1,420 @@
+{
+   "took": 455,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 103005,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "report_week": {
+         "buckets": [
+            {
+               "key_as_string": "2017-02-27T00:00:00.000Z",
+               "key": 1488153600000,
+               "doc_count": 7838,
+               "key_words": {
+                  "doc_count": 7838,
+                  "buckets": [
+                     {
+                        "key": "cont",
+                        "doc_count": 4962,
+                        "score": 133.25463620900464,
+                        "bg_count": 323185
+                     },
+                     {
+                        "key": "no",
+                        "doc_count": 5119,
+                        "score": 126.86111738243397,
+                        "bg_count": 361152
+                     },
+                     {
+                        "key": "sa",
+                        "doc_count": 4638,
+                        "score": 121.434792877685,
+                        "bg_count": 309803
+                     },
+                     {
+                        "key": "sam",
+                        "doc_count": 4601,
+                        "score": 121.26396372046376,
+                        "bg_count": 305319
+                     },
+                     {
+                        "key": "sampl",
+                        "doc_count": 4586,
+                        "score": 120.63783240735043,
+                        "bg_count": 304903
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-06T00:00:00.000Z",
+               "key": 1488758400000,
+               "doc_count": 11608,
+               "key_words": {
+                  "doc_count": 11608,
+                  "buckets": [
+                     {
+                        "key": "history",
+                        "doc_count": 7601,
+                        "score": 140.01114754155537,
+                        "bg_count": 329099
+                     },
+                     {
+                        "key": "no",
+                        "doc_count": 8072,
+                        "score": 134.57967728821575,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "believe",
+                        "doc_count": 7261,
+                        "score": 126.94570091625035,
+                        "bg_count": 331142
+                     },
+                     {
+                        "key": "norm",
+                        "doc_count": 7365,
+                        "score": 126.8263358551783,
+                        "bg_count": 340991
+                     },
+                     {
+                        "key": "glorious",
+                        "doc_count": 7365,
+                        "score": 126.8192341413591,
+                        "bg_count": 341010
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-13T00:00:00.000Z",
+               "key": 1489363200000,
+               "doc_count": 12035,
+               "key_words": {
+                  "doc_count": 12035,
+                  "buckets": [
+                     {
+                        "key": "no",
+                        "doc_count": 8501,
+                        "score": 138.87199674803213,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "norm",
+                        "doc_count": 7758,
+                        "score": 130.9243089855529,
+                        "bg_count": 340991
+                     },
+                     {
+                        "key": "nor",
+                        "doc_count": 7758,
+                        "score": 130.91697838044445,
+                        "bg_count": 341010
+                     },
+                     {
+                        "key": "think",
+                        "doc_count": 7752,
+                        "score": 130.79422858803923,
+                        "bg_count": 340802
+                     },
+                     {
+                        "key": "blue",
+                        "doc_count": 7616,
+                        "score": 130.74559253952256,
+                        "bg_count": 329099
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-20T00:00:00.000Z",
+               "key": 1489968000000,
+               "doc_count": 11909,
+               "key_words": {
+                  "doc_count": 11909,
+                  "buckets": [
+                     {
+                        "key": "cont",
+                        "doc_count": 7707,
+                        "score": 136.7514902815774,
+                        "bg_count": 329099
+                     },
+                     {
+                        "key": "no",
+                        "doc_count": 8237,
+                        "score": 133.13966035341915,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "frankly",
+                        "doc_count": 7449,
+                        "score": 123.3203930005985,
+                        "bg_count": 340802
+                     },
+                     {
+                        "key": "norm",
+                        "doc_count": 7449,
+                        "score": 123.25169390732209,
+                        "bg_count": 340991
+                     },
+                     {
+                        "key": "nor",
+                        "doc_count": 7449,
+                        "score": 123.24479186175921,
+                        "bg_count": 341010
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-27T00:00:00.000Z",
+               "key": 1490572800000,
+               "doc_count": 11569,
+               "key_words": {
+                  "doc_count": 11569,
+                  "buckets": [
+                     {
+                        "key": "no",
+                        "doc_count": 8246,
+                        "score": 141.41052094380544,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "preposterous",
+                        "doc_count": 7434,
+                        "score": 130.1672053656895,
+                        "bg_count": 340802
+                     },
+                     {
+                        "key": "norm",
+                        "doc_count": 7434,
+                        "score": 130.09470184124723,
+                        "bg_count": 340991
+                     },
+                     {
+                        "key": "child",
+                        "doc_count": 7434,
+                        "score": 130.08741757292134,
+                        "bg_count": 341010
+                     },
+                     {
+                        "key": "normal",
+                        "doc_count": 7402,
+                        "score": 129.48610118560012,
+                        "bg_count": 339650
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-03T00:00:00.000Z",
+               "key": 1491177600000,
+               "doc_count": 11387,
+               "key_words": {
+                  "doc_count": 11387,
+                  "buckets": [
+                     {
+                        "key": "no",
+                        "doc_count": 8330,
+                        "score": 148.9752850944907,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "cont",
+                        "doc_count": 7375,
+                        "score": 136.96795427008203,
+                        "bg_count": 329099
+                     },
+                     {
+                        "key": "norm",
+                        "doc_count": 7492,
+                        "score": 136.40589005043378,
+                        "bg_count": 340991
+                     },
+                     {
+                        "key": "nor",
+                        "doc_count": 7492,
+                        "score": 136.39825328660558,
+                        "bg_count": 341010
+                     },
+                     {
+                        "key": "preposterous",
+                        "doc_count": 7481,
+                        "score": 136.0804573314904,
+                        "bg_count": 340802
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-10T00:00:00.000Z",
+               "key": 1491782400000,
+               "doc_count": 10583,
+               "key_words": {
+                  "doc_count": 10583,
+                  "buckets": [
+                     {
+                        "key": "cont",
+                        "doc_count": 7149,
+                        "score": 149.02914753249877,
+                        "bg_count": 329099
+                     },
+                     {
+                        "key": "no",
+                        "doc_count": 7441,
+                        "score": 137.5946823947914,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "sa",
+                        "doc_count": 6745,
+                        "score": 131.80319697505345,
+                        "bg_count": 331142
+                     },
+                     {
+                        "key": "sampl",
+                        "doc_count": 6655,
+                        "score": 130.35983886989987,
+                        "bg_count": 325937
+                     },
+                     {
+                        "key": "samp",
+                        "doc_count": 6655,
+                        "score": 130.35541830142483,
+                        "bg_count": 325948
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-17T00:00:00.000Z",
+               "key": 1492387200000,
+               "doc_count": 11345,
+               "key_words": {
+                  "doc_count": 11345,
+                  "buckets": [
+                     {
+                        "key": "no",
+                        "doc_count": 7957,
+                        "score": 136.91178583191572,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "cont",
+                        "doc_count": 7325,
+                        "score": 136.11733176955414,
+                        "bg_count": 329099
+                     },
+                     {
+                        "key": "sam",
+                        "doc_count": 7161,
+                        "score": 131.16282113971087,
+                        "bg_count": 326386
+                     },
+                     {
+                        "key": "sampl",
+                        "doc_count": 7156,
+                        "score": 131.16058358460262,
+                        "bg_count": 325937
+                     },
+                     {
+                        "key": "samp",
+                        "doc_count": 7156,
+                        "score": 131.1561359279016,
+                        "bg_count": 325948
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-24T00:00:00.000Z",
+               "key": 1492992000000,
+               "doc_count": 11297,
+               "key_words": {
+                  "doc_count": 11297,
+                  "buckets": [
+                     {
+                        "key": "no",
+                        "doc_count": 8028,
+                        "score": 140.5622157581755,
+                        "bg_count": 385939
+                     },
+                     {
+                        "key": "cont",
+                        "doc_count": 7310,
+                        "score": 136.7162610409106,
+                        "bg_count": 329099
+                     },
+                     {
+                        "key": "sa",
+                        "doc_count": 7115,
+                        "score": 128.69985933534406,
+                        "bg_count": 331142
+                     },
+                     {
+                        "key": "sam",
+                        "doc_count": 7052,
+                        "score": 128.27659592092493,
+                        "bg_count": 326386
+                     },
+                     {
+                        "key": "sampl",
+                        "doc_count": 7042,
+                        "score": 128.08923416526284,
+                        "bg_count": 325937
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-05-01T00:00:00.000Z",
+               "key": 1493596800000,
+               "doc_count": 3434,
+               "key_words": {
+                  "doc_count": 3434,
+                  "buckets": [
+                     {
+                        "key": "no",
+                        "doc_count": 2301,
+                        "score": 139.9570056364327,
+                        "bg_count": 344709
+                     },
+                     {
+                        "key": "cont",
+                        "doc_count": 1983,
+                        "score": 131.69163496881296,
+                        "bg_count": 272192
+                     },
+                     {
+                        "key": "preposterous",
+                        "doc_count": 1877,
+                        "score": 121.97301175115767,
+                        "bg_count": 263276
+                     },
+                     {
+                        "key": "sampl",
+                        "doc_count": 1843,
+                        "score": 120.04954561832496,
+                        "bg_count": 257894
+                     },
+                     {
+                        "key": "sam",
+                        "doc_count": 1843,
+                        "score": 119.88424897291796,
+                        "bg_count": 258248
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

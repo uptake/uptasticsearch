@@ -1,0 +1,74 @@
+{
+   "took": 295,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 120468,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "campaign_status": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 55,
+         "buckets": [
+            {
+               "key": "ignore",
+               "doc_count": 107736,
+               "affinity_score": {
+                  "buckets": [
+                     {
+                        "key": -50,
+                        "doc_count": 5262
+                     },
+                     {
+                        "key": 0,
+                        "doc_count": 66695
+                     },
+                     {
+                        "key": 50,
+                        "doc_count": 2760
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "maybe",
+               "doc_count": 10548,
+               "affinity_score": {
+                  "buckets": [
+                     {
+                        "key": -50,
+                        "doc_count": 9099
+                     },
+                     {
+                        "key": 0,
+                        "doc_count": 1357
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "market_to",
+               "doc_count": 2129,
+               "affinity_score": {
+                  "buckets": [
+                     {
+                        "key": -50,
+                        "doc_count": 1097
+                     },
+                     {
+                        "key": 0,
+                        "doc_count": 1030
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

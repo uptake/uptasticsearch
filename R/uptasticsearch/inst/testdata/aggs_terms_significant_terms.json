@@ -1,0 +1,229 @@
+{
+   "took": 236,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 3433,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "popularity_score": {
+         "doc_count_error_upper_bound": 11,
+         "sum_other_doc_count": 2625,
+         "buckets": [
+            {
+               "key": "summaries",
+               "doc_count": 388,
+               "comment_term": {
+                  "doc_count": 388,
+                  "buckets": [
+                     {
+                        "key": "suggeste",
+                        "doc_count": 375,
+                        "score": 4473.743549520632,
+                        "bg_count": 22318
+                     },
+                     {
+                        "key": "suggested",
+                        "doc_count": 375,
+                        "score": 4473.743549520632,
+                        "bg_count": 22318
+                     },
+                     {
+                        "key": "strong",
+                        "doc_count": 376,
+                        "score": 4065.286271318061,
+                        "bg_count": 24691
+                     },
+                     {
+                        "key": "stron",
+                        "doc_count": 376,
+                        "score": 4065.286271318061,
+                        "bg_count": 24691
+                     },
+                     {
+                        "key": "stro",
+                        "doc_count": 376,
+                        "score": 4064.133797943521,
+                        "bg_count": 24698
+                     },
+                     {
+                        "key": "heavy",
+                        "doc_count": 376,
+                        "score": 3803.2106294847563,
+                        "bg_count": 26392
+                     },
+                     {
+                        "key": "action",
+                        "doc_count": 367,
+                        "score": 2914.3560174102226,
+                        "bg_count": 32810
+                     },
+                     {
+                        "key": "actio",
+                        "doc_count": 367,
+                        "score": 2914.3560174102226,
+                        "bg_count": 32810
+                     },
+                     {
+                        "key": "gorgeous",
+                        "doc_count": 4,
+                        "score": 2840.6390424062065,
+                        "bg_count": 4
+                     },
+                     {
+                        "key": "suggest",
+                        "doc_count": 371,
+                        "score": 2748.930000046098,
+                        "bg_count": 35546
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "opinion",
+               "doc_count": 230,
+               "comment_term": {
+                  "doc_count": 230,
+                  "buckets": [
+                     {
+                        "key": "check",
+                        "doc_count": 3,
+                        "score": 1957.5013232514177,
+                        "bg_count": 9
+                     },
+                     {
+                        "key": "sealer",
+                        "doc_count": 6,
+                        "score": 1531.941678310183,
+                        "bg_count": 46
+                     },
+                     {
+                        "key": "scrape",
+                        "doc_count": 6,
+                        "score": 1531.941678310183,
+                        "bg_count": 46
+                     },
+                     {
+                        "key": "splines",
+                        "doc_count": 26,
+                        "score": 1341.9556298577054,
+                        "bg_count": 986
+                     },
+                     {
+                        "key": "doesn'",
+                        "doc_count": 6,
+                        "score": 1304.9834908632638,
+                        "bg_count": 54
+                     },
+                     {
+                        "key": "doesn't",
+                        "doc_count": 6,
+                        "score": 1304.9834908632638,
+                        "bg_count": 54
+                     },
+                     {
+                        "key": "love",
+                        "doc_count": 26,
+                        "score": 1292.1523001831285,
+                        "bg_count": 1024
+                     },
+                     {
+                        "key": "miles",
+                        "doc_count": 17,
+                        "score": 1240.5437448180944,
+                        "bg_count": 456
+                     },
+                     {
+                        "key": "mile",
+                        "doc_count": 17,
+                        "score": 1240.5437448180944,
+                        "bg_count": 456
+                     },
+                     {
+                        "key": "doesn",
+                        "doc_count": 6,
+                        "score": 1194.3894588446378,
+                        "bg_count": 59
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "reviews",
+               "doc_count": 190,
+               "comment_term": {
+                  "doc_count": 190,
+                  "buckets": [
+                     {
+                        "key": "hey",
+                        "doc_count": 13,
+                        "score": 16157.088567867037,
+                        "bg_count": 30
+                     },
+                     {
+                        "key": "whoa",
+                        "doc_count": 6,
+                        "score": 14750.373787099328,
+                        "bg_count": 7
+                     },
+                     {
+                        "key": "only",
+                        "doc_count": 14,
+                        "score": 10410.191831332715,
+                        "bg_count": 54
+                     },
+                     {
+                        "key": "no",
+                        "doc_count": 14,
+                        "score": 10410.191831332715,
+                        "bg_count": 54
+                     },
+                     {
+                        "key": "not",
+                        "doc_count": 5,
+                        "score": 10243.310743965174,
+                        "bg_count": 7
+                     },
+                     {
+                        "key": "first",
+                        "doc_count": 3,
+                        "score": 8604.387340720223,
+                        "bg_count": 3
+                     },
+                     {
+                        "key": "fly",
+                        "doc_count": 4,
+                        "score": 2415.2500014579387,
+                        "bg_count": 19
+                     },
+                     {
+                        "key": "sizes",
+                        "doc_count": 4,
+                        "score": 2415.2500014579387,
+                        "bg_count": 19
+                     },
+                     {
+                        "key": "unacc",
+                        "doc_count": 9,
+                        "score": 2370.5534939793097,
+                        "bg_count": 98
+                     },
+                     {
+                        "key": "unacce",
+                        "doc_count": 9,
+                        "score": 2370.5534939793097,
+                        "bg_count": 98
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

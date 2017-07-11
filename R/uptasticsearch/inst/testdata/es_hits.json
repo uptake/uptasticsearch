@@ -1,0 +1,30 @@
+{
+   "took": 54,
+   "timed_out": false,
+   "_shards": {
+      "total": 16,
+      "successful": 16,
+      "failed": 0
+   },
+   "hits": {
+      "total": 46872,
+      "max_score": 0.882234,
+      "hits": [
+         {"_index": "staging_redsawx", "_type": "ballplayer", "_id": "abc123", "_score": 0.882234,
+          "_source": {"name": "David Ortiz", "stats" : {"yrs_played": 20, "final_season": {"avg": 0.315, "HR": 38, "R": 79},
+                                                                            "full_career": {"avg": 0.286, "HR": 541, "R": 1419}}}},
+         {"_index": "staging_redsawx", "_type": "ballplayer", "_id": "def567", "_score": 0.882234,
+          "_source": {"name": "Kevin Youkilis", "stats" : {"yrs_played": 10, "final_season": {"avg": 0.219, "HR": 2, "R": 12},
+                                                                            "full_career": {"avg": 0.281, "HR": 150, "R": 653}}}},
+         {"_index": "staging_redsawx", "_type": "ballplayer", "_id": "abc567", "_score": 0.882234,
+          "_source": {"name": "Trot Nixon", "stats" : {"yrs_played": 12, "final_season": {"avg": 0.171, "HR": 1, "R": 2},
+                                                                            "full_career": {"avg": 0.274, "HR": 137, "R": 579}}}},
+         {"_index": "staging_redsawx", "_type": "ballplayer", "_id": "def123", "_score": 0.882234,
+          "_source": {"name": "Manny Ramirez", "stats" : {"yrs_played": 19, "final_season": {"avg": 0.059, "HR": 0, "R": 0},
+                                                                            "full_career": {"avg": 0.312, "HR": 555, "R": 1544}}}},
+         {"_index": "staging_redsawx", "_type": "ballplayer", "_id": "ghi890", "_score": 0.882234,
+          "_source": {"name": "Jason Varitek",  "stats" : {"yrs_played": 15, "final_season": {"avg": 0.221, "HR": 11, "R": 32},
+                                                                            "full_career": {"avg": 0.256, "HR": "193", "R": 664}}}}
+      ]
+   }
+}

@@ -1,0 +1,51 @@
+{
+   "took": 343,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 103104,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "top_tweet_keywords": {
+         "doc_count": 103104,
+         "buckets": [
+            {
+               "key": "no",
+               "doc_count": 72807,
+               "score": 137.9584061112563,
+               "bg_count": 384901
+            },
+            {
+               "key": "cont",
+               "doc_count": 66740,
+               "score": 135.87842669458297,
+               "bg_count": 328493
+            },
+            {
+               "key": "sa",
+               "doc_count": 64397,
+               "score": 125.67996557134086,
+               "bg_count": 330583
+            },
+            {
+               "key": "norm",
+               "doc_count": 65314,
+               "score": 125.59086038715985,
+               "bg_count": 340281
+            },
+            {
+               "key": "nor",
+               "doc_count": 65314,
+               "score": 125.58381289257261,
+               "bg_count": 340300
+            }
+         ]
+      }
+   }
+}

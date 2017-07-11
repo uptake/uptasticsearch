@@ -1,0 +1,1012 @@
+{
+   "took": 80,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 10486157,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "customer_type": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 325573,
+         "buckets": [
+            {
+               "key": "big_spender",
+               "doc_count": 3577599,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 96785,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 326019,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 1865806,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 129126,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 207705,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 215880,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 157166,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 147397,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 389969,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 41746,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "weekend_warrior",
+               "doc_count": 3299193,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 271697,
+                        "satisfaction_score": {
+                           "count": 226467,
+                           "min": -35.0116,
+                           "max": 70.74575805664062,
+                           "avg": 4.597892508824405,
+                           "sum": 1041270.9227959365,
+                           "sum_of_squares": 91588329.4183017,
+                           "variance": 383.28179223781655,
+                           "std_deviation": 19.57758392237961,
+                           "std_deviation_bounds": {
+                              "upper": 43.75306035358362,
+                              "lower": -34.55727533593482
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 359560,
+                        "satisfaction_score": {
+                           "count": 288048,
+                           "min": -35.02442,
+                           "max": 70.74417114257812,
+                           "avg": 6.2250057215299295,
+                           "sum": 1793100.448075253,
+                           "sum_of_squares": 120084568.68860498,
+                           "variance": 378.1401299091077,
+                           "std_deviation": 19.445825513695933,
+                           "std_deviation_bounds": {
+                              "upper": 45.1166567489218,
+                              "lower": -32.666645305861934
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 356124,
+                        "satisfaction_score": {
+                           "count": 282596,
+                           "min": -35.05367,
+                           "max": 70.74571228027344,
+                           "avg": 6.7075919661979455,
+                           "sum": 1895538.6592796745,
+                           "sum_of_squares": 122479657.46400285,
+                           "variance": 388.41723726238473,
+                           "std_deviation": 19.70830376421027,
+                           "std_deviation_bounds": {
+                              "upper": 46.12419949461849,
+                              "lower": -32.709015562222596
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 302500,
+                        "satisfaction_score": {
+                           "count": 225346,
+                           "min": -35.01156,
+                           "max": 70.744873046875,
+                           "avg": 8.065449849367097,
+                           "sum": 1817516.8617554777,
+                           "sum_of_squares": 115246285.07991579,
+                           "variance": 446.3677810169602,
+                           "std_deviation": 21.12741775553653,
+                           "std_deviation_bounds": {
+                              "upper": 50.32028536044016,
+                              "lower": -34.18938566170596
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 307220,
+                        "satisfaction_score": {
+                           "count": 232355,
+                           "min": -38.38338,
+                           "max": 70.74530029296875,
+                           "avg": 7.7030793042980354,
+                           "sum": 1789848.99175017,
+                           "sum_of_squares": 103467027.35547246,
+                           "variance": 385.9597539510793,
+                           "std_deviation": 19.645858442712022,
+                           "std_deviation_bounds": {
+                              "upper": 46.99479618972208,
+                              "lower": -31.588637581126008
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 431597,
+                        "satisfaction_score": {
+                           "count": 312074,
+                           "min": -35.01174,
+                           "max": 70.74563598632812,
+                           "avg": 6.659438393079206,
+                           "sum": 2078237.5770818002,
+                           "sum_of_squares": 124648329.21724121,
+                           "variance": 355.07102195787786,
+                           "std_deviation": 18.84332831423042,
+                           "std_deviation_bounds": {
+                              "upper": 44.346095021540044,
+                              "lower": -31.027218235381632
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 427632,
+                        "satisfaction_score": {
+                           "count": 334601,
+                           "min": -35.0119,
+                           "max": 70.74388122558594,
+                           "avg": 5.346057087692897,
+                           "sum": 1788796.047599131,
+                           "sum_of_squares": 142609271.54453152,
+                           "variance": 397.62662321937813,
+                           "std_deviation": 19.940577304064647,
+                           "std_deviation_bounds": {
+                              "upper": 45.22721169582219,
+                              "lower": -34.535097520436395
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 346564,
+                        "satisfaction_score": {
+                           "count": 253338,
+                           "min": -35.01103,
+                           "max": 70.74441528320312,
+                           "avg": 4.001677642415717,
+                           "sum": 1013777.010574313,
+                           "sum_of_squares": 106257182.21053405,
+                           "variance": 403.4150952992594,
+                           "std_deviation": 20.08519592384549,
+                           "std_deviation_bounds": {
+                              "upper": 44.17206949010669,
+                              "lower": -36.168714205275265
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 375829,
+                        "satisfaction_score": {
+                           "count": 285117,
+                           "min": -35.02437,
+                           "max": 71.04916381835938,
+                           "avg": 3.5890149588340265,
+                           "sum": 1023289.1780178811,
+                           "sum_of_squares": 110317049.19349968,
+                           "variance": 374.0374969797681,
+                           "std_deviation": 19.340049042848058,
+                           "std_deviation_bounds": {
+                              "upper": 42.269113044530144,
+                              "lower": -35.09108312686209
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 120470,
+                        "satisfaction_score": {
+                           "count": 87347,
+                           "min": -35.01105,
+                           "max": 70.63394165039062,
+                           "avg": 4.4722466647080354,
+                           "sum": 390637.3294222528,
+                           "sum_of_squares": 34744009.32126175,
+                           "variance": 377.76893113263907,
+                           "std_deviation": 19.436278736749973,
+                           "std_deviation_bounds": {
+                              "upper": 43.344804138207984,
+                              "lower": -34.40031080879191
+                           }
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "movie_buff",
+               "doc_count": 2627232,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 201674,
+                        "satisfaction_score": {
+                           "count": 137036,
+                           "min": -41.28755,
+                           "max": 70.62521362304688,
+                           "avg": 3.3201378913494795,
+                           "sum": 454978.4160789673,
+                           "sum_of_squares": 51182915.739850335,
+                           "variance": 362.47646356344603,
+                           "std_deviation": 19.03881465752125,
+                           "std_deviation_bounds": {
+                              "upper": 41.39776720639198,
+                              "lower": -34.75749142369302
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 295596,
+                        "satisfaction_score": {
+                           "count": 203834,
+                           "min": -41.28754,
+                           "max": 70.739013671875,
+                           "avg": 3.790724265851721,
+                           "sum": 772678.4900056197,
+                           "sum_of_squares": 78856572.83511946,
+                           "variance": 372.4970404022562,
+                           "std_deviation": 19.30018239297899,
+                           "std_deviation_bounds": {
+                              "upper": 42.3910890518097,
+                              "lower": -34.80964052010626
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 277619,
+                        "satisfaction_score": {
+                           "count": 183741,
+                           "min": -41.28719,
+                           "max": 70.62586975097656,
+                           "avg": 2.8708166714113523,
+                           "sum": 527486.7260217933,
+                           "sum_of_squares": 66718335.311558135,
+                           "variance": 354.869177943663,
+                           "std_deviation": 18.837971704609362,
+                           "std_deviation_bounds": {
+                              "upper": 40.54676008063008,
+                              "lower": -34.80512673780737
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 259233,
+                        "satisfaction_score": {
+                           "count": 165978,
+                           "min": -41.28722,
+                           "max": 70.74320983886719,
+                           "avg": 3.450435206010522,
+                           "sum": 572696.3346232144,
+                           "sum_of_squares": 61800539.98291834,
+                           "variance": 360.4362529225633,
+                           "std_deviation": 18.985158754210175,
+                           "std_deviation_bounds": {
+                              "upper": 41.420752714430876,
+                              "lower": -34.519882302409826
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 265538,
+                        "satisfaction_score": {
+                           "count": 178554,
+                           "min": -41.28802,
+                           "max": 70.74320983886719,
+                           "avg": 3.365062587082826,
+                           "sum": 600845.3851739869,
+                           "sum_of_squares": 61868530.5506261,
+                           "variance": 335.1739430332322,
+                           "std_deviation": 18.307756362624893,
+                           "std_deviation_bounds": {
+                              "upper": 39.98057531233261,
+                              "lower": -33.25045013816696
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 299503,
+                        "satisfaction_score": {
+                           "count": 197386,
+                           "min": -41.28795,
+                           "max": 70.74319458007812,
+                           "avg": 1.4552926746379462,
+                           "sum": 287254.39987608563,
+                           "sum_of_squares": 68331643.561902,
+                           "variance": 344.0649505942915,
+                           "std_deviation": 18.54898785902593,
+                           "std_deviation_bounds": {
+                              "upper": 38.55326839268981,
+                              "lower": -35.64268304341392
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 303826,
+                        "satisfaction_score": {
+                           "count": 201391,
+                           "min": -35.05438,
+                           "max": 70.62562561035156,
+                           "avg": 1.7754766728075608,
+                           "sum": 357565.0226133875,
+                           "sum_of_squares": 67377963.05534826,
+                           "variance": 331.41061268222654,
+                           "std_deviation": 18.204686558197768,
+                           "std_deviation_bounds": {
+                              "upper": 38.1848497892031,
+                              "lower": -34.63389644358797
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 305401,
+                        "satisfaction_score": {
+                           "count": 199633,
+                           "min": -35.05344,
+                           "max": 70.62583923339844,
+                           "avg": 1.5515848669246435,
+                           "sum": 309747.54173876735,
+                           "sum_of_squares": 75407069.33227383,
+                           "variance": 375.32106281999893,
+                           "std_deviation": 19.373204763796796,
+                           "std_deviation_bounds": {
+                              "upper": 40.297994394518234,
+                              "lower": -37.19482466066895
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 325889,
+                        "satisfaction_score": {
+                           "count": 213577,
+                           "min": -35.01201,
+                           "max": 70.62551879882812,
+                           "avg": 1.8045928389666517,
+                           "sum": 385419.52476798056,
+                           "sum_of_squares": 77092339.46754943,
+                           "variance": 357.7015041561367,
+                           "std_deviation": 18.91299828573293,
+                           "std_deviation_bounds": {
+                              "upper": 39.630589410432506,
+                              "lower": -36.02140373249921
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 92953,
+                        "satisfaction_score": {
+                           "count": 59065,
+                           "min": -37.73445,
+                           "max": 70.62504577636719,
+                           "avg": 1.6443882835255805,
+                           "sum": 97125.79396643842,
+                           "sum_of_squares": 21851908.585183885,
+                           "variance": 367.2597319488251,
+                           "std_deviation": 19.164021810382735,
+                           "std_deviation_bounds": {
+                              "upper": 39.97243190429105,
+                              "lower": -36.68365533723989
+                           }
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "your_nemesis",
+               "doc_count": 354809,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 45921,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 52664,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 37897,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 33493,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 32409,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 36764,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 32923,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 34350,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 37880,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 10508,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "popcorn_fiend",
+               "doc_count": 301751,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 9980,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 139549,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 69647,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 11193,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 11058,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 14024,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 13447,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 14292,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 14924,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 3637,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null,
+                           "sum_of_squares": null,
+                           "variance": null,
+                           "std_deviation": null,
+                           "std_deviation_bounds": {
+                              "upper": null,
+                              "lower": null
+                           }
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}
