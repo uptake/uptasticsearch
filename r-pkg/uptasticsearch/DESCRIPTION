@@ -27,6 +27,8 @@ Suggests:
     testthat,
     rmarkdown
 License: BSD_3_clause + file LICENSE
+URL: https://github.com/UptakeOpenSource/uptasticsearch
+BugReports: https://github.com/UptakeOpenSource/uptasticsearch/issues
 LazyData: TRUE
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
