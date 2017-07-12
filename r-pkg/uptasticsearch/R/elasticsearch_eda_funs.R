@@ -1,4 +1,3 @@
-#!/usr/bin/env Rscript
 
 #' @title Examine the distribution of distinct values for a field in Elasticsearch
 #' @name get_counts

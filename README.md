@@ -1,4 +1,4 @@
-# Uptasticsearch
+# uptasticsearch
 
 ## Introduction
 

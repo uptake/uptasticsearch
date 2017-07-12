@@ -1,6 +1,36 @@
+# History files
+.Rhistory
+.Rapp.history
 
-# Mac stuff
+# Session Data files
+.RData
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+.Rproj.user
+
+# Data files
+*.Rda
+*.pdf
+*.csv
+*.html
+
+# system files
 *.DS_Store
-
-# R stuff
-uptasticsearch.Rcheck
