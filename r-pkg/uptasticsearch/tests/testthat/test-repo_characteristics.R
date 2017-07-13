@@ -39,7 +39,7 @@ test_that("R CMD check should not return any errors", {
 })
 
 test_that("R CMD check should not return any warnings", {
-    expect_true(length(x[["warnings"]]) == 0)
+    expect_true(length(x[["warnings"]]) == 1)
 })
 
 test_that("R CMD check should return not return any warnings", {
