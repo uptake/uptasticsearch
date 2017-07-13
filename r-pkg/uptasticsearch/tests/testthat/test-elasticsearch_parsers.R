@@ -826,13 +826,6 @@ futile.logger::flog.threshold(0)
                   expect_equal(names(chomped), "test2")}
              )
     
-    # Should warn if the resulting data is nested with keep_nested_data_cols = TRUE
-    test_that("chomp_hits should warn and keep if the resulting data is nested with with keep_nested_data_cols = TRUE",
-              {expect_warning({chomped <- chomp_hits(hits_json = '[{"test1":[{"a":1}],"test2":2}]'
-                                                      , keep_nested_data_cols = TRUE)},
-                              regexp = "Keeping the following nested data columns.")
-                  expect_equal(names(chomped), c("test1", "test2"))}
-             )
 
 #--- 4. unpack_nested_data
 
@@ -845,8 +838,8 @@ futile.logger::flog.threshold(0)
                 "userType":"very_active","appData":[{"appName":"minesweeper","value":28},{"appName":
                 "pokemon_go","value":190},{"appName":"pokemon_stay","value":1},{"appName":"block_dude",
                 "value":796}]}}}]'
-              sampleChompedDT <- suppressWarnings({chomp_hits(test_json
-                                                               , keep_nested_data_cols = TRUE)})
+              sampleChompedDT <- chomp_hits(test_json
+                                             , keep_nested_data_cols = TRUE)
               unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
                                                , col_to_unpack = "details.appData")
               expect_true("data.table" %in% class(unpackedDT))
