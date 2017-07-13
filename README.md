@@ -12,6 +12,8 @@ This project tackles the issue of getting data out of Elasticsearch and into a t
 3. [Usage Examples](#paragraph2)
     1. [Get a Batch of Documents](#example1)
     2. [Aggregation Results](#example2)
+4. [Next Steps](#nextsteps)
+    1. [Auth Support](#authsupport)
 
 ## How it Works <a name="howitworks"></a>
 
@@ -21,10 +23,8 @@ The core functionality of this package is the `es_search` function. This returns
 
 ### R <a name="rinstallation"></a>
 
-You may install this package from CRAN with
+The package is not yet on CRAN, but we'll be submitting soon. Installation instructions coming soon.
 
-    install.packages('uptasticsearch')
-    
 ### Python <a name="pythoninstallation"></a>
 
 We plan to release a Python implementation of this functionality, but that is not available at this time. Check back often!
@@ -35,7 +35,7 @@ The examples presented here pertain to a fictional Elasticsearch index holding s
 
 ### Example 1: Get a Batch of Documents <a name="example1"></a>
 
-The most common use case for this package will be the case where you have an ES query and want to get a data frame representaiton of many resulting documents. 
+The most common use case for this package will be the case where you have an ES query and want to get a data frame representation of many resulting documents. 
 
 In the example below, we use `uptasticsearch` to look for all survey results in which customers said their satisfaction was "low" or "very low" and mentioned food in their comments.
 
@@ -163,3 +163,10 @@ In the example above, we used the [date_histogram](https://www.elastic.co/guide/
 |terms - terms                                |YES          |
 |["stats"](http://bit.ly/2sn1t74)             |YES          |
 
+## Next Steps <a name="nextsteps"></a>
+
+This is a fairly new project and, as the version number indicates, should be regarded as a work in progress.
+
+### Auth Support <a name="authsupport"></a>
+
+`uptasticsearch` does not currently support queries with authentication. This will be added in future versions.
