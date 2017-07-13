@@ -23,7 +23,11 @@ The core functionality of this package is the `es_search` function. This returns
 
 ### R <a name="rinstallation"></a>
 
-The package is not yet on CRAN, but we'll be submitting soon. Installation instructions coming soon.
+The package is not yet on CRAN, but we'll be submitting soon. For now, you can install using `devtools`.
+
+```
+devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = 'r-pkg/uptasticsearch')
+```
 
 ### Python <a name="pythoninstallation"></a>
 
