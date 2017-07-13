@@ -888,13 +888,6 @@ futile.logger::flog.threshold(0)
                             regexp = "col_to_unpack must be one of the column names")}
              )
     
-    # Should break if the specified column is not a list of data.frames
-    test_that("unpack_nested_data should break if the specified column is not a list of data.frames",
-              {expect_error(unpack_nested_data(chomped_df = data.table::data.table(wow = 7)
-                                               , col_to_unpack = "wow"),
-                            regexp = "the column specified is not a list of data.frames")}
-             )
-    
 #---- 5. .ConvertToSec
     
     # .ConvertToSec should work for seconds
