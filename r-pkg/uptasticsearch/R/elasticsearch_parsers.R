@@ -1,4 +1,3 @@
-#!/usr/bin/env Rscript
 
 #' @title Parse date-times from Elasticsearch records
 #' @name parse_date_time
@@ -21,8 +20,8 @@
 #' \dontrun{
 #' 
 #' # Get some data
-#' result <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
-#'                  , es_index = 'cust_details')
+#' someDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
+#'                     , es_index = 'cust_details')
 #'           
 #' # Note that the date field is character right now
 #' class(someDT$timestamp)
@@ -41,7 +40,7 @@ parse_date_time <- function(input_df
     if (!any(class(input_df) %in% "data.table")){
         msg <- paste("parse_date_time expects to receive a data.table object."
                      , "You provided an object of class"
-                     , class(input_df)
+                     , paste(class(input_df), collapse = ", ")
                      , "to input_df.")
         futile.logger::flog.fatal(msg)
         stop(msg)
@@ -50,8 +49,8 @@ parse_date_time <- function(input_df
     # Break if date_cols is not a character vector
     if (!identical(class(date_cols), "character")) {
         msg <- paste("The date_cols argument in parse_date_time expects",
-                     "a character vector of column names. You gave",
-                     "an object of class", class(date_cols))
+                     "a character vector of column names. You gave an object",
+                     "of class", paste(class(date_cols), collapse = ", "))
         futile.logger::flog.fatal(msg)
         stop(msg)
     }
@@ -97,7 +96,7 @@ parse_date_time <- function(input_df
     tzHash["W"] <-  "Etc/GMT+10" # UTC -10
     tzHash["X"] <-  "Etc/GMT+11" # UTC -11
     tzHash["Y"] <-  "Etc/GMT+12" # UTC -12
-    tzHash["Z"] <- "UTC" # UTC  
+    tzHash["Z"] <-  "UTC" # UTC  
     
     # Parse dates, return POSIXct UTC dates
     for (dateCol in date_cols){
@@ -615,7 +614,7 @@ es_search <- function(es_host
 ){
     
     # Check if this is an aggs or straight-up search query
-    if (length(query_body) > 1 | ! "character" %in% class(query_body)){
+    if (length(query_body) > 1 || ! "character" %in% class(query_body)){
         msg <- sprintf(paste0("query_body should be a single string. ",
                               "You gave an object of length %s")
                        , length(query_body))

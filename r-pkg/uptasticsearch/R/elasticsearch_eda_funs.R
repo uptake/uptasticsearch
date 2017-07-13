@@ -98,7 +98,7 @@ get_counts <- function(field
     numMissings <- httr::content(result, as = "parsed")[["hits"]][["total"]]
     
     # Return now if user asked to only see NAs if there are any
-    if (numMissings == 0 & use_na == "ifany"){
+    if (numMissings == 0 && use_na == "ifany"){
         return(resultDT)
     }
     
