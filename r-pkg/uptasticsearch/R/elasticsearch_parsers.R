@@ -360,15 +360,17 @@ chomp_aggs <- function(aggs_json = NULL) {
 
 #' @title Unpack a nested data.table
 #' @name unpack_nested_data
-#' @description After calling an \code{Chomp*} function, if you had a nested array in the JSON, 
-#'              its corresponding column in the resulting data.table is a data.frame itself. This 
-#'              function expands that data.frame out, adding its columns to the original data.table, 
-#'              and duplicating metadata down the rows as necessary.
-#' @importFrom data.table copy as.data.table rbindlist
+#' @description After calling a \code{chomp_*} function or \code{es_search}, if 
+#'   you had a nested array in the JSON, its corresponding column in the 
+#'   resulting data.table is a data.frame itself (or a list of vectors). This 
+#'   function expands that nested column out, adding its data to the original 
+#'   data.table, and duplicating metadata down the rows as necessary.
+#' @importFrom data.table copy as.data.table rbindlist setnames
 #' @importFrom futile.logger flog.fatal
 #' @export
 #' @param chomped_df a data.table
-#' @param col_to_unpack a character vector of length one: the column name to unpack
+#' @param col_to_unpack a character vector of length one: the column name to 
+#'   unpack
 #' @examples
 #' # Chomp a dummy sample JSON of hits
 #' sampleChompedDT <- chomp_hits('[{"_source":{"timestamp":"2017-01-01",
@@ -409,22 +411,14 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
         futile.logger::flog.fatal(msg)
         stop(msg)
     }
-    if (!any(
-        sapply(chomped_df[, get(col_to_unpack)]
-               , function(x) {"data.frame" %in% class(x)})
-    )) {
-        msg <- "For unpack_nested_data, the column specified is not a list of data.frames"
-        futile.logger::flog.fatal(msg)
-        stop(msg)
-    }
     
     # Avoid side effects
     outDT <- data.table::copy(chomped_df)
     
-    # Get the column to unpack. Should be a list of data.frames
-    listDT <- outDT[, get(col_to_unpack)]
+    # Get the column to unpack
+    listDT <- outDT[[col_to_unpack]]
     
-    # Make them data.tables
+    # Make each row a data.table
     listDT <- lapply(listDT, data.table::as.data.table)
     
     # Remove the empty ones... important, due to data.table 1.10.4 bug
@@ -434,17 +428,29 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
     # Bind them together with an ID to match to the other data
     newDT <- data.table::rbindlist(listDT, fill = TRUE, idcol = TRUE)
     
+    # If we tried to unpack an empty column, fail
+    if (nrow(newDT) == 0) {
+        msg <- "The column given to unpack_nested_data had no data in it."
+        futile.logger::flog.fatal(msg)
+        stop(msg)
+    }
+    
     # Fix the ID because we may have removed some empty elements due to that bug
     newDT[, .id := oldIDs[.id]]
     
-    # Create this ID in the other data
-    outDT[, .id := .I]
-    
     # Merge
+    outDT[, .id := .I]
     outDT <- newDT[outDT, on = ".id"]
     
-    # Return the merged data without the id column, or the original column
-    return(outDT[, !c(".id", col_to_unpack), with = FALSE])
+    # Remove the id column and the original column
+    outDT <- outDT[, !c(".id", col_to_unpack), with = FALSE]
+    
+    # Rename unpacked column if it didn't get a name
+    if ("V1" %in% names(outDT)) {
+        data.table::setnames(outDT, "V1", col_to_unpack)
+    }
+    
+    return(outDT)
     
 }
 
