@@ -838,8 +838,8 @@ futile.logger::flog.threshold(0)
                 "userType":"very_active","appData":[{"appName":"minesweeper","value":28},{"appName":
                 "pokemon_go","value":190},{"appName":"pokemon_stay","value":1},{"appName":"block_dude",
                 "value":796}]}}}]'
-              sampleChompedDT <- suppressWarnings({chomp_hits(test_json
-                                                               , keep_nested_data_cols = TRUE)})
+              sampleChompedDT <- chomp_hits(test_json
+                                             , keep_nested_data_cols = TRUE)
               unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
                                                , col_to_unpack = "details.appData")
               expect_true("data.table" %in% class(unpackedDT))
