@@ -1,0 +1,254 @@
+{
+   "took": 44,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 103069,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "report_week": {
+         "buckets": [
+            {
+               "key_as_string": "2017-02-27T00:00:00.000Z",
+               "key": 1488153600000,
+               "doc_count": 7838,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 5273
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 2055
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 510
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-06T00:00:00.000Z",
+               "key": 1488758400000,
+               "doc_count": 11608,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 8025
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 2931
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 652
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-13T00:00:00.000Z",
+               "key": 1489363200000,
+               "doc_count": 12043,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 8306
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 3009
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 728
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-20T00:00:00.000Z",
+               "key": 1489968000000,
+               "doc_count": 11918,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 8118
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 3098
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 700
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 2
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-27T00:00:00.000Z",
+               "key": 1490572800000,
+               "doc_count": 11580,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 8126
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 2834
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 619
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-03T00:00:00.000Z",
+               "key": 1491177600000,
+               "doc_count": 11404,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 7976
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 2753
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 675
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-10T00:00:00.000Z",
+               "key": 1491782400000,
+               "doc_count": 10583,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 7267
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 2706
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 610
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-17T00:00:00.000Z",
+               "key": 1492387200000,
+               "doc_count": 11358,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 7916
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 2756
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 686
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-24T00:00:00.000Z",
+               "key": 1492992000000,
+               "doc_count": 11303,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 7864
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 2812
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 614
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-05-01T00:00:00.000Z",
+               "key": 1493596800000,
+               "doc_count": 3434,
+               "theater_number": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 2436
+                     },
+                     {
+                        "key": 1,
+                        "doc_count": 810
+                     },
+                     {
+                        "key": 3,
+                        "doc_count": 188
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

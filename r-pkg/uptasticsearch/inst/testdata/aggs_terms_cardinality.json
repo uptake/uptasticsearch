@@ -1,0 +1,43 @@
+{
+   "took": 5,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 120468,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "customerNumber": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 51313,
+         "buckets": [
+            {
+               "key": 3,
+               "doc_count": 24996,
+               "purchase_types": {
+                  "value": 4
+               }
+            },
+            {
+               "key": 9,
+               "doc_count": 22329,
+               "purchase_types": {
+                  "value": 4
+               }
+            },
+            {
+               "key": 19,
+               "doc_count": 21830,
+               "purchase_types": {
+                  "value": 2
+               }
+            }
+         ]
+      }
+   }
+}

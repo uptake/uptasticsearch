@@ -1,0 +1,430 @@
+{
+   "took": 69,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 2627223,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "theater_number": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 0,
+         "buckets": [
+            {
+               "key": 1,
+               "doc_count": 1313593,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 95124,
+                        "screenings": {
+                           "value": 6408
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 139144,
+                        "screenings": {
+                           "value": 5584
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 137220,
+                        "screenings": {
+                           "value": 4442
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 131458,
+                        "screenings": {
+                           "value": 6336
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 135345,
+                        "screenings": {
+                           "value": 4740
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 150729,
+                        "screenings": {
+                           "value": 6025
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 150024,
+                        "screenings": {
+                           "value": 5987
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 154266,
+                        "screenings": {
+                           "value": 6860
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 173481,
+                        "screenings": {
+                           "value": 6729
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 46802,
+                        "screenings": {
+                           "value": 4557
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 2,
+               "doc_count": 1163110,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 92836,
+                        "screenings": {
+                           "value": 4070
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 138737,
+                        "screenings": {
+                           "value": 3731
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 124657,
+                        "screenings": {
+                           "value": 4366
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 111803,
+                        "screenings": {
+                           "value": 5595
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 114628,
+                        "screenings": {
+                           "value": 4064
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 131712,
+                        "screenings": {
+                           "value": 4470
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 135879,
+                        "screenings": {
+                           "value": 3571
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 134192,
+                        "screenings": {
+                           "value": 4313
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 137166,
+                        "screenings": {
+                           "value": 7229
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 41500,
+                        "screenings": {
+                           "value": 2697
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 3,
+               "doc_count": 138168,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 12114,
+                        "screenings": {
+                           "value": 2528
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 15324,
+                        "screenings": {
+                           "value": 3934
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 15113,
+                        "screenings": {
+                           "value": 2682
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 15430,
+                        "screenings": {
+                           "value": 3664
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 15055,
+                        "screenings": {
+                           "value": 2154
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 15640,
+                        "screenings": {
+                           "value": 2054
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 15358,
+                        "screenings": {
+                           "value": 1590
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 15377,
+                        "screenings": {
+                           "value": 2838
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 14366,
+                        "screenings": {
+                           "value": 2885
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 4391,
+                        "screenings": {
+                           "value": 1237
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 0,
+               "doc_count": 12338,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 1600,
+                        "screenings": {
+                           "value": 104
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 2388,
+                        "screenings": {
+                           "value": 176
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 624,
+                        "screenings": {
+                           "value": 80
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 541,
+                        "screenings": {
+                           "value": 152
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 507,
+                        "screenings": {
+                           "value": 198
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 1420,
+                        "screenings": {
+                           "value": 161
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 2563,
+                        "screenings": {
+                           "value": 163
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 1565,
+                        "screenings": {
+                           "value": 173
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 870,
+                        "screenings": {
+                           "value": 165
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 260,
+                        "screenings": {
+                           "value": 94
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 7,
+               "doc_count": 14,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 3,
+                        "screenings": {
+                           "value": 1
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 4,
+                        "screenings": {
+                           "value": 1
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 1,
+                        "screenings": {
+                           "value": 1
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 3,
+                        "screenings": {
+                           "value": 1
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 1,
+                        "screenings": {
+                           "value": 1
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 2,
+                        "screenings": {
+                           "value": 1
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

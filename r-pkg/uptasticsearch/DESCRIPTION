@@ -1,0 +1,34 @@
+Package: uptasticsearch
+Type: Package
+Title: Get data.table Representations of Elasticsearch Results
+Version: 0.0.2
+Authors@R: c(
+    person("James", "Lamb", email = "james.lamb@uptake.com", role = c("aut", "cre")),
+    person("Nick", "Paras", email = "nick.paras@uptake.com", role = c("aut")),
+    person("Austin", "Dickey", email = "austin.dickey@uptake.com", role = c("aut")),
+    person("", "Uptake Technologies Inc.", role = c("cph", "fnd")))
+Author: James Lamb [aut, cre],
+    Nick Paras [aut],
+    Austin Dickey [aut]
+Maintainer: James Lamb <james.lamb@uptake.com>
+Description: This package contains functions for getting data.tables from Elasticsearch results.
+Depends:
+    R (>= 3.3.0)
+Imports:
+    data.table,
+    futile.logger,
+    httr,
+    jsonlite,
+    purrr,
+    stringr,
+    uuid
+Suggests:
+    knitr,
+    testthat,
+    rmarkdown
+License: BSD_3_clause + file LICENSE
+URL: https://github.com/UptakeOpenSource/uptasticsearch
+BugReports: https://github.com/UptakeOpenSource/uptasticsearch/issues
+LazyData: TRUE
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1

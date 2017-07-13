@@ -1,0 +1,40 @@
+{
+   "took": 36,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 2627232,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "affinity_score": {
+         "buckets": [
+            {
+               "key": -50,
+               "doc_count": 21470
+            },
+            {
+               "key": -25,
+               "doc_count": 331525
+            },
+            {
+               "key": 0,
+               "doc_count": 1096008
+            },
+            {
+               "key": 25,
+               "doc_count": 263747
+            },
+            {
+               "key": 50,
+               "doc_count": 27445
+            }
+         ]
+      }
+   }
+}

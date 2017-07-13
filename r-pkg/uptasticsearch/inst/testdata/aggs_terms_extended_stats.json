@@ -1,0 +1,76 @@
+{
+   "took": 418,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 120468,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "campaign_status": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 55,
+         "buckets": [
+            {
+               "key": "market_to",
+               "doc_count": 107736,
+               "some_score": {
+                  "count": 74717,
+                  "min": -175.1807861328125,
+                  "max": 151.98361,
+                  "avg": 4.2240326056588025,
+                  "sum": 315607.04419700877,
+                  "sum_of_squares": 187165555.7172291,
+                  "variance": 2487.150464713055,
+                  "std_deviation": 49.87133911088667,
+                  "std_deviation_bounds": {
+                     "upper": 103.96671082743215,
+                     "lower": -95.51864561611454
+                  }
+               }
+            },
+            {
+               "key": "maybe",
+               "doc_count": 10548,
+               "some_score": {
+                  "count": 10456,
+                  "min": -90.16599,
+                  "max": 148.19164,
+                  "avg": 117.63368726205155,
+                  "sum": 1229977.834012011,
+                  "sum_of_squares": 169895700.71152127,
+                  "variance": 2410.9480533757473,
+                  "std_deviation": 49.10140581873137,
+                  "std_deviation_bounds": {
+                     "upper": 215.8364988995143,
+                     "lower": 19.430875624588808
+                  }
+               }
+            },
+            {
+               "key": "ignore",
+               "doc_count": 2129,
+               "some_score": {
+                  "count": 2127,
+                  "min": -90.16599,
+                  "max": 148.35457,
+                  "avg": 75.17809260768585,
+                  "sum": 159903.80297654783,
+                  "sum_of_squares": 24416683.030253433,
+                  "variance": 5827.654029977135,
+                  "std_deviation": 76.33907276078965,
+                  "std_deviation_bounds": {
+                     "upper": 227.85623812926514,
+                     "lower": -77.50005291389344
+                  }
+               }
+            }
+         ]
+      }
+   }
+}

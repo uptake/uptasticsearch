@@ -1,0 +1,214 @@
+{
+   "took": 64,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 2627223,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "report_week": {
+         "buckets": [
+            {
+               "key_as_string": "2017-02-27T00:00:00.000Z",
+               "key": 1488153600000,
+               "doc_count": 201674,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 96724
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 104950
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-06T00:00:00.000Z",
+               "key": 1488758400000,
+               "doc_count": 295596,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 141532
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 154061
+                     },
+                     {
+                        "key": 6,
+                        "doc_count": 3
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-13T00:00:00.000Z",
+               "key": 1489363200000,
+               "doc_count": 277618,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 137844
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 139770
+                     },
+                     {
+                        "key": 6,
+                        "doc_count": 4
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-20T00:00:00.000Z",
+               "key": 1489968000000,
+               "doc_count": 259233,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 131999
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 127233
+                     },
+                     {
+                        "key": 6,
+                        "doc_count": 1
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-03-27T00:00:00.000Z",
+               "key": 1490572800000,
+               "doc_count": 265538,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 135852
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 129683
+                     },
+                     {
+                        "key": 6,
+                        "doc_count": 3
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-03T00:00:00.000Z",
+               "key": 1491177600000,
+               "doc_count": 299502,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 152149
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 147352
+                     },
+                     {
+                        "key": 6,
+                        "doc_count": 1
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-10T00:00:00.000Z",
+               "key": 1491782400000,
+               "doc_count": 303826,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 152587
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 151237
+                     },
+                     {
+                        "key": 6,
+                        "doc_count": 2
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-17T00:00:00.000Z",
+               "key": 1492387200000,
+               "doc_count": 305400,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 155831
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 149569
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-04-24T00:00:00.000Z",
+               "key": 1492992000000,
+               "doc_count": 325883,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 174351
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 151532
+                     }
+                  ]
+               }
+            },
+            {
+               "key_as_string": "2017-05-01T00:00:00.000Z",
+               "key": 1493596800000,
+               "doc_count": 92953,
+               "num_customers": {
+                  "buckets": [
+                     {
+                        "key": 0,
+                        "doc_count": 47062
+                     },
+                     {
+                        "key": 2,
+                        "doc_count": 45891
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

@@ -1,0 +1,214 @@
+{
+  "took": 494,
+  "timed_out": false,
+  "_shards": {
+    "total": 16,
+    "successful": 16,
+    "failed": 0
+  },
+  "hits": {
+    "total": 11335918,
+    "max_score": 0,
+    "hits": []
+  },
+  "aggregations": {
+    "a_grouping_var": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 526088,
+      "buckets": [
+        {
+          "key": 0,
+          "doc_count": 3403964,
+          "another_one": {
+            "doc_count_error_upper_bound": 23422,
+            "sum_other_doc_count": 2941783,
+            "buckets": [
+              {
+                "key": 2915,
+                "doc_count": 188629,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "lupe_fiasco",
+                      "doc_count": 168098
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 20531
+                    }
+                  ]
+                }
+              },
+              {
+                "key": 3952,
+                "doc_count": 146357,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "lupe_fiasco",
+                      "doc_count": 145484
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 873
+                    }
+                  ]
+                }
+              },
+              {
+                "key": 2632,
+                "doc_count": 127195,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "lupe_fiasco",
+                      "doc_count": 121318
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 5877
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": 2,
+          "doc_count": 3360049,
+          "another_one": {
+            "doc_count_error_upper_bound": 13449,
+            "sum_other_doc_count": 2105828,
+            "buckets": [
+              {
+                "key": 2349,
+                "doc_count": 542582,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "childish_gambino",
+                      "doc_count": 485820
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 56762
+                    }
+                  ]
+                }
+              },
+              {
+                "key": 2201,
+                "doc_count": 505387,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "childish_gambino",
+                      "doc_count": 470503
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 34884
+                    }
+                  ]
+                }
+              },
+              {
+                "key": 2247,
+                "doc_count": 206252,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "childish_gambino",
+                      "doc_count": 188375
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 17877
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": 1,
+          "doc_count": 2600800,
+          "another_one": {
+            "doc_count_error_upper_bound": 17346,
+            "sum_other_doc_count": 1692470,
+            "buckets": [
+              {
+                "key": 2126,
+                "doc_count": 433735,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "lupe_fiasco",
+                      "doc_count": 405476
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 28259
+                    }
+                  ]
+                }
+              },
+              {
+                "key": 777,
+                "doc_count": 277387,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "lupe_fiasco",
+                      "doc_count": 241894
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 35493
+                    }
+                  ]
+                }
+              },
+              {
+                "key": 663,
+                "doc_count": 197208,
+                "yet_another_one": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "lupe_fiasco",
+                      "doc_count": 193540
+                    },
+                    {
+                      "key": "tech_n9ne",
+                      "doc_count": 3668
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+   "took": 41,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 2627223,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "report_week": {
+         "buckets": [
+            {
+               "key_as_string": "2017-02-27T00:00:00.000Z",
+               "key": 1488153600000,
+               "doc_count": 201674
+            },
+            {
+               "key_as_string": "2017-03-06T00:00:00.000Z",
+               "key": 1488758400000,
+               "doc_count": 295596
+            },
+            {
+               "key_as_string": "2017-03-13T00:00:00.000Z",
+               "key": 1489363200000,
+               "doc_count": 277618
+            },
+            {
+               "key_as_string": "2017-03-20T00:00:00.000Z",
+               "key": 1489968000000,
+               "doc_count": 259233
+            },
+            {
+               "key_as_string": "2017-03-27T00:00:00.000Z",
+               "key": 1490572800000,
+               "doc_count": 265538
+            },
+            {
+               "key_as_string": "2017-04-03T00:00:00.000Z",
+               "key": 1491177600000,
+               "doc_count": 299502
+            },
+            {
+               "key_as_string": "2017-04-10T00:00:00.000Z",
+               "key": 1491782400000,
+               "doc_count": 303826
+            },
+            {
+               "key_as_string": "2017-04-17T00:00:00.000Z",
+               "key": 1492387200000,
+               "doc_count": 305400
+            },
+            {
+               "key_as_string": "2017-04-24T00:00:00.000Z",
+               "key": 1492992000000,
+               "doc_count": 325883
+            },
+            {
+               "key_as_string": "2017-05-01T00:00:00.000Z",
+               "key": 1493596800000,
+               "doc_count": 92953
+            }
+         ]
+      }
+   }
+}

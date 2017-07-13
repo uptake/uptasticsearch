@@ -1,0 +1,196 @@
+{
+   "took": 85,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 3299133,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "customerNumber": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 1610025,
+         "buckets": [
+            {
+               "key": 3,
+               "doc_count": 635876,
+               "purchase_date": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 40944
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 67822
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 69171
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 62926
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 70643
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 76538
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 80135
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 72677
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 70024
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 24996
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 5,
+               "doc_count": 529046,
+               "purchase_date": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 41429
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 60928
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 65796
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 63584
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 60740
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 81163
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 65028
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 40006
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 38709
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 11663
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 19,
+               "doc_count": 524186,
+               "purchase_date": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 49385
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 42337
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 48440
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 29970
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 37824
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 94017
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 79809
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 47820
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 72754
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 21830
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

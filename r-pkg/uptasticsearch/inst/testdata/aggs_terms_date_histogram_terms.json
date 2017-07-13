@@ -1,0 +1,537 @@
+{
+   "took": 35,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 2627232,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "customer_type": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 0,
+         "buckets": [
+            {
+               "key": 1,
+               "doc_count": 1313593,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 95124,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 8499,
+                           "buckets": [
+                              {
+                                 "key": "Jean Valjean",
+                                 "doc_count": 11665
+                              },
+                              {
+                                 "key": "Mufasa",
+                                 "doc_count": 9418
+                              },
+                              {
+                                 "key": "Mary Poppins",
+                                 "doc_count": 5703
+                              },
+                              {
+                                 "key": "Billy Elliot",
+                                 "doc_count": 3565
+                              },
+                              {
+                                 "key": "Dorothy",
+                                 "doc_count": 1513
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 139144,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 6936,
+                           "buckets": [
+                              {
+                                 "key": "Eponine",
+                                 "doc_count": 17520
+                              },
+                              {
+                                 "key": "Cosette",
+                                 "doc_count": 15014
+                              },
+                              {
+                                 "key": "Mufasa",
+                                 "doc_count": 4403
+                              },
+                              {
+                                 "key": "Gavroche",
+                                 "doc_count": 2129
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 131458,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 1931,
+                           "buckets": [
+                              {
+                                 "key": "James",
+                                 "doc_count": 16978
+                              },
+                              {
+                                 "key": "Nick",
+                                 "doc_count": 3175
+                              },
+                              {
+                                 "key": "Austin",
+                                 "doc_count": 2756
+                              },
+                              {
+                                 "key": "Michael",
+                                 "doc_count": 887
+                              },
+                              {
+                                 "key": "Weiwen",
+                                 "doc_count": 852
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 135345,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 512,
+                           "buckets": [
+                              {
+                                 "key": "Shrek",
+                                 "doc_count": 17250
+                              },
+                              {
+                                 "key": "Fiona",
+                                 "doc_count": 7901
+                              },
+                              {
+                                 "key": "DONKEY",
+                                 "doc_count": 441
+                              },
+                              {
+                                 "key": "Lord Farquad",
+                                 "doc_count": 344
+                              },
+                              {
+                                 "key": "Pinocchio",
+                                 "doc_count": 157
+                              }
+                           ]
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 2,
+               "doc_count": 1163114,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 124658,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 2586,
+                           "buckets": [
+                              {
+                                 "key": "Danny - The Tunnel King",
+                                 "doc_count": 16826
+                              },
+                              {
+                                 "key": "Sedgwick - The Manufacturer",
+                                 "doc_count": 2548
+                              },
+                              {
+                                 "key": "Ives - The Mole",
+                                 "doc_count": 1179
+                              },
+                              {
+                                 "key": "Blythe - The Forger",
+                                 "doc_count": 998
+                              },
+                              {
+                                 "key": "Cavendish - The Surveyor",
+                                 "doc_count": 858
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 111803,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 563,
+                           "buckets": [
+                              {
+                                 "key": "Dorothy",
+                                 "doc_count": 13154
+                              },
+                              {
+                                 "key": "Lion",
+                                 "doc_count": 589
+                              },
+                              {
+                                 "key": "Scarecrow",
+                                 "doc_count": 177
+                              },
+                              {
+                                 "key": "Tin Man",
+                                 "doc_count": 111
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 114628,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 310,
+                           "buckets": [
+                              {
+                                 "key": "Mufasa",
+                                 "doc_count": 14303
+                              },
+                              {
+                                 "key": "Annie",
+                                 "doc_count": 436
+                              },
+                              {
+                                 "key": "Daddy Warbucks",
+                                 "doc_count": 166
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 135879,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 1352,
+                           "buckets": [
+                              {
+                                 "key": "A. Ham",
+                                 "doc_count": 14901
+                              },
+                              {
+                                 "key": "A. Burr",
+                                 "doc_count": 1267
+                              },
+                              {
+                                 "key": "Angelica",
+                                 "doc_count": 454
+                              },
+                              {
+                                 "key": "Eliiisa",
+                                 "doc_count": 401
+                              },
+                              {
+                                 "key": "and Peggy",
+                                 "doc_count": 303
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 134192,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 1655,
+                           "buckets": [
+                              {
+                                 "key": "Thomas Jefferson",
+                                 "doc_count": 17583
+                              },
+                              {
+                                 "key": "Cinderella",
+                                 "doc_count": 967
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 137169,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 1347,
+                           "buckets": [
+                              {
+                                 "key": "Billy Elliot",
+                                 "doc_count": 18903
+                              },
+                              {
+                                 "key": "Nala",
+                                 "doc_count": 1407
+                              },
+                              {
+                                 "key": "Gavroche",
+                                 "doc_count": 1097
+                              },
+                              {
+                                 "key": "Mufasa",
+                                 "doc_count": 734
+                              },
+                              {
+                                 "key": "Rafiki",
+                                 "doc_count": 696
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 41500,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 119,
+                           "buckets": [
+                              {
+                                 "key": "Billy Elliot",
+                                 "doc_count": 6738
+                              },
+                              {
+                                 "key": "Gavroche",
+                                 "doc_count": 834
+                              },
+                              {
+                                 "key": "Timon",
+                                 "doc_count": 549
+                              },
+                              {
+                                 "key": "Pumba",
+                                 "doc_count": 86
+                              },
+                              {
+                                 "key": "Zazu",
+                                 "doc_count": 83
+                              }
+                           ]
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 0,
+               "doc_count": 12339,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 1600,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": [
+                              {
+                                 "key": "Aladdin",
+                                 "doc_count": 52
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 2388,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 624,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 541,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 507,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 1421,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 2563,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": [
+                              {
+                                 "key": "Mufasa",
+                                 "doc_count": 1
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 1565,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 870,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 260,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": 7,
+               "doc_count": 14,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 3,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 4,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 1,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 3,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 1,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 2,
+                        "topCustomer": {
+                           "doc_count_error_upper_bound": 0,
+                           "sum_other_doc_count": 0,
+                           "buckets": []
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}

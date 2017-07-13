@@ -1,0 +1,34 @@
+{
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 16,
+    "successful": 16,
+    "failed": 0
+  },
+  "hits": {
+    "total": 110207,
+    "max_score": 0,
+    "hits": []
+  },
+  "aggregations": {
+    "some_variable": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "level1",
+          "doc_count": 62159
+        },
+        {
+          "key": "level2",
+          "doc_count": 21576
+        },
+        {
+          "key": "level3",
+          "doc_count": 10575
+        }
+      ]
+    }
+  }
+}

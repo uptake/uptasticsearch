@@ -1,0 +1,662 @@
+{
+   "took": 429,
+   "timed_out": false,
+   "_shards": {
+      "total": 64,
+      "successful": 64,
+      "failed": 0
+   },
+   "hits": {
+      "total": 10486157,
+      "max_score": 0,
+      "hits": []
+   },
+   "aggregations": {
+      "customer_type": {
+         "doc_count_error_upper_bound": 0,
+         "sum_other_doc_count": 325573,
+         "buckets": [
+            {
+               "key": "big_spender",
+               "doc_count": 3577599,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 96785,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 326019,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 1865806,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 129126,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 207705,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 215880,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 157166,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 147397,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 389969,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 41746,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "movie_buff",
+               "doc_count": 3299193,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 271697,
+                        "satisfaction_score": {
+                           "count": 226467,
+                           "min": -35.0116,
+                           "max": 70.74575805664062,
+                           "avg": 4.597892508824402,
+                           "sum": 1041270.9227959359
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 359560,
+                        "satisfaction_score": {
+                           "count": 288048,
+                           "min": -35.02442,
+                           "max": 70.74417114257812,
+                           "avg": 6.225005721529926,
+                           "sum": 1793100.4480752521
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 356124,
+                        "satisfaction_score": {
+                           "count": 282596,
+                           "min": -35.05367,
+                           "max": 70.74571228027344,
+                           "avg": 6.7075919661979455,
+                           "sum": 1895538.6592796745
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 302500,
+                        "satisfaction_score": {
+                           "count": 225346,
+                           "min": -35.01156,
+                           "max": 70.744873046875,
+                           "avg": 8.065449849367097,
+                           "sum": 1817516.861755478
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 307220,
+                        "satisfaction_score": {
+                           "count": 232355,
+                           "min": -38.38338,
+                           "max": 70.74530029296875,
+                           "avg": 7.7030793042980354,
+                           "sum": 1789848.99175017
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 431597,
+                        "satisfaction_score": {
+                           "count": 312074,
+                           "min": -35.01174,
+                           "max": 70.74563598632812,
+                           "avg": 6.659438393079206,
+                           "sum": 2078237.5770818002
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 427632,
+                        "satisfaction_score": {
+                           "count": 334601,
+                           "min": -35.0119,
+                           "max": 70.74388122558594,
+                           "avg": 5.3460570876928974,
+                           "sum": 1788796.0475991312
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 346564,
+                        "satisfaction_score": {
+                           "count": 253338,
+                           "min": -35.01103,
+                           "max": 70.74441528320312,
+                           "avg": 4.001677642415719,
+                           "sum": 1013777.0105743133
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 375829,
+                        "satisfaction_score": {
+                           "count": 285117,
+                           "min": -35.02437,
+                           "max": 71.04916381835938,
+                           "avg": 3.589014958834028,
+                           "sum": 1023289.1780178815
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 120470,
+                        "satisfaction_score": {
+                           "count": 87347,
+                           "min": -35.01105,
+                           "max": 70.63394165039062,
+                           "avg": 4.4722466647080354,
+                           "sum": 390637.3294222528
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "popcorn_fiend",
+               "doc_count": 2627232,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 201674,
+                        "satisfaction_score": {
+                           "count": 137036,
+                           "min": -41.28755,
+                           "max": 70.62521362304688,
+                           "avg": 3.3201378913494795,
+                           "sum": 454978.4160789673
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 295596,
+                        "satisfaction_score": {
+                           "count": 203834,
+                           "min": -41.28754,
+                           "max": 70.739013671875,
+                           "avg": 3.790724265851721,
+                           "sum": 772678.4900056197
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 277619,
+                        "satisfaction_score": {
+                           "count": 183741,
+                           "min": -41.28719,
+                           "max": 70.62586975097656,
+                           "avg": 2.8708166714113523,
+                           "sum": 527486.7260217933
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 259233,
+                        "satisfaction_score": {
+                           "count": 165978,
+                           "min": -41.28722,
+                           "max": 70.74320983886719,
+                           "avg": 3.4504352060105212,
+                           "sum": 572696.3346232143
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 265538,
+                        "satisfaction_score": {
+                           "count": 178554,
+                           "min": -41.28802,
+                           "max": 70.74320983886719,
+                           "avg": 3.365062587082826,
+                           "sum": 600845.3851739869
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 299503,
+                        "satisfaction_score": {
+                           "count": 197386,
+                           "min": -41.28795,
+                           "max": 70.74319458007812,
+                           "avg": 1.4552926746379458,
+                           "sum": 287254.3998760856
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 303826,
+                        "satisfaction_score": {
+                           "count": 201391,
+                           "min": -35.05438,
+                           "max": 70.62562561035156,
+                           "avg": 1.7754766728075606,
+                           "sum": 357565.02261338744
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 305401,
+                        "satisfaction_score": {
+                           "count": 199633,
+                           "min": -35.05344,
+                           "max": 70.62583923339844,
+                           "avg": 1.5515848669246437,
+                           "sum": 309747.5417387674
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 325889,
+                        "satisfaction_score": {
+                           "count": 213577,
+                           "min": -35.01201,
+                           "max": 70.62551879882812,
+                           "avg": 1.8045928389666517,
+                           "sum": 385419.52476798056
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 92953,
+                        "satisfaction_score": {
+                           "count": 59065,
+                           "min": -37.73445,
+                           "max": 70.62504577636719,
+                           "avg": 1.6443882835255805,
+                           "sum": 97125.79396643842
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "your_nemesis",
+               "doc_count": 354809,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 45921,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 52664,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 37897,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 33493,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 32409,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 36764,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 32923,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 34350,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 37880,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 10508,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     }
+                  ]
+               }
+            },
+            {
+               "key": "weekend_warrior",
+               "doc_count": 301751,
+               "report_week": {
+                  "buckets": [
+                     {
+                        "key_as_string": "2017-02-27T00:00:00.000Z",
+                        "key": 1488153600000,
+                        "doc_count": 9980,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-06T00:00:00.000Z",
+                        "key": 1488758400000,
+                        "doc_count": 139549,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-13T00:00:00.000Z",
+                        "key": 1489363200000,
+                        "doc_count": 69647,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-20T00:00:00.000Z",
+                        "key": 1489968000000,
+                        "doc_count": 11193,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-03-27T00:00:00.000Z",
+                        "key": 1490572800000,
+                        "doc_count": 11058,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-03T00:00:00.000Z",
+                        "key": 1491177600000,
+                        "doc_count": 14024,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-10T00:00:00.000Z",
+                        "key": 1491782400000,
+                        "doc_count": 13447,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-17T00:00:00.000Z",
+                        "key": 1492387200000,
+                        "doc_count": 14292,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-04-24T00:00:00.000Z",
+                        "key": 1492992000000,
+                        "doc_count": 14924,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     },
+                     {
+                        "key_as_string": "2017-05-01T00:00:00.000Z",
+                        "key": 1493596800000,
+                        "doc_count": 3637,
+                        "satisfaction_score": {
+                           "count": 0,
+                           "min": null,
+                           "max": null,
+                           "avg": null,
+                           "sum": null
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+}
