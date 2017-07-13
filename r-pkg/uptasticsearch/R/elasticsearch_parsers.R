@@ -454,7 +454,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #' A generic function for converting Elasticsearch docs into R data.tables. It
 #' uses \code{\link[jsonlite]{fromJSON}} with \code{flatten = TRUE} to convert a
 #' JSON into an R data.frame, and formats it into a data.table.
-#' @importFrom futile.logger flog.fatal flog.warn
+#' @importFrom futile.logger flog.fatal flog.warn flog.info
 #' @importFrom jsonlite fromJSON
 #' @importFrom data.table as.data.table setnames
 #' @export
@@ -517,8 +517,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = FALSE) {
                          , "Consider using unpack_nested_data for one:\n"
                          , paste(names(colTypes)[colTypes == "list"]
                                  , collapse = ", "))
-            futile.logger::flog.warn(msg)
-            warning(msg)
+            futile.logger::flog.info(msg)
         } else {
             
             msg <- paste("Deleting the following nested data columns:\n"
