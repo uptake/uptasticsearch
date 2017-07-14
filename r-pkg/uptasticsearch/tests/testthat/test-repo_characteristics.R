@@ -33,7 +33,7 @@ x <- devtools::check(pkg = '../../../uptasticsearch'
                      , document = TRUE
                      , args = '--no-tests --ignore-vignettes'
                      , quiet = FALSE)
-print(x[["warnings"]])
+
 test_that("R CMD check should not return any errors", {
     expect_true(length(x[["errors"]]) == 0)
 })
