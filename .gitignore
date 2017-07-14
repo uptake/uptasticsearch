@@ -31,7 +31,6 @@ vignettes/*.pdf
 *.Rda
 *.pdf
 *.csv
-*.html
 
 # system files
 *.DS_Store
