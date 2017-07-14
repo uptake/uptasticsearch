@@ -1,8 +1,6 @@
 # uptasticsearch 0.1.0
 
-## First release!
-
-- `uptasticsearch` is a package containing functions for getting data.tables from Elasticsearch results. Here are the first functions:
+## Features
 
 ### Main function
 - `es_search` executes an ES query and gets a data.table
