@@ -18,7 +18,7 @@ futile.logger::flog.threshold(0)
               newDT <- parse_date_time(testDT, date_cols = c("dateTime"))
               expect_true("POSIXct" %in% class(newDT$dateTime))
               expect_identical(newDT, data.table::data.table(id = c("a", "b", "c")
-                                                             , dateTime = lubridate::ymd_hms(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")))
+                                                             , dateTime = as.POSIXct(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")))
               }
              )
 
@@ -29,7 +29,7 @@ futile.logger::flog.threshold(0)
               newDT <- parse_date_time(testDT, date_cols = c("dateTime"))
               expect_true("POSIXct" %in% class(newDT$dateTime))
               expect_identical(newDT, data.table::data.table(id = c("a", "b", "c")
-                                                             , dateTime = lubridate::ymd_hms(c("2016-07-16 21:15:00", "2015-04-16 01:15:00", "2015-03-04 13:25:00"), tz = "UTC")))
+                                                             , dateTime = as.POSIXct(c("2016-07-16 21:15:00", "2015-04-16 01:15:00", "2015-03-04 13:25:00"), tz = "UTC")))
               }
     )
     
@@ -40,7 +40,7 @@ futile.logger::flog.threshold(0)
               newDT <- parse_date_time(testDT, date_cols = c("dateTime"))
               expect_true("POSIXct" %in% class(newDT$dateTime))
               expect_identical(newDT, data.table::data.table(id = c("a", "b", "c")
-                                                             , dateTime = lubridate::ymd_hms(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")))
+                                                             , dateTime = as.POSIXct(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")))
               }
              )
     
@@ -54,7 +54,7 @@ futile.logger::flog.threshold(0)
               expect_true("POSIXct" %in% class(newDT$dateTime))
               expect_true("character" %in% class(newDT$otherDate))
               expect_identical(newDT, data.table::data.table(id = c("a", "b", "c")
-                                                             , dateTime = lubridate::ymd_hms(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")
+                                                             , dateTime = as.POSIXct(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")
                                                              , otherDate = c("2014-03-11T12:15:00Z", "2015-04-16T02:15:00Z", "2015-03-04T15:25:00Z")))
               }
             )
@@ -69,8 +69,8 @@ futile.logger::flog.threshold(0)
               expect_true("POSIXct" %in% class(newDT$dateTime))
               expect_true("POSIXct" %in% class(newDT$otherDate))
               expect_identical(newDT, data.table::data.table(id = c("a", "b", "c")
-                                                             , dateTime = lubridate::ymd_hms(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")
-                                                             , otherDate = lubridate::ymd_hms(c("2014-03-11 12:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")))
+                                                             , dateTime = as.POSIXct(c("2016-07-16 21:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")
+                                                             , otherDate = as.POSIXct(c("2014-03-11 12:15:00", "2015-04-16 02:15:00", "2015-03-04 15:25:00"), tz = "UTC")))
               }
             )
     
@@ -120,7 +120,7 @@ futile.logger::flog.threshold(0)
               beforeDT <- data.table::copy(testDT)
               origAddress <- data.table::address(testDT)
               newDT <- parse_date_time(testDT, date_cols = "dateTime", assume_tz = "UTC")
-              expect_identical(newDT[id=="a", dateTime], lubridate::ymd_hms("2016-07-16 21:15:00", tz = "UTC"))
+              expect_identical(newDT[id=="a", dateTime], as.POSIXct("2016-07-16 21:15:00", tz = "UTC"))
               }
             )
 

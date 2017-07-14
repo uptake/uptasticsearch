@@ -15,7 +15,7 @@ es_search(es_host, es_index, size = 10000, query_body = "{}",
 
 \item{es_index}{The name of an Elasticsearch index to be queried.}
 
-\item{size}{Number of records per page of results. See \href{https://www.elastic.co/guide/en/Elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
+\item{size}{Number of records per page of results. See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
 Note that this will be reset to 0 if you submit a \code{query_body} with
 and an "aggs" request in it.}
 
@@ -26,7 +26,7 @@ duration string like "1m" (for one minute) or "15s" (for 15 seconds).
 The scroll context will be refreshed every time you ask Elasticsearch
 for another record, so this parameter should just be the amount of 
 time you expect to pass between requests. See the 
-\href{https://www.elastic.co/guide/en/Elasticsearch/guide/current/scroll.html}{Elasticsearch scroll/pagination docs}
+\href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
 for more information.}
 
 \item{max_hits}{Integer. If specified, \code{es_search} will stop pulling data as soon as it has pulled this many hits.}

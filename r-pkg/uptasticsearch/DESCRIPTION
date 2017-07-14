@@ -9,7 +9,8 @@ Authors@R: c(
     person("", "Uptake Technologies Inc.", role = c("cph", "fnd")))
 Author: James Lamb [aut, cre],
     Nick Paras [aut],
-    Austin Dickey [aut]
+    Austin Dickey [aut],
+    Uptake Technologies Inc. [cph, fnd]
 Maintainer: James Lamb <james.lamb@uptake.com>
 Description: This package contains functions for getting data.tables from Elasticsearch results.
 Depends:
