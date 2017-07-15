@@ -1,0 +1,18 @@
+template:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: Main function
+    contents:
+    - es_search
+  - title: Parse raw JSON into data.table
+    contents:
+    - starts_with("chomp_")
+  - title: Utilities
+    contents:
+    - unpack_nested_data
+    - parse_date_time
+  - title: Exploratory functions
+    contents:
+    - get_counts
