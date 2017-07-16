@@ -24,8 +24,7 @@ Given some JSON from an aggs query in Elasticsearch, parse the
 aggs_query <- "{'aggs': {'source': {'terms': {'field': 'pmt_method'}}}}"
 result <- uptasticsearch:::.search_request(es_host = "http://es.custdb.mycompany.com:9200"
                                            , es_index = "ticket_sales"
-                                           , query_body = aggs_query
-                                           , trailing_args = "size=0")
+                                           , query_body = aggs_query)
 
 # Parse into a data.table
 aggDT <- chomp_aggs(aggs_json = result)

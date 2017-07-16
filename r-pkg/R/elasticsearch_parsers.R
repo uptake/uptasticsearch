@@ -145,8 +145,7 @@ parse_date_time <- function(input_df
 #' aggs_query <- "{'aggs': {'source': {'terms': {'field': 'pmt_method'}}}}"
 #' result <- uptasticsearch:::.search_request(es_host = "http://es.custdb.mycompany.com:9200"
 #'                                            , es_index = "ticket_sales"
-#'                                            , query_body = aggs_query
-#'                                            , trailing_args = "size=0")
+#'                                            , query_body = aggs_query)
 #' 
 #' # Parse into a data.table
 #' aggDT <- chomp_aggs(aggs_json = result)
@@ -476,7 +475,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #' # Get result from Elasticsearch
 #' result <- uptasticsearch::es_search(es_host = "http://es.custdb.mycompany.com:9200"
 #'                                     , es_index = "ticket_sales"
-#'                                     , trailing_args = "size=100")
+#'                                     , max_hits = 100)
 #' 
 #' # Parse into a data.table
 #' resultDT <- chomp_hits(hits_json = result)

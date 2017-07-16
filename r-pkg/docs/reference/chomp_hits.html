@@ -119,7 +119,7 @@ arrays in the original JSON. A warning will be given if these columns are delete
 <span class='co'># Get result from Elasticsearch</span>
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>uptasticsearch</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/uptasticsearch/topics/es_search'>es_search</a></span>(<span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
                                     , <span class='kw'>es_index</span> <span class='kw'>=</span> <span class='st'>"ticket_sales"</span>
-                                    , <span class='kw'>trailing_args</span> <span class='kw'>=</span> <span class='st'>"size=100"</span>)
+                                    , <span class='kw'>max_hits</span> <span class='kw'>=</span> <span class='fl'>100</span>)
 
 <span class='co'># Parse into a data.table</span>
 <span class='no'>resultDT</span> <span class='kw'>&lt;-</span> <span class='fu'>chomp_hits</span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>)
