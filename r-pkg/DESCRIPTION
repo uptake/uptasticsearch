@@ -8,7 +8,7 @@ Authors@R: c(
     person("Austin", "Dickey", email = "austin.dickey@uptake.com", role = c("aut")),
     person("Uptake Technologies Inc.", role = c("cph", "fnd")))
 Maintainer: James Lamb <james.lamb@uptake.com>
-Description: Elasticsearch is a an open-source, distributed, document-based datastore. It provides an HTTP API for querying the database and extracting datasets, but that API was not designed for common data science workflows like pulling large batches of records and normalizing those documents into a data frame that can be used as a training dataset for statistical models. uptasticsearch provides an interface for Elasticsearch that is explicitly designed to make these data science workflows easy and fun.
+Description: Elasticsearch is an open-source, distributed, document-based datastore. It provides an HTTP API for querying the database and extracting datasets, but that API was not designed for common data science workflows like pulling large batches of records and normalizing those documents into a data frame that can be used as a training dataset for statistical models. uptasticsearch provides an interface for Elasticsearch that is explicitly designed to make these data science workflows easy and fun.
 Depends:
     R (>= 3.3.0)
 Imports:
