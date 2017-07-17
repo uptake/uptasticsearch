@@ -958,13 +958,11 @@ futile.logger::flog.threshold(0)
     test_that(".ValidateAndFormatHost should handle trailing slashes",
               {
                   # single slash
-                  expect_warning({newHost <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/")}
-                                , regexp = "es_host had one or more trailing")
+                  newHost <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/")
                   expect_identical(newHost, "http://mydb.mycompany.com:9200")
                   
                   # objectively ridiculous number of slashes
-                  expect_warning({newHost2 <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/////////")}
-                                 , regexp = "es_host had one or more trailing")
+                  newHost2 <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/////////")
                   expect_identical(newHost2, "http://mydb.mycompany.com:9200")
               })
     
