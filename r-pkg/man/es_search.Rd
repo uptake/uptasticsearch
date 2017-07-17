@@ -7,7 +7,7 @@
 es_search(es_host, es_index, size = 10000, query_body = "{}",
   scroll = "5m", max_hits = NULL,
   n_cores = ceiling(parallel::detectCores()/2), break_on_duplicates = TRUE,
-  ignore_scroll_restriction = FALSE)
+  ignore_scroll_restriction = FALSE, intermediates_dir = getwd())
 }
 \arguments{
 \item{es_host}{A string identifying an Elasticsearch host. This should be of the form 
@@ -47,6 +47,12 @@ If you understand the cost of keeping the context
 open for a long time and would like to pass a \code{scroll}
 value longer than an hour, set \code{ignore_scroll_restriction}
 to \code{TRUE}.}
+
+\item{intermediates_dir}{When scrolling over search results, this function writes
+intermediate results to disk. By default, `es_search` will create a temporary
+directory in whatever working directory the function is called from. If you
+want to change this behavior, provide a path here. `es_search` will create 
+and write to a temporary directory under whatever path you provide.}
 }
 \description{
 Given a query and some optional parameters, \code{es_search} gets results 
