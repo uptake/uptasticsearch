@@ -706,7 +706,7 @@ es_search <- function(es_host
 #' @importFrom futile.logger flog.fatal
 #' @importFrom httr POST content
 #' @importFrom jsonlite fromJSON
-#' @importFrom parallel clusterMap detectCores makeCluster stopCluster
+#' @importFrom parallel clusterMap detectCores makeForkCluster makePSOCKcluster stopCluster
 #' @importFrom uuid UUIDgenerate
 .fetch_all <- function(es_host
                      , es_index
@@ -839,9 +839,12 @@ es_search <- function(es_host
         )
     } else {
         
-        # Set up cluster
-        #TODO: add support for SOCK clusters when this function is called on Windows
-        cl <- parallel::makeForkCluster(nnodes = n_cores)
+        # Set up cluster. Note that Fork clusters cannot be used on Windows
+        if (grepl('windows', Sys.info()[['sysname']], ignore.case = TRUE)){
+            cl <- parallel::makePSOCKcluster(names = n_cores)   
+        } else {
+            cl <- parallel::makeForkCluster(nnodes = n_cores)    
+        }
         
         # Read in and parse all the files
         outDT <- data.table::rbindlist(
