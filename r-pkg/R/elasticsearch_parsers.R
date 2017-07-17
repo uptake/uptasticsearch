@@ -453,7 +453,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #'        together. This can contain a JSON returned from a \code{search} query in Elasticsearch, or
 #'        a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
 #'        running \code{\link[elastic]{Search}} with \code{raw = TRUE}.
-#' @param keep_nested_data_cols a boolean (default FALSE); whether to keep columns that are nested
+#' @param keep_nested_data_cols a boolean (default TRUE); whether to keep columns that are nested
 #'        arrays in the original JSON. A warning will be given if these columns are deleted.
 #' @examples
 #' # A sample raw result from a hits query:
@@ -479,7 +479,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #' unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
 #'                                  , col_to_unpack = "details.pastPurchases")
 #' print(unpackedDT)
-chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = FALSE) {
+chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
     
     # If nothing was passed to hits_json, return NULL and warn
     if (is.null(hits_json)) {

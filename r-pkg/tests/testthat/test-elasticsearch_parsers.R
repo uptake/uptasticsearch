@@ -821,7 +821,8 @@ futile.logger::flog.threshold(0)
     
     # Should warn if the resulting data is nested with default keep_nested_data_cols = FALSE
     test_that("chomp_hits should warn and delete if the resulting data is nested with keep_nested_data_cols = FALSE",
-              {expect_warning({chomped <- chomp_hits(hits_json = '[{"test1":[{"a":1}],"test2":2}]')},
+              {expect_warning({chomped <- chomp_hits(hits_json = '[{"test1":[{"a":1}],"test2":2}]'
+                                                     , keep_nested_data_cols = FALSE)},
                               regexp = "Deleting the following nested data columns:")
                   expect_equal(names(chomped), "test2")}
              )
