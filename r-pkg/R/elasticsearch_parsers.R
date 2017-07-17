@@ -570,6 +570,11 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = FALSE) {
 #'                                open for a long time and would like to pass a \code{scroll}
 #'                                value longer than an hour, set \code{ignore_scroll_restriction}
 #'                                to \code{TRUE}.
+#' @param intermediates_dir When scrolling over search results, this function writes
+#'        intermediate results to disk. By default, `es_search` will create a temporary
+#'        directory in whatever working directory the function is called from. If you
+#'        want to change this behavior, provide a path here. `es_search` will create 
+#'        and write to a temporary directory under whatever path you provide.
 #' @importFrom futile.logger flog.fatal flog.info
 #' @importFrom parallel detectCores
 #' @export
@@ -612,6 +617,7 @@ es_search <- function(es_host
                       , n_cores = ceiling(parallel::detectCores()/2)
                       , break_on_duplicates = TRUE
                       , ignore_scroll_restriction = FALSE
+                      , intermediates_dir = getwd()
 ){
     
     # Check if this is an aggs or straight-up search query
@@ -649,7 +655,8 @@ es_search <- function(es_host
                       , scroll = scroll
                       , max_hits = max_hits
                       , n_cores = n_cores
-                      , break_on_duplicates = break_on_duplicates))
+                      , break_on_duplicates = break_on_duplicates
+                      , intermediates_dir = intermediates_dir))
 }
 
 # [title] Use "scroll" in Elasticsearch to pull a large number of records
@@ -684,6 +691,7 @@ es_search <- function(es_host
 #                                open for a long time and would like to pass a \code{scroll}
 #                                value longer than an hour, set \code{ignore_scroll_restriction}
 #                                to \code{TRUE}.
+# [param] intermediates_dir passed through from es_search. See es_search docs.
 # [examples]
 # \dontrun{
 #
@@ -719,6 +727,7 @@ es_search <- function(es_host
                      , n_cores = ceiling(parallel::detectCores()/2)
                      , break_on_duplicates = TRUE
                      , ignore_scroll_restriction = FALSE
+                     , intermediates_dir
 ){
     
     # Check es_host
@@ -763,7 +772,7 @@ es_search <- function(es_host
     
     # Find a safe path to write to and create it
     repeat {
-        out_path <- paste0("./", uuid::UUIDgenerate())
+        out_path <- file.path(intermediates_dir, uuid::UUIDgenerate())
         if (!dir.exists(out_path)) {
             break
         }
