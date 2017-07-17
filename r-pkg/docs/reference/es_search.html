@@ -103,7 +103,7 @@
     <tr>
       <th>es_host</th>
       <td><p>A string identifying an Elasticsearch host. This should be of the form 
-[transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.</p></td>
+<code>[transfer_protocol][hostname]:[port]</code>. For example, <code>'http://myindex.thing.com:9200'</code>.</p></td>
     </tr>
     <tr>
       <th>es_index</th>
@@ -113,7 +113,7 @@
       <th>size</th>
       <td><p>Number of records per page of results. See <a href='https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html'>Elasticsearch docs</a> for more.
 Note that this will be reset to 0 if you submit a <code>query_body</code> with
-and an "aggs" request in it.</p></td>
+an "aggs" request in it. Also see <code>max_hits</code>.</p></td>
     </tr>
     <tr>
       <th>query_body</th>

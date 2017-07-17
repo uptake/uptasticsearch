@@ -8,12 +8,11 @@ chomp_aggs(aggs_json = NULL)
 }
 \arguments{
 \item{aggs_json}{A character vector. If its length is greater than 1, its elements will be pasted 
-together. This can contain a JSON returned from a \code{aggs} query in Elasticsearch, or
-a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
-running \code{\link[elastic]{Search}} with \code{raw = TRUE}.}
+together. This can contain a JSON returned from an \code{aggs} query in Elasticsearch, or
+a filepath or URL pointing at one.}
 }
 \description{
-Given some JSON from an aggs query in Elasticsearch, parse the
+Given some raw JSON from an aggs query in Elasticsearch, parse the
              aggregations into a data.table.
 }
 \examples{

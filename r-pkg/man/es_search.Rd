@@ -11,13 +11,13 @@ es_search(es_host, es_index, size = 10000, query_body = "{}",
 }
 \arguments{
 \item{es_host}{A string identifying an Elasticsearch host. This should be of the form 
-[transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.}
+\code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.}
 
 \item{es_index}{The name of an Elasticsearch index to be queried.}
 
 \item{size}{Number of records per page of results. See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
 Note that this will be reset to 0 if you submit a \code{query_body} with
-and an "aggs" request in it.}
+an "aggs" request in it. Also see \code{max_hits}.}
 
 \item{query_body}{String with a valid Elasticsearch query. Default is an empty query.}
 

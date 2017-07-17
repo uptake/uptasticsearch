@@ -7,7 +7,7 @@
 parse_date_time(input_df, date_cols, assume_tz = "UTC")
 }
 \arguments{
-\item{input_df}{a data.table with one or more dateTime columns you want to convert}
+\item{input_df}{a data.table with one or more date-time columns you want to convert}
 
 \item{date_cols}{Character vector of column names to convert. Columns should have
 string dates of the form "2016-07-25T22:15:19Z".}
