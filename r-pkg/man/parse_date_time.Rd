@@ -21,20 +21,21 @@ Given a data.table with date-time strings,
              where T is just a separator and the last letter is a military timezone.
 }
 \examples{
-\dontrun{
-
-# Get some data
-someDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
-                    , es_index = 'cust_details')
+# Sample es_search(), chomp_hits(), or chomp_aggs() output:
+someDT <- data.table::data.table(id = 1:5
+                                 , company = c("Apple", "Apple", "Banana", "Banana", "Cucumber")
+                                 , timestamp = c("2015-03-14T09:26:53B", "2015-03-14T09:26:54B"
+                                                 , "2031-06-28T08:53:07Z", "2031-06-28T08:53:08Z"
+                                                 , "2000-01-01"))
           
 # Note that the date field is character right now
-class(someDT$timestamp)
+str(someDT)
 
 # Let's fix that!
-someDT <- parse_date_time(someDT, date_cols = "timestamp")
-class(someDT$timestamp)
-
-}
+someDT <- parse_date_time(input_df = someDT
+                          , date_cols = "timestamp"
+                          , assume_tz = "UTC")
+str(someDT)
 }
 \references{
 \url{https://www.timeanddate.com/time/zones/military}

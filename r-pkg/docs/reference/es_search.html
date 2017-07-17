@@ -161,25 +161,27 @@ to <code>TRUE</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'>#=== Example 1: Get every site whose name starts with a "J" ===#</span>
+<span class='co'>###=== Example 1: Get low-scoring food survey results ===###</span>
 
-<span class='co'># Get every customer</span>
-<span class='no'>siteDT</span> <span class='kw'>&lt;-</span> <span class='fu'>es_search</span>(<span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
-                    , <span class='kw'>es_index</span> <span class='kw'>=</span> <span class='st'>"theaters"</span>
-                    , <span class='kw'>query_body</span> <span class='kw'>=</span> <span class='st'>'{"query": {"wildcard": {"location_name" : {"value": "J*"}}}}'</span>
-                    , <span class='kw'>n_cores</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='no'>query_body</span> <span class='kw'>&lt;-</span> <span class='st'>'{"query":{"filtered":{"filter":{"bool":{"must":[
+               {"exists":{"field":"customer_comments"}},
+               {"terms":{"overall_satisfaction":["very low","low"]}}]}}},
+               "query":{"match_phrase":{"customer_comments":"food"}}}}'</span>
 
-<span class='co'>###=== Example 2: Time series agg features ===#</span>
+<span class='co'># Execute the query, parse into a data.table</span>
+<span class='no'>commentDT</span> <span class='kw'>&lt;-</span> <span class='fu'>es_search</span>(<span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>'http://mydb.mycompany.com:9200'</span>
+                       , <span class='kw'>es_index</span> <span class='kw'>=</span> <span class='st'>"survey_results"</span>
+                       , <span class='kw'>query_body</span> <span class='kw'>=</span> <span class='no'>query_body</span>
+                       , <span class='kw'>scroll</span> <span class='kw'>=</span> <span class='st'>"1m"</span>
+                       , <span class='kw'>n_cores</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+
+<span class='co'>###=== Example 2: Time series agg features ===###</span>
 
 <span class='co'># Create query that will give you daily summary stats for revenue</span>
-<span class='no'>query_body</span> <span class='kw'>&lt;-</span> <span class='st'>'{"query": {"filtered": {"filter": {
-       "bool": {"must": [{"exists": {"field": "pmt_amount"}}]}}}},
-               "aggs": {"timestamp": {"date_histogram": {"field": "timestamp", 
-                                                       "interval": "day"},
-              "aggs": {"revenue" : {"extended_stats": {"field": 
-                                     "pmt_amount"}}}}},
-               "size": 0
-               }'</span>
+<span class='no'>query_body</span> <span class='kw'>&lt;-</span> <span class='st'>'{"query":{"filtered":{"filter":{"bool":{"must":[
+               {"exists":{"field":"pmt_amount"}}]}}}},
+               "aggs":{"timestamp":{"date_histogram":{"field":"timestamp","interval":"day"},
+               "aggs":{"revenue":{"extended_stats":{"field":"pmt_amount"}}}}},"size":0}'</span>
 
 <span class='co'># Execute the query and get the result</span>
 <span class='no'>resultDT</span> <span class='kw'>&lt;-</span> <span class='fu'>es_search</span>(<span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
@@ -200,7 +202,7 @@ to <code>TRUE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by James Lamb, Nick Paras, Austin Dickey,  Uptake Technologies Inc..</p>
+  <p>Developed by James Lamb, Nick Paras, Austin Dickey, Uptake Technologies Inc..</p>
 </div>
 
 <div class="pkgdown">

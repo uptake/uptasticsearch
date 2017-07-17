@@ -55,25 +55,28 @@ Given a query and some optional parameters, \code{es_search} gets results
 }
 \examples{
 \dontrun{
-#=== Example 1: Get every site whose name starts with a "J" ===#
 
-# Get every customer
-siteDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
-                    , es_index = "theaters"
-                    , query_body = '{"query": {"wildcard": {"location_name" : {"value": "J*"}}}}'
-                    , n_cores = 4)
+###=== Example 1: Get low-scoring food survey results ===###
+
+query_body <- '{"query":{"filtered":{"filter":{"bool":{"must":[
+               {"exists":{"field":"customer_comments"}},
+               {"terms":{"overall_satisfaction":["very low","low"]}}]}}},
+               "query":{"match_phrase":{"customer_comments":"food"}}}}'
+
+# Execute the query, parse into a data.table
+commentDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
+                       , es_index = "survey_results"
+                       , query_body = query_body
+                       , scroll = "1m"
+                       , n_cores = 4)
                  
-###=== Example 2: Time series agg features ===#
+###=== Example 2: Time series agg features ===###
 
 # Create query that will give you daily summary stats for revenue
-query_body <- '{"query": {"filtered": {"filter": {
-       "bool": {"must": [{"exists": {"field": "pmt_amount"}}]}}}},
-               "aggs": {"timestamp": {"date_histogram": {"field": "timestamp", 
-                                                       "interval": "day"},
-              "aggs": {"revenue" : {"extended_stats": {"field": 
-                                     "pmt_amount"}}}}},
-               "size": 0
-               }'
+query_body <- '{"query":{"filtered":{"filter":{"bool":{"must":[
+               {"exists":{"field":"pmt_amount"}}]}}}},
+               "aggs":{"timestamp":{"date_histogram":{"field":"timestamp","interval":"day"},
+               "aggs":{"revenue":{"extended_stats":{"field":"pmt_amount"}}}}},"size":0}'
                
 # Execute the query and get the result
 resultDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
