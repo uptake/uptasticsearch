@@ -4,7 +4,7 @@
 \alias{chomp_hits}
 \title{Hits to data.tables}
 \usage{
-chomp_hits(hits_json = NULL, keep_nested_data_cols = FALSE)
+chomp_hits(hits_json = NULL, keep_nested_data_cols = TRUE)
 }
 \arguments{
 \item{hits_json}{A character vector. If its length is greater than 1, its elements will be pasted 
@@ -12,7 +12,7 @@ together. This can contain a JSON returned from a \code{search} query in Elastic
 a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
 running \code{\link[elastic]{Search}} with \code{raw = TRUE}.}
 
-\item{keep_nested_data_cols}{a boolean (default FALSE); whether to keep columns that are nested
+\item{keep_nested_data_cols}{a boolean (default TRUE); whether to keep columns that are nested
 arrays in the original JSON. A warning will be given if these columns are deleted.}
 }
 \description{
