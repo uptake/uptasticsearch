@@ -5,4 +5,4 @@
 
 ## R CMD check results
 * There were no ERRORs, WARNINGs.  
-* One NOTE from `checking CRAN incoming feasibility ...` can be safely ignored since it's a note that reminds notifies CRAN that this is a new maintainer/submission. 
+* One NOTE from `checking CRAN incoming feasibility ...` can be safely ignored since it's a note that notifies CRAN that this is a new maintainer/submission. 
