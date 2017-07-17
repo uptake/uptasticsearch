@@ -72,13 +72,7 @@
 <a href="#table-of-contents" class="anchor"></a>Table of contents</h2>
 <ol>
 <li><a href="#howitworks">How it Works</a></li>
-<li>
-<a href="#installation">Installation</a>
-<ol>
-<li><a href="#rinstallation">R</a></li>
-<li><a href="#pythoninstallation">Python</a></li>
-</ol>
-</li>
+<li><a href="#installation">Installation</a></li>
 <li>
 <a href="#paragraph2">Usage Examples</a>
 <ol>
@@ -118,89 +112,89 @@
 </h3>
 <p>The most common use case for this package will be the case where you have an ES query and want to get a data frame representation of many resulting documents.</p>
 <p>In the example below, we use <code>uptasticsearch</code> to look for all survey results in which customers said their satisfaction was “low” or “very low” and mentioned food in their comments.</p>
-<pre><code>    # Build your query in an R string
-    qbody &lt;- '{
-      "query": {
-        "filtered": {
-          "filter": {
-            "bool": {
-              "must": [
-                {
-                  "exists": {
-                    "field": "customer_comments"
-                  }
-                },
-                {
-                  "terms": {
-                    "overall_satisfaction": ["very low", "low"]
-                  }
-                }
-              ]
+<pre><code># Build your query in an R string
+qbody &lt;- '{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "exists": {
+                "field": "customer_comments"
+              }
+            },
+            {
+              "terms": {
+                "overall_satisfaction": ["very low", "low"]
+              }
             }
-          }
-        },
-        "query": {
-            "match_phrase": {
-              "customer_comments": "food"
-            }
+          ]
         }
       }
-    }'
+    },
+    "query": {
+      "match_phrase": {
+        "customer_comments": "food"
+      }
+    }
+  }
+}'
 
-    # Execute the query, parse into a data.table
-    commentDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                           , es_index = "survey_results"
-                           , query_body = qbody
-                           , scroll = "1m"
-                           , n_cores = 4)</code></pre>
+# Execute the query, parse into a data.table
+commentDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
+                       , es_index = "survey_results"
+                       , query_body = qbody
+                       , scroll = "1m"
+                       , n_cores = 4)</code></pre>
 </div>
 <div id="example-2-aggregation-results" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-2-aggregation-results" class="anchor"></a>Example 2: Aggregation Results <a name="example2"></a>
 </h3>
-<p>Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. <code>uptasticsearch</code> has built-in support for theses aggregations.</p>
+<p>Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. <code>uptasticsearch</code> has built-in support for these aggregations.</p>
 <p>In the example below, we use <code>uptasticsearch</code> to create daily timeseries of summary statistics like total revenue and average payment amount.</p>
-<pre><code>    # Build your query in an R string
-    qbody &lt;- '{
-      "query": {
-        "filtered": {
-          "filter": {
-            "bool": {
-              "must": [
-                {
-                  "exists": {
-                    "field": "pmt_amount"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      },
-      "aggs": {
-        "timestamp": {
-          "date_histogram": {
-            "field": "timestamp",
-            "interval": "day"
-          },
-          "aggs": {
-            "revenue": {
-              "extended_stats": {
+<pre><code># Build your query in an R string
+qbody &lt;- '{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "exists": {
                 "field": "pmt_amount"
               }
             }
+          ]
+        }
+      }
+    }
+  },
+  "aggs": {
+    "timestamp": {
+      "date_histogram": {
+        "field": "timestamp",
+        "interval": "day"
+      },
+      "aggs": {
+        "revenue": {
+          "extended_stats": {
+            "field": "pmt_amount"
           }
         }
-      },
-      "size": 0
-    }'
+      }
+    }
+  },
+  "size": 0
+}'
 
-    # Execute the query, parse result into a data.table
-    revenueDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                           , es_index = "transactions"
-                           , size = 1000
-                           , query_body = qbody
-                           , n_cores = 1)</code></pre>
+# Execute the query, parse result into a data.table
+revenueDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
+                       , es_index = "transactions"
+                       , size = 1000
+                       , query_body = qbody
+                       , n_cores = 1)</code></pre>
 <p>In the example above, we used the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html">date_histogram</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html">extended_stats</a> aggregations. <code>es_search</code> has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form “agg1 - agg2” refer to the ability to handled aggregations nested inside other aggregations.</p>
 <table class="table">
 <thead><tr class="header">

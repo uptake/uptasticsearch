@@ -5,12 +5,15 @@
 #'              this function converts those dates-times to type POSIXct with the appropriate
 #'              time zone. Assumption is that dates are of the form "2016-07-25T22:15:19Z"
 #'              where T is just a separator and the last letter is a military timezone.
+#'              
+#'              This is a side-effect-free function: it returns a new data.table and the
+#'              input data.table is unmodified.
 #' @importFrom data.table copy
 #' @importFrom futile.logger flog.fatal
 #' @importFrom purrr map2 simplify
 #' @importFrom stringr str_extract
 #' @export
-#' @param input_df a data.table with one or more dateTime columns you want to convert
+#' @param input_df a data.table with one or more date-time columns you want to convert
 #' @param date_cols Character vector of column names to convert. Columns should have
 #'                string dates of the form "2016-07-25T22:15:19Z".
 #' @param assume_tz Timezone to convert to if parsing fails. Default is UTC
@@ -128,16 +131,15 @@ parse_date_time <- function(input_df
 
 #' @title Aggs query to data.table
 #' @name chomp_aggs
-#' @description Given some JSON from an aggs query in Elasticsearch, parse the
+#' @description Given some raw JSON from an aggs query in Elasticsearch, parse the
 #'              aggregations into a data.table.
 #' @importFrom futile.logger flog.warn flog.fatal
 #' @importFrom jsonlite fromJSON
 #' @importFrom data.table as.data.table setnames setcolorder
 #' @export
 #' @param aggs_json A character vector. If its length is greater than 1, its elements will be pasted 
-#'        together. This can contain a JSON returned from a \code{aggs} query in Elasticsearch, or
-#'        a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
-#'        running \code{\link[elastic]{Search}} with \code{raw = TRUE}.
+#'        together. This can contain a JSON returned from an \code{aggs} query in Elasticsearch, or
+#'        a filepath or URL pointing at one.
 #' @examples
 #' # A sample raw result from an aggs query combining date_histogram and extended_stats:
 #' result <- '{"aggregations":{"dateTime":{"buckets":[{"key_as_string":"2016-12-01T00:00:00.000Z",
@@ -343,6 +345,9 @@ chomp_aggs <- function(aggs_json = NULL) {
 #'   resulting data.table is a data.frame itself (or a list of vectors). This 
 #'   function expands that nested column out, adding its data to the original 
 #'   data.table, and duplicating metadata down the rows as necessary.
+#'   
+#'   This is a side-effect-free function: it returns a new data.table and the
+#'   input data.table is unmodified.
 #' @importFrom data.table copy as.data.table rbindlist setnames
 #' @importFrom futile.logger flog.fatal
 #' @export
@@ -451,8 +456,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #' @export
 #' @param hits_json A character vector. If its length is greater than 1, its elements will be pasted 
 #'        together. This can contain a JSON returned from a \code{search} query in Elasticsearch, or
-#'        a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
-#'        running \code{\link[elastic]{Search}} with \code{raw = TRUE}.
+#'        a filepath or URL pointing at one.
 #' @param keep_nested_data_cols a boolean (default TRUE); whether to keep columns that are nested
 #'        arrays in the original JSON. A warning will be given if these columns are deleted.
 #' @examples
@@ -542,12 +546,12 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
 #'              from HTTP requests to Elasticsearch and returns a data.table 
 #'              representation of those results.
 #' @param es_host A string identifying an Elasticsearch host. This should be of the form 
-#'        [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
+#'        \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.
 #' @param es_index The name of an Elasticsearch index to be queried.
 #' @param max_hits Integer. If specified, \code{es_search} will stop pulling data as soon as it has pulled this many hits.
 #' @param size Number of records per page of results. See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
 #'             Note that this will be reset to 0 if you submit a \code{query_body} with
-#'             and an "aggs" request in it.
+#'             an "aggs" request in it. Also see \code{max_hits}.
 #' @param query_body String with a valid Elasticsearch query. Default is an empty query.
 #' @param scroll How long should the scroll context be held open? This should be a
 #'               duration string like "1m" (for one minute) or "15s" (for 15 seconds). 

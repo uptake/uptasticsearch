@@ -90,7 +90,9 @@
     <p>Given a data.table with date-time strings,
              this function converts those dates-times to type POSIXct with the appropriate
              time zone. Assumption is that dates are of the form "2016-07-25T22:15:19Z"
-             where T is just a separator and the last letter is a military timezone.</p>
+             where T is just a separator and the last letter is a military timezone.</p>             
+<p>This is a side-effect-free function: it returns a new data.table and the
+             input data.table is unmodified.</p>
     
 
     <pre class="usage"><span class='fu'>parse_date_time</span>(<span class='no'>input_df</span>, <span class='no'>date_cols</span>, <span class='kw'>assume_tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)</pre>
@@ -100,7 +102,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input_df</th>
-      <td><p>a data.table with one or more dateTime columns you want to convert</p></td>
+      <td><p>a data.table with one or more date-time columns you want to convert</p></td>
     </tr>
     <tr>
       <th>date_cols</th>

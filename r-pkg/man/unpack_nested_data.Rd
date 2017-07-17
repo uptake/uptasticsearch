@@ -18,6 +18,9 @@ After calling a \code{chomp_*} function or \code{es_search}, if
   resulting data.table is a data.frame itself (or a list of vectors). This 
   function expands that nested column out, adding its data to the original 
   data.table, and duplicating metadata down the rows as necessary.
+  
+  This is a side-effect-free function: it returns a new data.table and the
+  input data.table is unmodified.
 }
 \examples{
 # A sample raw result from a hits query:

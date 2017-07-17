@@ -87,7 +87,7 @@
     </div>
 
     
-    <p>Given some JSON from an aggs query in Elasticsearch, parse the
+    <p>Given some raw JSON from an aggs query in Elasticsearch, parse the
              aggregations into a data.table.</p>
     
 
@@ -99,9 +99,8 @@
     <tr>
       <th>aggs_json</th>
       <td><p>A character vector. If its length is greater than 1, its elements will be pasted 
-together. This can contain a JSON returned from a <code>aggs</code> query in Elasticsearch, or
-a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
-running <code><a href='http://www.rdocumentation.org/packages/elastic/topics/Search'>Search</a></code> with <code>raw = TRUE</code>.</p></td>
+together. This can contain a JSON returned from an <code>aggs</code> query in Elasticsearch, or
+a filepath or URL pointing at one.</p></td>
     </tr>
     </table>
     

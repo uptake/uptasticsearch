@@ -44,91 +44,91 @@ The most common use case for this package will be the case where you have an ES 
 In the example below, we use `uptasticsearch` to look for all survey results in which customers said their satisfaction was "low" or "very low" and mentioned food in their comments.
 
 ```
-    # Build your query in an R string
-    qbody <- '{
-      "query": {
-        "filtered": {
-          "filter": {
-            "bool": {
-              "must": [
-                {
-                  "exists": {
-                    "field": "customer_comments"
-                  }
-                },
-                {
-                  "terms": {
-                    "overall_satisfaction": ["very low", "low"]
-                  }
-                }
-              ]
+# Build your query in an R string
+qbody <- '{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "exists": {
+                "field": "customer_comments"
+              }
+            },
+            {
+              "terms": {
+                "overall_satisfaction": ["very low", "low"]
+              }
             }
-          }
-        },
-        "query": {
-            "match_phrase": {
-              "customer_comments": "food"
-            }
+          ]
         }
       }
-    }'
+    },
+    "query": {
+      "match_phrase": {
+        "customer_comments": "food"
+      }
+    }
+  }
+}'
 
-    # Execute the query, parse into a data.table
-    commentDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                           , es_index = "survey_results"
-                           , query_body = qbody
-                           , scroll = "1m"
-                           , n_cores = 4)
+# Execute the query, parse into a data.table
+commentDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
+                       , es_index = "survey_results"
+                       , query_body = qbody
+                       , scroll = "1m"
+                       , n_cores = 4)
 ```
 
 ### Example 2: Aggregation Results <a name="example2"></a>
 
-Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. `uptasticsearch` has built-in support for theses aggregations. 
+Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. `uptasticsearch` has built-in support for these aggregations. 
 
 In the example below, we use `uptasticsearch` to create daily timeseries of summary statistics like total revenue and average payment amount.
 
 ```
-    # Build your query in an R string
-    qbody <- '{
-      "query": {
-        "filtered": {
-          "filter": {
-            "bool": {
-              "must": [
-                {
-                  "exists": {
-                    "field": "pmt_amount"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      },
-      "aggs": {
-        "timestamp": {
-          "date_histogram": {
-            "field": "timestamp",
-            "interval": "day"
-          },
-          "aggs": {
-            "revenue": {
-              "extended_stats": {
+# Build your query in an R string
+qbody <- '{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "exists": {
                 "field": "pmt_amount"
               }
             }
+          ]
+        }
+      }
+    }
+  },
+  "aggs": {
+    "timestamp": {
+      "date_histogram": {
+        "field": "timestamp",
+        "interval": "day"
+      },
+      "aggs": {
+        "revenue": {
+          "extended_stats": {
+            "field": "pmt_amount"
           }
         }
-      },
-      "size": 0
-    }'
+      }
+    }
+  },
+  "size": 0
+}'
 
-    # Execute the query, parse result into a data.table
-    revenueDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                           , es_index = "transactions"
-                           , size = 1000
-                           , query_body = qbody
-                           , n_cores = 1)
+# Execute the query, parse result into a data.table
+revenueDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
+                       , es_index = "transactions"
+                       , size = 1000
+                       , query_body = qbody
+                       , n_cores = 1)
 ```
 
 In the example above, we used the [date_histogram](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html) and [extended_stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html) aggregations. `es_search` has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form "agg1 - agg2" refer to the ability to handled aggregations nested inside other aggregations.
