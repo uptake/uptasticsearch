@@ -114,8 +114,7 @@ running <code><a href='http://www.rdocumentation.org/packages/elastic/topics/Sea
 <span class='no'>aggs_query</span> <span class='kw'>&lt;-</span> <span class='st'>"{'aggs': {'source': {'terms': {'field': 'pmt_method'}}}}"</span>
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>uptasticsearch</span><span class='kw ns'>:::</span><span class='fu'>.search_request</span>(<span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
                                            , <span class='kw'>es_index</span> <span class='kw'>=</span> <span class='st'>"ticket_sales"</span>
-                                           , <span class='kw'>query_body</span> <span class='kw'>=</span> <span class='no'>aggs_query</span>
-                                           , <span class='kw'>trailing_args</span> <span class='kw'>=</span> <span class='st'>"size=0"</span>)
+                                           , <span class='kw'>query_body</span> <span class='kw'>=</span> <span class='no'>aggs_query</span>)
 
 <span class='co'># Parse into a data.table</span>
 <span class='no'>aggDT</span> <span class='kw'>&lt;-</span> <span class='fu'>chomp_aggs</span>(<span class='kw'>aggs_json</span> <span class='kw'>=</span> <span class='no'>result</span>)

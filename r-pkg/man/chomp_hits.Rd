@@ -27,7 +27,7 @@ JSON into an R data.frame, and formats it into a data.table.
 # Get result from Elasticsearch
 result <- uptasticsearch::es_search(es_host = "http://es.custdb.mycompany.com:9200"
                                     , es_index = "ticket_sales"
-                                    , trailing_args = "size=100")
+                                    , max_hits = 100)
 
 # Parse into a data.table
 resultDT <- chomp_hits(hits_json = result)

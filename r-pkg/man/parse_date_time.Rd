@@ -24,8 +24,8 @@ Given a data.table with date-time strings,
 \dontrun{
 
 # Get some data
-result <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
-                 , es_index = 'cust_details')
+someDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
+                    , es_index = 'cust_details')
           
 # Note that the date field is character right now
 class(someDT$timestamp)
