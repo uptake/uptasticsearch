@@ -87,11 +87,11 @@
     </div>
 
     
-    <p>For a given field, return a data table with its unique values</p>
+    <p>For a given field, return a data table with its unique values in a time range.</p>
     
 
     <pre class="usage"><span class='fu'>get_counts</span>(<span class='no'>field</span>, <span class='no'>es_host</span>, <span class='no'>es_index</span>, <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"now-1w"</span>,
-  <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"now"</span>, <span class='kw'>use_na</span> <span class='kw'>=</span> <span class='st'>"always"</span>, <span class='kw'>max_terms</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>time_field</span>)</pre>
+  <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"now"</span>, <span class='no'>time_field</span>, <span class='kw'>use_na</span> <span class='kw'>=</span> <span class='st'>"always"</span>, <span class='kw'>max_terms</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -103,7 +103,7 @@
     <tr>
       <th>es_host</th>
       <td><p>A string identifying an Elasticsearch host. This should be of the form 
-[transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.</p></td>
+<code>[transfer_protocol][hostname]:[port]</code>. For example, <code>'http://myindex.thing.com:9200'</code>.</p></td>
     </tr>
     <tr>
       <th>es_index</th>
@@ -111,31 +111,30 @@
     </tr>
     <tr>
       <th>start_date</th>
-      <td><p>A character date of the form "yyyy-mm-dd", indicating the earliest
-date from which to show documents. Set to NULL if you are looking at an index
-for which limiting results by time is irrelevant. Default is "now-1w".</p></td>
+      <td><p>A character Elasticsearch date-time, indicating the earliest
+date from which to show documents. Default is <code>"now-1w"</code>.</p></td>
     </tr>
     <tr>
       <th>end_date</th>
-      <td><p>A character date of the form "yyyy-mm-dd", indicating the most recent
-date from which to show documents. Default is 10 "now". Set to NULL if you are 
-looking at an index for which limiting results by time is irrelevant.</p></td>
+      <td><p>A character Elasticsearch date-time, indicating the most recent
+date from which to show documents. Default is <code>"now"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>time_field</th>
+      <td><p>Name of the date-time field in the target index on which you want to filter by time.</p></td>
     </tr>
     <tr>
       <th>use_na</th>
-      <td><p>Argument to control handling of missing values in the result. Options are
-"always" to give a row in the table for NAs even if there are none, "ifany" to
-include a count of missing values if there are any. If neither of these is passed
-in, NAs will not be included in the result.</p></td>
+      <td><p>A string to control handling of missing values in the result. Options are:</p><ol>
+<li><p><code>"always"</code> to give a row in the table for NAs even if there are none (default)</p></li>
+<li><p><code>"ifany"</code> to include a count of missing values only if there are any</p></li>
+<li><p><code>NULL</code> to never include NAs</p></li>
+</ol></td>
     </tr>
     <tr>
       <th>max_terms</th>
       <td><p>What is the maximum number of unique terms to return? Many production
-Elasticsearch deployments limit this to a small number by default.</p></td>
-    </tr>
-    <tr>
-      <th>time_field</th>
-      <td><p>Name of the date/time field in the target index that you want to filter on.</p></td>
+Elasticsearch deployments limit this to a small number by default. Default here is 1000.</p></td>
     </tr>
     </table>
     

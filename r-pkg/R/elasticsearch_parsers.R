@@ -5,6 +5,9 @@
 #'              this function converts those dates-times to type POSIXct with the appropriate
 #'              time zone. Assumption is that dates are of the form "2016-07-25T22:15:19Z"
 #'              where T is just a separator and the last letter is a military timezone.
+#'              
+#'              This is a side-effect-free function: it returns a new data.table and the
+#'              input data.table is unmodified.
 #' @importFrom data.table copy
 #' @importFrom futile.logger flog.fatal
 #' @importFrom purrr map2 simplify
@@ -342,6 +345,9 @@ chomp_aggs <- function(aggs_json = NULL) {
 #'   resulting data.table is a data.frame itself (or a list of vectors). This 
 #'   function expands that nested column out, adding its data to the original 
 #'   data.table, and duplicating metadata down the rows as necessary.
+#'   
+#'   This is a side-effect-free function: it returns a new data.table and the
+#'   input data.table is unmodified.
 #' @importFrom data.table copy as.data.table rbindlist setnames
 #' @importFrom futile.logger flog.fatal
 #' @export
@@ -450,8 +456,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #' @export
 #' @param hits_json A character vector. If its length is greater than 1, its elements will be pasted 
 #'        together. This can contain a JSON returned from a \code{search} query in Elasticsearch, or
-#'        a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
-#'        running \code{\link[elastic]{Search}} with \code{raw = TRUE}.
+#'        a filepath or URL pointing at one.
 #' @param keep_nested_data_cols a boolean (default TRUE); whether to keep columns that are nested
 #'        arrays in the original JSON. A warning will be given if these columns are deleted.
 #' @examples

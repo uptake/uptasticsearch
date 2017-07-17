@@ -5,36 +5,36 @@
 \title{Examine the distribution of distinct values for a field in Elasticsearch}
 \usage{
 get_counts(field, es_host, es_index, start_date = "now-1w",
-  end_date = "now", use_na = "always", max_terms = 1000, time_field)
+  end_date = "now", time_field, use_na = "always", max_terms = 1000)
 }
 \arguments{
 \item{field}{A valid field in whatever Elasticsearch index you are querying}
 
 \item{es_host}{A string identifying an Elasticsearch host. This should be of the form 
-[transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.}
+\code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.}
 
 \item{es_index}{The name of an Elasticsearch index to be queried.}
 
-\item{start_date}{A character date of the form "yyyy-mm-dd", indicating the earliest
-date from which to show documents. Set to NULL if you are looking at an index
-for which limiting results by time is irrelevant. Default is "now-1w".}
+\item{start_date}{A character Elasticsearch date-time, indicating the earliest
+date from which to show documents. Default is \code{"now-1w"}.}
 
-\item{end_date}{A character date of the form "yyyy-mm-dd", indicating the most recent
-date from which to show documents. Default is 10 "now". Set to NULL if you are 
-looking at an index for which limiting results by time is irrelevant.}
+\item{end_date}{A character Elasticsearch date-time, indicating the most recent
+date from which to show documents. Default is \code{"now"}.}
 
-\item{use_na}{Argument to control handling of missing values in the result. Options are
-"always" to give a row in the table for NAs even if there are none, "ifany" to
-include a count of missing values if there are any. If neither of these is passed
-in, NAs will not be included in the result.}
+\item{time_field}{Name of the date-time field in the target index on which you want to filter by time.}
+
+\item{use_na}{A string to control handling of missing values in the result. Options are:
+\enumerate{
+\item{\code{"always"} to give a row in the table for NAs even if there are none (default)}
+\item{\code{"ifany"} to include a count of missing values only if there are any}
+\item{\code{NULL} to never include NAs}
+}}
 
 \item{max_terms}{What is the maximum number of unique terms to return? Many production
-Elasticsearch deployments limit this to a small number by default.}
-
-\item{time_field}{Name of the date/time field in the target index that you want to filter on.}
+Elasticsearch deployments limit this to a small number by default. Default here is 1000.}
 }
 \description{
-For a given field, return a data table with its unique values
+For a given field, return a data table with its unique values in a time range.
 }
 \examples{
 \dontrun{

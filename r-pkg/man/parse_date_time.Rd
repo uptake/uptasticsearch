@@ -19,6 +19,9 @@ Given a data.table with date-time strings,
              this function converts those dates-times to type POSIXct with the appropriate
              time zone. Assumption is that dates are of the form "2016-07-25T22:15:19Z"
              where T is just a separator and the last letter is a military timezone.
+             
+             This is a side-effect-free function: it returns a new data.table and the
+             input data.table is unmodified.
 }
 \examples{
 # Sample es_search(), chomp_hits(), or chomp_aggs() output:
