@@ -144,10 +144,11 @@ Elasticsearch deployments limit this to a small number by default.</p></td>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='co'># Count number of customers by payment method</span>
 <span class='no'>recoDT</span> <span class='kw'>&lt;-</span> <span class='fu'>get_counts</span>(<span class='kw'>field</span> <span class='kw'>=</span> <span class='st'>"pmt_method"</span>
-                    , <span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
-                    , <span class='kw'>es_index</span> <span class='kw'>=</span> <span class='st'>"ticket_sales"</span>
-                    , <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"now-2w"</span>
-                    , <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"now"</span>)
+                     , <span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
+                     , <span class='kw'>es_index</span> <span class='kw'>=</span> <span class='st'>"ticket_sales"</span>
+                     , <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"now-2w"</span>
+                     , <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"now"</span>
+                     , <span class='kw'>time_field</span> <span class='kw'>=</span> <span class='st'>"dateTime"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -163,7 +164,7 @@ Elasticsearch deployments limit this to a small number by default.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by James Lamb, Nick Paras, Austin Dickey,  Uptake Technologies Inc..</p>
+  <p>Developed by James Lamb, Nick Paras, Austin Dickey, Uptake Technologies Inc..</p>
 </div>
 
 <div class="pkgdown">

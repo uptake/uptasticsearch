@@ -112,22 +112,56 @@ unpack</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Chomp a dummy sample JSON of hits</span>
-<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='st'>'[{"_source":{"timestamp":"2017-01-01",
-  "cust_name":"Austin", "details":{"cust_class":"big_spender","location":
-  "chicago","pastPurchases":[{"film":"The Notebook", "pmt_amount":6.25},
-  {"film":"The Town", "pmt_amount":8.00},{"film":"Zootopia","pmt_amount": 
-  7.50, "matinee": true}]}}},{"_source": {"timestamp":"2017-02-02",
-  "cust_name":"James","details":{"cust_class":"peasant","location":"chicago",
-  "pastPurchases":[{"film":"Minions", "pmt_amount":6.25, "matinee": true},
-  {"film":"Rogue One","pmt_amount":10.25},{"film":"Bridesmaids",
-  "pmt_amount":8.75},{"film":"Bridesmaids","pmt_amount":6.25, "matinee": 
-  true}]}}}]'</span>
-  , <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2017-07-15 21:57:24] Keeping the following nested data columns. Consider using unpack_nested_data for one:
-#&gt;  details.pastPurchases</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># A sample raw result from a hits query:</span>
+<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='st'>'[{"_source":{"timestamp":"2017-01-01","cust_name":"Austin","details":{
+"cust_class":"big_spender","location":"chicago","pastPurchases":[{"film":"The Notebook",
+"pmt_amount":6.25},{"film":"The Town","pmt_amount":8.00},{"film":"Zootopia","pmt_amount":7.50,
+"matinee":true}]}}},{"_source":{"timestamp":"2017-02-02","cust_name":"James","details":{
+"cust_class":"peasant","location":"chicago","pastPurchases":[{"film":"Minions",
+"pmt_amount":6.25,"matinee":true},{"film":"Rogue One","pmt_amount":10.25},{"film":"Bridesmaids",
+"pmt_amount":8.75},{"film":"Bridesmaids","pmt_amount":6.25,"matinee":true}]}}},{"_source":{
+"timestamp":"2017-03-03","cust_name":"Nick","details":{"cust_class":"critic","location":"cannes",
+"pastPurchases":[{"film":"Aala Kaf Ifrit","pmt_amount":0,"matinee":true},{
+"film":"Dopo la guerra (Apres la Guerre)","pmt_amount":0,"matinee":true},{
+"film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'</span>
+
+<span class='co'># Chomp into a data.table</span>
+<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2017-07-17 15:30:18] Keeping the following nested data columns. Consider using unpack_nested_data for one:
+#&gt;  details.pastPurchases</div><div class='input'><span class='fu'>print</span>(<span class='no'>sampleChompedDT</span>)</div><div class='output co'>#&gt;     timestamp cust_name details.cust_class details.location
+#&gt; 1: 2017-01-01    Austin        big_spender          chicago
+#&gt; 2: 2017-02-02     James            peasant          chicago
+#&gt; 3: 2017-03-03      Nick             critic           cannes
+#&gt;    details.pastPurchases
+#&gt; 1:          &lt;data.frame&gt;
+#&gt; 2:          &lt;data.frame&gt;
+#&gt; 3:          &lt;data.frame&gt;</div><div class='input'>
+<span class='co'># (Note: use es_search() to get here in one step)</span>
+
 <span class='co'># Unpack by details.pastPurchases</span>
 <span class='no'>unpackedDT</span> <span class='kw'>&lt;-</span> <span class='fu'>unpack_nested_data</span>(<span class='kw'>chomped_df</span> <span class='kw'>=</span> <span class='no'>sampleChompedDT</span>
-                                 , <span class='kw'>col_to_unpack</span> <span class='kw'>=</span> <span class='st'>"details.pastPurchases"</span>)</div></pre>
+                                 , <span class='kw'>col_to_unpack</span> <span class='kw'>=</span> <span class='st'>"details.pastPurchases"</span>)
+<span class='fu'>print</span>(<span class='no'>unpackedDT</span>)</div><div class='output co'>#&gt;                                 film pmt_amount matinee  timestamp cust_name
+#&gt;  1:                     The Notebook       6.25      NA 2017-01-01    Austin
+#&gt;  2:                         The Town       8.00      NA 2017-01-01    Austin
+#&gt;  3:                         Zootopia       7.50    TRUE 2017-01-01    Austin
+#&gt;  4:                          Minions       6.25    TRUE 2017-02-02     James
+#&gt;  5:                        Rogue One      10.25      NA 2017-02-02     James
+#&gt;  6:                      Bridesmaids       8.75      NA 2017-02-02     James
+#&gt;  7:                      Bridesmaids       6.25    TRUE 2017-02-02     James
+#&gt;  8:                   Aala Kaf Ifrit       0.00    TRUE 2017-03-03      Nick
+#&gt;  9: Dopo la guerra (Apres la Guerre)       0.00    TRUE 2017-03-03      Nick
+#&gt; 10:           Avengers: Infinity War      12.75      NA 2017-03-03      Nick
+#&gt;     details.cust_class details.location
+#&gt;  1:        big_spender          chicago
+#&gt;  2:        big_spender          chicago
+#&gt;  3:        big_spender          chicago
+#&gt;  4:            peasant          chicago
+#&gt;  5:            peasant          chicago
+#&gt;  6:            peasant          chicago
+#&gt;  7:            peasant          chicago
+#&gt;  8:             critic           cannes
+#&gt;  9:             critic           cannes
+#&gt; 10:             critic           cannes</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -142,7 +176,7 @@ unpack</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by James Lamb, Nick Paras, Austin Dickey,  Uptake Technologies Inc..</p>
+  <p>Developed by James Lamb, Nick Paras, Austin Dickey, Uptake Technologies Inc..</p>
 </div>
 
 <div class="pkgdown">

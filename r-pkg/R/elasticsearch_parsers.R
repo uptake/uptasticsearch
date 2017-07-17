@@ -17,20 +17,21 @@
 #' @references \url{https://www.timeanddate.com/time/zones/military}
 #' @references \url{https://en.wikipedia.org/wiki/List_of_tz_database_time_zones}
 #' @examples
-#' \dontrun{
-#' 
-#' # Get some data
-#' someDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
-#'                     , es_index = 'cust_details')
+#' # Sample es_search(), chomp_hits(), or chomp_aggs() output:
+#' someDT <- data.table::data.table(id = 1:5
+#'                                  , company = c("Apple", "Apple", "Banana", "Banana", "Cucumber")
+#'                                  , timestamp = c("2015-03-14T09:26:53B", "2015-03-14T09:26:54B"
+#'                                                  , "2031-06-28T08:53:07Z", "2031-06-28T08:53:08Z"
+#'                                                  , "2000-01-01"))
 #'           
 #' # Note that the date field is character right now
-#' class(someDT$timestamp)
+#' str(someDT)
 #' 
 #' # Let's fix that!
-#' someDT <- parse_date_time(someDT, date_cols = "timestamp")
-#' class(someDT$timestamp)
-#' 
-#' }
+#' someDT <- parse_date_time(input_df = someDT
+#'                           , date_cols = "timestamp"
+#'                           , assume_tz = "UTC")
+#' str(someDT)
 parse_date_time <- function(input_df
                           , date_cols
                           , assume_tz = "UTC"
@@ -138,39 +139,18 @@ parse_date_time <- function(input_df
 #'        a filepath or URL pointing at one. Most commonly, this JSON will be the direct result of 
 #'        running \code{\link[elastic]{Search}} with \code{raw = TRUE}.
 #' @examples
-#' \dontrun{
-#' ##=== Example 1: Basic groupby ===#
-#' 
-#' # Get result from Elasticsearch
-#' aggs_query <- "{'aggs': {'source': {'terms': {'field': 'pmt_method'}}}}"
-#' result <- uptasticsearch:::.search_request(es_host = "http://es.custdb.mycompany.com:9200"
-#'                                            , es_index = "ticket_sales"
-#'                                            , query_body = aggs_query)
+#' # A sample raw result from an aggs query combining date_histogram and extended_stats:
+#' result <- '{"aggregations":{"dateTime":{"buckets":[{"key_as_string":"2016-12-01T00:00:00.000Z",
+#' "key":1480550400000,"doc_count":123,"num_potatoes":{"count":120,"min":0,"max":40,"avg":15,
+#' "sum":1800,"sum_of_squares":28000,"variance":225,"std_deviation":15,"std_deviation_bounds":{
+#' "upper":26,"lower":13}}},{"key_as_string":"2017-01-01T00:00:00.000Z","key":1483228800000,
+#' "doc_count":134,"num_potatoes":{"count":131,"min":0,"max":39,"avg":16,"sum":2096,
+#' "sum_of_squares":34000,"variance":225,"std_deviation":15,"std_deviation_bounds":{"upper":26,
+#' "lower":13}}}]}}}'
 #' 
 #' # Parse into a data.table
 #' aggDT <- chomp_aggs(aggs_json = result)
-#' 
-#' ###=== Example 2: Time series features ===#
-#' 
-#' # Create query that will give you daily summary stats for revenue
-#' query_body <- '{"query": {"filtered": {"filter": {
-#'        "bool": {"must": [{"exists": {"field": "pmt_amount"}}]}}}},
-#'                "aggs": {"timestamp": {"date_histogram": {"field": "timestamp", 
-#'                                                        "interval": "day"},
-#'               "aggs": {"revenue" : {"extended_stats": {"field": 
-#'                                      "pmt_amount"}}}}},
-#'                "size": 0
-#'                }'
-#'                
-#' # Execute the query and get the result
-#' result <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
-#'                     , es_index = 'ticket_sales'
-#'                     , query_body = query_body)
-#'                           
-#' # Parse to a data.table                          
-#' statDT <- chomp_aggs(aggs_json = result)
-#' 
-#' }
+#' print(aggDT)
 chomp_aggs <- function(aggs_json = NULL) {
     
     # If nothing was passed to aggs_json, return NULL and warn
@@ -370,22 +350,29 @@ chomp_aggs <- function(aggs_json = NULL) {
 #' @param col_to_unpack a character vector of length one: the column name to 
 #'   unpack
 #' @examples
-#' # Chomp a dummy sample JSON of hits
-#' sampleChompedDT <- chomp_hits('[{"_source":{"timestamp":"2017-01-01",
-#'   "cust_name":"Austin", "details":{"cust_class":"big_spender","location":
-#'   "chicago","pastPurchases":[{"film":"The Notebook", "pmt_amount":6.25},
-#'   {"film":"The Town", "pmt_amount":8.00},{"film":"Zootopia","pmt_amount": 
-#'   7.50, "matinee": true}]}}},{"_source": {"timestamp":"2017-02-02",
-#'   "cust_name":"James","details":{"cust_class":"peasant","location":"chicago",
-#'   "pastPurchases":[{"film":"Minions", "pmt_amount":6.25, "matinee": true},
-#'   {"film":"Rogue One","pmt_amount":10.25},{"film":"Bridesmaids",
-#'   "pmt_amount":8.75},{"film":"Bridesmaids","pmt_amount":6.25, "matinee": 
-#'   true}]}}}]'
-#'   , keep_nested_data_cols = TRUE)
+#' # A sample raw result from a hits query:
+#' result <- '[{"_source":{"timestamp":"2017-01-01","cust_name":"Austin","details":{
+#' "cust_class":"big_spender","location":"chicago","pastPurchases":[{"film":"The Notebook",
+#' "pmt_amount":6.25},{"film":"The Town","pmt_amount":8.00},{"film":"Zootopia","pmt_amount":7.50,
+#' "matinee":true}]}}},{"_source":{"timestamp":"2017-02-02","cust_name":"James","details":{
+#' "cust_class":"peasant","location":"chicago","pastPurchases":[{"film":"Minions",
+#' "pmt_amount":6.25,"matinee":true},{"film":"Rogue One","pmt_amount":10.25},{"film":"Bridesmaids",
+#' "pmt_amount":8.75},{"film":"Bridesmaids","pmt_amount":6.25,"matinee":true}]}}},{"_source":{
+#' "timestamp":"2017-03-03","cust_name":"Nick","details":{"cust_class":"critic","location":"cannes",
+#' "pastPurchases":[{"film":"Aala Kaf Ifrit","pmt_amount":0,"matinee":true},{
+#' "film":"Dopo la guerra (Apres la Guerre)","pmt_amount":0,"matinee":true},{
+#' "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'
+#' 
+#' # Chomp into a data.table
+#' sampleChompedDT <- chomp_hits(hits_json = result, keep_nested_data_cols = TRUE)
+#' print(sampleChompedDT)
+#' 
+#' # (Note: use es_search() to get here in one step)
 #' 
 #' # Unpack by details.pastPurchases
 #' unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
 #'                                  , col_to_unpack = "details.pastPurchases")
+#' print(unpackedDT)
 unpack_nested_data <- function(chomped_df, col_to_unpack) {
     
     # Input checks
@@ -469,17 +456,29 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #' @param keep_nested_data_cols a boolean (default FALSE); whether to keep columns that are nested
 #'        arrays in the original JSON. A warning will be given if these columns are deleted.
 #' @examples
-#' \dontrun{
-#' # Get 100 purchase records
+#' # A sample raw result from a hits query:
+#' result <- '[{"_source":{"timestamp":"2017-01-01","cust_name":"Austin","details":{
+#' "cust_class":"big_spender","location":"chicago","pastPurchases":[{"film":"The Notebook",
+#' "pmt_amount":6.25},{"film":"The Town","pmt_amount":8.00},{"film":"Zootopia","pmt_amount":7.50,
+#' "matinee":true}]}}},{"_source":{"timestamp":"2017-02-02","cust_name":"James","details":{
+#' "cust_class":"peasant","location":"chicago","pastPurchases":[{"film":"Minions",
+#' "pmt_amount":6.25,"matinee":true},{"film":"Rogue One","pmt_amount":10.25},{"film":"Bridesmaids",
+#' "pmt_amount":8.75},{"film":"Bridesmaids","pmt_amount":6.25,"matinee":true}]}}},{"_source":{
+#' "timestamp":"2017-03-03","cust_name":"Nick","details":{"cust_class":"critic","location":"cannes",
+#' "pastPurchases":[{"film":"Aala Kaf Ifrit","pmt_amount":0,"matinee":true},{
+#' "film":"Dopo la guerra (Apres la Guerre)","pmt_amount":0,"matinee":true},{
+#' "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'
 #' 
-#' # Get result from Elasticsearch
-#' result <- uptasticsearch::es_search(es_host = "http://es.custdb.mycompany.com:9200"
-#'                                     , es_index = "ticket_sales"
-#'                                     , max_hits = 100)
+#' # Chomp into a data.table
+#' sampleChompedDT <- chomp_hits(hits_json = result, keep_nested_data_cols = TRUE)
+#' print(sampleChompedDT)
 #' 
-#' # Parse into a data.table
-#' resultDT <- chomp_hits(hits_json = result)
-#' }
+#' # (Note: use es_search() to get here in one step)
+#' 
+#' # Unpack by details.pastPurchases
+#' unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
+#'                                  , col_to_unpack = "details.pastPurchases")
+#' print(unpackedDT)
 chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = FALSE) {
     
     # If nothing was passed to hits_json, return NULL and warn
@@ -576,25 +575,28 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = FALSE) {
 #' @export
 #' @examples
 #' \dontrun{
-#' #=== Example 1: Get every site whose name starts with a "J" ===#
+#' 
+#' ###=== Example 1: Get low-scoring food survey results ===###
 #'
-#' # Get every customer
-#' siteDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
-#'                     , es_index = "theaters"
-#'                     , query_body = '{"query": {"wildcard": {"location_name" : {"value": "J*"}}}}'
-#'                     , n_cores = 4)
+#' query_body <- '{"query":{"filtered":{"filter":{"bool":{"must":[
+#'                {"exists":{"field":"customer_comments"}},
+#'                {"terms":{"overall_satisfaction":["very low","low"]}}]}}},
+#'                "query":{"match_phrase":{"customer_comments":"food"}}}}'
+#' 
+#' # Execute the query, parse into a data.table
+#' commentDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
+#'                        , es_index = "survey_results"
+#'                        , query_body = query_body
+#'                        , scroll = "1m"
+#'                        , n_cores = 4)
 #'                  
-#' ###=== Example 2: Time series agg features ===#
+#' ###=== Example 2: Time series agg features ===###
 #' 
 #' # Create query that will give you daily summary stats for revenue
-#' query_body <- '{"query": {"filtered": {"filter": {
-#'        "bool": {"must": [{"exists": {"field": "pmt_amount"}}]}}}},
-#'                "aggs": {"timestamp": {"date_histogram": {"field": "timestamp", 
-#'                                                        "interval": "day"},
-#'               "aggs": {"revenue" : {"extended_stats": {"field": 
-#'                                      "pmt_amount"}}}}},
-#'                "size": 0
-#'                }'
+#' query_body <- '{"query":{"filtered":{"filter":{"bool":{"must":[
+#'                {"exists":{"field":"pmt_amount"}}]}}}},
+#'                "aggs":{"timestamp":{"date_histogram":{"field":"timestamp","interval":"day"},
+#'                "aggs":{"revenue":{"extended_stats":{"field":"pmt_amount"}}}}},"size":0}'
 #'                
 #' # Execute the query and get the result
 #' resultDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"

@@ -27,10 +27,11 @@
 #' \dontrun{
 #' # Count number of customers by payment method
 #' recoDT <- get_counts(field = "pmt_method"
-#'                     , es_host = "http://es.custdb.mycompany.com:9200"
-#'                     , es_index = "ticket_sales"
-#'                     , start_date = "now-2w"
-#'                     , end_date = "now")
+#'                      , es_host = "http://es.custdb.mycompany.com:9200"
+#'                      , es_index = "ticket_sales"
+#'                      , start_date = "now-2w"
+#'                      , end_date = "now"
+#'                      , time_field = "dateTime")
 #' }
 get_counts <- function(field
                       , es_host
