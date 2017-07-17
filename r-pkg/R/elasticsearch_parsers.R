@@ -996,7 +996,7 @@ es_search <- function(es_host
     # [3] Does not end in a slash
     trailingSlashPattern <- '/+$'
     if (grepl(trailingSlashPattern, es_host)){
-        warning('es_host had one or more trailing "/". Removing them.')
+        # Remove it
         es_host <- gsub('/+$', '', es_host)
     }
     
