@@ -1,6 +1,6 @@
 # uptasticsearch
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-last-release/uptasticsearch)] [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)]
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-last-release/uptasticsearch)](http://cran.r-project.org/package=dplyr) [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](http://cran.rstudio.com/web/packages/uptasticsearch/index.html)
 
 ## Introduction
 
@@ -25,10 +25,16 @@ The core functionality of this package is the `es_search` function. This returns
 
 ### R <a name="rinstallation"></a>
 
-This package can be installed directly from CRAN.
+Releases of this package can be installed from CRAN:
 
 ```
 install.packages('uptasticsearch')
+```
+
+To use the development version of the package, which has the newest changes, you can install directly from GitHub
+
+```
+devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = 'r-pkg/uptasticsearch')
 ```
 
 ### Python <a name="pythoninstallation"></a>
