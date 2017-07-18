@@ -1,5 +1,7 @@
 # uptasticsearch
 
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-last-release/uptasticsearch)](http://cran.r-project.org/package=uptasticsearch) [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](http://cran.rstudio.com/web/packages/uptasticsearch/index.html)
+
 ## Introduction
 
 This project tackles the issue of getting data out of Elasticsearch and into a tabular format in R.
@@ -23,7 +25,13 @@ The core functionality of this package is the `es_search` function. This returns
 
 ### R <a name="rinstallation"></a>
 
-The package is not yet on CRAN, but we'll be submitting soon. For now, you can install using `devtools`.
+Releases of this package can be installed from CRAN:
+
+```
+install.packages('uptasticsearch')
+```
+
+To use the development version of the package, which has the newest changes, you can install directly from GitHub
 
 ```
 devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = 'r-pkg/uptasticsearch')
