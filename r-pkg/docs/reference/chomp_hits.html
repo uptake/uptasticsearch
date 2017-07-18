@@ -126,7 +126,7 @@ arrays in the original JSON. A warning will be given if these columns are delete
 "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'</span>
 
 <span class='co'># Chomp into a data.table</span>
-<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'>chomp_hits</span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2017-07-18 10:06:14] Keeping the following nested data columns. Consider using unpack_nested_data for one:
+<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'>chomp_hits</span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2017-07-18 10:38:24] Keeping the following nested data columns. Consider using unpack_nested_data for one:
 #&gt;  details.pastPurchases</div><div class='input'><span class='fu'>print</span>(<span class='no'>sampleChompedDT</span>)</div><div class='output co'>#&gt;     timestamp cust_name details.cust_class details.location
 #&gt; 1: 2017-01-01    Austin        big_spender          chicago
 #&gt; 2: 2017-02-02     James            peasant          chicago
@@ -138,7 +138,7 @@ arrays in the original JSON. A warning will be given if these columns are delete
 <span class='co'># (Note: use es_search() to get here in one step)</span>
 
 <span class='co'># Unpack by details.pastPurchases</span>
-<span class='no'>unpackedDT</span> <span class='kw'>&lt;-</span> <span class='fu'>unpack_nested_data</span>(<span class='kw'>chomped_df</span> <span class='kw'>=</span> <span class='no'>sampleChompedDT</span>
+<span class='no'>unpackedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='unpack_nested_data.html'>unpack_nested_data</a></span>(<span class='kw'>chomped_df</span> <span class='kw'>=</span> <span class='no'>sampleChompedDT</span>
                                  , <span class='kw'>col_to_unpack</span> <span class='kw'>=</span> <span class='st'>"details.pastPurchases"</span>)
 <span class='fu'>print</span>(<span class='no'>unpackedDT</span>)</div><div class='output co'>#&gt;                                 film pmt_amount matinee  timestamp cust_name
 #&gt;  1:                     The Notebook       6.25      NA 2017-01-01    Austin
@@ -176,7 +176,7 @@ arrays in the original JSON. A warning will be given if these columns are delete
 
       <footer>
       <div class="copyright">
-  <p>Developed by James Lamb, Nick Paras, Austin Dickey, Uptake Technologies Inc..</p>
+  <p>Developed by James Lamb, Nick Paras, Austin Dickey.</p>
 </div>
 
 <div class="pkgdown">

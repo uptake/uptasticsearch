@@ -19,7 +19,13 @@ The core functionality of this package is the `es_search` function. This returns
 
 ## Installation <a name="installation"></a>
 
-The package is not yet on CRAN, but we'll be submitting soon. For now, you can install using `devtools`.
+Releases of this package can be installed from CRAN:
+
+```
+install.packages('uptasticsearch')
+```
+
+To use the development version of the package, which has the newest changes, you can install directly from GitHub
 
 ```
 devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = 'r-pkg/uptasticsearch')
