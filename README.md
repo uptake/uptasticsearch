@@ -1,6 +1,6 @@
 # uptasticsearch
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-last-release/uptasticsearch)](http://cran.r-project.org/package=dplyr) [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](http://cran.rstudio.com/web/packages/uptasticsearch/index.html)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-last-release/uptasticsearch)](http://cran.r-project.org/package=uptasticsearch) [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](http://cran.rstudio.com/web/packages/uptasticsearch/index.html)
 
 ## Introduction
 
