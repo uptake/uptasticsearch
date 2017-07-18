@@ -15,7 +15,7 @@ a filepath or URL pointing at one.}
 arrays in the original JSON. A warning will be given if these columns are deleted.}
 }
 \description{
-A generic function for converting Elasticsearch docs into R data.tables. It
+A function for converting Elasticsearch docs into R data.tables. It
 uses \code{\link[jsonlite]{fromJSON}} with \code{flatten = TRUE} to convert a
 JSON into an R data.frame, and formats it into a data.table.
 }
