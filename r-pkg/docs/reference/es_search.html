@@ -95,7 +95,7 @@
     <pre class="usage"><span class='fu'>es_search</span>(<span class='no'>es_host</span>, <span class='no'>es_index</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>query_body</span> <span class='kw'>=</span> <span class='st'>"{}"</span>,
   <span class='kw'>scroll</span> <span class='kw'>=</span> <span class='st'>"5m"</span>, <span class='kw'>max_hits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>n_cores</span> <span class='kw'>=</span> <span class='fu'>ceiling</span>(<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>()/<span class='fl'>2</span>), <span class='kw'>break_on_duplicates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>ignore_scroll_restriction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>ignore_scroll_restriction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>intermediates_dir</span> <span class='kw'>=</span> <span class='fu'>getwd</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -155,6 +155,14 @@ If you understand the cost of keeping the context
 open for a long time and would like to pass a <code>scroll</code>
 value longer than an hour, set <code>ignore_scroll_restriction</code>
 to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>intermediates_dir</th>
+      <td><p>When scrolling over search results, this function writes
+intermediate results to disk. By default, `es_search` will create a temporary
+directory in whatever working directory the function is called from. If you
+want to change this behavior, provide a path here. `es_search` will create 
+and write to a temporary directory under whatever path you provide.</p></td>
     </tr>
     </table>
     

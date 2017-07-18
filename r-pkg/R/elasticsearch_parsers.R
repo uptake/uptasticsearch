@@ -447,7 +447,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
 #' @title Hits to data.tables
 #' @name chomp_hits
 #' @description
-#' A generic function for converting Elasticsearch docs into R data.tables. It
+#' A function for converting Elasticsearch docs into R data.tables. It
 #' uses \code{\link[jsonlite]{fromJSON}} with \code{flatten = TRUE} to convert a
 #' JSON into an R data.frame, and formats it into a data.table.
 #' @importFrom futile.logger flog.fatal flog.warn flog.info
