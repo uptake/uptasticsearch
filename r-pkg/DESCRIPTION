@@ -1,6 +1,6 @@
 Package: uptasticsearch
 Type: Package
-Title: Get Data Frame Representations of Elasticsearch Results
+Title: Get Data Frame Representations of 'Elasticsearch' Results
 Version: 0.0.2
 Authors@R: c(
     person("James", "Lamb", email = "james.lamb@uptake.com", role = c("aut", "cre")),
@@ -9,11 +9,12 @@ Authors@R: c(
     person("Uptake Technologies Inc.", role = c("cph")))
 Maintainer: James Lamb <james.lamb@uptake.com>
 Description:
-    Elasticsearch is an open-source, distributed, document-based datastore.
-    It provides an HTTP API for querying the database and extracting datasets, but that
-    API was not designed for common data science workflows like pulling large batches of
+    'Elasticsearch' is an open-source, distributed, document-based datastore
+    (<https://www.elastic.co/products/elasticsearch>).
+    It provides an 'HTTP' 'API' for querying the database and extracting datasets, but that
+    'API' was not designed for common data science workflows like pulling large batches of
     records and normalizing those documents into a data frame that can be used as a training
-    dataset for statistical models. uptasticsearch provides an interface for Elasticsearch
+    dataset for statistical models. 'uptasticsearch' provides an interface for 'Elasticsearch'
     that is explicitly designed to make these data science workflows easy and fun.
 Depends:
     R (>= 3.3.0)
