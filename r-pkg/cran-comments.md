@@ -18,3 +18,12 @@
 * The other note said that `Author field differs from that derived from Authors@R`. This did not arise when running `R CMD check --as-cran` locally, but it looks like "fnd" is not a supported tag for an author. Removed that tag.
 
 ## v0.0.2 - Submission 2 - (July 17, 2017)
+
+### CRAN Response
+* Need to use the [CRAN preferred method](https://cran.r-project.org/web/licenses/BSD_3_clause) of declaring the BSD 3-Clause license
+* Need to quote software names
+
+## v0.0.2 - Submission 3 - (July 18, 2017)
+
+### CRAN Response
+* No lingering issues. v0.0.2 released to CRAN!
