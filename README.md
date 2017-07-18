@@ -1,5 +1,7 @@
 # uptasticsearch
 
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-last-release/uptasticsearch)] [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)]
+
 ## Introduction
 
 This project tackles the issue of getting data out of Elasticsearch and into a tabular format in R.
