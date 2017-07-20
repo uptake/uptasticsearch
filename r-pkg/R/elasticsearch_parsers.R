@@ -1038,7 +1038,6 @@ es_search <- function(es_host
     
 }
 
-
 # [title] Execute a Search request against an Elasticsearch cluster
 # [name] .search_request
 # [description] Given a query string (JSON with valid DSL), execute a request
