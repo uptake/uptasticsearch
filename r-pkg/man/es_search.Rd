@@ -5,7 +5,7 @@
 \title{Execute an ES query and get a data.table}
 \usage{
 es_search(es_host, es_index, size = 10000, query_body = "{}",
-  scroll = "5m", max_hits = NULL,
+  scroll = "5m", max_hits = Inf,
   n_cores = ceiling(parallel::detectCores()/2), break_on_duplicates = TRUE,
   ignore_scroll_restriction = FALSE, intermediates_dir = getwd())
 }
@@ -29,7 +29,9 @@ time you expect to pass between requests. See the
 \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
 for more information.}
 
-\item{max_hits}{Integer. If specified, \code{es_search} will stop pulling data as soon as it has pulled this many hits.}
+\item{max_hits}{Integer. If specified, \code{es_search} will stop pulling data as soon
+as it has pulled this many hits. Default is \code{Inf}, meaning that
+all possible hits will be pulled.}
 
 \item{n_cores}{Number of cores to distribute fetching + processing over.}
 

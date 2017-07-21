@@ -548,7 +548,9 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
 #' @param es_host A string identifying an Elasticsearch host. This should be of the form 
 #'        \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.
 #' @param es_index The name of an Elasticsearch index to be queried.
-#' @param max_hits Integer. If specified, \code{es_search} will stop pulling data as soon as it has pulled this many hits.
+#' @param max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
+#'                 as it has pulled this many hits. Default is \code{Inf}, meaning that
+#'                 all possible hits will be pulled.
 #' @param size Number of records per page of results. See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
 #'             Note that this will be reset to 0 if you submit a \code{query_body} with
 #'             an "aggs" request in it. Also see \code{max_hits}.
@@ -617,7 +619,7 @@ es_search <- function(es_host
                       , size = 10000
                       , query_body = '{}'
                       , scroll = "5m"
-                      , max_hits = NULL
+                      , max_hits = Inf
                       , n_cores = ceiling(parallel::detectCores()/2)
                       , break_on_duplicates = TRUE
                       , ignore_scroll_restriction = FALSE
@@ -680,7 +682,9 @@ es_search <- function(es_host
 #               time you expect to pass between requests. See the 
 #               \href{https://www.elastic.co/guide/en/Elasticsearch/guide/current/scroll.html}{Elasticsearch scroll/pagination docs}
 #               for more information.
-# [param] max_hits Integer. If specified, \code{.fetch_all} will stop pulling data as soon as it passes this threshold.
+# [param] max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
+#                  as it has pulled this many hits. Default is \code{Inf}, meaning that
+#                  all possible hits will be pulled.
 # [param] n_cores Number of cores to distribute fetching + processing over.
 # [param] break_on_duplicates Boolean, defaults to TRUE. \code{.fetch_all} uses the size of the final object it returns
 #                          to check whether or not some data were lost during the processing.
@@ -727,7 +731,7 @@ es_search <- function(es_host
                      , size = 10000
                      , query_body = '{}'
                      , scroll = "5m"
-                     , max_hits = NULL
+                     , max_hits = Inf
                      , n_cores = ceiling(parallel::detectCores()/2)
                      , break_on_duplicates = TRUE
                      , ignore_scroll_restriction = FALSE
@@ -756,7 +760,7 @@ es_search <- function(es_host
     # requesting more hits than you get is not costless:
     # - ES allocates a temporary data structure of size <size>
     # - you end up transmitting more data over the wire than the user wants
-    if (!is.null(max_hits) && max_hits < size){
+    if (max_hits < size) {
         msg <- paste0(sprintf("You requested a maximum of %s hits", max_hits),
                       sprintf(" and a page size of %s.", size),
                       sprintf(" Resetting size to %s for efficiency.", max_hits))
@@ -767,7 +771,7 @@ es_search <- function(es_host
     }
 
     # Warn if you are gonna give back a few more hits than max_hits
-    if (!is.null(max_hits) && max_hits %% size != 0){
+    if (!is.infinite(max_hits) && max_hits %% size != 0) {
         msg <- paste0("When max_hits is not an exact multiple of size, it is ",
                       "possible to get a few more than max_hits results back.")
         futile.logger::flog.warn(msg)
@@ -925,7 +929,7 @@ es_search <- function(es_host
 #                   - returns the first page + a scroll_id which uniquely identifies the stack
 # [params] scroll_id   - a unique key identifying the search context 
 #          out_path    - A file path to write temporary output to. Passed in from .fetch_all
-#          max_hits    - max_hits, comes from .fetch_all. If left as NULL in your call to
+#          max_hits    - max_hits, comes from .fetch_all. If left as Inf in your call to
 #                       .fetch_all, this param has no influence and you will pull all the data.
 #                       otherwise, this is used to limit the result size.
 #          scroll_url  - Elasticsearch URL to hit to get the next page of data
@@ -946,12 +950,6 @@ es_search <- function(es_host
                             , hits_pulled
                             , hits_to_pull
 ){
-    
-    # Deal with case where user tries to say "don't limit me" by setting
-    # max_hits = NULL explicitly
-    if (is.null(max_hits)){
-        max_hits <- Inf
-    }
     
     while (hits_pulled < max_hits){
         
