@@ -114,42 +114,38 @@ get_counts <- function(field
     
 }
 
-#' @title Retrieve the mapping definitions for an index or index/type in Elasticsearch
-#' @name retrieve_mapping
-#' @description For one or multiple index or index/type, return a data table with
-#'              field names and types.
-#' @importFrom data.table := data.table setnames
+#' @title Get the names and data types of the indexed fields in an index
+#' @name get_fields
+#' @description For a given Elasticsearch index, return the mapping from field name
+#'              to data type for all indexed fields.
+#' @importFrom data.table := as.data.table setnames
 #' @importFrom futile.logger flog.fatal
 #' @importFrom httr GET content stop_for_status
-#' @importFrom stringr str_split_fixed str_replace
+#' @importFrom stringr str_detect str_split_fixed str_replace
 #' @param es_host A string identifying an Elasticsearch host. This should be of
 #'                the form \code{[transfer_protocol][hostname]:[port]}. For example,
 #'                \code{'http://myindex.thing.com:9200'}.
 #' @param es_indexes A character vector that contains the names of indexes for
 #'                   which to get mappings. Default, is \code{'_all'}, which means
-#'                   get the mapping for all indexes
-#' @param es_types A character vector that contains the names of types for which
-#'                 to get mappings. Default is \code{NULL}, which means get the
-#'                 mapping for all types in the chosen indexes
+#'                   get the mapping for all indexes. Names of indexes can be
+#'                   treated as regular expressions.
 #' @export
 #' @return A data.table containing four columns: index, type, field, and datatype
 #' @examples \dontrun{
-#' # get the mapping for all types in the ticket_sales index
+#' # get the mapping for all types in the ticket_sales and customers indexes
 #' mappingDT <- retrieve_mapping(es_host = "http://es.custdb.mycompany.com:9200"
-#'                               , es_indexes = "ticket_sales")
+#'                               , es_indexes = c("ticket_sales", "indexes"))
 #' }
-retrieve_mapping <- function(es_host
-                             , es_indexes = '_all'
-                             , es_types = NULL
+get_fields <- function(es_host
+                       , es_indexes = '_all'
 ) {
     
     # Input checking
-    url <- .ValidateAndFormatHost(es_host)
+    url <- uptasticsearch:::.ValidateAndFormatHost(es_host)
     
     # collapse character vectors into comma separated strings. If any arguments
     # are NULL, create an empty string
     indexes <- paste(es_indexes, collapse = ',')
-    types <- paste(es_types, collapse = ',')
     
     ########################## build the query ################################
     if (nchar(indexes) > 0) {
@@ -160,11 +156,6 @@ retrieve_mapping <- function(es_host
                      , 'which resulted in an empty string')
         futile.logger::flog.fatal(msg)
         stop(msg)
-    }
-    
-    # check if the user specified any types
-    if (nchar(types) > 0) {
-        url <- paste(url, types, sep = '/')
     }
     
     ########################## make the query ################################
@@ -180,16 +171,19 @@ retrieve_mapping <- function(es_host
     # however, it also has extra terms that we can use to split the name
     # into three distinct parts
     mappingCols <- stringr::str_split_fixed(names(flattened), '\\.(mappings|properties)\\.', n = 3)
-    mappingDT <- data.table::as.data.table(mappingCols)
-    data.table::setnames(mappingDT, c('index', 'type', 'field'))
     
-    # if the field is a nested object or has multiple indexes, the field name
-    # have extra terms that we can remove
-    removeRegEx <- '\\.(properties|fields|type)'
-    mappingDT[, field := stringr::str_replace_all(field, removeRegEx, '')]
+    # convert to data table and add the data type column
+    mappingDT <- data.table::data.table(mappingCols, as.character(flattened))
+    data.table::setnames(mappingDT, c('index', 'type', 'field', 'datatype'))
     
-    # add the actual data type as a new column in the data table
-    mappingDT[, datatype := as.character(flattened)]
+    # remove any rows, where the field does not end in ".type" to remove meta info
+    mappingDT <- mappingDT[stringr::str_detect(field, '\\.type')]
+    
+    # mappings in nested objects have sub-fields called properties
+    # mappings of fields that are indexed in different ways have multiple fields
+    # we want to remove these terms from the field name
+    metaRegEx <- '\\.(properties|fields|type)'
+    mappingDT[, field := stringr::str_replace_all(field, metaRegEx, '')]
     
     return(mappingDT)
 }
