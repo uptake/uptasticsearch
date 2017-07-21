@@ -118,10 +118,10 @@ get_counts <- function(field
 #' @name get_fields
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
-#' @importFrom data.table := as.data.table setnames
+#' @importFrom data.table := data.table setnames
 #' @importFrom futile.logger flog.fatal
 #' @importFrom httr GET content stop_for_status
-#' @importFrom stringr str_detect str_split_fixed str_replace
+#' @importFrom stringr str_detect str_split_fixed str_replace_all
 #' @param es_host A string identifying an Elasticsearch host. This should be of
 #'                the form \code{[transfer_protocol][hostname]:[port]}. For example,
 #'                \code{'http://myindex.thing.com:9200'}.
@@ -141,7 +141,7 @@ get_fields <- function(es_host
 ) {
     
     # Input checking
-    url <- uptasticsearch:::.ValidateAndFormatHost(es_host)
+    url <- .ValidateAndFormatHost(es_host)
     
     # collapse character vectors into comma separated strings. If any arguments
     # are NULL, create an empty string
@@ -151,7 +151,7 @@ get_fields <- function(es_host
     if (nchar(indexes) > 0) {
         url <- paste(url, indexes, '_mapping', sep = '/')
     } else {
-        msg <- paste("retrive_mapping must be passed a valid es_indexes."
+        msg <- paste("get_fields must be passed a valid es_indexes."
                      , "You provided", paste(es_indexes, collapse = ', ')
                      , 'which resulted in an empty string')
         futile.logger::flog.fatal(msg)
