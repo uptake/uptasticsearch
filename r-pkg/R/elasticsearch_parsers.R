@@ -683,8 +683,8 @@ es_search <- function(es_host
 #               \href{https://www.elastic.co/guide/en/Elasticsearch/guide/current/scroll.html}{Elasticsearch scroll/pagination docs}
 #               for more information.
 # [param] max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
-#'                 as it has pulled this many hits. Default is \code{Inf}, meaning that
-#'                 all possible hits will be pulled.
+#                  as it has pulled this many hits. Default is \code{Inf}, meaning that
+#                  all possible hits will be pulled.
 # [param] n_cores Number of cores to distribute fetching + processing over.
 # [param] break_on_duplicates Boolean, defaults to TRUE. \code{.fetch_all} uses the size of the final object it returns
 #                          to check whether or not some data were lost during the processing.
