@@ -13,7 +13,8 @@ the form \code{[transfer_protocol][hostname]:[port]}. For example,
 
 \item{es_indexes}{A character vector that contains the names of indexes for
 which to get mappings. Default, is \code{'_all'}, which means
-get the mapping for all indexes.}
+get the mapping for all indexes. Names of indexes can be
+treated as regular expressions.}
 }
 \value{
 A data.table containing four columns: index, type, field, and datatype
