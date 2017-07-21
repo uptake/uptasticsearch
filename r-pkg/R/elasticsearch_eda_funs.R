@@ -118,28 +118,29 @@ get_counts <- function(field
 #' @name retrieve_mapping
 #' @description For one or multiple index or index/type, return a data table with
 #'              field names and types.
-#' @importFrom httr GET, content
+#' @importFrom data.table := data.table setnames
 #' @importFrom futile.logger flog.fatal
+#' @importFrom httr GET content stop_for_status
+#' @importFrom stringr str_split_fixed str_replace
 #' @param es_host A string identifying an Elasticsearch host. This should be of
 #'                the form \code{[transfer_protocol][hostname]:[port]}. For example,
 #'                \code{'http://myindex.thing.com:9200'}.
-#' @param es_index A character vector that contains the names of indices for
-#'                 which to get mappings. Default, is \code{'_all'}, which means
-#'                 get the mapping for all indices.
-#' @param es_type A character vector that contains the names of types for which
-#'                to get mappings. Default is \code{NULL}, which means get the
-#'                mapping for all types in the chosen indices.
-#' @param es_field A character vector that contains the names of fields for which
-#'                 to get mappings, which can be used when the entire mapping is
-#'                 not desired. Default is \code{NULL}, which means get the
-#'                 mapping for all fields in the chosen types.
+#' @param es_indexes A character vector that contains the names of indexes for
+#'                   which to get mappings. Default, is \code{'_all'}, which means
+#'                   get the mapping for all indexes
+#' @param es_types A character vector that contains the names of types for which
+#'                 to get mappings. Default is \code{NULL}, which means get the
+#'                 mapping for all types in the chosen indexes
 #' @export
-#' @return A data table containing the field - definition mapping for the selected
-#'         indices, types, and fields
+#' @return A data.table containing four columns: index, type, field, and datatype
+#' @examples \dontrun{
+#' # get the mapping for all types in the ticket_sales index
+#' mappingDT <- retrieve_mapping(es_host = "http://es.custdb.mycompany.com:9200"
+#'                               , es_indexes = "ticket_sales")
+#' }
 retrieve_mapping <- function(es_host
-                             , es_index = '_all'
-                             , es_type = NULL
-                             , es_field = NULL
+                             , es_indexes = '_all'
+                             , es_types = NULL
 ) {
     
     # Input checking
@@ -147,43 +148,48 @@ retrieve_mapping <- function(es_host
     
     # collapse character vectors into comma separated strings. If any arguments
     # are NULL, create an empty string
-    indices <- paste(es_index, collapse = ',')
-    types <- paste(es_type, collapse = ',')
-    fields <- paste(es_field, collapse = ',')
+    indexes <- paste(es_indexes, collapse = ',')
+    types <- paste(es_types, collapse = ',')
     
-    # build the query
-    if (nchar(indices) > 0) {
-        url <- paste(url, indices, '_mapping', sep = '/')
+    ########################## build the query ################################
+    if (nchar(indexes) > 0) {
+        url <- paste(url, indexes, '_mapping', sep = '/')
     } else {
-        msg <- paste("retrive_mapping must be passed a valid es_index."
-                     , "You provided", paste(es_index, collapse = ', ')
+        msg <- paste("retrive_mapping must be passed a valid es_indexes."
+                     , "You provided", paste(es_indexes, collapse = ', ')
                      , 'which resulted in an empty string')
         futile.logger::flog.fatal(msg)
         stop(msg)
     }
     
+    # check if the user specified any types
     if (nchar(types) > 0) {
         url <- paste(url, types, sep = '/')
     }
     
-    if (nchar(fields) > 0) {
-        url <- paste(url, 'field', fields, sep = '/')
-    }
-    
-    # make the query
+    ########################## make the query ################################
     result <- httr::GET(url = url)
+    httr::stop_for_status(result)
     resultContent <- httr::content(result)
     
-    # parse the result into a data table
+    ######################### parse the result ###############################
+    # flatten the list object that is returned from the query
+    flattened <- unlist(resultContent)
     
+    # the names of the flattened object has the index, type, and field name
+    # however, it also has extra terms that we can use to split the name
+    # into three distinct parts
+    mappingCols <- stringr::str_split_fixed(names(flattened), '\\.(mappings|properties)\\.', n = 3)
+    mappingDT <- data.table::as.data.table(mappingCols)
+    data.table::setnames(mappingDT, c('index', 'type', 'field'))
+    
+    # if the field is a nested object or has multiple indexes, the field name
+    # have extra terms that we can remove
+    removeRegEx <- '\\.(properties|fields|type)'
+    mappingDT[, field := stringr::str_replace_all(field, removeRegEx, '')]
+    
+    # add the actual data type as a new column in the data table
+    mappingDT[, datatype := as.character(flattened)]
+    
+    return(mappingDT)
 }
-
-
-
-
-
-
-
-
-
-

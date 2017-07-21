@@ -8,4 +8,6 @@
 utils::globalVariables(c('.'
                          , '.I'
                          , '.id'
+                         , 'field'
+                         , 'datatype'
                        ))
