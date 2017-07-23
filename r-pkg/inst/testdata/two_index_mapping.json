@@ -1,0 +1,52 @@
+{
+  "company": {
+    "mappings": {
+      "building": {
+        "properties": {
+          "id": {
+            "type": "long"
+          },
+          "address": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "hotel": {
+    "mappings": {
+      "bed_room": {
+        "properties": {
+          "num_beds": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "text"
+          }
+        }
+      },
+      "conference_room": {
+        "properties": {
+          "num_people": {
+            "type": "integer"
+          },
+          "purpose": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

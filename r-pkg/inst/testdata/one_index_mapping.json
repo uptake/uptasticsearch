@@ -1,0 +1,29 @@
+{
+    "basketball": {
+        "mappings": {
+            "players": {
+                "properties": {
+                    "team": {
+                        "type": "keyword"
+                    },
+                    "name": {
+                        "properties": {
+                            "first": {
+                                "type": "text"
+                            },
+                            "last": {
+                                "type": "text"
+                            }
+                        }
+                    },
+                    "age": {
+                        "type": "integer"
+                    },
+                    "position": {
+                        "type": "keyword"
+                    }
+                }
+            }
+        }
+    }
+}

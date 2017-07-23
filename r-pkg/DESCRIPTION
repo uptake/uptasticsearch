@@ -6,6 +6,7 @@ Authors@R: c(
     person("James", "Lamb", email = "james.lamb@uptake.com", role = c("aut", "cre")),
     person("Nick", "Paras", email = "nick.paras@uptake.com", role = c("aut")),
     person("Austin", "Dickey", email = "austin.dickey@uptake.com", role = c("aut")),
+    person("Michael", "Frasco", email = "mfrasco6@gmail.com", role = c("ctb")),
     person("Uptake Technologies Inc.", role = c("cph")))
 Maintainer: James Lamb <james.lamb@uptake.com>
 Description:

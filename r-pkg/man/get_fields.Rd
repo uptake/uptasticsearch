@@ -17,7 +17,7 @@ get the mapping for all indexes. Names of indexes can be
 treated as regular expressions.}
 }
 \value{
-A data.table containing four columns: index, type, field, and datatype
+A data.table containing four columns: index, type, field, and data_type
 }
 \description{
 For a given Elasticsearch index, return the mapping from field name
@@ -25,7 +25,7 @@ For a given Elasticsearch index, return the mapping from field name
 }
 \examples{
 \dontrun{
-# get the mapping for all types in the ticket_sales and customers indexes
+# get the mapping for all indexed fields in the ticket_sales and customers indexes
 mappingDT <- retrieve_mapping(es_host = "http://es.custdb.mycompany.com:9200"
                               , es_indexes = c("ticket_sales", "indexes"))
 }
