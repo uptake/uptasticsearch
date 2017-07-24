@@ -120,6 +120,7 @@ get_counts <- function(field
 #'              to data type for all indexed fields.
 #' @importFrom futile.logger flog.fatal flog.info
 #' @importFrom httr GET content stop_for_status
+#' @importFrom data.table := uniqueN
 #' @param es_host A string identifying an Elasticsearch host. This should be of
 #'                the form \code{[transfer_protocol][hostname]:[port]}. For example,
 #'                \code{'http://myindex.thing.com:9200'}.
@@ -127,6 +128,9 @@ get_counts <- function(field
 #'                   which to get mappings. Default, is \code{'_all'}, which means
 #'                   get the mapping for all indexes. Names of indexes can be
 #'                   treated as regular expressions.
+#' @param use_alias A boolean flag that controls whether the true Elasticsearch
+#'                  index name or the aliased name for an index is returned.
+#'                  Default is \code{TRUE}.
 #' @export
 #' @return A data.table containing four columns: index, type, field, and data_type
 #' @examples \dontrun{
@@ -136,6 +140,7 @@ get_counts <- function(field
 #' }
 get_fields <- function(es_host
                        , es_indexes = '_all'
+                       , use_alias = TRUE
 ) {
     
     # Input checking
@@ -163,14 +168,30 @@ get_fields <- function(es_host
     httr::stop_for_status(result)
     resultContent <- httr::content(result)
     
-    ##################### return the flattened result #########################
-    return(.flatten_mapping(mapping = resultContent))
+    ######################### flatten the result ##############################
+    mappingDT <- .flatten_mapping(mapping = resultContent)
+    
+    ##################### get aliases for index names #########################
+    if (use_alias) {
+        aliasDT <- .get_aliases(es_host = es_host)
+        if (!is.null(aliasDT)) {
+            lookup <- aliasDT[['alias']]
+            names(lookup) <- aliasDT[['index']]
+            mappingDT[index %in% names(lookup), index := lookup[index]]
+        }
+    }
+    
+    # log some information about this request to the user
+    numFields <- nrow(mappingDT)
+    numIndex <- mappingDT[, data.table::uniqueN(index)]
+    futile.logger::flog.info(paste('Retrieved', numFields, 'fields across', numIndex, 'indexes'))
+    
+    return(mappingDT)
 }
 
 # [title] Flatten a mapping list of field name to data type into a data table
 # [mapping] A list of json that is returned from a request to the mappings API
-#' @importFrom data.table := data.table setnames uniqueN
-#' @importFrom futile.logger flog.info
+#' @importFrom data.table := data.table setnames
 #' @importFrom stringr str_detect str_split_fixed str_replace_all
 .flatten_mapping <- function(mapping) {
     
@@ -197,10 +218,47 @@ get_fields <- function(es_host
     metaRegEx <- '\\.(properties|fields|type)'
     mappingDT[, field := stringr::str_replace_all(field, metaRegEx, '')]
     
-    # log some information about this request to the user
-    numFields <- nrow(mappingDT)
-    numIndex <- mappingDT[, data.table::uniqueN(index)]
-    futile.logger::flog.info(paste('Retrieved', numFields, 'fields across', numIndex, 'indexes'))
-    
     return(mappingDT)
+}
+
+# [title] Get a data.table containing names of indexes and aliases
+# [es_host] A string identifying an Elasticsearch host.
+#' @importFrom httr content GET stop_for_status
+.get_aliases <- function(es_host) {
+    
+    # construct the url to the alias endpoint
+    url <- paste0(es_host, '/_cat/aliases')
+    
+    # make the request
+    result <- httr::GET(url = url)
+    httr::stop_for_status(result)
+    resultContent <- httr::content(result)
+    
+    if (is.null(resultContent)) {
+        # there are no aliases in this Elasticsearch cluster
+        return(NULL)
+    } else {
+        return(.process_alias(alias_string = resultContent))
+    }
+}
+
+# [title] Process the string returned by the GET alias API into a data table
+# [alias_string] A string returned by the alias API with index and alias name
+#' @importFrom stringr str_replace str_split
+#' @importFrom data.table as.data.table setnames
+.process_alias <- function(alias_string) {
+    # remove the new line at the end of the string, if it exists
+    aliasString <- stringr::str_replace(alias_string, '\n$', '')
+    
+    # split each entry, separated by a new line, into a vector in a list
+    aliases <- stringr::str_split(aliasString, '\n')[[1]]
+    
+    # remove white space and only take the first two entries
+    aliases <- stringr::str_split(aliases, '\\s+')
+    aliases <- lapply(aliases, function(pair) pair[1:2])
+    
+    # create a data table from the resulting list
+    aliasDT <- data.table::as.data.table(matrix(unlist(aliases), byrow = TRUE, ncol = 2))
+    data.table::setnames(aliasDT, old = colnames(aliasDT), new = c('alias', 'index'))
+    return(aliasDT)
 }

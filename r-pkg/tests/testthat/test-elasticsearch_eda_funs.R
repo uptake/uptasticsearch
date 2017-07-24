@@ -27,8 +27,10 @@ futile.logger::flog.threshold(0)
               }
     )
     
+#--- 3. .flatten_mapping
+    
     # Works if one index is passed
-    test_that("get_fields should work if the mapping for one index is provided",
+    test_that(".flatten_mapping should work if the mapping for one index is provided",
               {
                   test_json <- system.file("testdata", "one_index_mapping.json", package = "uptasticsearch")
                   mapping <- jsonlite::fromJSON(txt = test_json)
@@ -44,7 +46,7 @@ futile.logger::flog.threshold(0)
     )
     
     # works if multiple indexes are passed
-    test_that("get_fields should work if the mapping for multiple indexes are provided",
+    test_that(".flatten_mapping should work if the mapping for multiple indexes are provided",
               {
                   test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
                   mapping <- jsonlite::fromJSON(txt = test_json)
@@ -60,4 +62,25 @@ futile.logger::flog.threshold(0)
                   expect_identical(mappingDT, expected)
               }
     )
+
+#--- 4. .process_alias
     
+    # works if one alias is passed
+    test_that(".process_alias works if one alias is included",
+              {
+                  alias_string <- 'dwm shakespeare - - -\n'
+                  aliasDT <- uptasticsearch:::.process_alias(alias_string = alias_string)
+                  expected <- data.table::data.table(alias = 'dwm', index = 'shakespeare')
+                  expect_identical(aliasDT, expected)
+              }
+    )
+    
+    # works if multiple aliases are passed
+    test_that(".process_alias works if one alias is included",
+              {
+                  alias_string <- 'dwm   shakespeare - - -\nmoney bank        - - -\n'
+                  aliasDT <- uptasticsearch:::.process_alias(alias_string = alias_string)
+                  expected <- data.table::data.table(alias = c('dwm', 'money'), index = c('shakespeare', 'bank'))
+                  expect_identical(aliasDT, expected)
+              }
+    )
