@@ -128,9 +128,6 @@ get_counts <- function(field
 #'                   which to get mappings. Default, is \code{'_all'}, which means
 #'                   get the mapping for all indexes. Names of indexes can be
 #'                   treated as regular expressions.
-#' @param use_alias A boolean flag that controls whether the true Elasticsearch
-#'                  index name or the aliased name for an index is returned.
-#'                  Default is \code{TRUE}.
 #' @export
 #' @return A data.table containing four columns: index, type, field, and data_type
 #' @examples \dontrun{
@@ -140,7 +137,6 @@ get_counts <- function(field
 #' }
 get_fields <- function(es_host
                        , es_indexes = '_all'
-                       , use_alias = TRUE
 ) {
     
     # Input checking
@@ -166,19 +162,17 @@ get_fields <- function(es_host
     
     result <- httr::GET(url = url)
     httr::stop_for_status(result)
-    resultContent <- httr::content(result)
+    resultContent <- httr::content(result, as = 'parsed')
     
     ######################### flatten the result ##############################
     mappingDT <- .flatten_mapping(mapping = resultContent)
     
     ##################### get aliases for index names #########################
-    if (use_alias) {
-        aliasDT <- .get_aliases(es_host = es_host)
-        if (!is.null(aliasDT)) {
-            lookup <- aliasDT[['alias']]
-            names(lookup) <- aliasDT[['index']]
-            mappingDT[index %in% names(lookup), index := lookup[index]]
-        }
+    aliasDT <- .get_aliases(es_host = es_host)
+    if (!is.null(aliasDT)) {
+        lookup <- aliasDT[['alias']]
+        names(lookup) <- aliasDT[['index']]
+        mappingDT[index %in% names(lookup), index := lookup[index]]
     }
     
     # log some information about this request to the user
@@ -232,7 +226,7 @@ get_fields <- function(es_host
     # make the request
     result <- httr::GET(url = url)
     httr::stop_for_status(result)
-    resultContent <- httr::content(result)
+    resultContent <- httr::content(result, as = 'text')
     
     if (is.null(resultContent)) {
         # there are no aliases in this Elasticsearch cluster
