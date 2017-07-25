@@ -27,6 +27,36 @@ futile.logger::flog.threshold(0)
               }
     )
     
+    # works as expected when mocked
+    test_that('get_fields works as expected when mocked',
+              {
+                  test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
+                  aliasDT <- data.table::data.table(alias = c('alias1', 'alias2')
+                                                    , index = c('company', 'otherIndex'))
+                  testthat::with_mock(
+                      `httr::stop_for_status` = function(...) {return(NULL)},
+                      `httr::GET` = function(...) {return(NULL)},
+                      `httr::content` = function(...) {return(jsonlite::fromJSON(txt = test_json))},
+                      `uptasticsearch::.get_aliases` = function(...) {return(aliasDT)},
+                      {
+                          outDT <- get_fields(es_host = 'http://db.mycompany.com:9200'
+                                              , es_indexes = c('company', 'hotel'))
+                          data.table::setkey(outDT, NULL)
+                          expected <- data.table::data.table(
+                              index = c(rep('alias1', 3), rep('hotel', 5))
+                              , type = c(rep('building', 3), rep('bed_room', 2), rep('conference_room', 3))
+                              , field = c('id', 'address', 'address.keyword', 'num_beds', 'description'
+                                          , 'num_people', 'purpose', 'purpose.keyword')
+                              , data_type = c('long', 'text', 'keyword', 'integer', 'text', 'integer'
+                                              , 'text', 'keyword')
+                          )
+                          expect_identical(outDT, expected)
+                      }
+                  )
+              }
+    )
+    
+    
 #--- 3. .flatten_mapping
     
     # Works if one index is passed
