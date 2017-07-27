@@ -4,16 +4,16 @@
 \alias{get_fields}
 \title{Get the names and data types of the indexed fields in an index}
 \usage{
-get_fields(es_host, es_indexes = "_all")
+get_fields(es_host, es_indices = "_all")
 }
 \arguments{
 \item{es_host}{A string identifying an Elasticsearch host. This should be of
 the form \code{[transfer_protocol][hostname]:[port]}. For example,
 \code{'http://myindex.thing.com:9200'}.}
 
-\item{es_indexes}{A character vector that contains the names of indexes for
+\item{es_indices}{A character vector that contains the names of indices for
 which to get mappings. Default, is \code{'_all'}, which means
-get the mapping for all indexes. Names of indexes can be
+get the mapping for all indices Names of indices can be
 treated as regular expressions.}
 }
 \value{
@@ -25,8 +25,8 @@ For a given Elasticsearch index, return the mapping from field name
 }
 \examples{
 \dontrun{
-# get the mapping for all indexed fields in the ticket_sales and customers indexes
+# get the mapping for all indexed fields in the ticket_sales and customers indices
 mappingDT <- retrieve_mapping(es_host = "http://es.custdb.mycompany.com:9200"
-                              , es_indexes = c("ticket_sales", "indexes"))
+                              , es_indices = c("ticket_sales", "customers"))
 }
 }

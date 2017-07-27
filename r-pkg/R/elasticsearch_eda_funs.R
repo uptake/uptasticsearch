@@ -124,19 +124,19 @@ get_counts <- function(field
 #' @param es_host A string identifying an Elasticsearch host. This should be of
 #'                the form \code{[transfer_protocol][hostname]:[port]}. For example,
 #'                \code{'http://myindex.thing.com:9200'}.
-#' @param es_indexes A character vector that contains the names of indexes for
+#' @param es_indices A character vector that contains the names of indices for
 #'                   which to get mappings. Default, is \code{'_all'}, which means
-#'                   get the mapping for all indexes. Names of indexes can be
+#'                   get the mapping for all indices Names of indices can be
 #'                   treated as regular expressions.
 #' @export
 #' @return A data.table containing four columns: index, type, field, and data_type
 #' @examples \dontrun{
-#' # get the mapping for all indexed fields in the ticket_sales and customers indexes
+#' # get the mapping for all indexed fields in the ticket_sales and customers indices
 #' mappingDT <- retrieve_mapping(es_host = "http://es.custdb.mycompany.com:9200"
-#'                               , es_indexes = c("ticket_sales", "indexes"))
+#'                               , es_indices = c("ticket_sales", "customers"))
 #' }
 get_fields <- function(es_host
-                       , es_indexes = '_all'
+                       , es_indices = '_all'
 ) {
     
     # Input checking
@@ -144,21 +144,21 @@ get_fields <- function(es_host
     
     # collapse character vectors into comma separated strings. If any arguments
     # are NULL, create an empty string
-    indexes <- paste(es_indexes, collapse = ',')
+    indices <- paste(es_indices, collapse = ',')
     
     ########################## build the query ################################
-    if (nchar(indexes) > 0) {
-        url <- paste(url, indexes, '_mapping', sep = '/')
+    if (nchar(indices) > 0) {
+        url <- paste(url, indices, '_mapping', sep = '/')
     } else {
-        msg <- paste("get_fields must be passed a valid es_indexes."
-                     , "You provided", paste(es_indexes, collapse = ', ')
+        msg <- paste("get_fields must be passed a valid es_indices."
+                     , "You provided", paste(es_indices, collapse = ', ')
                      , 'which resulted in an empty string')
         futile.logger::flog.fatal(msg)
         stop(msg)
     }
     
     ########################## make the query ################################
-    futile.logger::flog.info(paste('Getting indexed fields for indexes:', indexes))
+    futile.logger::flog.info(paste('Getting indexed fields for indices:', indices))
     
     result <- httr::GET(url = url)
     httr::stop_for_status(result)
@@ -178,7 +178,7 @@ get_fields <- function(es_host
     # log some information about this request to the user
     numFields <- nrow(mappingDT)
     numIndex <- mappingDT[, data.table::uniqueN(index)]
-    futile.logger::flog.info(paste('Retrieved', numFields, 'fields across', numIndex, 'indexes'))
+    futile.logger::flog.info(paste('Retrieved', numFields, 'fields across', numIndex, 'indices'))
     
     return(mappingDT)
 }
@@ -215,7 +215,7 @@ get_fields <- function(es_host
     return(mappingDT)
 }
 
-# [title] Get a data.table containing names of indexes and aliases
+# [title] Get a data.table containing names of indices and aliases
 # [es_host] A string identifying an Elasticsearch host.
 #' @importFrom httr content GET stop_for_status
 .get_aliases <- function(es_host) {

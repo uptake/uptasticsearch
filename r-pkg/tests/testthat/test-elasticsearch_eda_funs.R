@@ -15,15 +15,15 @@ futile.logger::flog.threshold(0)
 
 #--- 2. get_fields
 
-    # Gives an informative error if es_indexes is NULL or an empty string
-    test_that("get_fields should give an informative error if es_indexes is NULL or an empty string",
+    # Gives an informative error if es_indices is NULL or an empty string
+    test_that("get_fields should give an informative error if es_indices is NULL or an empty string",
               {
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
-                                          , es_indexes = NULL),
-                               regexp = "get_fields must be passed a valid es_indexes")
+                                          , es_indices = NULL),
+                               regexp = "get_fields must be passed a valid es_indices")
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
-                                          , es_indexes = ''),
-                               regexp = "get_fields must be passed a valid es_indexes")
+                                          , es_indices = ''),
+                               regexp = "get_fields must be passed a valid es_indices")
               }
     )
     
@@ -40,7 +40,7 @@ futile.logger::flog.threshold(0)
                       `uptasticsearch::.get_aliases` = function(...) {return(aliasDT)},
                       {
                           outDT <- get_fields(es_host = 'http://db.mycompany.com:9200'
-                                              , es_indexes = c('company', 'hotel'))
+                                              , es_indices = c('company', 'hotel'))
                           data.table::setkey(outDT, NULL)
                           expected <- data.table::data.table(
                               index = c(rep('alias1', 3), rep('hotel', 5))
@@ -75,8 +75,8 @@ futile.logger::flog.threshold(0)
               }
     )
     
-    # works if multiple indexes are passed
-    test_that(".flatten_mapping should work if the mapping for multiple indexes are provided",
+    # works if multiple indices are passed
+    test_that(".flatten_mapping should work if the mapping for multiple indices are provided",
               {
                   test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
                   mapping <- jsonlite::fromJSON(txt = test_json)
