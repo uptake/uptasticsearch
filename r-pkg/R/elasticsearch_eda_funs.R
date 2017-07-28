@@ -125,8 +125,8 @@ get_counts <- function(field
 #'                the form \code{[transfer_protocol][hostname]:[port]}. For example,
 #'                \code{'http://myindex.thing.com:9200'}.
 #' @param es_indices A character vector that contains the names of indices for
-#'                   which to get mappings. Default, is \code{'_all'}, which means
-#'                   get the mapping for all indices Names of indices can be
+#'                   which to get mappings. Default is \code{'_all'}, which means
+#'                   get the mapping for all indices. Names of indices can be
 #'                   treated as regular expressions.
 #' @export
 #' @return A data.table containing four columns: index, type, field, and data_type
