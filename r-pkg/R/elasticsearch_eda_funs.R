@@ -238,21 +238,12 @@ get_fields <- function(es_host
 
 # [title] Process the string returned by the GET alias API into a data table
 # [alias_string] A string returned by the alias API with index and alias name
-#' @importFrom stringr str_replace str_split
-#' @importFrom data.table as.data.table setnames
+#' @importFrom data.table data.table
+#' @importFrom utils read.table
 .process_alias <- function(alias_string) {
-    # remove the new line at the end of the string, if it exists
-    aliasString <- stringr::str_replace(alias_string, '\n$', '')
+    # process the string provided by the /_cat/aliases API into a data.frame and then a data.table
+    aliasDT <- data.table::data.table(utils::read.table(text = alias_string, stringsAsFactors = FALSE))
     
-    # split each entry, separated by a new line, into a vector in a list
-    aliases <- stringr::str_split(aliasString, '\n')[[1]]
-    
-    # remove white space and only take the first two entries
-    aliases <- stringr::str_split(aliases, '\\s+')
-    aliases <- lapply(aliases, function(pair) pair[1:2])
-    
-    # create a data table from the resulting list
-    aliasDT <- data.table::as.data.table(matrix(unlist(aliases), byrow = TRUE, ncol = 2))
-    data.table::setnames(aliasDT, old = colnames(aliasDT), new = c('alias', 'index'))
-    return(aliasDT)
+    # return only the first two columns
+    return(aliasDT[, .(alias = V1, index = V2)])
 }

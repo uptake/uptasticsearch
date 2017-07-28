@@ -12,8 +12,8 @@ the form \code{[transfer_protocol][hostname]:[port]}. For example,
 \code{'http://myindex.thing.com:9200'}.}
 
 \item{es_indices}{A character vector that contains the names of indices for
-which to get mappings. Default, is \code{'_all'}, which means
-get the mapping for all indices Names of indices can be
+which to get mappings. Default is \code{'_all'}, which means
+get the mapping for all indices. Names of indices can be
 treated as regular expressions.}
 }
 \value{
