@@ -93,7 +93,7 @@
     
 
     <pre class="usage"><span class='fu'>es_search</span>(<span class='no'>es_host</span>, <span class='no'>es_index</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>query_body</span> <span class='kw'>=</span> <span class='st'>"{}"</span>,
-  <span class='kw'>scroll</span> <span class='kw'>=</span> <span class='st'>"5m"</span>, <span class='kw'>max_hits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>scroll</span> <span class='kw'>=</span> <span class='st'>"5m"</span>, <span class='kw'>max_hits</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
   <span class='kw'>n_cores</span> <span class='kw'>=</span> <span class='fu'>ceiling</span>(<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>()/<span class='fl'>2</span>), <span class='kw'>break_on_duplicates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>ignore_scroll_restriction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>intermediates_dir</span> <span class='kw'>=</span> <span class='fu'>getwd</span>())</pre>
     
@@ -131,7 +131,9 @@ for more information.</p></td>
     </tr>
     <tr>
       <th>max_hits</th>
-      <td><p>Integer. If specified, <code>es_search</code> will stop pulling data as soon as it has pulled this many hits.</p></td>
+      <td><p>Integer. If specified, <code>es_search</code> will stop pulling data as soon
+as it has pulled this many hits. Default is <code>Inf</code>, meaning that
+all possible hits will be pulled.</p></td>
     </tr>
     <tr>
       <th>n_cores</th>

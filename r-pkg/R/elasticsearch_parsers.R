@@ -804,6 +804,11 @@ es_search <- function(es_host
     
     # If we got everything possible, just return here
     hits_pulled <- length(firstResult[["hits"]][["hits"]])
+    
+    if (hits_pulled == 0) {
+      return(NULL)
+    }
+    
     if (hits_pulled == hits_to_pull) {
         # Parse to data.table
         esDT <- chomp_hits(hits_json = firstResultJSON
