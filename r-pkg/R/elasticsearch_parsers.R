@@ -808,6 +808,7 @@ es_search <- function(es_host
     if (hits_pulled == 0) {
       msg <- paste0('Query is syntactically valid but 0 documents was matched. '
                     , 'Returning NULL')
+      futile.logger::flog.warn(msg)
       warning(msg)
       return(NULL)
     }
@@ -1033,6 +1034,7 @@ es_search <- function(es_host
     if (! grepl(protocolPattern, es_host) == 1){
         msg <- paste0('You did not provide a transfer protocol (e.g. http://) with es_host.'
                       , 'Assuming http://...')
+        futile.logger::flog.warn(msg)
         warning(msg)
         
         # Doing this to avoid cases where you just missed a slash or something,
