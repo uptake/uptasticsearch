@@ -806,6 +806,9 @@ es_search <- function(es_host
     hits_pulled <- length(firstResult[["hits"]][["hits"]])
     
     if (hits_pulled == 0) {
+      msg <- paste0('Query is syntactically valid but 0 documents was matched.'
+                    , 'Returning NULL')
+      warning(msg)
       return(NULL)
     }
     
