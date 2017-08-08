@@ -8,4 +8,8 @@
 utils::globalVariables(c('.'
                          , '.I'
                          , '.id'
+                         , 'field'
+                         , 'index'
+                         , 'V1'
+                         , 'V2'
                        ))

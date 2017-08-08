@@ -35,7 +35,7 @@ test_that('R CMD check should not return any unexpected errors, warnings, or not
     testthat::skip_on_cran()
     
     # Check the package
-    x <- devtools::check(pkg = '../../../uptasticsearch'
+    x <- devtools::check(pkg = '../../../r-pkg'
                          , document = TRUE
                          , args = '--no-tests --ignore-vignettes'
                          , quiet = FALSE)
