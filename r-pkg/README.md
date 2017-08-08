@@ -30,7 +30,7 @@ install.packages('uptasticsearch')
 To use the development version of the package, which has the newest changes, you can install directly from GitHub
 
 ```
-devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = 'r-pkg/uptasticsearch')
+devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = 'r-pkg')
 ```
 
 ## Usage Examples <a name="examples"></a>
