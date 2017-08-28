@@ -94,6 +94,41 @@
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
+<div id="elasticsearch-metadata" class="section level3">
+<h3 class="hasAnchor">
+<a href="#elasticsearch-metadata" class="anchor"></a>Elasticsearch metadata</h3>
+<ul>
+<li>
+<code>get_fields</code> returns a data.table with the names and types of all indexed fields across one or more indices</li>
+</ul>
+</div>
+<div id="routing-temporary-file-writing" class="section level3">
+<h3 class="hasAnchor">
+<a href="#routing-temporary-file-writing" class="anchor"></a>Routing Temporary File Writing</h3>
+<ul>
+<li>
+<code>es_search</code> now accepts an <code>intermediates_dir</code> parameter, giving users control over the directory used for temporary I/O at query time</li>
+</ul>
+</div>
+</div>
+<div id="bugfixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<div id="empty-results" class="section level3">
+<h3 class="hasAnchor">
+<a href="#empty-results" class="anchor"></a>Empty Results</h3>
+<ul>
+<li>Added logic to short-circuit and return early with an informative message if a query matches 0 documents</li>
+</ul>
+</div>
+</div>
+</div>
+    <div id="uptasticsearch-0-0-2" class="section level1">
+<h1 class="hasAnchor">
+<a href="#uptasticsearch-0-0-2" class="anchor"></a>uptasticsearch 0.0.2</h1>
+<div id="features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features-1" class="anchor"></a>Features</h2>
 <div id="main-function" class="section level3">
 <h3 class="hasAnchor">
 <a href="#main-function" class="anchor"></a>Main function</h3>
@@ -140,6 +175,7 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#uptasticsearch-0-1-0">0.1.0</a></li>
+        <li><a href="#uptasticsearch-0-0-2">0.0.2</a></li>
       </ul>
     </div>
   </div>
