@@ -115,7 +115,9 @@
 </h3>
 <p>The most common use case for this package will be the case where you have an ES query and want to get a data frame representation of many resulting documents.</p>
 <p>In the example below, we use <code>uptasticsearch</code> to look for all survey results in which customers said their satisfaction was “low” or “very low” and mentioned food in their comments.</p>
-<pre><code># Build your query in an R string
+<pre><code>library(uptasticsearch)
+
+# Build your query in an R string
 qbody &lt;- '{
   "query": {
     "filtered": {
@@ -157,7 +159,9 @@ commentDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
 </h3>
 <p>Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. <code>uptasticsearch</code> has built-in support for these aggregations.</p>
 <p>In the example below, we use <code>uptasticsearch</code> to create daily timeseries of summary statistics like total revenue and average payment amount.</p>
-<pre><code># Build your query in an R string
+<pre><code>library(uptasticsearch)
+
+# Build your query in an R string
 qbody &lt;- '{
   "query": {
     "filtered": {
