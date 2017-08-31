@@ -27,3 +27,45 @@
 
 ### CRAN Response
 * No lingering issues. v0.0.2 released to CRAN!
+
+## v0.1.0 - Submission 1 - (August 28, 2017)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* Need to use CRAN canonical form (http://cran.r-project.org/package=uptasticsearch)
+
+## v0.1.0 - Submission 2 - (August 28, 2017)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* CRAN canonical form uses HTTPS (https://cran.r-project.org/package=uptasticsearch)
+
+## v0.1.0 - Submission 3 - (August 29, 2017)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* CRAN URLs are still missing HTTPS (submitter error)
+
+## v0.1.0 - Submission 4 - (August 29, 2017)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* Still missing HTTPS in CRAN URLs (we'd been editing the README at the repo root, not the one built with the package)
+* Reviewers asked if examples in "\dontrun" could be run instead
+
+## v0.1.0 - Submission 5 - (August 29, 2017)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* No lingering issues. v0.0.2 released to CRAN!
+

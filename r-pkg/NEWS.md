@@ -2,6 +2,21 @@
 
 ## Features
 
+### Elasticsearch metadata
+- `get_fields` returns a data.table with the names and types of all indexed fields across one or more indices
+
+### Routing Temporary File Writing
+- `es_search` now accepts an `intermediates_dir` parameter, giving users control over the directory used for temporary I/O at query time
+
+## Bugfixes
+
+### Empty Results
+- Added logic to short-circuit and return early with an informative message if a query matches 0 documents
+
+# uptasticsearch 0.0.2
+
+## Features
+
 ### Main function
 - `es_search` executes an ES query and gets a data.table
 
