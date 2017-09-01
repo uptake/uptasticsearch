@@ -52,6 +52,8 @@ The most common use case for this package will be the case where you have an ES 
 In the example below, we use `uptasticsearch` to look for all survey results in which customers said their satisfaction was "low" or "very low" and mentioned food in their comments.
 
 ```
+library(uptasticsearch)
+
 # Build your query in an R string
 qbody <- '{
   "query": {
@@ -96,6 +98,8 @@ Elasticsearch ships with a rich set of aggregations for creating summarized view
 In the example below, we use `uptasticsearch` to create daily timeseries of summary statistics like total revenue and average payment amount.
 
 ```
+library(uptasticsearch)
+
 # Build your query in an R string
 qbody <- '{
   "query": {
