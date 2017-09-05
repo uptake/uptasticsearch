@@ -27,30 +27,6 @@ test_that("Files in extdata/ and testdata/ should be smaller than 10MB on disk"
           expect_true(nrow(infoDT) != 0 && max(sizesInMB) < 10)}
 )
 
-
-# R CMD Check stuff. Current upper lims: 0 errors, 0 warnings, 0 notes
-test_that('R CMD check should not return any unexpected errors, warnings, or notes', {
-    
-    # Do not run this if tests are being run from R CMD check --as-cran 
-    testthat::skip_on_cran()
-    
-    # Check the package
-    x <- devtools::check(pkg = '../../../r-pkg'
-                         , document = TRUE
-                         , args = '--no-tests --ignore-vignettes'
-                         , quiet = FALSE)
-    
-    # Should not return any errors
-    expect_true(length(x[["errors"]]) == 0)
-    
-    # Should not return any warnings except possibly one that is caused
-    # by running this on a system where MASS is not available
-    expect_true(length(x[["warnings"]]) == 0 || x[["warnings"]] == "checking Rd cross-references ... WARNING\nError in find.package(package, lib.loc) : \n  there is no package called ‘MASS’\nCalls: <Anonymous> -> lapply -> FUN -> find.package\nExecution halted")
-    
-    # Should not return any notes
-    expect_true(length(x[["notes"]]) == 0)
-})
-
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
