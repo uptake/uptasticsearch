@@ -1,2 +1,9 @@
 language: R
 cache: packages
+warnings_are_errors: true
+
+before_install:
+- cd r-pkg
+
+after_success:
+- Rscript -e 'install.packages("covr"); covr::codecov()'
