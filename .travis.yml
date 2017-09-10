@@ -2,8 +2,96 @@ language: R
 cache: packages
 warnings_are_errors: true
 
+addons:
+  apt:
+    packages:
+      - oracle-java8-set-default
+
+env:
+  matrix:
+  - ES_VERSION=1.0.0
+  - ES_VERSION=1.4.0
+  - ES_VERSION=1.7.2
+  - ES_VERSION=2.0.0
+  - ES_VERSION=2.1.0
+  - ES_VERSION=2.2.0
+  - ES_VERSION=2.3.0
+  - ES_VERSION=5.0.0
+  - ES_VERSION=5.3.0
+  - ES_VERSION=5.4.0
+  - ES_VERSION=5.5.0
+
 before_install:
-- cd r-pkg
+  - case "$ES_VERSION" in
+    "") ;;
+
+    "1.0.0")
+      export ES_VERSION=1.0.0 ;
+      curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "1.4.0")
+      export ES_VERSION=1.4.0 ;
+      curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "1.7.2")
+      export ES_VERSION=1.7.2 ;
+      curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "2.0.0")
+      export ES_VERSION=2.0.0 ;
+      curl -O https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/$ES_VERSION/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "2.1.0")
+      export ES_VERSION=2.1.0 ;
+      curl -O https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/$ES_VERSION/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "2.2.0")
+      export ES_VERSION=2.2.0 ;
+      curl -O https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/$ES_VERSION/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "2.3.0")
+      export ES_VERSION=2.3.0 ;
+      curl -O https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/$ES_VERSION/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "5.0.0")
+      export ES_VERSION=5.0.0 ;
+      curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "5.3.0")
+      export ES_VERSION=5.3.0 ;
+      curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+    
+    "5.4.0")
+      export ES_VERSION=5.4.0 ;
+      curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+
+    "5.5.0")
+      export ES_VERSION=5.5.0 ;
+      curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb && sudo service elasticsearch start
+      ;;
+   esac
+
+  - sleep 20
+  - sudo service elasticsearch status
+  - wget https://download.elastic.co/demos/kibana/gettingstarted/shakespeare.json -O shakespeare.json
+  - mv r-pkg/inst/testdata/shakespeare_mapping.json shakespeare_mapping.json
+  - echo $(ls)
+  - curl --silent -X PUT "http://127.0.0.1:9200/shakespeare" -d @shakespeare_mapping.json
+  - head -10000 shakespeare.json > sample_data.json
+  - split -l 1000 sample_data.json data_
+  - for filename in $(ls | grep data_); do curl --silent -X POST "http://127.0.0.1:9200/shakespeare/_bulk" --data-binary "@$filename"; done
+  - curl -X GET "http://127.0.0.1:9200/shakespeare/_search?size=1"
+  - cd r-pkg
 
 after_success:
 - Rscript -e 'install.packages("covr"); covr::codecov()'
