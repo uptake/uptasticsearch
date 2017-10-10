@@ -11,7 +11,7 @@ This project tackles the issue of getting data out of Elasticsearch and into a t
 2. [Installation](#installation)
     1. [R](#rinstallation)
     2. [Python](#pythoninstallation)
-3. [Usage Examples](#paragraph2)
+3. [Usage Examples](#examples)
     1. [Get a Batch of Documents](#example1)
     2. [Aggregation Results](#example2)
 4. [Next Steps](#nextsteps)
