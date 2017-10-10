@@ -9,7 +9,7 @@ This project tackles the issue of getting data out of Elasticsearch and into a t
 ## Table of contents
 1. [How it Works](#howitworks)
 2. [Installation](#installation)
-3. [Usage Examples](#paragraph2)
+3. [Usage Examples](#examples)
     1. [Get a Batch of Documents](#example1)
     2. [Aggregation Results](#example2)
 4. [Next Steps](#nextsteps)
