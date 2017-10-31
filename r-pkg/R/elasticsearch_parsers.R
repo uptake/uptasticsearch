@@ -1104,7 +1104,7 @@ es_search <- function(es_host
     }
     
     # Make request
-    result <- httr::POST(url = reqURL, body = query_body)
+    result <- httr::RETRY(url = reqURL, body = query_body)
     httr::stop_for_status(result)
     result <- httr::content(result, as = "text")
     
