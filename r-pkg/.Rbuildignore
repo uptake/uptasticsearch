@@ -1,7 +1,0 @@
-^.*\.DS_Store$
-
-^docs$
-^_pkgdown\.yml$
-cran-comments.md
-tests/testthat/test-integration_tests.R
-inst/testdata/shakespeare_mapping.json

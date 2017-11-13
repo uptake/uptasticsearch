@@ -59,7 +59,8 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-    <div id="uptasticsearch" class="section level1">
+    
+<div id="uptasticsearch" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#uptasticsearch" class="anchor"></a>uptasticsearch</h1></div>
 
@@ -68,12 +69,19 @@
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>This project tackles the issue of getting data out of Elasticsearch and into a tabular format in R.</p>
 </div>
-<div id="table-of-contents" class="section level2">
-<h2 class="hasAnchor">
-<a href="#table-of-contents" class="anchor"></a>Table of contents</h2>
+</div>
+<div id="table-of-contents" class="section level1">
+<h1 class="hasAnchor">
+<a href="#table-of-contents" class="anchor"></a>Table of contents</h1>
 <ol>
 <li><a href="#howitworks">How it Works</a></li>
-<li><a href="#installation">Installation</a></li>
+<li>
+<a href="#installation">Installation</a>
+<ol>
+<li><a href="#rinstallation">R</a></li>
+<li><a href="#pythoninstallation">Python</a></li>
+</ol>
+</li>
 <li>
 <a href="#examples">Usage Examples</a>
 <ol>
@@ -88,7 +96,6 @@
 </ol>
 </li>
 </ol>
-</div>
 <div id="how-it-works" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-it-works" class="anchor"></a>How it Works <a name="howitworks"></a>
@@ -99,10 +106,21 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation <a name="installation"></a>
 </h2>
+<div id="r" class="section level3">
+<h3 class="hasAnchor">
+<a href="#r" class="anchor"></a>R <a name="rinstallation"></a>
+</h3>
 <p>Releases of this package can be installed from CRAN:</p>
 <pre><code>install.packages('uptasticsearch')</code></pre>
 <p>To use the development version of the package, which has the newest changes, you can install directly from GitHub</p>
-<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = 'r-pkg')</a></code></pre>
+<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("UptakeOpenSource/uptasticsearch")</a></code></pre>
+</div>
+<div id="python" class="section level3">
+<h3 class="hasAnchor">
+<a href="#python" class="anchor"></a>Python <a name="pythoninstallation"></a>
+</h3>
+<p>We plan to release a Python implementation of this functionality, but that is not available at this time. Check back often!</p>
+</div>
 </div>
 <div id="usage-examples" class="section level2">
 <h2 class="hasAnchor">
@@ -350,6 +368,7 @@ revenueDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
 </div>
 </div>
 </div>
+
   </div>
 
   <div class="col-md-3" id="sidebar">

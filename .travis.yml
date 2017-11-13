@@ -84,14 +84,13 @@ before_install:
   - sleep 20
   - sudo service elasticsearch status
   - wget https://download.elastic.co/demos/kibana/gettingstarted/shakespeare.json -O shakespeare.json
-  - mv r-pkg/inst/testdata/shakespeare_mapping.json shakespeare_mapping.json
+  - mv inst/testdata/shakespeare_mapping.json shakespeare_mapping.json
   - echo $(ls)
   - curl --silent -X PUT "http://127.0.0.1:9200/shakespeare" -d @shakespeare_mapping.json
   - head -10000 shakespeare.json > sample_data.json
   - split -l 1000 sample_data.json data_
   - for filename in $(ls | grep data_); do curl --silent -X POST "http://127.0.0.1:9200/shakespeare/_bulk" --data-binary "@$filename"; done
   - curl -X GET "http://127.0.0.1:9200/shakespeare/_search?size=1"
-  - cd r-pkg
 
 after_success:
 - Rscript -e 'install.packages("covr"); covr::codecov()'

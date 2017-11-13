@@ -1,0 +1,47 @@
+
+# Files currently checked into the repo
+^docs$
+^_pkgdown\.yml$
+^cran-comments\.md$
+^tests/testthat/test-integration_tests\.R$
+^inst/testdata/shakespeare_mapping\.json$
+^CONDUCT\.md$
+^LICENSE\.MD$
+^.travis\.yml$
+
+# History files
+^\.Rhistory*
+^\.Rapp\.history*
+
+# Session Data files
+^\.RData$
+
+# Example code in package build process
+.*-Ex\.R
+
+# Output files from R CMD build
+.*\.tar\.gz
+
+# Output files from R CMD check
+.*\.Rcheck/
+
+# RStudio files
+.*\.Rproj
+\.Rproj\.user/
+
+# produced vignettes
+vignettes/*\.html
+vignettes/*\.pdf
+
+# Temporary files created by R markdown
+.*\.utf8\.md
+.*\.knit\.md
+^\.Rproj\.user$
+
+# Data files
+.*\.Rda
+.*\.pdf
+.*\.csv
+
+# system files
+.*\.DS_Store
