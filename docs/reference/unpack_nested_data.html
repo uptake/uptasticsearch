@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hits to data.tables — chomp_hits • uptasticsearch</title>
+<title>Unpack a nested data.table — unpack_nested_data • uptasticsearch</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,30 +83,32 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Hits to data.tables</h1>
+    <h1>Unpack a nested data.table</h1>
     </div>
 
     
-    <p>A function for converting Elasticsearch docs into R data.tables. It
-uses <code><a href='http://www.rdocumentation.org/packages/jsonlite/topics/fromJSON'>fromJSON</a></code> with <code>flatten = TRUE</code> to convert a
-JSON into an R data.frame, and formats it into a data.table.</p>
+    <p>After calling a <code>chomp_*</code> function or <code>es_search</code>, if 
+  you had a nested array in the JSON, its corresponding column in the 
+  resulting data.table is a data.frame itself (or a list of vectors). This 
+  function expands that nested column out, adding its data to the original 
+  data.table, and duplicating metadata down the rows as necessary.</p>  
+<p>This is a side-effect-free function: it returns a new data.table and the
+  input data.table is unmodified.</p>
     
 
-    <pre class="usage"><span class='fu'>chomp_hits</span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>unpack_nested_data</span>(<span class='no'>chomped_df</span>, <span class='no'>col_to_unpack</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>hits_json</th>
-      <td><p>A character vector. If its length is greater than 1, its elements will be pasted 
-together. This can contain a JSON returned from a <code>search</code> query in Elasticsearch, or
-a filepath or URL pointing at one.</p></td>
+      <th>chomped_df</th>
+      <td><p>a data.table</p></td>
     </tr>
     <tr>
-      <th>keep_nested_data_cols</th>
-      <td><p>a boolean (default TRUE); whether to keep columns that are nested
-arrays in the original JSON. A warning will be given if these columns are deleted.</p></td>
+      <th>col_to_unpack</th>
+      <td><p>a character vector of length one: the column name to 
+unpack</p></td>
     </tr>
     </table>
     
@@ -126,7 +128,7 @@ arrays in the original JSON. A warning will be given if these columns are delete
 "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'</span>
 
 <span class='co'># Chomp into a data.table</span>
-<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'>chomp_hits</span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2017-08-31 08:58:04] Keeping the following nested data columns. Consider using unpack_nested_data for one:
+<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2017-11-14 01:18:24] Keeping the following nested data columns. Consider using unpack_nested_data for one:
 #&gt;  details.pastPurchases</div><div class='input'><span class='fu'>print</span>(<span class='no'>sampleChompedDT</span>)</div><div class='output co'>#&gt;     timestamp cust_name details.cust_class details.location
 #&gt; 1: 2017-01-01    Austin        big_spender          chicago
 #&gt; 2: 2017-02-02     James            peasant          chicago
@@ -138,7 +140,7 @@ arrays in the original JSON. A warning will be given if these columns are delete
 <span class='co'># (Note: use es_search() to get here in one step)</span>
 
 <span class='co'># Unpack by details.pastPurchases</span>
-<span class='no'>unpackedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='unpack_nested_data.html'>unpack_nested_data</a></span>(<span class='kw'>chomped_df</span> <span class='kw'>=</span> <span class='no'>sampleChompedDT</span>
+<span class='no'>unpackedDT</span> <span class='kw'>&lt;-</span> <span class='fu'>unpack_nested_data</span>(<span class='kw'>chomped_df</span> <span class='kw'>=</span> <span class='no'>sampleChompedDT</span>
                                  , <span class='kw'>col_to_unpack</span> <span class='kw'>=</span> <span class='st'>"details.pastPurchases"</span>)
 <span class='fu'>print</span>(<span class='no'>unpackedDT</span>)</div><div class='output co'>#&gt;                                 film pmt_amount matinee  timestamp cust_name
 #&gt;  1:                     The Notebook       6.25      NA 2017-01-01    Austin
