@@ -201,7 +201,7 @@ get_fields <- function(es_host
     # convert to data table and add the data type column
     mappingDT <- data.table::data.table(meta = mappingCols, data_type = as.character(flattened))
     newColNames <- c('index', 'type', 'field', 'data_type')
-    data.table::setnames(mappingDT, old = names(mappingDT), new = newColNames)
+    data.table::setnames(mappingDT, newColNames)
     
     # remove any rows, where the field does not end in ".type" to remove meta info
     mappingDT <- mappingDT[stringr::str_detect(field, '\\.type$')]
