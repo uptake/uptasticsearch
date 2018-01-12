@@ -370,7 +370,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 #' unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
 #'                                  , col_to_unpack = "details.pastPurchases")
 #' print(unpackedDT)
-unpack_nested_data <- function(chomped_df, col_to_unpack) {
+unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     
     # Input checks
     if (!("data.table" %in% class(chomped_df))) {
@@ -390,45 +390,64 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
         log_fatal(msg)
     }
     
-    # Avoid side effects
     outDT <- data.table::copy(chomped_df)
-    
-    # Get the column to unpack
     listDT <- outDT[[col_to_unpack]]
     
-    # Make each row a data.table
-    listDT <- lapply(listDT, data.table::as.data.table)
-    
-    # Remove the empty ones... important, due to data.table 1.10.4 bug
-    oldIDs <- which(sapply(listDT, nrow) != 0)
-    listDT <- listDT[oldIDs]
-    
-    # Bind them together with an ID to match to the other data
-    newDT <- data.table::rbindlist(listDT, fill = TRUE, idcol = TRUE)
-    
-    # If we tried to unpack an empty column, fail
-    if (nrow(newDT) == 0) {
+    # Check for empty column
+    if (all(lengths(listDT) == 0)) {
         msg <- "The column given to unpack_nested_data had no data in it."
         log_fatal(msg)
     }
     
-    # Fix the ID because we may have removed some empty elements due to that bug
-    newDT[, .id := oldIDs[.id]]
+    listDT[lengths(listDT) == 0] <- NA
     
-    # Merge
-    outDT[, .id := .I]
-    outDT <- newDT[outDT, on = ".id"]
+    is_df <- purrr::map_lgl(listDT, is.data.frame)
+    is_atomic <- purrr::map_lgl(listDT, is.atomic)
+    is_na <- is.na(listDT)
     
-    # Remove the id column and the original column
-    outDT <- outDT[, !c(".id", col_to_unpack), with = FALSE]
+    # Bind packed column into one data.table
+    if (all(is_atomic)) {
+        newDT <- data.table::as.data.table(unlist(listDT))
+    } else if (all(is_df | is_atomic)) {
+        # If the packed column contains a mixture of data tables, we need to 
+        # to convert the atomic vectors to data.tables
+        
+        # Find column name to use for NA vectors
+        first_df <- min(which(is_df))
+        col_name <- names(listDT[[first_df]])[1]
+        
+        # Convert non data.frame rows to data.table and assign name to rows
+        # with no name
+        prep_row <- function(x) {
+            if (is.atomic(x)) {
+                x <- data.table::as.data.table(x)
+                if (is.na(x)) names(x) <- col_name
+                else names(x) <- col_to_unpack
+            } 
+            x
+        }
+        newDT <- purrr::map(listDT, prep_row)
+        
+        newDT <- data.table::rbindlist(newDT, fill = TRUE)
+    } else {
+        msg <- paste0("Each row in column ", col_to_unpack, " must be a data frame or a vector.")
+        futile.logger::flog.fatal(msg)
+        stop(msg)
+    }
     
-    # Rename unpacked column if it didn't get a name
+    # Create the unpacked data.table by replicating the originally unpacked
+    # columns by the number of rows in each entry in the original unpacked column
+    times_to_replicate <- pmax(purrr::map_int(listDT, NROW), 1)
+    # Replicate the rows of the data.table by entries of times_to_replicate but drop col_to_unpack
+    replicatedDT <- chomped_df[rep(1:nrow(chomped_df), times_to_replicate)]
+    replicatedDT[, col_to_unpack] <- NULL
+    
+    # Then bind the replicated columns with the unpacked column
+    outDT <- data.table::data.table(newDT, replicatedDT)
     if ("V1" %in% names(outDT)) {
         data.table::setnames(outDT, "V1", col_to_unpack)
     }
-    
     return(outDT)
-    
 }
 
 #' @title Hits to data.tables

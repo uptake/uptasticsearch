@@ -916,6 +916,35 @@ futile.logger::flog.threshold(0)
                             regexp = "The column given to unpack_nested_data had no data in it")}
     )
     
+    test_that("unpack_nested_data should break if the column contains a non data frame/vector", {
+        DT <- data.table::data.table(x = 1:2, y = list(list(2), 3))
+        expect_error(unpack_nested_data(chomped_df = DT, col_to_unpack = "y")
+                     , regexp = "must be a data frame or a vector")
+    })
+    
+    test_that("unpack_nested_data should handle NA and empty rows", {
+        DT <- data.table::data.table(x = 1:2, y = list(z = NA, data.table(w = 5:6, z = 7:8)))
+        DT2 <- data.table::data.table(x = 1:2, y = list(z = list(), data.table(w = 5:6, z = 7:8)))
+        unpackedDT <- data.table::data.table(
+            w = c(NA, 5, 6)
+            , z = c(NA, 7, 8)
+            , x = c(1, 2, 2)
+        )
+        expect_equal(unpack_nested_data(DT, col_to_unpack = "y"), unpackedDT)
+        expect_equal(unpack_nested_data(DT2, col_to_unpack = "y"), unpackedDT)
+    })
+    
+    test_that("unpack_nested_data should handle mixed atomic/data frame column", {
+        DT <- data.table::data.table(x = 1:2, y = list(1, data.table(w = 5:6, z = 7:8)))
+        unpackedDT <- data.table::data.table(
+            y = c(1, NA, NA)
+            , w = c(NA, 5, 6)
+            , z = c(NA, 7, 8)
+            , x = c(1, 2, 2)
+        )
+        expect_equal(unpack_nested_data(DT, col_to_unpack = "y"), unpackedDT)
+    })
+    
 #---- 5. .ConvertToSec
     
     # .ConvertToSec should work for seconds

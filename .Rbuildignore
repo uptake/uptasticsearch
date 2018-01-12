@@ -45,3 +45,4 @@ vignettes/*\.pdf
 
 # system files
 .*\.DS_Store
+^.*\.Rproj$
