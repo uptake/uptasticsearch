@@ -1,7 +1,7 @@
 
 #' @title Examine the distribution of distinct values for a field in Elasticsearch
 #' @name get_counts
-#' @description For a given field, return a data table with its unique values in a time range.
+#' @description For a given field, return a data.table with its unique values in a time range.
 #' @importFrom data.table := data.table setnames setkeyv
 #' @importFrom httr content RETRY
 #' @importFrom purrr transpose
@@ -103,7 +103,7 @@ get_counts <- function(field
         return(resultDT)
     }
     
-    # Append count of NAs to the data table
+    # Append count of NAs to the data.table
     naDT <- data.table::data.table(keyval = NA, count = numMissings)
     
     # Reformat
@@ -183,7 +183,7 @@ get_fields <- function(es_host
     return(mappingDT)
 }
 
-# [title] Flatten a mapping list of field name to data type into a data table
+# [title] Flatten a mapping list of field name to data type into a data.table
 # [mapping] A list of json that is returned from a request to the mappings API
 #' @importFrom data.table := data.table setnames
 #' @importFrom stringr str_detect str_split_fixed str_replace_all
@@ -198,7 +198,7 @@ get_fields <- function(es_host
     # into three distinct parts
     mappingCols <- stringr::str_split_fixed(names(flattened), '\\.(mappings|properties)\\.', n = 3)
     
-    # convert to data table and add the data type column
+    # convert to data.table and add the data type column
     mappingDT <- data.table::data.table(meta = mappingCols, data_type = as.character(flattened))
     newColNames <- c('index', 'type', 'field', 'data_type')
     data.table::setnames(mappingDT, newColNames)
@@ -236,7 +236,7 @@ get_fields <- function(es_host
     }
 }
 
-# [title] Process the string returned by the GET alias API into a data table
+# [title] Process the string returned by the GET alias API into a data.table
 # [alias_string] A string returned by the alias API with index and alias name
 #' @importFrom data.table data.table
 #' @importFrom utils read.table
