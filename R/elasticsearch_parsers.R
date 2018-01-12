@@ -929,7 +929,7 @@ es_search <- function(es_host
 # [description] Given a scroll id generate with an Elasticsearch scroll search
 #               request, this function will:
 #                   - hit the scroll context to grab the next page of results
-#                   - call chomp_hits to process that page into a data table
+#                   - call chomp_hits to process that page into a data.table
 #                   - write that table to disk in .json format
 #                   - return null
 # [notes] When Elasticsearch receives a query w/ a scroll request, it does the following:
