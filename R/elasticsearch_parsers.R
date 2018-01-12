@@ -225,7 +225,7 @@ chomp_aggs <- function(aggs_json = NULL) {
                 # If we get down here, we know it's not a bucketed aggregation
                 # So we want to take like "count", "min", "max" and change them to 
                 # e.g. "some_field.count", "some_field.min", "some_field.max"
-                data.table::setnames(outDT, names(outDT), paste0(aggNames, ".", names(outDT)))
+                data.table::setnames(outDT, paste0(aggNames, ".", names(outDT)))
             }
         }
         
@@ -514,7 +514,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
     }
     
     # Strip "_source" from all the column names because blegh
-    data.table::setnames(batchDT, old = names(batchDT), new = gsub("_source\\.", "", names(batchDT)))
+    data.table::setnames(batchDT, gsub("_source\\.", "", names(batchDT)))
     
     # Warn the user if there's nested data
     colTypes <- sapply(batchDT, mode)
