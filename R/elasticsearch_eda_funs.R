@@ -3,7 +3,7 @@
 #' @name get_counts
 #' @description For a given field, return a data table with its unique values in a time range.
 #' @importFrom data.table := data.table setnames setkeyv
-#' @importFrom httr content POST
+#' @importFrom httr content RETRY
 #' @importFrom purrr transpose
 #' @export
 #' @param field A valid field in whatever Elasticsearch index you are querying
@@ -67,7 +67,7 @@ get_counts <- function(field
     
     #===== Build search URL =====#
     searchURL  <- paste0(es_host, "/", es_index, "/_search?size=0")
-    result     <- httr::POST(url = searchURL, body = aggsQuery)
+    result     <- httr::RETRY(verb = "POST", url = searchURL, body = aggsQuery)
     counts     <- httr::content(result, as = "parsed")[["aggregations"]][[field]][["buckets"]]
     
     #===== Get data =====#
@@ -95,7 +95,7 @@ get_counts <- function(field
         {"missing": {"field": "', field, '"}}]}}}}}')
     
     # Get result
-    result      <- httr::POST(url = searchURL, body = missingQuery)
+    result      <- httr::RETRY(verb = "POST", url = searchURL, body = missingQuery)
     numMissings <- httr::content(result, as = "parsed")[["hits"]][["total"]]
     
     # Return now if user asked to only see NAs if there are any
