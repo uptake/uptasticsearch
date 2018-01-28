@@ -118,7 +118,6 @@ get_counts <- function(field
 #' @name get_fields
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
-#' @importFrom futile.logger flog.fatal flog.info
 #' @importFrom httr GET content stop_for_status
 #' @importFrom data.table := uniqueN
 #' @param es_host A string identifying an Elasticsearch host. This should be of
@@ -153,12 +152,11 @@ get_fields <- function(es_host
         msg <- paste("get_fields must be passed a valid es_indices."
                      , "You provided", paste(es_indices, collapse = ', ')
                      , 'which resulted in an empty string')
-        futile.logger::flog.fatal(msg)
-        stop(msg)
+        log_fatal(msg)
     }
     
     ########################## make the query ################################
-    futile.logger::flog.info(paste('Getting indexed fields for indices:', indices))
+    log_info(paste('Getting indexed fields for indices:', indices))
     
     result <- httr::GET(url = url)
     httr::stop_for_status(result)
@@ -178,7 +176,7 @@ get_fields <- function(es_host
     # log some information about this request to the user
     numFields <- nrow(mappingDT)
     numIndex <- mappingDT[, data.table::uniqueN(index)]
-    futile.logger::flog.info(paste('Retrieved', numFields, 'fields across', numIndex, 'indices'))
+    log_info(paste('Retrieved', numFields, 'fields across', numIndex, 'indices'))
     
     return(mappingDT)
 }
