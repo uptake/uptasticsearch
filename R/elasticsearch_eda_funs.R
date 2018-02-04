@@ -1,7 +1,7 @@
 
 #' @title Examine the distribution of distinct values for a field in Elasticsearch
 #' @name get_counts
-#' @description For a given field, return a data table with its unique values in a time range.
+#' @description For a given field, return a data.table with its unique values in a time range.
 #' @importFrom data.table := data.table setnames setkeyv
 #' @importFrom httr content RETRY
 #' @importFrom purrr transpose
@@ -101,7 +101,7 @@ get_counts <- function(field
         return(resultDT)
     }
     
-    # Append count of NAs to the data table
+    # Append count of NAs to the data.table
     naDT <- data.table::data.table(keyval = NA, count = numMissings)
     
     # Reformat
@@ -116,7 +116,6 @@ get_counts <- function(field
 #' @name get_fields
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
-#' @importFrom futile.logger flog.fatal flog.info
 #' @importFrom httr GET content stop_for_status
 #' @importFrom data.table := uniqueN
 #' @param es_indices A character vector that contains the names of indices for
@@ -149,12 +148,11 @@ get_fields <- function(es_host
         msg <- paste("get_fields must be passed a valid es_indices."
                      , "You provided", paste(es_indices, collapse = ', ')
                      , 'which resulted in an empty string')
-        futile.logger::flog.fatal(msg)
-        stop(msg)
+        log_fatal(msg)
     }
     
     ########################## make the query ################################
-    futile.logger::flog.info(paste('Getting indexed fields for indices:', indices))
+    log_info(paste('Getting indexed fields for indices:', indices))
     
     result <- httr::GET(url = url)
     httr::stop_for_status(result)
@@ -174,12 +172,12 @@ get_fields <- function(es_host
     # log some information about this request to the user
     numFields <- nrow(mappingDT)
     numIndex <- mappingDT[, data.table::uniqueN(index)]
-    futile.logger::flog.info(paste('Retrieved', numFields, 'fields across', numIndex, 'indices'))
+    log_info(paste('Retrieved', numFields, 'fields across', numIndex, 'indices'))
     
     return(mappingDT)
 }
 
-# [title] Flatten a mapping list of field name to data type into a data table
+# [title] Flatten a mapping list of field name to data type into a data.table
 # [mapping] A list of json that is returned from a request to the mappings API
 #' @importFrom data.table := data.table setnames
 #' @importFrom stringr str_detect str_split_fixed str_replace_all
@@ -194,7 +192,7 @@ get_fields <- function(es_host
     # into three distinct parts
     mappingCols <- stringr::str_split_fixed(names(flattened), '\\.(mappings|properties)\\.', n = 3)
     
-    # convert to data table and add the data type column
+    # convert to data.table and add the data type column
     mappingDT <- data.table::data.table(meta = mappingCols, data_type = as.character(flattened))
     newColNames <- c('index', 'type', 'field', 'data_type')
     data.table::setnames(mappingDT, newColNames)
@@ -232,7 +230,7 @@ get_fields <- function(es_host
     }
 }
 
-# [title] Process the string returned by the GET alias API into a data table
+# [title] Process the string returned by the GET alias API into a data.table
 # [alias_string] A string returned by the alias API with index and alias name
 #' @importFrom data.table data.table
 #' @importFrom utils read.table

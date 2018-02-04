@@ -34,7 +34,7 @@ date from which to show documents. Default is \code{"now"}.}
 Elasticsearch deployments limit this to a small number by default. Default here is 1000.}
 }
 \description{
-For a given field, return a data table with its unique values in a time range.
+For a given field, return a data.table with its unique values in a time range.
 }
 \examples{
 \dontrun{
