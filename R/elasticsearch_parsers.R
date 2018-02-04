@@ -562,7 +562,6 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
 #'        want to change this behavior, provide a path here. `es_search` will create 
 #'        and write to a temporary directory under whatever path you provide.
 #' @inheritParams doc_shared
-#' @importFrom futile.logger flog.fatal flog.info
 #' @importFrom parallel detectCores
 #' @export
 #' @examples
