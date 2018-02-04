@@ -545,9 +545,6 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
 #' @description Given a query and some optional parameters, \code{es_search} gets results 
 #'              from HTTP requests to Elasticsearch and returns a data.table 
 #'              representation of those results.
-#' @param es_host A string identifying an Elasticsearch host. This should be of the form 
-#'        \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.
-#' @param es_index The name of an Elasticsearch index to be queried.
 #' @param max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
 #'                 as it has pulled this many hits. Default is \code{Inf}, meaning that
 #'                 all possible hits will be pulled.
@@ -581,6 +578,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
 #'        directory in whatever working directory the function is called from. If you
 #'        want to change this behavior, provide a path here. `es_search` will create 
 #'        and write to a temporary directory under whatever path you provide.
+#' @inheritParams doc_null
 #' @importFrom futile.logger flog.fatal flog.info
 #' @importFrom parallel detectCores
 #' @export
