@@ -7,9 +7,6 @@
 #' @importFrom purrr transpose
 #' @export
 #' @param field A valid field in whatever Elasticsearch index you are querying
-#' @param es_host A string identifying an Elasticsearch host. This should be of the form 
-#'        \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.
-#' @param es_index The name of an Elasticsearch index to be queried.
 #' @param start_date A character Elasticsearch date-time, indicating the earliest
 #'        date from which to show documents. Default is \code{"now-1w"}.
 #' @param end_date A character Elasticsearch date-time, indicating the most recent
@@ -23,6 +20,7 @@
 #'        }
 #' @param max_terms What is the maximum number of unique terms to return? Many production
 #'                  Elasticsearch deployments limit this to a small number by default. Default here is 1000.
+#' @inheritParams doc_shared
 #' @examples
 #' \dontrun{
 #' # Count number of customers by payment method
@@ -120,13 +118,11 @@ get_counts <- function(field
 #'              to data type for all indexed fields.
 #' @importFrom httr GET content stop_for_status
 #' @importFrom data.table := uniqueN
-#' @param es_host A string identifying an Elasticsearch host. This should be of
-#'                the form \code{[transfer_protocol][hostname]:[port]}. For example,
-#'                \code{'http://myindex.thing.com:9200'}.
 #' @param es_indices A character vector that contains the names of indices for
 #'                   which to get mappings. Default is \code{'_all'}, which means
 #'                   get the mapping for all indices. Names of indices can be
 #'                   treated as regular expressions.
+#' @inheritParams doc_shared
 #' @export
 #' @return A data.table containing four columns: index, type, field, and data_type
 #' @examples \dontrun{
