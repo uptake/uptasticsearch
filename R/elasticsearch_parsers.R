@@ -342,6 +342,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 #'   This is a side-effect-free function: it returns a new data.table and the
 #'   input data.table is unmodified.
 #' @importFrom data.table copy as.data.table rbindlist setnames
+#' @importFrom purrr map_if map_lgl map_int
 #' @export
 #' @param chomped_df a data.table
 #' @param col_to_unpack a character vector of length one: the column name to 
@@ -390,11 +391,10 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
         log_fatal(msg)
     }
     
-    outDT <- data.table::copy(chomped_df)
-    listDT <- outDT[[col_to_unpack]]
+    listDT <- chomped_df[[col_to_unpack]]
     
     # Check for empty column
-    if (all(lengths(listDT) == 0)) {
+    if (all(purrr::map_int(listDT, NROW) == 0)) {
         msg <- "The column given to unpack_nested_data had no data in it."
         log_fatal(msg)
     }
@@ -402,48 +402,42 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     listDT[lengths(listDT) == 0] <- NA
     
     is_df <- purrr::map_lgl(listDT, is.data.frame)
+    is_list <- purrr::map_lgl(listDT, is.list)
     is_atomic <- purrr::map_lgl(listDT, is.atomic)
     is_na <- is.na(listDT)
     
     # Bind packed column into one data.table
     if (all(is_atomic)) {
         newDT <- data.table::as.data.table(unlist(listDT))
-    } else if (all(is_df | is_atomic)) {
-        # If the packed column contains a mixture of data tables, we need to 
-        # to convert the atomic vectors to data.tables
-        
-        # Find column name to use for NA vectors
+    } else if (all(is_df | is_list | is_na)) {
+	    # Find name to use for NA columns
         first_df <- min(which(is_df))
         col_name <- names(listDT[[first_df]])[1]
-        
-        # Convert non data.frame rows to data.table and assign name to rows
-        # with no name
-        prep_row <- function(x) {
-            if (is.atomic(x)) {
-                x <- data.table::as.data.table(x)
-                if (is.na(x)) names(x) <- col_name
-                else names(x) <- col_to_unpack
-            } 
+
+        .prep_na_row <- function(x, col_name) {
+            x <- data.table::as.data.table(x)
+            names(x) <- col_name
             x
         }
-        newDT <- purrr::map(listDT, prep_row)
-        
+
+	    # If the packed column contains data.tables, we use rbindlist
+        newDT <- purrr::map_if(listDT, is_na, .prep_na_row, col_name = col_name)
         newDT <- data.table::rbindlist(newDT, fill = TRUE)
     } else {
         msg <- paste0("Each row in column ", col_to_unpack, " must be a data frame or a vector.")
-        futile.logger::flog.fatal(msg)
-        stop(msg)
+        log_fatal(msg)
     }
-    
+
     # Create the unpacked data.table by replicating the originally unpacked
     # columns by the number of rows in each entry in the original unpacked column
+    # We don't use newDT because it doesn't have the original row lengths
     times_to_replicate <- pmax(purrr::map_int(listDT, NROW), 1)
     # Replicate the rows of the data.table by entries of times_to_replicate but drop col_to_unpack
     replicatedDT <- chomped_df[rep(1:nrow(chomped_df), times_to_replicate)]
     replicatedDT[, col_to_unpack] <- NULL
-    
     # Then bind the replicated columns with the unpacked column
     outDT <- data.table::data.table(newDT, replicatedDT)
+    
     if ("V1" %in% names(outDT)) {
         data.table::setnames(outDT, "V1", col_to_unpack)
     }

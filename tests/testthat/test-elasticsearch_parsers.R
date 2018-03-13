@@ -934,17 +934,6 @@ futile.logger::flog.threshold(0)
         expect_equal(unpack_nested_data(DT2, col_to_unpack = "y"), unpackedDT)
     })
     
-    test_that("unpack_nested_data should handle mixed atomic/data frame column", {
-        DT <- data.table::data.table(x = 1:2, y = list(1, data.table(w = 5:6, z = 7:8)))
-        unpackedDT <- data.table::data.table(
-            y = c(1, NA, NA)
-            , w = c(NA, 5, 6)
-            , z = c(NA, 7, 8)
-            , x = c(1, 2, 2)
-        )
-        expect_equal(unpack_nested_data(DT, col_to_unpack = "y"), unpackedDT)
-    })
-    
 #---- 5. .ConvertToSec
     
     # .ConvertToSec should work for seconds
