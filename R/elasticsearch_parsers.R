@@ -378,10 +378,6 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
         msg <- "For unpack_nested_data, chomped_df must be a data.table"
         log_fatal(msg)
     }
-    if (".id" %in% names(chomped_df)) {
-        msg <- "For unpack_nested_data, chomped_df cannot have a column named '.id'"
-        log_fatal(msg)
-    }
     if (!("character" %in% class(col_to_unpack)) || length(col_to_unpack) != 1) {
         msg <- "For unpack_nested_data, col_to_unpack must be a character of length 1"
         log_fatal(msg)
@@ -391,7 +387,15 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
         log_fatal(msg)
     }
     
-    listDT <- chomped_df[[col_to_unpack]]
+    inDT <- data.table::copy(chomped_df)
+    
+    # Define a column name to store original row ID
+    joinCol <- uuid::UUIDgenerate()
+    inDT[, (joinCol) := .I]
+    
+    # Take out the packed column
+    listDT <- inDT[[col_to_unpack]]
+    inDT[, (col_to_unpack) := NULL]
     
     # Check for empty column
     if (all(purrr::map_int(listDT, NROW) == 0)) {
@@ -409,6 +413,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     # Bind packed column into one data.table
     if (all(is_atomic)) {
         newDT <- data.table::as.data.table(unlist(listDT))
+        newDT[, (joinCol) := rep(seq_along(listDT), lengths(listDT))]
     } else if (all(is_df | is_list | is_na)) {
 	    # Find name to use for NA columns
         first_df <- min(which(is_df))
@@ -422,25 +427,21 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
 
 	    # If the packed column contains data.tables, we use rbindlist
         newDT <- purrr::map_if(listDT, is_na, .prep_na_row, col_name = col_name)
-        newDT <- data.table::rbindlist(newDT, fill = TRUE)
+        newDT <- data.table::rbindlist(newDT, fill = TRUE, idcol = joinCol)
     } else {
         msg <- paste0("Each row in column ", col_to_unpack, " must be a data frame or a vector.")
         log_fatal(msg)
     }
 
-    # Create the unpacked data.table by replicating the originally unpacked
-    # columns by the number of rows in each entry in the original unpacked column
-    # We don't use newDT because it doesn't have the original row lengths
-    times_to_replicate <- pmax(purrr::map_int(listDT, NROW), 1)
-    # Replicate the rows of the data.table by entries of times_to_replicate but drop col_to_unpack
-    replicatedDT <- chomped_df[rep(1:nrow(chomped_df), times_to_replicate)]
-    replicatedDT[, col_to_unpack] <- NULL
-    # Then bind the replicated columns with the unpacked column
-    outDT <- data.table::data.table(newDT, replicatedDT)
+    # Join it back in
+    outDT <- inDT[newDT, on = joinCol]
+    outDT[, (joinCol) := NULL]
     
+    # In the case of all atomic...
     if ("V1" %in% names(outDT)) {
         data.table::setnames(outDT, "V1", col_to_unpack)
     }
+    
     return(outDT)
 }
 
