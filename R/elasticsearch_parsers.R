@@ -342,6 +342,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 #'   This is a side-effect-free function: it returns a new data.table and the
 #'   input data.table is unmodified.
 #' @importFrom data.table copy as.data.table rbindlist setnames
+#' @importFrom purrr map_if map_lgl map_int
 #' @export
 #' @param chomped_df a data.table
 #' @param col_to_unpack a character vector of length one: the column name to 
@@ -370,15 +371,11 @@ chomp_aggs <- function(aggs_json = NULL) {
 #' unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
 #'                                  , col_to_unpack = "details.pastPurchases")
 #' print(unpackedDT)
-unpack_nested_data <- function(chomped_df, col_to_unpack) {
+unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     
     # Input checks
     if (!("data.table" %in% class(chomped_df))) {
         msg <- "For unpack_nested_data, chomped_df must be a data.table"
-        log_fatal(msg)
-    }
-    if (".id" %in% names(chomped_df)) {
-        msg <- "For unpack_nested_data, chomped_df cannot have a column named '.id'"
         log_fatal(msg)
     }
     if (!("character" %in% class(col_to_unpack)) || length(col_to_unpack) != 1) {
@@ -390,45 +387,62 @@ unpack_nested_data <- function(chomped_df, col_to_unpack) {
         log_fatal(msg)
     }
     
-    # Avoid side effects
-    outDT <- data.table::copy(chomped_df)
+    inDT <- data.table::copy(chomped_df)
     
-    # Get the column to unpack
-    listDT <- outDT[[col_to_unpack]]
+    # Define a column name to store original row ID
+    joinCol <- uuid::UUIDgenerate()
+    inDT[, (joinCol) := .I]
     
-    # Make each row a data.table
-    listDT <- lapply(listDT, data.table::as.data.table)
+    # Take out the packed column
+    listDT <- inDT[[col_to_unpack]]
+    inDT[, (col_to_unpack) := NULL]
     
-    # Remove the empty ones... important, due to data.table 1.10.4 bug
-    oldIDs <- which(sapply(listDT, nrow) != 0)
-    listDT <- listDT[oldIDs]
-    
-    # Bind them together with an ID to match to the other data
-    newDT <- data.table::rbindlist(listDT, fill = TRUE, idcol = TRUE)
-    
-    # If we tried to unpack an empty column, fail
-    if (nrow(newDT) == 0) {
+    # Check for empty column
+    if (all(purrr::map_int(listDT, NROW) == 0)) {
         msg <- "The column given to unpack_nested_data had no data in it."
         log_fatal(msg)
     }
     
-    # Fix the ID because we may have removed some empty elements due to that bug
-    newDT[, .id := oldIDs[.id]]
+    listDT[lengths(listDT) == 0] <- NA
     
-    # Merge
-    outDT[, .id := .I]
-    outDT <- newDT[outDT, on = ".id"]
+    is_df <- purrr::map_lgl(listDT, is.data.frame)
+    is_list <- purrr::map_lgl(listDT, is.list)
+    is_atomic <- purrr::map_lgl(listDT, is.atomic)
+    is_na <- is.na(listDT)
     
-    # Remove the id column and the original column
-    outDT <- outDT[, !c(".id", col_to_unpack), with = FALSE]
+    # Bind packed column into one data.table
+    if (all(is_atomic)) {
+        newDT <- data.table::as.data.table(unlist(listDT))
+        newDT[, (joinCol) := rep(seq_along(listDT), lengths(listDT))]
+    } else if (all(is_df | is_list | is_na)) {
+	    # Find name to use for NA columns
+        first_df <- min(which(is_df))
+        col_name <- names(listDT[[first_df]])[1]
+
+        .prep_na_row <- function(x, col_name) {
+            x <- data.table::as.data.table(x)
+            names(x) <- col_name
+            x
+        }
+
+	    # If the packed column contains data.tables, we use rbindlist
+        newDT <- purrr::map_if(listDT, is_na, .prep_na_row, col_name = col_name)
+        newDT <- data.table::rbindlist(newDT, fill = TRUE, idcol = joinCol)
+    } else {
+        msg <- paste0("Each row in column ", col_to_unpack, " must be a data frame or a vector.")
+        log_fatal(msg)
+    }
+
+    # Join it back in
+    outDT <- inDT[newDT, on = joinCol]
+    outDT[, (joinCol) := NULL]
     
-    # Rename unpacked column if it didn't get a name
+    # In the case of all atomic...
     if ("V1" %in% names(outDT)) {
         data.table::setnames(outDT, "V1", col_to_unpack)
     }
     
     return(outDT)
-    
 }
 
 #' @title Hits to data.tables

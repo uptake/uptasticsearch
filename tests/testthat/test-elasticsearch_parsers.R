@@ -845,8 +845,8 @@ futile.logger::flog.threshold(0)
                                                , col_to_unpack = "details.appData")
               expect_true("data.table" %in% class(unpackedDT))
               expect_equivalent(dim(unpackedDT), c(7, 8))
-              expect_named(unpackedDT, c('appName', 'minutes', 'value', 'typovalue', 'dateTime', 'username',
-                           'details.interactions', 'details.userType'))
+              expect_named(unpackedDT, c('dateTime', 'username', 'details.interactions', 
+                                         'details.userType', 'appName', 'minutes', 'value', 'typovalue'))
               expect_identical(unpackedDT$appName, c('farmville', 'candy_crush', 'angry_birds',
                                                      'minesweeper', 'pokemon_go', 'pokemon_stay',
                                                      'block_dude'))
@@ -868,8 +868,8 @@ futile.logger::flog.threshold(0)
                                                , col_to_unpack = "details.minutes")
               expect_true("data.table" %in% class(unpackedDT))
               expect_equivalent(dim(unpackedDT), c(8, 5))
-              expect_named(unpackedDT, c('details.minutes', 'dateTime', 'username',
-                                         'details.interactions', 'details.userType'))
+              expect_named(unpackedDT, c('dateTime', 'username', 'details.interactions', 
+                                         'details.userType', 'details.minutes'))
               expect_equivalent(unpackedDT$details.minutes, c(500, 350, 422, NA, 28, 190, 1, 796))
               expect_identical(unpackedDT$username, c(rep("Austin1", 3), "Austin2", rep("Austin3", 4)))
               })
@@ -879,13 +879,6 @@ futile.logger::flog.threshold(0)
               {expect_error(unpack_nested_data(chomped_df = 42
                                                , col_to_unpack = "blah"),
                             regexp = "chomped_df must be a data.table")}
-             )
-    
-    # Should break if chomped_df already has a column named ".id"
-    test_that("unpack_nested_data should break if you pass a data.table with column '.id'",
-              {expect_error(unpack_nested_data(chomped_df = data.table::data.table(wow = 7, .id = 8)
-                                               , col_to_unpack = "blah"),
-                            regexp = "chomped_df cannot have a column named '.id'")}
              )
     
     # Should break if col_to_unpack is not a string
@@ -915,6 +908,24 @@ futile.logger::flog.threshold(0)
                                                , col_to_unpack = "dang"),
                             regexp = "The column given to unpack_nested_data had no data in it")}
     )
+    
+    test_that("unpack_nested_data should break if the column contains a non data frame/vector", {
+        DT <- data.table::data.table(x = 1:2, y = list(list(2), 3))
+        expect_error(unpack_nested_data(chomped_df = DT, col_to_unpack = "y")
+                     , regexp = "must be a data frame or a vector")
+    })
+    
+    test_that("unpack_nested_data should handle NA and empty rows", {
+        DT <- data.table::data.table(x = 1:2, y = list(z = NA, data.table::data.table(w = 5:6, z = 7:8)))
+        DT2 <- data.table::data.table(x = 1:2, y = list(z = list(), data.table::data.table(w = 5:6, z = 7:8)))
+        unpackedDT <- data.table::data.table(
+            x = c(1, 2, 2)
+            , w = c(NA, 5, 6)
+            , z = c(NA, 7, 8)
+        )
+        expect_equal(unpack_nested_data(DT, col_to_unpack = "y"), unpackedDT)
+        expect_equal(unpack_nested_data(DT2, col_to_unpack = "y"), unpackedDT)
+    })
     
 #---- 5. .ConvertToSec
     
