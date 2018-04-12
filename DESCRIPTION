@@ -1,13 +1,14 @@
 Package: uptasticsearch
 Type: Package
 Title: Get Data Frame Representations of 'Elasticsearch' Results
-Version: 0.1.0.9999
+Version: 0.2.0
 Authors@R: c(
     person("James", "Lamb", email = "james.lamb@uptake.com", role = c("aut", "cre")),
     person("Nick", "Paras", email = "nick.paras@uptake.com", role = c("aut")),
     person("Austin", "Dickey", email = "austin.dickey@uptake.com", role = c("aut")),
     person("Michael", "Frasco", email = "mfrasco6@gmail.com", role = c("ctb")),
     person("Weiwen", "Gu", email = "weiwen.gu@uptake.com", role = c("ctb")),
+    person("Will", "Dearden", email = "william.dearden@uptake.com", role = c("ctb")),
     person("Uptake Technologies Inc.", role = c("cph")))
 Maintainer: James Lamb <james.lamb@uptake.com>
 Description:
