@@ -67,5 +67,14 @@
 * No issues
 
 ### CRAN Response
-* No lingering issues. v0.0.2 released to CRAN!
+* No lingering issues. v0.1.0 released to CRAN!
+
+## v0.2.0 - Submission 1 - (April 12, 2018)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* No issues. v0.2.0 released to CRAN!
+
 

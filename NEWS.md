@@ -1,3 +1,13 @@
+# uptasticsearch 0.2.0
+
+## Features
+
+### Faster `unpackage_nested_data`
+- [#51](https://github.com/UptakeOpenSource/uptasticsearch/pull/51) changed the parsing strategy for nested data and made it 9x faster than the previous implementation
+
+### Retry logic
+- Functions that make HTTP calls will now use retry logic via `httr::RETRY` instead of one-shot `POST` or `GET` calls
+
 # uptasticsearch 0.1.0
 
 ## Features
