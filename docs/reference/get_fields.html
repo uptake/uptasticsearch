@@ -119,8 +119,8 @@ treated as regular expressions.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='co'># get the mapping for all indexed fields in the ticket_sales and customers indices</span>
-<span class='no'>mappingDT</span> <span class='kw'>&lt;-</span> <span class='fu'>retrieve_mapping</span>(<span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
-                              , <span class='kw'>es_indices</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ticket_sales"</span>, <span class='st'>"customers"</span>))
+<span class='no'>mappingDT</span> <span class='kw'>&lt;-</span> <span class='fu'>get_fields</span>(<span class='kw'>es_host</span> <span class='kw'>=</span> <span class='st'>"http://es.custdb.mycompany.com:9200"</span>
+                        , <span class='kw'>es_indices</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ticket_sales"</span>, <span class='st'>"customers"</span>))
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
