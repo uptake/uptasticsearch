@@ -18,13 +18,28 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Unpack a nested data.table — unpack_nested_data" />
+
+<meta property="og:description" content="After calling a chomp_* function or es_search, if 
+  you had a nested array in the JSON, its corresponding column in the 
+  resulting data.table is a data.frame itself (or a list of vectors). This 
+  function expands that nested column out, adding its data to the original 
+  data.table, and duplicating metadata down the rows as necessary.  
+This is a side-effect-free function: it returns a new data.table and the
+  input data.table is unmodified." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +62,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">uptasticsearch</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">uptasticsearch</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -61,7 +80,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -73,6 +92,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,12 +100,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Unpack a nested data.table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/UptakeOpenSource/uptasticsearch/blob/master/R/elasticsearch_parsers.R'><code>R/elasticsearch_parsers.R</code></a></small>
+    <div class="hidden name"><code>unpack_nested_data.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>After calling a <code>chomp_*</code> function or <code>es_search</code>, if 
   you had a nested array in the JSON, its corresponding column in the 
@@ -95,10 +118,11 @@
 <p>This is a side-effect-free function: it returns a new data.table and the
   input data.table is unmodified.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>unpack_nested_data</span>(<span class='no'>chomped_df</span>, <span class='no'>col_to_unpack</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -128,7 +152,7 @@ unpack</p></td>
 "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'</span>
 
 <span class='co'># Chomp into a data.table</span>
-<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2017-11-14 01:18:24] Keeping the following nested data columns. Consider using unpack_nested_data for one:
+<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2018-05-09 20:46:54] Keeping the following nested data columns. Consider using unpack_nested_data for one:
 #&gt;  details.pastPurchases</div><div class='input'><span class='fu'>print</span>(<span class='no'>sampleChompedDT</span>)</div><div class='output co'>#&gt;     timestamp cust_name details.cust_class details.location
 #&gt; 1: 2017-01-01    Austin        big_spender          chicago
 #&gt; 2: 2017-02-02     James            peasant          chicago
@@ -142,28 +166,28 @@ unpack</p></td>
 <span class='co'># Unpack by details.pastPurchases</span>
 <span class='no'>unpackedDT</span> <span class='kw'>&lt;-</span> <span class='fu'>unpack_nested_data</span>(<span class='kw'>chomped_df</span> <span class='kw'>=</span> <span class='no'>sampleChompedDT</span>
                                  , <span class='kw'>col_to_unpack</span> <span class='kw'>=</span> <span class='st'>"details.pastPurchases"</span>)
-<span class='fu'>print</span>(<span class='no'>unpackedDT</span>)</div><div class='output co'>#&gt;                                 film pmt_amount matinee  timestamp cust_name
-#&gt;  1:                     The Notebook       6.25      NA 2017-01-01    Austin
-#&gt;  2:                         The Town       8.00      NA 2017-01-01    Austin
-#&gt;  3:                         Zootopia       7.50    TRUE 2017-01-01    Austin
-#&gt;  4:                          Minions       6.25    TRUE 2017-02-02     James
-#&gt;  5:                        Rogue One      10.25      NA 2017-02-02     James
-#&gt;  6:                      Bridesmaids       8.75      NA 2017-02-02     James
-#&gt;  7:                      Bridesmaids       6.25    TRUE 2017-02-02     James
-#&gt;  8:                   Aala Kaf Ifrit       0.00    TRUE 2017-03-03      Nick
-#&gt;  9: Dopo la guerra (Apres la Guerre)       0.00    TRUE 2017-03-03      Nick
-#&gt; 10:           Avengers: Infinity War      12.75      NA 2017-03-03      Nick
-#&gt;     details.cust_class details.location
-#&gt;  1:        big_spender          chicago
-#&gt;  2:        big_spender          chicago
-#&gt;  3:        big_spender          chicago
-#&gt;  4:            peasant          chicago
-#&gt;  5:            peasant          chicago
-#&gt;  6:            peasant          chicago
-#&gt;  7:            peasant          chicago
-#&gt;  8:             critic           cannes
-#&gt;  9:             critic           cannes
-#&gt; 10:             critic           cannes</div></pre>
+<span class='fu'>print</span>(<span class='no'>unpackedDT</span>)</div><div class='output co'>#&gt;      timestamp cust_name details.cust_class details.location
+#&gt;  1: 2017-01-01    Austin        big_spender          chicago
+#&gt;  2: 2017-01-01    Austin        big_spender          chicago
+#&gt;  3: 2017-01-01    Austin        big_spender          chicago
+#&gt;  4: 2017-02-02     James            peasant          chicago
+#&gt;  5: 2017-02-02     James            peasant          chicago
+#&gt;  6: 2017-02-02     James            peasant          chicago
+#&gt;  7: 2017-02-02     James            peasant          chicago
+#&gt;  8: 2017-03-03      Nick             critic           cannes
+#&gt;  9: 2017-03-03      Nick             critic           cannes
+#&gt; 10: 2017-03-03      Nick             critic           cannes
+#&gt;                                 film pmt_amount matinee
+#&gt;  1:                     The Notebook       6.25      NA
+#&gt;  2:                         The Town       8.00      NA
+#&gt;  3:                         Zootopia       7.50    TRUE
+#&gt;  4:                          Minions       6.25    TRUE
+#&gt;  5:                        Rogue One      10.25      NA
+#&gt;  6:                      Bridesmaids       8.75      NA
+#&gt;  7:                      Bridesmaids       6.25    TRUE
+#&gt;  8:                   Aala Kaf Ifrit       0.00    TRUE
+#&gt;  9: Dopo la guerra (Apres la Guerre)       0.00    TRUE
+#&gt; 10:           Avengers: Infinity War      12.75      NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -182,11 +206,14 @@ unpack</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

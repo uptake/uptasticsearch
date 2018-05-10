@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • uptasticsearch</title>
+<title>NULL Object For Common Documentation — doc_shared • uptasticsearch</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -22,13 +22,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="NULL Object For Common Documentation — doc_shared" />
+
+<meta property="og:description" content="This is a NULL object with documentation so that later functions can call
+inheritParams" />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -43,7 +47,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -54,7 +58,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">uptasticsearch</a>
+        <a class="navbar-link" href="../index.html">uptasticsearch</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
@@ -62,16 +66,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -92,46 +96,45 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>NULL Object For Common Documentation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/UptakeOpenSource/uptasticsearch/blob/master/R/uptasticsearch.R'><code>R/uptasticsearch.R</code></a></small>
+    <div class="hidden name"><code>doc_shared.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>James Lamb</strong>. Author, maintainer. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Nick Paras</strong>. Author. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Austin Dickey</strong>. Author. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Michael Frasco</strong>. Contributor. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Weiwen Gu</strong>. Contributor. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Will Dearden</strong>. Contributor. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Uptake Technologies Inc.</strong>. Copyright holder. 
-        </p>
-      </li>
-    </ul>
+    <div class="ref-description">
+    
+    <p>This is a NULL object with documentation so that later functions can call
+inheritParams</p>
+    
+    </div>
+
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>es_host</th>
+      <td><p>A string identifying an Elasticsearch host. This should be of the form 
+<code>[transfer_protocol][hostname]:[port]</code>. For example, <code>'http://myindex.thing.com:9200'</code>.</p></td>
+    </tr>
+    <tr>
+      <th>es_index</th>
+      <td><p>The name of an Elasticsearch index to be queried.</p></td>
+    </tr>
+    </table>
+    
 
   </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
 
+  </div>
 </div>
-
 
       <footer>
       <div class="copyright">
