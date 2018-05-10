@@ -1001,7 +1001,7 @@ futile.logger::flog.threshold(0)
                 es_host = "http://mycompany.com:9200"
                 , es_index = NULL
             )
-        }, regexp = "You passed NULL to es_index")
+        }, regexp = "es_index is not a string")
     })
     
 

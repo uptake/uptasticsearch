@@ -20,7 +20,7 @@ futile.logger::flog.threshold(0)
               {
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
                                           , es_indices = NULL),
-                               regexp = "get_fields must be passed a valid es_indices")
+                               regexp = "not greater than 0")
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
                                           , es_indices = ''),
                                regexp = "get_fields must be passed a valid es_indices")

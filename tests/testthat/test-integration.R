@@ -25,11 +25,11 @@ futile.logger::flog.threshold(0)
                 outDT <- es_search(
                     es_host = "http://localhost:9200"
                     , es_index = "shakespeare"
-                    , max_hits = 100
+                    , max_hits = 10
                 )
 
                expect_true("data.table" %in% class(outDT))
-               expect_true(nrow(outDT) == 100)
+               expect_true(nrow(outDT) == 10)
               }
              )
 

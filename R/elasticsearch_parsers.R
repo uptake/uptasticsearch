@@ -8,6 +8,7 @@
 #'              
 #'              This is a side-effect-free function: it returns a new data.table and the
 #'              input data.table is unmodified.
+#' @importFrom assertthat is.string
 #' @importFrom data.table copy
 #' @importFrom purrr map2 simplify
 #' @importFrom stringr str_extract
@@ -64,6 +65,12 @@ parse_date_time <- function(input_df
                      paste(not_there, collapse = ", "))
         log_fatal(msg)
     }
+    
+    # Other input checks we don't have explicit error messages for
+    .assert(
+        assertthat::is.string(assume_tz)
+        , assume_tz != ""
+    )
     
     # Work on a copy of the DT to avoid side effects
     outDT <- data.table::copy(input_df)
@@ -576,6 +583,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
 #'        want to change this behavior, provide a path here. `es_search` will create 
 #'        and write to a temporary directory under whatever path you provide.
 #' @inheritParams doc_shared
+#' @importFrom assertthat is.count is.flag is.number is.string is.writeable
 #' @importFrom parallel detectCores
 #' @export
 #' @examples
@@ -627,6 +635,27 @@ es_search <- function(es_host
                        , length(query_body))
         log_fatal(msg)
     }
+    
+    # Other input checks we don't have explicit error messages for
+    .assert(
+        assertthat::is.string(es_host)
+        , es_host != ""
+        , assertthat::is.string(es_index)
+        , es_index != ""
+        , assertthat::is.string(query_body)
+        , query_body != ""
+        , assertthat::is.string(scroll)
+        , scroll != ""
+        , max_hits >= 0
+        , assertthat::is.count(n_cores)
+        , n_cores >= 1
+        , assertthat::is.flag(break_on_duplicates)
+        , !is.na(break_on_duplicates)
+        , assertthat::is.flag(ignore_scroll_restriction)
+        , !is.na(ignore_scroll_restriction)
+        , assertthat::is.string(intermediates_dir)
+        , assertthat::is.writeable(intermediates_dir)
+    )
     
     # Aggregation Request
     if (grepl('aggs', query_body)){
