@@ -13,7 +13,12 @@ get_counts(field, es_host, es_index, start_date = "now-1w",
 \item{es_host}{A string identifying an Elasticsearch host. This should be of the form 
 \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.}
 
-\item{es_index}{The name of an Elasticsearch index to be queried.}
+\item{es_index}{The name of an Elasticsearch index to be queried. Note that passing
+\code{NULL} is not supported. Technically, not passing an index
+to Elasticsearch is legal and results in searching over all indexes.
+To be sure that this very expensive query is not executed by accident,
+uptasticsearch forbids this. If you want to execute a query over
+all indexes in the cluster, set this argument to \code{"_all"}.}
 
 \item{start_date}{A character Elasticsearch date-time, indicating the earliest
 date from which to show documents. Default is \code{"now-1w"}.}

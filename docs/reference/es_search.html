@@ -127,7 +127,12 @@
     </tr>
     <tr>
       <th>es_index</th>
-      <td><p>The name of an Elasticsearch index to be queried.</p></td>
+      <td><p>The name of an Elasticsearch index to be queried. Note that passing
+<code>NULL</code> is not supported. Technically, not passing an index
+to Elasticsearch is legal and results in searching over all indexes.
+To be sure that this very expensive query is not executed by accident,
+uptasticsearch forbids this. If you want to execute a query over
+all indexes in the cluster, set this argument to <code>"_all"</code>.</p></td>
     </tr>
     <tr>
       <th>size</th>

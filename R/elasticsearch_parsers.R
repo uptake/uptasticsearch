@@ -645,6 +645,15 @@ es_search <- function(es_host
         return(chomp_aggs(aggs_json = result))
     }
     
+    # prevent NULL index
+    if (is.null(es_index)){
+        msg <- paste0(
+            "You passed NULL to es_index. This is not supported. If you want to "
+            , "search across all indices, use es_index = '_all'."
+        )
+        log_fatal(msg)
+    }
+    
     # Normal search request
     log_info("Executing search request")
     return(.fetch_all(es_host = es_host

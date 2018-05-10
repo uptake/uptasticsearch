@@ -9,7 +9,7 @@ if (!identical(loggerOptions, list())){
 }
 futile.logger::flog.threshold(0)
 
-#--- 1. parse_date_time
+#--- parse_date_time
 
     # Correctly adjusts UTC date-times
     test_that("parse_date_time should transform the indicated date_cols to POSIXct with timezone UTC if they're given in UTC",
@@ -124,7 +124,7 @@ futile.logger::flog.threshold(0)
               }
             )
 
-#--- 2. chomp_aggs
+#--- chomp_aggs
 
     # Works with 1 variable from an R string
     test_that("chomp_aggs should work from an R string with one grouping variable",
@@ -828,7 +828,7 @@ futile.logger::flog.threshold(0)
              )
     
 
-#--- 4. unpack_nested_data
+#--- unpack_nested_data
 
     # Should work with result of chomp_hits
     test_that("unpack_nested_data should work with the result of chomp_hits",
@@ -927,7 +927,7 @@ futile.logger::flog.threshold(0)
         expect_equal(unpack_nested_data(DT2, col_to_unpack = "y"), unpackedDT)
     })
     
-#---- 5. .ConvertToSec
+#---- .ConvertToSec
     
     # .ConvertToSec should work for seconds
     test_that(".ConvertToSec should work for seconds",
@@ -954,7 +954,7 @@ futile.logger::flog.threshold(0)
               expect_error(uptasticsearch:::.ConvertToSec("50Y")
                            , regexp = "Could not figure out units of datemath"))
     
-#---- 6. ValidateAndFormatHost
+#---- ValidateAndFormatHost
     
     # .ValidateAndFormatHost should break if you give it a non-character input
     test_that(".ValidateAndFormatHost should break if you give it a non-character input",
@@ -991,6 +991,19 @@ futile.logger::flog.threshold(0)
                              , regexp = "You did not provide a transfer protocol")
               expect_identical(hostWithTransfer, "http://mydb.mycompany.com:9200")
               })
+
+#---- es_search
+    
+    # Should reject NULL index
+    test_that("es_search should reject NULL index", {
+        expect_error({
+            es_search(
+                es_host = "http://mycompany.com:9200"
+                , es_index = NULL
+            )
+        }, regexp = "You passed NULL to es_index")
+    })
+    
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
