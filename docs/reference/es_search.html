@@ -18,13 +18,24 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Execute an ES query and get a data.table — es_search" />
+
+<meta property="og:description" content="Given a query and some optional parameters, es_search gets results 
+             from HTTP requests to Elasticsearch and returns a data.table 
+             representation of those results." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +58,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">uptasticsearch</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">uptasticsearch</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -61,7 +76,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -73,6 +88,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,24 +96,28 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Execute an ES query and get a data.table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/UptakeOpenSource/uptasticsearch/blob/master/R/elasticsearch_parsers.R'><code>R/elasticsearch_parsers.R</code></a></small>
+    <div class="hidden name"><code>es_search.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Given a query and some optional parameters, <code>es_search</code> gets results 
              from HTTP requests to Elasticsearch and returns a data.table 
              representation of those results.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>es_search</span>(<span class='no'>es_host</span>, <span class='no'>es_index</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>query_body</span> <span class='kw'>=</span> <span class='st'>"{}"</span>,
   <span class='kw'>scroll</span> <span class='kw'>=</span> <span class='st'>"5m"</span>, <span class='kw'>max_hits</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
   <span class='kw'>n_cores</span> <span class='kw'>=</span> <span class='fu'>ceiling</span>(<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>()/<span class='fl'>2</span>), <span class='kw'>break_on_duplicates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>ignore_scroll_restriction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>intermediates_dir</span> <span class='kw'>=</span> <span class='fu'>getwd</span>())</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -216,11 +236,14 @@ and write to a temporary directory under whatever path you provide.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
