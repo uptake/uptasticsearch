@@ -3,7 +3,7 @@
 #' @name get_counts
 #' @description For a given field, return a data.table with its unique values in a time range.
 #' @importFrom data.table := data.table setnames setkeyv
-#' @importFrom httr content RETRY
+#' @importFrom httr add_headers content RETRY
 #' @importFrom purrr transpose
 #' @export
 #' @param field A valid field in whatever Elasticsearch index you are querying
@@ -64,8 +64,13 @@ get_counts <- function(field
                         ]}}}}, "aggs": {"', field, '": {"terms": {"field": "', field, '", "size":', max_terms,'}}}}')
     
     #===== Build search URL =====#
-    searchURL  <- paste0(es_host, "/", es_index, "/_search?size=0")
-    result     <- httr::RETRY(verb = "POST", url = searchURL, body = aggsQuery)
+    searchURL <- paste0(es_host, "/", es_index, "/_search?size=0")
+    result <- httr::RETRY(
+        verb = "POST"
+        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , url = searchURL
+        , body = aggsQuery
+    )
     counts     <- httr::content(result, as = "parsed")[["aggregations"]][[field]][["buckets"]]
     
     #===== Get data =====#
@@ -93,7 +98,12 @@ get_counts <- function(field
         {"missing": {"field": "', field, '"}}]}}}}}')
     
     # Get result
-    result      <- httr::RETRY(verb = "POST", url = searchURL, body = missingQuery)
+    result <- httr::RETRY(
+        verb = "POST"
+        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , url = searchURL
+        , body = missingQuery
+    )
     numMissings <- httr::content(result, as = "parsed")[["hits"]][["total"]]
     
     # Return now if user asked to only see NAs if there are any
@@ -116,7 +126,7 @@ get_counts <- function(field
 #' @name get_fields
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
-#' @importFrom httr GET content stop_for_status
+#' @importFrom httr add_headers content GET stop_for_status
 #' @importFrom data.table := uniqueN
 #' @param es_indices A character vector that contains the names of indices for
 #'                   which to get mappings. Default is \code{'_all'}, which means
@@ -154,7 +164,10 @@ get_fields <- function(es_host
     ########################## make the query ################################
     log_info(paste('Getting indexed fields for indices:', indices))
     
-    result <- httr::GET(url = url)
+    result <- httr::GET(
+        url = url
+        , httr::add_headers(c('Content-Type' = 'application/json'))
+    )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'parsed')
     
@@ -211,14 +224,17 @@ get_fields <- function(es_host
 
 # [title] Get a data.table containing names of indices and aliases
 # [es_host] A string identifying an Elasticsearch host.
-#' @importFrom httr content GET stop_for_status
+#' @importFrom httr add_headers content GET stop_for_status
 .get_aliases <- function(es_host) {
     
     # construct the url to the alias endpoint
     url <- paste0(es_host, '/_cat/aliases')
     
     # make the request
-    result <- httr::GET(url = url)
+    result <- httr::GET(
+        url = url
+        , httr::add_headers(c('Content-Type' = 'application/json'))
+    )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'text')
     
