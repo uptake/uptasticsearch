@@ -2,7 +2,7 @@
 
 ## Features
 
-### Faster `unpackage_nested_data`
+### Faster `unpack_nested_data`
 - [#51](https://github.com/UptakeOpenSource/uptasticsearch/pull/51) changed the parsing strategy for nested data and made it 9x faster than the previous implementation
 
 ### Retry logic
