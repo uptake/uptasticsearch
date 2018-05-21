@@ -944,7 +944,7 @@ es_search <- function(es_host
 #          hits_to_pull - Total hits to be pulled (documents matching user's query).
 #                       Or, in the case where max_hits < number of matching docs,
 #                       max_hits.
-#' @importFrom httr content RETRY stop_for_status
+#' @importFrom httr add_headers content RETRY stop_for_status
 #' @importFrom jsonlite fromJSON
 #' @importFrom uuid UUIDgenerate
 .keep_on_pullin <- function(scroll_id
@@ -958,7 +958,12 @@ es_search <- function(es_host
     while (hits_pulled < max_hits){
         
         # Grab a page of hits, break if we got back an error
-        result  <- httr::RETRY(verb = "POST", url = scroll_url, body = scroll_id)
+        result  <- httr::RETRY(
+            verb = "POST"
+            , httr::add_headers(c('Content-Type' = 'application/json'))
+            , url = scroll_url
+            , body = scroll_id
+        )
         httr::stop_for_status(result)
         resultJSON  <- httr::content(result, as = "text")
 
@@ -1081,7 +1086,7 @@ es_search <- function(es_host
 #  write(result, 'results.json')
 # 
 # }
-#' @importFrom httr content RETRY stop_for_status
+#' @importFrom httr add_headers content RETRY stop_for_status
 .search_request <- function(es_host
                           , es_index
                           , trailing_args = NULL
@@ -1098,7 +1103,12 @@ es_search <- function(es_host
     }
     
     # Make request
-    result <- httr::RETRY(verb = "POST", url = reqURL, body = query_body)
+    result <- httr::RETRY(
+        verb = "POST"
+        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , url = reqURL
+        , body = query_body
+    )
     httr::stop_for_status(result)
     result <- httr::content(result, as = "text")
     

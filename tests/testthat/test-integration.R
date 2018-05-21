@@ -22,9 +22,11 @@ futile.logger::flog.threshold(0)
     test_that("es_search works as expected for a simple request",
               {testthat::skip_on_cran()
                 
-               outDT <- es_search(es_host = "http://127.0.0.1:9200"
-                                  , es_index = "shakespeare"
-                                  , max_hits = 100)
+                outDT <- es_search(
+                    es_host = "http://localhost:9200"
+                    , es_index = "shakespeare"
+                    , max_hits = 100
+                )
 
                expect_true("data.table" %in% class(outDT))
                expect_true(nrow(outDT) == 100)
