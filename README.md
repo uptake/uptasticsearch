@@ -186,3 +186,23 @@ This is a fairly new project and, as the version number indicates, should be reg
 ### Auth Support <a name="authsupport"></a>
 
 `uptasticsearch` does not currently support queries with authentication. This will be added in future versions.
+
+### Running Tests Locally
+
+When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We've provided some gross bash scripts at the root of this repo to help!
+
+To run the code below, you will need [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/).
+
+```
+# Start up Elasticsearch 6.x running on localhost:9200
+docker-compose up -d
+
+# Seed that database with some indexes and data
+./setup_es.sh
+
+# Run tests
+Rscript -e "devtools::test()"
+
+# Get test coverage and generate coverage report
+./coverage.sh
+```

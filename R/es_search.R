@@ -1,3 +1,4 @@
+
 #' @title Execute an ES query and get a data.table
 #' @name es_search
 #' @description Given a query and some optional parameters, \code{es_search} gets results 
@@ -274,10 +275,12 @@ es_search <- function(es_host
     ###===== Pull the first hit =====###
     
     # Get the first result as text
-    firstResultJSON <- .search_request(es_host = es_host
-                                     , es_index = es_index
-                                     , trailing_args = paste0('size=', size, '&scroll=', scroll)
-                                     , query_body = query_body)
+    firstResultJSON <- .search_request(
+        es_host = es_host
+        , es_index = es_index
+        , trailing_args = paste0('size=', size, '&scroll=', scroll)
+        , query_body = query_body
+    )
     
     # Parse to JSON to get total number of documents matching the query
     firstResult <- jsonlite::fromJSON(firstResultJSON, simplifyVector = FALSE)
@@ -317,20 +320,17 @@ es_search <- function(es_host
     msg <- paste0("Total hits to pull: ", hits_to_pull)
     log_info(msg)
     
-    # Set up scroll_url (will be the same everywhere)
-    scroll_url <- paste0(es_host, "/_search/scroll?scroll=", scroll)
-    
     # Pull all the results (single-threaded)
     msg <- "Scrolling over additional pages of results..."
     log_info(msg)
     .keep_on_pullin(scroll_id = scroll_id
                     , out_path = out_path
                     , max_hits = max_hits
-                    , scroll_url = scroll_url
+                    , es_host = es_host
+                    , scroll = scroll
                     , hits_pulled = hits_pulled
                     , hits_to_pull = hits_to_pull)
     log_info("Done scrolling over results.")
-    
     
     log_info("Reading and parsing pulled records...")
     
@@ -422,7 +422,8 @@ es_search <- function(es_host
 #          max_hits    - max_hits, comes from .fetch_all. If left as Inf in your call to
 #                       .fetch_all, this param has no influence and you will pull all the data.
 #                       otherwise, this is used to limit the result size.
-#          scroll_url  - Elasticsearch URL to hit to get the next page of data
+#          es_host     - Elasticsearch hostname
+#          scroll      - How long should the scroll context be held open?
 #          hits_pulled - Number of hits pulled in the first batch of results. Used
 #                       to keep a running tally for logging and in controlling
 #                       execution when users pass an argument to max_hits
@@ -435,10 +436,14 @@ es_search <- function(es_host
 .keep_on_pullin <- function(scroll_id
                             , out_path
                             , max_hits = Inf
-                            , scroll_url
+                            , es_host
+                            , scroll
                             , hits_pulled
                             , hits_to_pull
 ){
+    
+    # Set up scroll_url (will be the same everywhere)
+    scroll_url <- paste0(es_host, "/_search/scroll?scroll=", scroll)
     
     while (hits_pulled < max_hits){
         
@@ -447,7 +452,7 @@ es_search <- function(es_host
             verb = "POST"
             , httr::add_headers(c('Content-Type' = 'application/json'))
             , url = scroll_url
-            , body = scroll_id
+            , body = sprintf('{"scroll": "1m", "scroll_id": "%s"}', scroll_id)
         )
         httr::stop_for_status(result)
         resultJSON  <- httr::content(result, as = "text")
