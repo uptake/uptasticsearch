@@ -2,6 +2,7 @@
 #' @title Examine the distribution of distinct values for a field in Elasticsearch
 #' @name get_counts
 #' @description For a given field, return a data.table with its unique values in a time range.
+#' @importFrom assertthat is.count is.number is.string
 #' @importFrom data.table := data.table setnames setkeyv
 #' @importFrom httr add_headers content RETRY
 #' @importFrom purrr transpose
@@ -43,6 +44,23 @@ get_counts <- function(field
     
     # Input checking
     es_host <- .ValidateAndFormatHost(es_host)
+    
+    # Other input checks we don't have explicit error messages for
+    .assert(
+        assertthat::is.string(field)
+        , field != ""
+        , assertthat::is.string(es_index)
+        , es_index != ""
+        , assertthat::is.string(start_date)
+        , start_date != ""
+        , assertthat::is.string(end_date)
+        , end_date != ""
+        , assertthat::is.string(time_field)
+        , time_field != ""
+        , assertthat::is.string(use_na)
+        , use_na != ""
+        , assertthat::is.count(max_terms)
+    )
     
     #===== Format and execute query =====#
     
@@ -146,6 +164,11 @@ get_fields <- function(es_host
     
     # Input checking
     url <- .ValidateAndFormatHost(es_host)
+    
+    .assert(
+        is.character("es_indices")
+        , length(es_indices) > 0
+    )
     
     # collapse character vectors into comma separated strings. If any arguments
     # are NULL, create an empty string
