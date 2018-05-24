@@ -25,7 +25,7 @@ For a given Elasticsearch index, return the mapping from field name
 \examples{
 \dontrun{
 # get the mapping for all indexed fields in the ticket_sales and customers indices
-mappingDT <- retrieve_mapping(es_host = "http://es.custdb.mycompany.com:9200"
+mappingDT <- get_fields(es_host = "http://es.custdb.mycompany.com:9200"
                               , es_indices = c("ticket_sales", "customers"))
 }
 }
