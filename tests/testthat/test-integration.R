@@ -25,8 +25,8 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://localhost:9200"
             , es_index = "shakespeare"
-            , max_hits = 100
-            , size = 100
+            , max_hits = 48
+            , size = 48
         )
 
        expect_true(data.table::is.data.table(outDT))
@@ -38,11 +38,11 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://localhost:9200"
             , es_index = "shakespeare"
-            , max_hits = 30
+            , max_hits = 50
             , size = 2
         )
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 30)
+        expect_true(nrow(outDT) == 48)
     })
     
     test_that("es_search works in single-threaded mode", {
@@ -51,12 +51,12 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://localhost:9200"
             , es_index = "shakespeare"
-            , max_hits = 30
+            , max_hits = 50
             , size = 2
             , n_cores = 1
         )
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 30)
+        expect_true(nrow(outDT) == 48)
     })
     
     test_that("es_search rejects scrolls longer than 1 hour", {
@@ -129,7 +129,7 @@ futile.logger::flog.threshold(0)
         )
         
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 12)
+        expect_true(nrow(outDT) == 3)
         expect_named(
             outDT
             , c("thing", "doc_count")
@@ -161,7 +161,7 @@ futile.logger::flog.threshold(0)
         
         # ther stuff we might as well test
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 12)
+        expect_true(nrow(outDT) == 3)
         expect_true(is.numeric(outDT[, doc_count]))
         expect_true(is.character(outDT[, name_i_picked]))
         expect_true(all(outDT[, doc_count > 0]))
