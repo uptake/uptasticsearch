@@ -37,4 +37,4 @@ curl --silent \
 curl -X POST "http://${ES_HOST}:9200/_refresh"
 
 # Check that we got something
-curl -X GET "http://${ES_HOST}/shakespeare/_search?size=1"
+curl -X GET "http://${ES_HOST}:9200/shakespeare/_search?size=1"

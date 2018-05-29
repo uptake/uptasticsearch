@@ -690,6 +690,7 @@ es_search <- function(es_host
         , url = reqURL
         , body = query_body
     )
+    print(httr::content(result, as = "text"))
     httr::stop_for_status(result)
     result <- httr::content(result, as = "text")
     

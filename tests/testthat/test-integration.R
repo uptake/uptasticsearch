@@ -23,10 +23,10 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
         
         outDT <- es_search(
-            es_host = "http://localhost:9200"
+            es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 48
-            , size = 48
+            , max_hits = 100
+            , size = 100
         )
 
        expect_true(data.table::is.data.table(outDT))
@@ -36,27 +36,27 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
         
         outDT <- es_search(
-            es_host = "http://localhost:9200"
+            es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 50
+            , max_hits = 30
             , size = 2
         )
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 48)
+        expect_true(nrow(outDT) == 30)
     })
     
     test_that("es_search works in single-threaded mode", {
         testthat::skip_on_cran()
         
         outDT <- es_search(
-            es_host = "http://localhost:9200"
+            es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 50
+            , max_hits = 30
             , size = 2
             , n_cores = 1
         )
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 48)
+        expect_true(nrow(outDT) == 30)
     })
     
     test_that("es_search rejects scrolls longer than 1 hour", {
@@ -64,7 +64,7 @@ futile.logger::flog.threshold(0)
         
         expect_error({
             outDT <- es_search(
-                es_host = "http://localhost:9200"
+                es_host = "http://127.0.0.1:9200"
                 , es_index = "shakespeare"
                 , max_hits = 100
                 , size = 100
@@ -79,7 +79,7 @@ futile.logger::flog.threshold(0)
         
         expect_warning({
             outDT <- es_search(
-                es_host = "http://localhost:9200"
+                es_host = "http://127.0.0.1:9200"
                 , es_index = "shakespeare"
                 , max_hits = 9999
             )
@@ -93,7 +93,7 @@ futile.logger::flog.threshold(0)
         
         expect_warning({
             outDT <- es_search(
-                es_host = "http://localhost:9200"
+                es_host = "http://127.0.0.1:9200"
                 , es_index = "shakespeare"
                 , max_hits = 12
                 , size = 7
@@ -110,7 +110,7 @@ futile.logger::flog.threshold(0)
         #       and I want to avoid exposing our tests to changes in the query DSL
         expect_warning({
             outDT <- es_search(
-                es_host = "http://localhost:9200"
+                es_host = "http://127.0.0.1:9200"
                 , es_index = "empty_index"
             )
         }, regexp = "Query is syntactically valid but 0 documents were matched")
@@ -122,14 +122,14 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
         
         outDT <- es_search(
-            es_host = "http://localhost:9200"
+            es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
             , max_hits = 100
             , query = '{"aggs": {"thing": {"terms": {"field": "speaker", "size": 12}}}}'
         )
         
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 3)
+        expect_true(nrow(outDT) == 12)
         expect_named(
             outDT
             , c("thing", "doc_count")
@@ -145,7 +145,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
         
         outDT <- es_search(
-            es_host = "http://localhost:9200"
+            es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
             , max_hits = 100
             , query = '{"aggs": {"name_i_picked": {"terms": {"field": "speaker", "size": 12}}}}'
@@ -161,7 +161,7 @@ futile.logger::flog.threshold(0)
         
         # ther stuff we might as well test
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 3)
+        expect_true(nrow(outDT) == 12)
         expect_true(is.numeric(outDT[, doc_count]))
         expect_true(is.character(outDT[, name_i_picked]))
         expect_true(all(outDT[, doc_count > 0]))
@@ -173,7 +173,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
         
         fieldDT <- get_fields(
-            es_host = "http://localhost:9200"
+            es_host = "http://127.0.0.1:9200"
             , es_indices = "_all"
         )
         expect_true(data.table::is.data.table(fieldDT))

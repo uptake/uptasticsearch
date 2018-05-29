@@ -120,7 +120,8 @@ get_fields <- function(es_host
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'text')
     
-    if (is.null(resultContent)) {
+    # NOTE: with ES6, this results in an empty string instead of a NULL
+    if (is.null(resultContent) || identical(resultContent, "")) {
         # there are no aliases in this Elasticsearch cluster
         return(invisible(NULL))
     } else {
@@ -133,6 +134,7 @@ get_fields <- function(es_host
 #' @importFrom data.table data.table
 #' @importFrom utils read.table
 .process_alias <- function(alias_string) {
+    
     # process the string provided by the /_cat/aliases API into a data.frame and then a data.table
     aliasDT <- data.table::data.table(
         utils::read.table(

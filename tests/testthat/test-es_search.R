@@ -20,6 +20,32 @@ test_that("es_search should reject NULL index", {
     }, regexp = "es_index is not a string")
 })
 
+# Should reject bad queries
+test_that("es_search should reject malformed queries", {
+    # Length greater than 1
+    expect_error({
+        es_search(
+            es_host = "http://mycompany.com:9200"
+            , es_index = "_all"
+            , query = c(
+                    '{"_source": {"include": ["stuff.*"]},'
+                    , '{"aggs": {"superman": {"terms": {"field": "hi"}}}}}'
+                )
+        )
+    }, regexp = "You gave an object of length 2")
+
+    # Specified as a list (like you might get from jsonlite::fromJSON)
+    expect_error({
+        es_search(
+            es_host = "http://mycompany.com:9200"
+            , es_index = "_all"
+            , query = list(
+                '{"_source": {"include": ["stuff.*"]},{"aggs": {"superman": {"terms": {"field": "hi"}}}}}'
+            )
+        )
+    }, regexp = "query_body should be a single string")
+})
+
 #---- .ConvertToSec
 
 # .ConvertToSec should work for seconds

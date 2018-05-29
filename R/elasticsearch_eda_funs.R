@@ -283,8 +283,14 @@ get_fields <- function(es_host
 #' @importFrom data.table data.table
 #' @importFrom utils read.table
 .process_alias <- function(alias_string) {
+
     # process the string provided by the /_cat/aliases API into a data.frame and then a data.table
-    aliasDT <- data.table::data.table(utils::read.table(text = alias_string, stringsAsFactors = FALSE))
+    aliasDT <- data.table::data.table(
+      utils::read.table(
+        text = alias_string
+        , stringsAsFactors = FALSE
+      )
+    )
     
     # return only the first two columns
     return(aliasDT[, .(alias = V1, index = V2)])
