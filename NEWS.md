@@ -1,3 +1,8 @@
+# uptasticsearch 0.3.0
+
+## Deprecations and Removals
+- [#69](https://github.com/UptakeOpenSource/uptasticsearch/pull/69) added a deprecation warning on `get_counts`. This function was outside the core mission of the package and exposed us unnecessarily to changes in the Elasticsearch DSL
+
 # uptasticsearch 0.2.0
 
 ## Features

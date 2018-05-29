@@ -52,3 +52,6 @@ recoDT <- get_counts(field = "pmt_method"
                      , time_field = "dateTime")
 }
 }
+\references{
+\href{https://github.com/UptakeOpenSource/uptasticsearch/pull/69}{get_counts will be deprecated soon}
+}
