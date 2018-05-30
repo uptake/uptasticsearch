@@ -1,4 +1,4 @@
-context("Elasticsearch eda functions")
+context("get_fields")
 
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
@@ -9,11 +9,8 @@ if (!identical(loggerOptions, list())){
 }
 futile.logger::flog.threshold(0)
 
-#--- 1. get_counts
 
-
-
-#--- 2. get_fields
+#--- get_fields
 
     # Gives an informative error if es_indices is NULL or an empty string
     test_that("get_fields should give an informative error if es_indices is NULL or an empty string",
@@ -57,7 +54,7 @@ futile.logger::flog.threshold(0)
     )
     
     
-#--- 3. .flatten_mapping
+#--- .flatten_mapping
     
     # Works if one index is passed
     test_that(".flatten_mapping should work if the mapping for one index is provided",
@@ -93,7 +90,7 @@ futile.logger::flog.threshold(0)
               }
     )
 
-#--- 4. .process_alias
+#--- .process_alias
     
     # works if one alias is passed
     test_that(".process_alias works if one alias is included",
