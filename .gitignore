@@ -34,3 +34,8 @@ vignettes/*.pdf
 
 # system files
 *.DS_Store
+
+# misc testing files
+sandbox/
+lib/
+coverage.html
