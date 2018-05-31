@@ -32,6 +32,7 @@
 #'                      , end_date = "now"
 #'                      , time_field = "dateTime")
 #' }
+#' @note \href{https://github.com/UptakeOpenSource/uptasticsearch/pull/69}{get_counts will be deprecated soon}
 get_counts <- function(field
                       , es_host
                       , es_index
@@ -42,6 +43,13 @@ get_counts <- function(field
                       , max_terms = 1000
 ){
     
+    msg <- paste0(
+      "get_counts is deprecated as of https://github.com/UptakeOpenSource/uptasticsearch/pull/69. It will be ",
+      "dropped in the next release of uptasticsearch. If you use this function, please open an issue at ",
+      "https://github.com/UptakeOpenSource/uptasticsearch/issues and let the maintainers know."
+    )
+    log_warn(msg)
+  
     # Input checking
     es_host <- .ValidateAndFormatHost(es_host)
     
