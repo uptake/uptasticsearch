@@ -191,18 +191,18 @@ This is a fairly new project and, as the version number indicates, should be reg
 
 When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We've provided some gross bash scripts at the root of this repo to help!
 
-To run the code below, you will need [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/).
+To run the code below, you will need [Docker](https://www.docker.com/). Note that I've passed an argument to `run_es_docker.sh` indicating the major version of ES I want to run. If you don't do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of `run_es_docker.sh` for a list of the valid arguments.
 
 ```
-# Start up Elasticsearch 6.x running on localhost:9200
-docker-compose up -d
-
-# Seed that database with some indexes and data
-./setup_es.sh
+# Start up Elasticsearch on localhost:9200 and seed it with data
+./setup_local.sh 5.5
 
 # Run tests
 Rscript -e "devtools::test()"
 
 # Get test coverage and generate coverage report
 ./coverage.sh
+
+# Tear down the container and remove testing files
+./cleanup_local.sh
 ```
