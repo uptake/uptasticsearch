@@ -92,6 +92,15 @@ es_search <- function(es_host
         log_fatal(msg)
     }
     
+    # prevent NULL index
+    if (is.null(es_index)){
+        msg <- paste0(
+            "You passed NULL to es_index. This is not supported. If you want to "
+            , "search across all indices, use es_index = '_all'."
+        )
+        log_fatal(msg)
+    }
+    
     # Other input checks we don't have explicit error messages for
     .assert(
         assertthat::is.string(es_host)
@@ -130,15 +139,6 @@ es_search <- function(es_host
         return(chomp_aggs(aggs_json = result))
     }
     
-    # prevent NULL index
-    if (is.null(es_index)){
-        msg <- paste0(
-            "You passed NULL to es_index. This is not supported. If you want to "
-            , "search across all indices, use es_index = '_all'."
-        )
-        log_fatal(msg)
-    }
-    
     # Normal search request
     log_info("Executing search request")
     return(.fetch_all(es_host = es_host
@@ -149,6 +149,7 @@ es_search <- function(es_host
                       , max_hits = max_hits
                       , n_cores = n_cores
                       , break_on_duplicates = break_on_duplicates
+                      , ignore_scroll_restriction = ignore_scroll_restriction
                       , intermediates_dir = intermediates_dir))
 }
 

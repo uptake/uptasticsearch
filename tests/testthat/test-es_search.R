@@ -17,7 +17,7 @@ test_that("es_search should reject NULL index", {
             es_host = "http://mycompany.com:9200"
             , es_index = NULL
         )
-    }, regexp = "es_index is not a string")
+    }, regexp = "You passed NULL to es_index")
 })
 
 # Should reject bad queries
@@ -110,6 +110,23 @@ test_that(".ValidateAndFormatHost should warn and use http if you don't give a p
                              , regexp = "You did not provide a transfer protocol")
               expect_identical(hostWithTransfer, "http://mydb.mycompany.com:9200")
           })
+
+#---- .major_version
+test_that(".major_version should correctly parse semver version strings", {
+    
+    # yay random tests
+    for (i in 1:50){
+        v1 <- as.character(sample(0:9, size = 1))
+        v2 <- as.character(sample(0:9, size = 1))
+        v3 <- as.character(sample(0:9, size = 1))
+        test_version <- paste0(v1, ".", v2, ".", v3)
+        expect_identical(
+            uptasticsearch:::.major_version(test_version)
+            , v1
+            , info = paste0("version that broke this: ", test_version)
+        )
+    }
+})
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)

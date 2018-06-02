@@ -166,6 +166,21 @@ futile.logger::flog.threshold(0)
         expect_true(all(outDT[, doc_count > 0]))
     })
     
+#--- .get_es_version
+    
+    test_that(".get_version works", {
+        ver <- uptasticsearch:::.get_es_version(es_host = "http://127.0.0.1:9200")
+        
+        # is a string
+        expect_true(assertthat::is.string(ver), info = paste0("returned version: ", ver))
+        
+        # Decided to check that it's coercible to an integer instead of
+        # hard-coding known ES versions so this test won't require
+        # attention or break builds if/when ES7 or whatever the next major verison
+        # is comes out
+        expect_true(!is.na(as.integer(ver)), info = paste0("returned version: ", ver))
+    })
+    
 #--- get_fields
     
     test_that("get_fields works on an actual running ES cluster", {
