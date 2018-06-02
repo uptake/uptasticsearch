@@ -210,17 +210,17 @@ es_search <- function(es_host
 #' @importFrom data.table rbindlist setkeyv
 #' @importFrom httr RETRY content
 #' @importFrom jsonlite fromJSON
-#' @importFrom parallel clusterMap detectCores makeForkCluster makePSOCKcluster stopCluster
+#' @importFrom parallel clusterMap makeForkCluster makePSOCKcluster stopCluster
 #' @importFrom uuid UUIDgenerate
 .fetch_all <- function(es_host
                      , es_index
-                     , size = 10000
-                     , query_body = '{}'
-                     , scroll = "5m"
-                     , max_hits = Inf
-                     , n_cores = ceiling(parallel::detectCores()/2)
-                     , break_on_duplicates = TRUE
-                     , ignore_scroll_restriction = FALSE
+                     , size
+                     , query_body
+                     , scroll
+                     , max_hits
+                     , n_cores
+                     , break_on_duplicates
+                     , ignore_scroll_restriction
                      , intermediates_dir
 ){
     
@@ -436,7 +436,7 @@ es_search <- function(es_host
 #' @importFrom uuid UUIDgenerate
 .keep_on_pullin <- function(scroll_id
                             , out_path
-                            , max_hits = Inf
+                            , max_hits
                             , es_host
                             , scroll
                             , hits_pulled
@@ -671,7 +671,7 @@ es_search <- function(es_host
 .search_request <- function(es_host
                           , es_index
                           , trailing_args = NULL
-                          , query_body = '{}'
+                          , query_body
 ){
     
     # Input checking
