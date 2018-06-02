@@ -3,22 +3,26 @@
     "_default_": {
       "properties": {
         "speaker": {
-          "type": "keyword"
+          "type": "text",
+          "fielddata": true
         },
         "play_name": {
-          "type": "keyword"
+          "type": "text",
+          "fielddata": true
         },
         "line_id": {
           "type": "integer"
         },
         "line_number": {
-          "type": "keyword"
+          "type": "text",
+          "fielddata": true
         },
         "speech_number": {
           "type": "integer"
         },
         "text_entry": {
-          "type": "text"
+          "type": "text",
+          "fielddata": true
         }
       }
     }
