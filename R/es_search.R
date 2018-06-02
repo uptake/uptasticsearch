@@ -445,7 +445,7 @@ es_search <- function(es_host
     
     # Note that the old scrolling strategy was deprecated in ES5.x and 
     # officially dropped in ES6.x. Need to grab the correct method here
-    major_version <- .get_version(es_host)
+    major_version <- .get_es_version(es_host)
     scrolling_request <- switch(
         major_version
         , "1" = .legacy_scroll_request
@@ -589,13 +589,13 @@ es_search <- function(es_host
 
 
 # [title] Get ES cluster version
-# [name] .get_version
+# [name] .get_es_version
 # [description] Hit the cluster and figure out the major 
 #               version of Elasticsearch.
 # [param] es_host A string identifying an Elasticsearch host. This should be of the form 
 #         [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
 #' @importFrom httr content RETRY stop_for_status
-.get_version <- function(es_host){
+.get_es_version <- function(es_host){
     
     # Hit the cluster root to get metadata
     log_info("Checking Elasticsearch version...")
@@ -623,7 +623,7 @@ es_search <- function(es_host
 # [param] version_string A dot-delimited version string
 #' @importFrom stringr str_split
 .major_version <- function(version_string){
-    components <- stringr::str_split(version, "\\.")[[1]]
+    components <- stringr::str_split(version_string, "\\.")[[1]]
     return(components[1])
 }
 
@@ -690,7 +690,6 @@ es_search <- function(es_host
         , url = reqURL
         , body = query_body
     )
-    print(httr::content(result, as = "text"))
     httr::stop_for_status(result)
     result <- httr::content(result, as = "text")
     

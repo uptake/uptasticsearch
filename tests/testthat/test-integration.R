@@ -129,7 +129,7 @@ futile.logger::flog.threshold(0)
         )
         
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 12)
+        expect_true(nrow(outDT) == 4)
         expect_named(
             outDT
             , c("thing", "doc_count")
@@ -161,7 +161,7 @@ futile.logger::flog.threshold(0)
         
         # ther stuff we might as well test
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 12)
+        expect_true(nrow(outDT) == 4)
         expect_true(is.numeric(outDT[, doc_count]))
         expect_true(is.character(outDT[, name_i_picked]))
         expect_true(all(outDT[, doc_count > 0]))
