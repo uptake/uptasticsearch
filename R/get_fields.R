@@ -88,7 +88,10 @@ get_fields <- function(es_host
     mappingCols <- stringr::str_split_fixed(names(flattened), '\\.(mappings|properties)\\.', n = 3)
     
     # convert to data.table and add the data type column
-    mappingDT <- data.table::data.table(meta = mappingCols, data_type = as.character(flattened))
+    mappingDT <- data.table::data.table(
+        meta = mappingCols
+        , data_type = as.character(flattened)
+    )
     newColNames <- c('index', 'type', 'field', 'data_type')
     data.table::setnames(mappingDT, newColNames)
     
@@ -120,7 +123,10 @@ get_fields <- function(es_host
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'text')
     
-    if (is.null(resultContent)) {
+    # NOTES: 
+    # - with ES1.7.2., this returns an empty array "[]"
+    # - with ES6, this results in an empty string instead of a NULL
+    if (is.null(resultContent) || identical(resultContent, "") || identical(resultContent, "[]")) {
         # there are no aliases in this Elasticsearch cluster
         return(invisible(NULL))
     } else {
@@ -133,6 +139,7 @@ get_fields <- function(es_host
 #' @importFrom data.table data.table
 #' @importFrom utils read.table
 .process_alias <- function(alias_string) {
+    
     # process the string provided by the /_cat/aliases API into a data.frame and then a data.table
     aliasDT <- data.table::data.table(
         utils::read.table(
