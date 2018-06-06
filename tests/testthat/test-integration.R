@@ -166,6 +166,20 @@ futile.logger::flog.threshold(0)
         expect_true(all(outDT[, doc_count > 0]))
     })
     
+    # We have tests on static empty results, but this test will catch
+    # changes across versions in the way ES actually responds to aggs results that
+    # return nothing
+    test_that("es_search correctly handles empty bucketed aggregation result", {
+        outDT <- es_search(
+            es_host = "http://127.0.0.1:9200"
+            , es_index = "shakespeare"
+            , max_hits = 100
+            , query = '{"aggs": {"blegh": {"terms": {"field": "nonsense_field"}}}}'
+        ) 
+        expect_null(outDT)
+    })
+    
+    
 #--- .get_es_version
     
     test_that(".get_version works", {
@@ -205,6 +219,8 @@ futile.logger::flog.threshold(0)
         expect_true(is.character(fieldDT$data_type))
         expect_true(sum(is.na(fieldDT)) == 0)
     })
+    
+
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)

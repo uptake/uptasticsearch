@@ -21,6 +21,7 @@
 #' # Parse into a data.table
 #' aggDT <- chomp_aggs(aggs_json = result)
 #' print(aggDT)
+#' @return A data.table representation of the result or NULL if the aggregation result is empty.
 chomp_aggs <- function(aggs_json = NULL) {
     
     # If nothing was passed to aggs_json, return NULL and warn
@@ -40,7 +41,11 @@ chomp_aggs <- function(aggs_json = NULL) {
     jsonList <- jsonlite::fromJSON(aggs_json, flatten = TRUE)
     
     # Get first agg name
-    aggNames <- names(jsonList[["aggregations"]])      # should be length 1
+    aggNames <- names(jsonList[["aggregations"]])
+    assertthat::assert_that(
+        assertthat::is.string(aggNames)
+        , msg = "aggregations are expected to have a single user-assigned name. This is a malformed aggregations response."
+    )
     
     # Gross special-case handler for one-level extended_stats aggregation
     if (.IsExtendedStatsAgg(jsonList[["aggregations"]][[aggNames]])){
@@ -68,6 +73,12 @@ chomp_aggs <- function(aggs_json = NULL) {
         outDT <- data.table::as.data.table(jsonList[["aggregations"]][[aggNames]][["buckets"]])
         data.table::setnames(outDT, 'key', aggNames)
         return(outDT)
+    }
+    
+    # check for an empty result
+    if (identical(jsonList[["aggregations"]][[aggNames]][["buckets"]], list())){
+        log_info("this aggregation result was empty. Returning NULL")
+        return(invisible(NULL))
     }
     
     # Get the data.table. One of these columns is a list of data.frames.
