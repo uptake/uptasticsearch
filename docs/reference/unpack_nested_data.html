@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -38,6 +40,7 @@
 This is a side-effect-free function: it returns a new data.table and the
   input data.table is unmodified." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -64,7 +67,7 @@ This is a side-effect-free function: it returns a new data.table and the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">uptasticsearch</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -104,7 +107,7 @@ This is a side-effect-free function: it returns a new data.table and the
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Unpack a nested data.table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/UptakeOpenSource/uptasticsearch/blob/master/R/elasticsearch_parsers.R'><code>R/elasticsearch_parsers.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/UptakeOpenSource/uptasticsearch/blob/master/R/unpack_nested_data.R'><code>R/unpack_nested_data.R</code></a></small>
     <div class="hidden name"><code>unpack_nested_data.Rd</code></div>
     </div>
 
@@ -152,7 +155,7 @@ unpack</p></td>
 "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'</span>
 
 <span class='co'># Chomp into a data.table</span>
-<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2018-05-14 20:04:09] Keeping the following nested data columns. Consider using unpack_nested_data for one:
+<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2018-06-18 17:17:11] Keeping the following nested data columns. Consider using unpack_nested_data for one:
 #&gt;  details.pastPurchases</div><div class='input'><span class='fu'>print</span>(<span class='no'>sampleChompedDT</span>)</div><div class='output co'>#&gt;     timestamp cust_name details.cust_class details.location
 #&gt; 1: 2017-01-01    Austin        big_spender          chicago
 #&gt; 2: 2017-02-02     James            peasant          chicago

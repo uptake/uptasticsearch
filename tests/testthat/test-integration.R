@@ -170,6 +170,8 @@ futile.logger::flog.threshold(0)
     # changes across versions in the way ES actually responds to aggs results that
     # return nothing
     test_that("es_search correctly handles empty bucketed aggregation result", {
+        testthat::skip_on_cran()
+
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
@@ -178,11 +180,12 @@ futile.logger::flog.threshold(0)
         ) 
         expect_null(outDT)
     })
-    
-    
+
 #--- .get_es_version
     
     test_that(".get_es_version works", {
+        testthat::skip_on_cran()
+        
         ver <- uptasticsearch:::.get_es_version(es_host = "http://127.0.0.1:9200")
         
         # is a string
