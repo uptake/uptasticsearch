@@ -11,9 +11,8 @@ reference:
     - starts_with("chomp_")
   - title: Utilities
     contents:
-    - get_fields
     - unpack_nested_data
     - parse_date_time
   - title: Exploratory functions
     contents:
-    - get_counts
+    - get_fields
