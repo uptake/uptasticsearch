@@ -182,7 +182,7 @@ futile.logger::flog.threshold(0)
     
 #--- .get_es_version
     
-    test_that(".get_version works", {
+    test_that(".get_es_version works", {
         ver <- uptasticsearch:::.get_es_version(es_host = "http://127.0.0.1:9200")
         
         # is a string
@@ -195,9 +195,34 @@ futile.logger::flog.threshold(0)
         expect_true(!is.na(as.integer(ver)), info = paste0("returned version: ", ver))
     })
     
-#--- get_fields
+#--- get_fields and .get_aliases
     
-    test_that("get_fields works on an actual running ES cluster", {
+    # set up helper function for manipulating aliases. Valid actions below are
+    # "add" and "remove"
+    .alias_action <- function(action, alias_name){
+        res <- httr::POST(
+            url = "http://127.0.0.1:9200/_aliases"
+            , httr::add_headers(c('Content-Type' = 'application/json'))
+            , body = sprintf(
+                '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'
+                , action
+                , alias_name
+            )
+        )
+        httr::stop_for_status(res)
+        return(invisible(NULL))
+    }
+    
+    test_that(".get_aliases returns NULL when no aliases have been created in the cluster", {
+        testthat::skip_on_cran()
+        
+        result <- .get_aliases(
+            es_host = "http://127.0.0.1:9200"
+        )
+        expect_null(result)
+    })
+    
+    test_that("get_fields works on an actual running ES cluster with no aliases", {
         testthat::skip_on_cran()
         
         fieldDT <- get_fields(
@@ -220,7 +245,212 @@ futile.logger::flog.threshold(0)
         expect_true(sum(is.na(fieldDT)) == 0)
     })
     
-
+    test_that(".get_aliases and get_fields work as expected when exactly one alias exists for one index in the cluster", {
+        
+        # create an alias
+        .alias_action("add", "the_test_alias")
+        
+        # get_aliases should work
+        resultDT <- .get_aliases("http://127.0.0.1:9200")
+        expect_true(data.table::is.data.table(resultDT))
+        expect_true(nrow(resultDT) == 1)
+        expect_named(
+            resultDT
+            , c("alias", "index")
+            , ignore.case = FALSE
+            , ignore.order = TRUE
+        )
+        expect_identical(resultDT[, index], "shakespeare")
+        expect_identical(resultDT[, alias], "the_test_alias")
+        
+        # get_fields should work
+        fieldDT <- get_fields(
+            es_host = "http://127.0.0.1:9200"
+            , es_indices = "_all"
+        )
+        
+        expect_true(data.table::is.data.table(fieldDT))
+        expect_true(nrow(fieldDT) > 0)
+        expect_named(
+            fieldDT
+            , c("index", "type", "field", "data_type")
+            , ignore.order = TRUE
+            , ignore.case = FALSE
+        )
+        expect_true(is.character(fieldDT$index))
+        expect_true(is.character(fieldDT$type))
+        expect_true(is.character(fieldDT$field))
+        expect_true(is.character(fieldDT$data_type))
+        expect_true(sum(is.na(fieldDT)) == 0)
+        
+        # get_fields should replace index names with their aliases
+        expect_true(fieldDT[, sum(index == "the_test_alias")] > 0)
+        expect_true(
+            fieldDT[, sum(index == "shakespeare")] == 0
+            , info = "get_fields didn't replace index names with their aliases"
+        )
+        
+        # delete the alias we created (to keep tests self-contained)
+        .alias_action("remove", "the_test_alias")
+        
+        # confirm that it's gone
+        resultDT <- .get_aliases("http://127.0.0.1:9200")
+        expect_null(resultDT)
+    })
+    
+    test_that(".get_aliases and get_fields work as expected when more than one alias exists for one index in the cluster", {
+        
+        # create an alias
+        .alias_action('add', 'the_test_alias')
+        .alias_action('add', 'the_best_alias')
+        .alias_action('add', 'the_nest_alias')
+    
+        # get_aliases should work
+        resultDT <- .get_aliases("http://127.0.0.1:9200")
+        expect_true(data.table::is.data.table(resultDT))
+        expect_true(nrow(resultDT) == 3)
+        expect_named(
+            resultDT
+            , c("alias", "index")
+            , ignore.case = FALSE
+            , ignore.order = TRUE
+        )
+        expect_identical(resultDT[, index], rep("shakespeare", 3))
+        expect_true(resultDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% alias)])
+        
+        # get_fields should work for "_all" indices
+        fieldDT <- get_fields(
+            es_host = "http://127.0.0.1:9200"
+            , es_indices = "_all"
+        )
+        
+        expect_true(data.table::is.data.table(fieldDT))
+        expect_true(nrow(fieldDT) > 0)
+        expect_named(
+            fieldDT
+            , c("index", "type", "field", "data_type")
+            , ignore.order = TRUE
+            , ignore.case = FALSE
+        )
+        expect_true(is.character(fieldDT$index))
+        expect_true(is.character(fieldDT$type))
+        expect_true(is.character(fieldDT$field))
+        expect_true(is.character(fieldDT$data_type))
+        expect_true(sum(is.na(fieldDT)) == 0)
+        
+        # get_fields should replace index names with their aliases
+        expect_true(fieldDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% index)])
+        expect_true(
+            fieldDT[, sum(index == "shakespeare")] == 0
+            , info = "get_fields didn't replace index names with their aliases"
+        )
+        
+        # since we aliased the same index three times, the subsections should all be identical
+        expect_true(identical(
+            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
+            , fieldDT[index == 'the_nest_alias', .(type, field, data_type)]
+        ))
+        expect_true(identical(
+            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
+            , fieldDT[index == 'the_test_alias', .(type, field, data_type)]
+        ))
+        
+        # get_fields should work targeting a specific index with aliases
+        fieldDT <- get_fields(
+            es_host = "http://127.0.0.1:9200"
+            , es_indices = "shakespeare"
+        )
+        
+        expect_true(data.table::is.data.table(fieldDT))
+        expect_true(nrow(fieldDT) > 0)
+        expect_named(
+            fieldDT
+            , c("index", "type", "field", "data_type")
+            , ignore.order = TRUE
+            , ignore.case = FALSE
+        )
+        expect_true(is.character(fieldDT$index))
+        expect_true(is.character(fieldDT$type))
+        expect_true(is.character(fieldDT$field))
+        expect_true(is.character(fieldDT$data_type))
+        expect_true(sum(is.na(fieldDT)) == 0)
+        
+        # get_fields should replace index names with their aliases
+        expect_true(fieldDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% index)])
+        expect_true(
+            fieldDT[, sum(index == "shakespeare")] == 0
+            , info = "get_fields didn't replace index names with their aliases"
+        )
+        
+        # since we aliased the same index three times, the subsections should all be identical
+        expect_true(identical(
+            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
+            , fieldDT[index == 'the_nest_alias', .(type, field, data_type)]
+        ))
+        expect_true(identical(
+            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
+            , fieldDT[index == 'the_test_alias', .(type, field, data_type)]
+        ))
+        
+        # delete the aliases we created (to keep tests self-contained)
+        .alias_action('remove', 'the_test_alias')
+        .alias_action('remove', 'the_best_alias')
+        .alias_action('remove', 'the_nest_alias')
+        
+        # confirm that they're gone
+        resultDT <- .get_aliases("http://127.0.0.1:9200")
+        expect_null(resultDT)
+    })
+    
+    test_that("get_fields works when you target a single index with no aliases", {
+        
+        fieldDT <- get_fields(
+            es_host = "http://127.0.0.1:9200"
+            , es_indices = "empty_index"
+        )
+        expect_true(data.table::is.data.table(fieldDT))
+        expect_true(nrow(fieldDT) > 0)
+        expect_named(
+            fieldDT
+            , c("index", "type", "field", "data_type")
+            , ignore.order = TRUE
+            , ignore.case = FALSE
+        )
+        expect_true(is.character(fieldDT$index))
+        expect_true(is.character(fieldDT$type))
+        expect_true(is.character(fieldDT$field))
+        expect_true(is.character(fieldDT$data_type))
+        expect_true(sum(is.na(fieldDT)) == 0)
+        
+        # should only give us back records on the one index we requested
+        expect_true(fieldDT[, all(index == "empty_index")])
+    })
+    
+    
+    test_that("get_fields works when you pass a vector of index names", {
+        
+        fieldDT <- get_fields(
+            es_host = "http://127.0.0.1:9200"
+            , es_indices = c("empty_index", "shakespeare")
+        )
+        expect_true(data.table::is.data.table(fieldDT))
+        expect_true(nrow(fieldDT) > 0)
+        expect_named(
+            fieldDT
+            , c("index", "type", "field", "data_type")
+            , ignore.order = TRUE
+            , ignore.case = FALSE
+        )
+        expect_true(is.character(fieldDT$index))
+        expect_true(is.character(fieldDT$type))
+        expect_true(is.character(fieldDT$field))
+        expect_true(is.character(fieldDT$data_type))
+        expect_true(sum(is.na(fieldDT)) == 0)
+        
+        # should only give us back records on indexes we requested
+        expect_true(fieldDT[, any(index == "empty_index")])
+        expect_true(fieldDT[, length(unique(index))] >= 2)
+    })
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)

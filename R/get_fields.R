@@ -3,8 +3,9 @@
 #' @name get_fields
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
+#' @importFrom data.table := rbindlist uniqueN
 #' @importFrom httr add_headers content GET stop_for_status
-#' @importFrom data.table := uniqueN
+#' @importFrom purrr map2
 #' @param es_indices A character vector that contains the names of indices for
 #'                   which to get mappings. Default is \code{'_all'}, which means
 #'                   get the mapping for all indices. Names of indices can be
@@ -22,7 +23,7 @@ get_fields <- function(es_host
 ) {
     
     # Input checking
-    url <- .ValidateAndFormatHost(es_host)
+    es_url <- .ValidateAndFormatHost(es_host)
     
     .assert(
         is.character("es_indices")
@@ -35,7 +36,7 @@ get_fields <- function(es_host
     
     ########################## build the query ################################
     if (nchar(indices) > 0) {
-        url <- paste(url, indices, '_mapping', sep = '/')
+        es_url <- paste(es_url, indices, '_mapping', sep = '/')
     } else {
         msg <- paste("get_fields must be passed a valid es_indices."
                      , "You provided", paste(es_indices, collapse = ', ')
@@ -47,7 +48,7 @@ get_fields <- function(es_host
     log_info(paste('Getting indexed fields for indices:', indices))
     
     result <- httr::GET(
-        url = url
+        url = es_url
         , httr::add_headers(c('Content-Type' = 'application/json'))
     )
     httr::stop_for_status(result)
@@ -57,11 +58,36 @@ get_fields <- function(es_host
     mappingDT <- .flatten_mapping(mapping = resultContent)
     
     ##################### get aliases for index names #########################
-    aliasDT <- .get_aliases(es_host = es_host)
-    if (!is.null(aliasDT)) {
-        lookup <- aliasDT[['alias']]
-        names(lookup) <- aliasDT[['index']]
-        mappingDT[index %in% names(lookup), index := lookup[index]]
+    rawAliasDT <- .get_aliases(es_host = es_host)
+    if (!is.null(rawAliasDT)) {
+        
+        log_info("Replacing index names with aliases")
+        
+        # duplicate the mapping results for every alias. Idea is that you should be able to rely 
+        # on the results of get_fields to programmatically generate queries, and you should have a
+        # preference for hitting aliases over straight-up index name
+        aliasDT <- data.table::rbindlist(
+            purrr::map2(
+                .x = rawAliasDT[["index"]]
+                , .y = rawAliasDT[["alias"]]
+                , .f = function(idx_name, alias_name, mappingDT){
+                    tmpDT <- mappingDT[index == idx_name]
+                    tmpDT[, index := alias_name]
+                    return(tmpDT)
+                }
+                , mappingDT = mappingDT
+            )
+            , fill = TRUE
+        )
+        
+        # Merge these alias records with the other mapping data that came from indexes
+        # without any aliases. I know this seems overly complicated, but it makes it possible
+        # to deal with the very-real state of the world where one index has multiple aliases
+        # pointing to it
+        mappingDT <- data.table::rbindlist(
+            list(aliasDT, mappingDT[!(index %in% rawAliasDT[["index"]])])
+            , fill = TRUE
+        )
     }
     
     # log some information about this request to the user
@@ -130,15 +156,43 @@ get_fields <- function(es_host
         # there are no aliases in this Elasticsearch cluster
         return(invisible(NULL))
     } else {
-        return(.process_alias(alias_string = resultContent))
+        major_version <- .get_es_version(es_host)
+        process_alias <- switch(
+            major_version
+            , "1" = .process_legacy_alias
+            , "2" = .process_legacy_alias
+            , "5" = .process_new_alias
+            , "6" = .process_new_alias
+            , .process_new_alias
+        )
+        return(process_alias(alias_string = resultContent))
     }
 }
 
+
 # [title] Process the string returned by the GET alias API into a data.table
+# [description] Older version of ES (pre-5.x) had a slightly different return
+#               format for aliases. This handles those
+# [alias_string] A string returned by the alias API with index and alias name
+#' @importFrom data.table as.data.table
+#' @importFrom jsonlite fromJSON
+.process_legacy_alias <- function(alias_string){
+    aliasDT <- data.table::as.data.table(
+        jsonlite::fromJSON(
+            alias_string
+            , simplifyDataFrame = TRUE
+            , flatten = TRUE
+        )
+    )
+    return(aliasDT[, .(alias, index)])
+}
+
+# [title] Process the string returned by the GET alias API into a data.table
+# [description] This only works for ES5 and up
 # [alias_string] A string returned by the alias API with index and alias name
 #' @importFrom data.table data.table
 #' @importFrom utils read.table
-.process_alias <- function(alias_string) {
+.process_new_alias <- function(alias_string) {
     
     # process the string provided by the /_cat/aliases API into a data.frame and then a data.table
     aliasDT <- data.table::data.table(

@@ -93,20 +93,20 @@ futile.logger::flog.threshold(0)
 #--- .process_alias
     
     # works if one alias is passed
-    test_that(".process_alias works if one alias is included",
+    test_that(".process_new_alias works if one alias is included",
               {
                   alias_string <- 'dwm shakespeare - - -\n'
-                  aliasDT <- uptasticsearch:::.process_alias(alias_string = alias_string)
+                  aliasDT <- uptasticsearch:::.process_new_alias(alias_string = alias_string)
                   expected <- data.table::data.table(alias = 'dwm', index = 'shakespeare')
                   expect_identical(aliasDT, expected)
               }
     )
     
     # works if multiple aliases are passed
-    test_that(".process_alias works if one alias is included",
+    test_that(".process_new_alias works if one alias is included",
               {
                   alias_string <- 'dwm   shakespeare - - -\nmoney bank        - - -\n'
-                  aliasDT <- uptasticsearch:::.process_alias(alias_string = alias_string)
+                  aliasDT <- uptasticsearch:::.process_new_alias(alias_string = alias_string)
                   expected <- data.table::data.table(alias = c('dwm', 'money'), index = c('shakespeare', 'bank'))
                   expect_identical(aliasDT, expected)
               }
