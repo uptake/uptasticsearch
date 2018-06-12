@@ -102,7 +102,7 @@ cp ${SAMPLE_DATA_FILE} ${TESTDIR}/sample.json
 cd ${TESTDIR}
 
 # give the cluster a chance
-sleep 10
+sleep 15
 
 # Create shakespeare index and shakespeare mapping
 curl -X PUT "http://${ES_HOST}:9200/shakespeare" \

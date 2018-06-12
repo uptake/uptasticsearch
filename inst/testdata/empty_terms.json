@@ -1,0 +1,22 @@
+{
+  "took": 15,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 48,
+    "max_score": 0.0,
+    "hits": []
+  },
+  "aggregations": {
+    "blegh": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": []
+    }
+  }
+}

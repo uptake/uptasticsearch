@@ -594,6 +594,13 @@ test_that("chomp_aggs should work for a two-level 'terms' aggregation",
               expect_true(all(chompDT$customerType == 'type_a'))
           })
 
+# empty results
+test_that("chomp_aggs should work for an empty terms result", {
+    result <- system.file("testdata", "empty_terms.json", package = "uptasticsearch")
+    chompDT <- chomp_aggs(aggs_json = result)
+    expect_null(chompDT)
+})
+
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
