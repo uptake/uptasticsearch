@@ -5,14 +5,16 @@
 # See: http://stackoverflow.com/a/12429344
 # Also: see hadley's comments on his own post there. They're great.
 
-utils::globalVariables(c('.'
-                         , '.I'
-                         , '.id'
-                         , 'field'
-                         , 'index'
-                         , 'V1'
-                         , 'V2'
-                       ))
+utils::globalVariables(c(
+    '.'
+    , '.I'
+    , '.id'
+    , 'alias'
+    , 'field'
+    , 'index'
+    , 'V1'
+    , 'V2'
+))
 
 
 # NULL object for common parameter documentation

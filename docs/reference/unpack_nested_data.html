@@ -155,7 +155,7 @@ unpack</p></td>
 "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'</span>
 
 <span class='co'># Chomp into a data.table</span>
-<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2018-06-18 17:17:11] Keeping the following nested data columns. Consider using unpack_nested_data for one:
+<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2018-06-18 17:51:29] Keeping the following nested data columns. Consider using unpack_nested_data for one:
 #&gt;  details.pastPurchases</div><div class='input'><span class='fu'>print</span>(<span class='no'>sampleChompedDT</span>)</div><div class='output co'>#&gt;     timestamp cust_name details.cust_class details.location
 #&gt; 1: 2017-01-01    Austin        big_spender          chicago
 #&gt; 2: 2017-02-02     James            peasant          chicago

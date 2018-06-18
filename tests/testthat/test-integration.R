@@ -250,6 +250,8 @@ futile.logger::flog.threshold(0)
     
     test_that(".get_aliases and get_fields work as expected when exactly one alias exists for one index in the cluster", {
         
+        testthat::skip_on_cran()
+        
         # create an alias
         .alias_action("add", "the_test_alias")
         
@@ -302,6 +304,8 @@ futile.logger::flog.threshold(0)
     })
     
     test_that(".get_aliases and get_fields work as expected when more than one alias exists for one index in the cluster", {
+        
+        testthat::skip_on_cran()
         
         # create an alias
         .alias_action('add', 'the_test_alias')
@@ -407,6 +411,8 @@ futile.logger::flog.threshold(0)
     
     test_that("get_fields works when you target a single index with no aliases", {
         
+        testthat::skip_on_cran()
+        
         fieldDT <- get_fields(
             es_host = "http://127.0.0.1:9200"
             , es_indices = "empty_index"
@@ -431,6 +437,8 @@ futile.logger::flog.threshold(0)
     
     
     test_that("get_fields works when you pass a vector of index names", {
+        
+        testthat::skip_on_cran()
         
         fieldDT <- get_fields(
             es_host = "http://127.0.0.1:9200"
