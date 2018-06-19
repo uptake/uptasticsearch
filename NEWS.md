@@ -11,6 +11,9 @@
 ### `get_fields` when your index has no aliases
 - previously, `get_fields` broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the `_cat/aliases` endpoint has changed from major version to major version. [#66](https://github.com/UptakeOpenSource/uptasticsearch/pull/66) fixed this for all major versions of ES from 1.0 to 6.2
 
+### `get_fields` when your index has multiple aliases
+- previously, if you had multiple aliases pointing to the same physical index, `get_fields` would only return one of those. As of [#73](https://github.com/UptakeOpenSource/uptasticsearch/pull/73), mappings for the underlying physical index will now be duplicated once per alias in the table returned by `get_fields`.
+
 ### bad parsing of ES major version
 - as of [#64](https://github.com/UptakeOpenSource/uptasticsearch/pull/64), `uptasticsearch` attempts to query the ES host to figure out what major version of Elasticsearch is running there. Implementation errors in that PR led to versions being parsed incorrectly but silently passing tests. This was fixed in [#66](https://github.com/UptakeOpenSource/uptasticsearch/pull/66). NOTE: this only impacted the dev version of the library on Github.
 
