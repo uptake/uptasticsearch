@@ -8,8 +8,8 @@
 <title>Get Data Frame Representations of 'Elasticsearch' Results • uptasticsearch</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Get Data Frame Representations of 'Elasticsearch' Results">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Get Data Frame Representations of 'Elasticsearch' Results">
 <meta property="og:description" content="
     'Elasticsearch' is an open-source, distributed, document-based datastore
     (&lt;https://www.elastic.co/products/elasticsearch&gt;).
@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">uptasticsearch</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -361,24 +361,31 @@ revenueDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
 <td align="left">terms - terms</td>
 <td align="center">YES</td>
 </tr>
-<tr class="odd">
-<td align="left"><a href="http://bit.ly/2sn1t74">“stats”</a></td>
-<td align="center">YES</td>
-</tr>
 </tbody>
 </table>
 </div>
-</div>
-<div id="next-steps" class="section level2">
-<h2 class="hasAnchor">
-<a href="#next-steps" class="anchor"></a>Next Steps <a name="nextsteps"></a>
-</h2>
-<p>This is a fairly new project and, as the version number indicates, should be regarded as a work in progress.</p>
 <div id="auth-support" class="section level3">
 <h3 class="hasAnchor">
 <a href="#auth-support" class="anchor"></a>Auth Support <a name="authsupport"></a>
 </h3>
 <p><code>uptasticsearch</code> does not currently support queries with authentication. This will be added in future versions.</p>
+</div>
+<div id="running-tests-locally" class="section level3">
+<h3 class="hasAnchor">
+<a href="#running-tests-locally" class="anchor"></a>Running Tests Locally</h3>
+<p>When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We’ve provided some gross bash scripts at the root of this repo to help!</p>
+<p>To run the code below, you will need <a href="https://www.docker.com/">Docker</a>. Note that I’ve passed an argument to <code>setup_local.sh</code> indicating the major version of ES I want to run. If you don’t do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of <code>setup_local.sh</code> for a list of the valid arguments.</p>
+<pre><code># Start up Elasticsearch on localhost:9200 and seed it with data
+./setup_local.sh 5.5
+
+# Run tests
+Rscript -e "devtools::test()"
+
+# Get test coverage and generate coverage report
+./coverage.sh
+
+# Tear down the container and remove testing files
+./cleanup_local.sh</code></pre>
 </div>
 </div>
 </div>

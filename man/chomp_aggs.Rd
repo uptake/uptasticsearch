@@ -11,6 +11,9 @@ chomp_aggs(aggs_json = NULL)
 together. This can contain a JSON returned from an \code{aggs} query in Elasticsearch, or
 a filepath or URL pointing at one.}
 }
+\value{
+A data.table representation of the result or NULL if the aggregation result is empty.
+}
 \description{
 Given some raw JSON from an aggs query in Elasticsearch, parse the
              aggregations into a data.table.

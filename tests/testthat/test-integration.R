@@ -170,6 +170,8 @@ futile.logger::flog.threshold(0)
     # changes across versions in the way ES actually responds to aggs results that
     # return nothing
     test_that("es_search correctly handles empty bucketed aggregation result", {
+        testthat::skip_on_cran()
+
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
@@ -178,11 +180,12 @@ futile.logger::flog.threshold(0)
         ) 
         expect_null(outDT)
     })
-    
-    
+
 #--- .get_es_version
     
     test_that(".get_es_version works", {
+        testthat::skip_on_cran()
+        
         ver <- uptasticsearch:::.get_es_version(es_host = "http://127.0.0.1:9200")
         
         # is a string
@@ -247,6 +250,8 @@ futile.logger::flog.threshold(0)
     
     test_that(".get_aliases and get_fields work as expected when exactly one alias exists for one index in the cluster", {
         
+        testthat::skip_on_cran()
+        
         # create an alias
         .alias_action("add", "the_test_alias")
         
@@ -299,6 +304,8 @@ futile.logger::flog.threshold(0)
     })
     
     test_that(".get_aliases and get_fields work as expected when more than one alias exists for one index in the cluster", {
+        
+        testthat::skip_on_cran()
         
         # create an alias
         .alias_action('add', 'the_test_alias')
@@ -404,6 +411,8 @@ futile.logger::flog.threshold(0)
     
     test_that("get_fields works when you target a single index with no aliases", {
         
+        testthat::skip_on_cran()
+        
         fieldDT <- get_fields(
             es_host = "http://127.0.0.1:9200"
             , es_indices = "empty_index"
@@ -428,6 +437,8 @@ futile.logger::flog.threshold(0)
     
     
     test_that("get_fields works when you pass a vector of index names", {
+        
+        testthat::skip_on_cran()
         
         fieldDT <- get_fields(
             es_host = "http://127.0.0.1:9200"
