@@ -113,7 +113,7 @@ curl -X PUT "http://${ES_HOST}:9200/shakespeare" \
 curl -X POST "http://${ES_HOST}:9200/shakespeare/_bulk" \
      -H 'Content-Type: application/json' \
      --data-binary @sample.json
-     
+
 # Add an intentionally empty index
 curl -X PUT "http://${ES_HOST}:9200/empty_index" \
      -H 'Content-Type: application/json' \

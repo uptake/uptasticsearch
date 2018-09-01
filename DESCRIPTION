@@ -29,8 +29,8 @@ Imports:
     jsonlite,
     purrr,
     stringr,
-    uuid,
-    utils
+    utils,
+    uuid
 Suggests:
     knitr,
     testthat,

@@ -7,7 +7,7 @@
 chomp_aggs(aggs_json = NULL)
 }
 \arguments{
-\item{aggs_json}{A character vector. If its length is greater than 1, its elements will be pasted 
+\item{aggs_json}{A character vector. If its length is greater than 1, its elements will be pasted
 together. This can contain a JSON returned from an \code{aggs} query in Elasticsearch, or
 a filepath or URL pointing at one.}
 }

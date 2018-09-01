@@ -9,16 +9,16 @@ unpack_nested_data(chomped_df, col_to_unpack)
 \arguments{
 \item{chomped_df}{a data.table}
 
-\item{col_to_unpack}{a character vector of length one: the column name to 
+\item{col_to_unpack}{a character vector of length one: the column name to
 unpack}
 }
 \description{
-After calling a \code{chomp_*} function or \code{es_search}, if 
-  you had a nested array in the JSON, its corresponding column in the 
-  resulting data.table is a data.frame itself (or a list of vectors). This 
-  function expands that nested column out, adding its data to the original 
+After calling a \code{chomp_*} function or \code{es_search}, if
+  you had a nested array in the JSON, its corresponding column in the
+  resulting data.table is a data.frame itself (or a list of vectors). This
+  function expands that nested column out, adding its data to the original
   data.table, and duplicating metadata down the rows as necessary.
-  
+
   This is a side-effect-free function: it returns a new data.table and the
   input data.table is unmodified.
 }
