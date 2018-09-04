@@ -84,11 +84,13 @@ qbody <- '{
 }'
 
 # Execute the query, parse into a data.table
-commentDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                       , es_index = "survey_results"
-                       , query_body = qbody
-                       , scroll = "1m"
-                       , n_cores = 4)
+commentDT <- es_search(
+    es_host = 'http://mydb.mycompany.com:9200'
+    , es_index = "survey_results"
+    , query_body = qbody
+    , scroll = "1m"
+    , n_cores = 4
+)
 ```
 
 ### Example 2: Aggregation Results <a name="example2"></a>
@@ -136,11 +138,13 @@ qbody <- '{
 }'
 
 # Execute the query, parse result into a data.table
-revenueDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                       , es_index = "transactions"
-                       , size = 1000
-                       , query_body = qbody
-                       , n_cores = 1)
+revenueDT <- es_search(
+    es_host = 'http://mydb.mycompany.com:9200'
+    , es_index = "transactions"
+    , size = 1000
+    , query_body = qbody
+    , n_cores = 1
+)
 ```
 
 In the example above, we used the [date_histogram](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html) and [extended_stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html) aggregations. `es_search` has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form "agg1 - agg2" refer to the ability to handled aggregations nested inside other aggregations.

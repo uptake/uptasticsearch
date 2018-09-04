@@ -21,19 +21,19 @@
 get_fields <- function(es_host
                        , es_indices = '_all'
 ) {
-    
+
     # Input checking
     es_url <- .ValidateAndFormatHost(es_host)
-    
+
     .assert(
         is.character("es_indices")
         , length(es_indices) > 0
     )
-    
+
     # collapse character vectors into comma separated strings. If any arguments
     # are NULL, create an empty string
     indices <- paste(es_indices, collapse = ',')
-    
+
     ########################## build the query ################################
     if (nchar(indices) > 0) {
         es_url <- paste(es_url, indices, '_mapping', sep = '/')
@@ -43,27 +43,27 @@ get_fields <- function(es_host
                      , 'which resulted in an empty string')
         log_fatal(msg)
     }
-    
+
     ########################## make the query ################################
     log_info(paste('Getting indexed fields for indices:', indices))
-    
+
     result <- httr::GET(
         url = es_url
         , httr::add_headers(c('Content-Type' = 'application/json'))
     )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'parsed')
-    
+
     ######################### flatten the result ##############################
     mappingDT <- .flatten_mapping(mapping = resultContent)
-    
+
     ##################### get aliases for index names #########################
     rawAliasDT <- .get_aliases(es_host = es_host)
     if (!is.null(rawAliasDT)) {
-        
+
         log_info("Replacing index names with aliases")
-        
-        # duplicate the mapping results for every alias. Idea is that you should be able to rely 
+
+        # duplicate the mapping results for every alias. Idea is that you should be able to rely
         # on the results of get_fields to programmatically generate queries, and you should have a
         # preference for hitting aliases over straight-up index name
         aliasDT <- data.table::rbindlist(
@@ -79,7 +79,7 @@ get_fields <- function(es_host
             )
             , fill = TRUE
         )
-        
+
         # Merge these alias records with the other mapping data that came from indexes
         # without any aliases. I know this seems overly complicated, but it makes it possible
         # to deal with the very-real state of the world where one index has multiple aliases
@@ -89,12 +89,12 @@ get_fields <- function(es_host
             , fill = TRUE
         )
     }
-    
+
     # log some information about this request to the user
     numFields <- nrow(mappingDT)
     numIndex <- mappingDT[, data.table::uniqueN(index)]
     log_info(paste('Retrieved', numFields, 'fields across', numIndex, 'indices'))
-    
+
     return(mappingDT)
 }
 
@@ -103,16 +103,16 @@ get_fields <- function(es_host
 #' @importFrom data.table := data.table setnames
 #' @importFrom stringr str_detect str_split_fixed str_replace_all
 .flatten_mapping <- function(mapping) {
-    
+
     ######################### parse the result ###############################
     # flatten the list object that is returned from the query
     flattened <- unlist(mapping)
-    
+
     # the names of the flattened object has the index, type, and field name
     # however, it also has extra terms that we can use to split the name
     # into three distinct parts
     mappingCols <- stringr::str_split_fixed(names(flattened), '\\.(mappings|properties)\\.', n = 3)
-    
+
     # convert to data.table and add the data type column
     mappingDT <- data.table::data.table(
         meta = mappingCols
@@ -120,16 +120,16 @@ get_fields <- function(es_host
     )
     newColNames <- c('index', 'type', 'field', 'data_type')
     data.table::setnames(mappingDT, newColNames)
-    
+
     # remove any rows, where the field does not end in ".type" to remove meta info
     mappingDT <- mappingDT[stringr::str_detect(field, '\\.type$')]
-    
+
     # mappings in nested objects have sub-fields called properties
     # mappings of fields that are indexed in different ways have multiple fields
     # we want to remove these terms from the field name
     metaRegEx <- '\\.(properties|fields|type)'
     mappingDT[, field := stringr::str_replace_all(field, metaRegEx, '')]
-    
+
     return(mappingDT)
 }
 
@@ -137,10 +137,10 @@ get_fields <- function(es_host
 # [es_host] A string identifying an Elasticsearch host.
 #' @importFrom httr add_headers content GET stop_for_status
 .get_aliases <- function(es_host) {
-    
+
     # construct the url to the alias endpoint
     url <- paste0(es_host, '/_cat/aliases')
-    
+
     # make the request
     result <- httr::GET(
         url = url
@@ -148,8 +148,8 @@ get_fields <- function(es_host
     )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'text')
-    
-    # NOTES: 
+
+    # NOTES:
     # - with ES1.7.2., this returns an empty array "[]"
     # - with ES6, this results in an empty string instead of a NULL
     if (is.null(resultContent) || identical(resultContent, "") || identical(resultContent, "[]")) {
@@ -193,7 +193,7 @@ get_fields <- function(es_host
 #' @importFrom data.table data.table
 #' @importFrom utils read.table
 .process_new_alias <- function(alias_string) {
-    
+
     # process the string provided by the /_cat/aliases API into a data.frame and then a data.table
     aliasDT <- data.table::data.table(
         utils::read.table(
@@ -201,7 +201,7 @@ get_fields <- function(es_host
             , stringsAsFactors = FALSE
         )
     )
-    
+
     # return only the first two columns
     return(aliasDT[, .(alias = V1, index = V2)])
 }

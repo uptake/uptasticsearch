@@ -1,8 +1,8 @@
 
 #' @title Execute an ES query and get a data.table
 #' @name es_search
-#' @description Given a query and some optional parameters, \code{es_search} gets results 
-#'              from HTTP requests to Elasticsearch and returns a data.table 
+#' @description Given a query and some optional parameters, \code{es_search} gets results
+#'              from HTTP requests to Elasticsearch and returns a data.table
 #'              representation of those results.
 #' @param max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
 #'                 as it has pulled this many hits. Default is \code{Inf}, meaning that
@@ -12,10 +12,10 @@
 #'             an "aggs" request in it. Also see \code{max_hits}.
 #' @param query_body String with a valid Elasticsearch query. Default is an empty query.
 #' @param scroll How long should the scroll context be held open? This should be a
-#'               duration string like "1m" (for one minute) or "15s" (for 15 seconds). 
+#'               duration string like "1m" (for one minute) or "15s" (for 15 seconds).
 #'               The scroll context will be refreshed every time you ask Elasticsearch
-#'               for another record, so this parameter should just be the amount of 
-#'               time you expect to pass between requests. See the 
+#'               for another record, so this parameter should just be the amount of
+#'               time you expect to pass between requests. See the
 #'               \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
 #'               for more information.
 #' @param n_cores Number of cores to distribute fetching + processing over.
@@ -23,7 +23,7 @@
 #'                          to check whether or not some data were lost during the processing.
 #'                          If you have duplicates in the source data, you will have to set this flag to
 #'                          FALSE and just trust that no data have been lost. Sorry :( .
-#' @param ignore_scroll_restriction There is a cost associated with keeping an 
+#' @param ignore_scroll_restriction There is a cost associated with keeping an
 #'                                Elasticsearch scroll context open. By default,
 #'                                this function does not allow arguments to \code{scroll}
 #'                                which exceed one hour. This is done to prevent
@@ -35,7 +35,7 @@
 #' @param intermediates_dir When scrolling over search results, this function writes
 #'        intermediate results to disk. By default, `es_search` will create a temporary
 #'        directory in whatever working directory the function is called from. If you
-#'        want to change this behavior, provide a path here. `es_search` will create 
+#'        want to change this behavior, provide a path here. `es_search` will create
 #'        and write to a temporary directory under whatever path you provide.
 #' @inheritParams doc_shared
 #' @importFrom assertthat is.count is.flag is.number is.string is.writeable
@@ -43,29 +43,29 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' ###=== Example 1: Get low-scoring food survey results ===###
 #'
 #' query_body <- '{"query":{"filtered":{"filter":{"bool":{"must":[
 #'                {"exists":{"field":"customer_comments"}},
 #'                {"terms":{"overall_satisfaction":["very low","low"]}}]}}},
 #'                "query":{"match_phrase":{"customer_comments":"food"}}}}'
-#' 
+#'
 #' # Execute the query, parse into a data.table
 #' commentDT <- es_search(es_host = 'http://mydb.mycompany.com:9200'
 #'                        , es_index = "survey_results"
 #'                        , query_body = query_body
 #'                        , scroll = "1m"
 #'                        , n_cores = 4)
-#'                  
+#'
 #' ###=== Example 2: Time series agg features ===###
-#' 
+#'
 #' # Create query that will give you daily summary stats for revenue
 #' query_body <- '{"query":{"filtered":{"filter":{"bool":{"must":[
 #'                {"exists":{"field":"pmt_amount"}}]}}}},
 #'                "aggs":{"timestamp":{"date_histogram":{"field":"timestamp","interval":"day"},
 #'                "aggs":{"revenue":{"extended_stats":{"field":"pmt_amount"}}}}},"size":0}'
-#'                
+#'
 #' # Execute the query and get the result
 #' resultDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
 #'                       , es_index = 'ticket_sales'
@@ -83,7 +83,7 @@ es_search <- function(es_host
                       , ignore_scroll_restriction = FALSE
                       , intermediates_dir = getwd()
 ){
-    
+
     # Check if this is an aggs or straight-up search query
     if (length(query_body) > 1 || ! "character" %in% class(query_body)){
         msg <- sprintf(paste0("query_body should be a single string. ",
@@ -91,7 +91,7 @@ es_search <- function(es_host
                        , length(query_body))
         log_fatal(msg)
     }
-    
+
     # prevent NULL index
     if (is.null(es_index)){
         msg <- paste0(
@@ -100,7 +100,7 @@ es_search <- function(es_host
         )
         log_fatal(msg)
     }
-    
+
     # Other input checks we don't have explicit error messages for
     .assert(
         assertthat::is.string(es_host)
@@ -121,24 +121,27 @@ es_search <- function(es_host
         , assertthat::is.string(intermediates_dir)
         , assertthat::is.writeable(intermediates_dir)
     )
-    
+
     # Aggregation Request
     if (grepl('aggs', query_body)){
-        
+
         # Let them know
         msg <- paste0("es_search detected that this is an aggs request ",
                       "and will only return aggregation results.")
         log_info(msg)
-        
+
         # Get result
         # NOTE: setting size to 0 so we don't spend time getting hits
-        result <- .search_request(es_host = es_host
-                                  , es_index = es_index
-                                  , trailing_args = "size=0"
-                                  , query_body = query_body)
+        result <- .search_request(
+            es_host = es_host
+            , es_index = es_index
+            , trailing_args = "size=0"
+            , query_body = query_body
+        )
+
         return(chomp_aggs(aggs_json = result))
     }
-    
+
     # Normal search request
     log_info("Executing search request")
     return(.fetch_all(es_host = es_host
@@ -157,17 +160,17 @@ es_search <- function(es_host
 # [name] .fetch_all
 # [description] Use the Elasticsearch scroll API to pull as many records as possible
 #              matching a given Elasticsearch query, and format into a nice data.table.
-# [param] es_host A string identifying an Elasticsearch host. This should be of the form 
+# [param] es_host A string identifying an Elasticsearch host. This should be of the form
 #        [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
 # [param] es_index The name of an Elasticsearch index to be queried.
 # [param] size Number of records per page of results. See \href{https://www.elastic.co/guide/en/Elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more
 # [param] query_body String with a valid Elasticsearch query to be passed to \code{\link[elastic]{Search}}.
 #                  Default is an empty query.
 # [param] scroll How long should the scroll context be held open? This should be a
-#               duration string like "1m" (for one minute) or "15s" (for 15 seconds). 
+#               duration string like "1m" (for one minute) or "15s" (for 15 seconds).
 #               The scroll context will be refreshed every time you ask Elasticsearch
-#               for another record, so this parameter should just be the amount of 
-#               time you expect to pass between requests. See the 
+#               for another record, so this parameter should just be the amount of
+#               time you expect to pass between requests. See the
 #               \href{https://www.elastic.co/guide/en/Elasticsearch/guide/current/scroll.html}{Elasticsearch scroll/pagination docs}
 #               for more information.
 # [param] max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
@@ -178,7 +181,7 @@ es_search <- function(es_host
 #                          to check whether or not some data were lost during the processing.
 #                          If you have duplicates in the source data, you will have to set this flag to
 #                          FALSE and just trust that no data have been lost. Sorry :( .
-# [param] ignore_scroll_restriction There is a cost associated with keeping an 
+# [param] ignore_scroll_restriction There is a cost associated with keeping an
 #                                Elasticsearch scroll context open. By default,
 #                                this function does not allow arguments to \code{scroll}
 #                                which exceed one hour. This is done to prevent
@@ -224,10 +227,10 @@ es_search <- function(es_host
                      , ignore_scroll_restriction
                      , intermediates_dir
 ){
-    
+
     # Check es_host
     es_host <- .ValidateAndFormatHost(es_host)
-    
+
     # Protect against costly scroll settings
     if (.ConvertToSec(scroll) > 60*60 & !ignore_scroll_restriction){
         msg <- paste0("By default, this function does not permit scroll requests ",
@@ -251,7 +254,7 @@ es_search <- function(es_host
                       sprintf(" and a page size of %s.", size),
                       sprintf(" Resetting size to %s for efficiency.", max_hits))
         log_warn(msg)
-        
+
         size <- max_hits
     }
 
@@ -261,7 +264,7 @@ es_search <- function(es_host
                       "possible to get a few more than max_hits results back.")
         log_warn(msg)
     }
-    
+
     # Find a safe path to write to and create it
     repeat {
         out_path <- file.path(intermediates_dir, uuid::UUIDgenerate())
@@ -273,9 +276,9 @@ es_search <- function(es_host
     on.exit({
         unlink(out_path, recursive = TRUE)
     })
-    
+
     ###===== Pull the first hit =====###
-    
+
     # Get the first result as text
     firstResultJSON <- .search_request(
         es_host = es_host
@@ -283,21 +286,21 @@ es_search <- function(es_host
         , trailing_args = paste0('size=', size, '&scroll=', scroll)
         , query_body = query_body
     )
-    
+
     # Parse to JSON to get total number of documents matching the query
     firstResult <- jsonlite::fromJSON(firstResultJSON, simplifyVector = FALSE)
     hits_to_pull <- min(firstResult[["hits"]][["total"]], max_hits)
-    
+
     # If we got everything possible, just return here
     hits_pulled <- length(firstResult[["hits"]][["hits"]])
-    
+
     if (hits_pulled == 0) {
       msg <- paste0('Query is syntactically valid but 0 documents were matched. '
                     , 'Returning NULL')
       log_warn(msg)
       return(invisible(NULL))
     }
-    
+
     if (hits_pulled == hits_to_pull) {
         # Parse to data.table
         esDT <- chomp_hits(
@@ -306,39 +309,46 @@ es_search <- function(es_host
         )
         return(esDT)
     }
-    
+
     # If we need to pull more stuff...grab the scroll Id from that first result
-    scroll_id   <- enc2utf8(firstResult[["_scroll_id"]])
-    
+    scroll_id <- enc2utf8(firstResult[["_scroll_id"]])
+
     # Write to disk
     write(x = firstResultJSON, file = file.path(out_path, paste0(uuid::UUIDgenerate(), ".json")))
-    
+
     # Clean up memory
     rm("firstResult", "firstResultJSON")
-    
+
     ###===== Pull the Rest of the Data =====###
-    
+
     # Calculate number of hits to pull
     msg <- paste0("Total hits to pull: ", hits_to_pull)
     log_info(msg)
-    
+
     # Pull all the results (single-threaded)
     msg <- "Scrolling over additional pages of results..."
     log_info(msg)
-    .keep_on_pullin(scroll_id = scroll_id
-                    , out_path = out_path
-                    , max_hits = max_hits
-                    , es_host = es_host
-                    , scroll = scroll
-                    , hits_pulled = hits_pulled
-                    , hits_to_pull = hits_to_pull)
+    .keep_on_pullin(
+        scroll_id = scroll_id
+        , out_path = out_path
+        , max_hits = max_hits
+        , es_host = es_host
+        , scroll = scroll
+        , hits_pulled = hits_pulled
+        , hits_to_pull = hits_to_pull
+    )
+
     log_info("Done scrolling over results.")
-    
+
     log_info("Reading and parsing pulled records...")
-    
+
     # Find the temp files we wrote out above
-    tempFiles <- list.files(path = out_path, pattern = "\\.json$", full.names = TRUE)
-    
+    tempFiles <- list.files(
+        path = out_path
+        , pattern = "\\.json$"
+        , full.names = TRUE
+    )
+
     # If the user requested 1 core, just run single-threaded.
     # Not worth the overhead of setting up the cluster.
     if (n_cores == 1){
@@ -350,45 +360,48 @@ es_search <- function(es_host
             , use.names = TRUE
         )
     } else {
-        
+
         # Set up cluster. Note that Fork clusters cannot be used on Windows
         if (grepl('windows', Sys.info()[['sysname']], ignore.case = TRUE)){
-            cl <- parallel::makePSOCKcluster(names = n_cores)   
+            cl <- parallel::makePSOCKcluster(names = n_cores)
         } else {
-            cl <- parallel::makeForkCluster(nnodes = n_cores)    
+            cl <- parallel::makeForkCluster(nnodes = n_cores)
         }
-        
+
         # Read in and parse all the files
         outDT <- data.table::rbindlist(
-                    parallel::clusterMap(cl = cl
-                                         , fun = .read_and_parse_tempfile
-                                         , file_name = tempFiles
-                                         , MoreArgs = c(keep_nested_data_cols = TRUE)
-                                         , RECYCLE = FALSE
-                                         , .scheduling = 'dynamic')
-                    , fill = TRUE
-                    , use.names = TRUE)
-    
+            parallel::clusterMap(
+                cl = cl
+                , fun = .read_and_parse_tempfile
+                , file_name = tempFiles
+                , MoreArgs = c(keep_nested_data_cols = TRUE)
+                , RECYCLE = FALSE
+                , .scheduling = 'dynamic'
+            )
+            , fill = TRUE
+            , use.names = TRUE
+        )
+
         # Close the connection
         parallel::stopCluster(cl)
     }
-    
+
     log_info("Done reading and parsing pulled records.")
-    
+
     # It's POSSIBLE that the parallel process gave us duplicates. Correct for that
     data.table::setkeyv(outDT, NULL)
     outDT <- unique(outDT)
-    
+
     # Check we got the number of unique records we expected
     if (nrow(outDT) < hits_to_pull && break_on_duplicates){
         msg <- paste0("Some data was lost during parallel pulling + writing to disk.",
                       " Expected ", hits_to_pull, " records but only got ", nrow(outDT), ".",
                       " File collisions are unlikely but possible with this function.",
-                      " Try increasing the value of the scroll param.", 
+                      " Try increasing the value of the scroll param.",
                       " Then try re-running and hopefully you won't see this error.")
         log_fatal(msg)
     }
-    
+
     return(outDT)
 }
 
@@ -401,11 +414,13 @@ es_search <- function(es_host
 #          preserver columns that could not be flattened in the result
 #          data.table (i.e. live as arrays with duplicate keys in the result from ES)
 .read_and_parse_tempfile <- function(file_name, keep_nested_data_cols){
-    
+
     # NOTE: namespacing uptasticsearch here to prevent against weirdness
     #       when distributing this function to multiple workers in a cluster
-    resultDT <- uptasticsearch::chomp_hits(paste0(readLines(file_name))
-                                           , keep_nested_data_cols = keep_nested_data_cols)
+    resultDT <- uptasticsearch::chomp_hits(
+        paste0(readLines(file_name))
+        , keep_nested_data_cols = keep_nested_data_cols
+    )
     return(resultDT)
 }
 
@@ -419,7 +434,7 @@ es_search <- function(es_host
 #                   - evaluates the query and scores all matching documents
 #                   - creates a stack, where each item on the stack is one page of results
 #                   - returns the first page + a scroll_id which uniquely identifies the stack
-# [params] scroll_id   - a unique key identifying the search context 
+# [params] scroll_id   - a unique key identifying the search context
 #          out_path    - A file path to write temporary output to. Passed in from .fetch_all
 #          max_hits    - max_hits, comes from .fetch_all. If left as Inf in your call to
 #                       .fetch_all, this param has no influence and you will pull all the data.
@@ -443,8 +458,8 @@ es_search <- function(es_host
                             , hits_pulled
                             , hits_to_pull
 ){
-    
-    # Note that the old scrolling strategy was deprecated in ES5.x and 
+
+    # Note that the old scrolling strategy was deprecated in ES5.x and
     # officially dropped in ES6.x. Need to grab the correct method here
     major_version <- .get_es_version(es_host)
     scrolling_request <- switch(
@@ -455,41 +470,41 @@ es_search <- function(es_host
         , "6" = .new_scroll_request
         , .new_scroll_request
     )
-    
+
     while (hits_pulled < max_hits){
-        
-        # Grab a page of hits, break if we got back an error. 
-        result  <- scrolling_request(
+
+        # Grab a page of hits, break if we got back an error.
+        result <- scrolling_request(
             es_host = es_host
             , scroll = scroll
             , scroll_id = scroll_id
         )
         httr::stop_for_status(result)
-        resultJSON  <- httr::content(result, as = "text")
+        resultJSON <- httr::content(result, as = "text")
 
         # Parse to JSON to get total number of documents + new scroll_id
         resultList <- jsonlite::fromJSON(resultJSON, simplifyVector = FALSE)
-        
+
         # Break if we got nothing
         hitsInThisPage <- length(resultList[["hits"]][["hits"]])
         if (hitsInThisPage == 0){break}
-        
+
         # If we have more to pull, get the new scroll_id
         # NOTE: http://stackoverflow.com/questions/25453872/why-does-this-elasticsearch-scan-and-scroll-keep-returning-the-same-scroll-id
         scroll_id <- resultList[['_scroll_id']]
-        
+
         # Write out JSON to a temporary file
         write(x = resultJSON, file = file.path(out_path, paste0(uuid::UUIDgenerate(), ".json")))
-        
+
         # Increment the count
         hits_pulled <- hits_pulled + hitsInThisPage
-        
+
         # Tell the people
         msg <- sprintf('Pulled %s of %s results', hits_pulled, hits_to_pull)
         log_info(msg)
-        
+
     }
-    
+
     return(invisible(NULL))
 }
 
@@ -500,10 +515,10 @@ es_search <- function(es_host
 # [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html
 #' @importFrom httr add_headers RETRY
 .new_scroll_request <- function(es_host, scroll, scroll_id){
-    
+
     # Set up scroll_url
     scroll_url <- paste0(es_host, "/_search/scroll")
-    
+
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
@@ -519,10 +534,10 @@ es_search <- function(es_host
 # [description] Make a scrolling request and return the result
 #' @importFrom httr add_headers RETRY
 .legacy_scroll_request <- function(es_host, scroll, scroll_id){
-    
+
     # Set up scroll_url
     scroll_url <- paste0(es_host, "/_search/scroll?scroll=", scroll)
-    
+
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
@@ -535,82 +550,81 @@ es_search <- function(es_host
 
 
 # [title] Check that a string is a valid host for an Elasticsearch cluster
-# [param] A string of the form [transfer_protocol][hostname]:[port]. 
+# [param] A string of the form [transfer_protocol][hostname]:[port].
 #         If any of those elements are missing, some defaults will be added
 .ValidateAndFormatHost <- function(es_host){
-    
+
     # [1] es_host is a string
     if (! "character" %in% class(es_host)){
         msg <- paste0("es_host should be a string! You gave an object of type"
                       , paste0(class(es_host), collapse = '/'))
-        stop(msg)
+        log_fatal(msg)
     }
-    
+
     # [2] es_host is length 1
     if (! length(es_host) == 1){
         msg <- paste0("es_host should be length 1!"
                       , " You provided an object of length "
                       , length(es_host))
-        stop(msg)
+        log_fatal(msg)
     }
-    
+
     # [3] Does not end in a slash
     trailingSlashPattern <- '/+$'
     if (grepl(trailingSlashPattern, es_host)){
         # Remove it
         es_host <- gsub('/+$', '', es_host)
     }
-    
+
     # [4] es_host has a port number
     portPattern <- ':[0-9]+$'
     if (! grepl(portPattern, es_host) == 1){
         msg <- paste0('No port found in es_host! es_host should be a string of the'
                       , 'form [transfer_protocol][hostname]:[port]). for '
                       , 'example: "http://myindex.mysite.com:9200"')
-        stop(msg)
+        log_fatal(msg)
     }
-    
+
     # [4] es_host has a valid transfer protocol
     protocolPattern <- '^[A-Za-z]+://'
     if (! grepl(protocolPattern, es_host) == 1){
         msg <- paste0('You did not provide a transfer protocol (e.g. http://) with es_host.'
                       , 'Assuming http://...')
         log_warn(msg)
-        
+
         # Doing this to avoid cases where you just missed a slash or something,
         # e.g. "http:/es.thing.com:9200" --> 'es.thing.com:9200'
         # This pattern should also catch IP hosts, e.g. '0.0.0.0:9200'
         hostWithoutPartialProtocol <- stringr::str_extract(es_host, '[[A-Za-z0-9]+\\.[A-Za-z0-9]+]+\\.[A-Za-z0-9]+:[0-9]+$')
         es_host <- paste0('http://', hostWithoutPartialProtocol)
     }
-    
+
     return(es_host)
-    
 }
 
 
 # [title] Get ES cluster version
 # [name] .get_es_version
-# [description] Hit the cluster and figure out the major 
+# [description] Hit the cluster and figure out the major
 #               version of Elasticsearch.
-# [param] es_host A string identifying an Elasticsearch host. This should be of the form 
+# [param] es_host A string identifying an Elasticsearch host. This should be of the form
 #         [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
 #' @importFrom httr content RETRY stop_for_status
 .get_es_version <- function(es_host){
-    
+
     # Hit the cluster root to get metadata
     log_info("Checking Elasticsearch version...")
-    result  <- httr::RETRY(
+    result <- httr::RETRY(
         verb = "GET"
         , httr::add_headers(c('Content-Type' = 'application/json'))
         , url = es_host
     )
     httr::stop_for_status(result)
-    
+
     # Extract version number from the result
-    version  <- httr::content(result, as = "parsed")[["version"]][["number"]]
+    version <- httr::content(result, as = "parsed")[["version"]][["number"]]
     log_info(sprintf("uptasticsearch thinks you are running Elasticsearch %s", version))
-    
+
     # Parse out just the major version. We can adjust this if we find
     # API differences that occured at the minor version level
     major_version <- .major_version(version)
@@ -633,7 +647,7 @@ es_search <- function(es_host
 # [name] .search_request
 # [description] Given a query string (JSON with valid DSL), execute a request
 #               and return the JSON result as a string
-# [param] es_host A string identifying an Elasticsearch host. This should be of the form 
+# [param] es_host A string identifying an Elasticsearch host. This should be of the form
 #        [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
 # [param] es_index The name of an Elasticsearch index to be queried.
 # [param] trailing_args Arguments to be appended to the end of the request URL (optional).
@@ -643,20 +657,20 @@ es_search <- function(es_host
 # [param] query_body A JSON string with valid Elasticsearch DSL
 # [examples]
 # \dontrun{
-# 
+#
 # #==== Example 1: Fetch 100 sample docs ====#
-# 
+#
 # # Get a batch of 100 documents
 # result <- uptasticsearch:::.search_request(es_host = 'http://mysite.mydomain.com:9200'
 #                                            , es_index = 'workorders'
 #                                            , trailing_args = 'size=100'
 #                                            , query_body = '{}')
-#                         
+#
 #  # Write to disk
 #  write(result, 'results.json')
-#  
+#
 #  #==== Example 2: Aggregation Results ====#
-#  
+#
 #  # We have an aggs query, so set size=0 to ignore raw recors
 #  query_body <- "{'aggs':{'docType':{'terms': {'field': 'documentType'}}}}"
 #  result <- uptasticsearch:::.search_request(es_host = 'http://mysite.mydomain.com:9200'
@@ -666,7 +680,7 @@ es_search <- function(es_host
 #
 #  # Write to disk
 #  write(result, 'results.json')
-# 
+#
 # }
 #' @importFrom httr add_headers content RETRY stop_for_status
 .search_request <- function(es_host
@@ -674,16 +688,16 @@ es_search <- function(es_host
                           , trailing_args = NULL
                           , query_body
 ){
-    
+
     # Input checking
     es_host <- .ValidateAndFormatHost(es_host)
-    
+
     # Build URL
     reqURL <- paste0(es_host, '/', es_index, '/_search')
     if (!is.null(trailing_args)){
         reqURL <- paste0(reqURL, '?', paste0(trailing_args, collapse = "&"))
     }
-    
+
     # Make request
     result <- httr::RETRY(
         verb = "POST"
@@ -693,9 +707,8 @@ es_search <- function(es_host
     )
     httr::stop_for_status(result)
     result <- httr::content(result, as = "text")
-    
+
     return(result)
-    
 }
 
 # [name] ConvertToSec
@@ -714,29 +727,30 @@ es_search <- function(es_host
 # }
 #' @importFrom stringr str_extract
 .ConvertToSec <- function(duration_string) {
-    
+
     # Grab string from the end (e.g. "2d" --> "d")
     timeUnit <- stringr::str_extract(duration_string, '[A-Za-z]+$')
-    
+
     # Grab numeric component
     timeNum <- as.numeric(gsub(timeUnit, '', duration_string))
-    
+
     # Convert numeric value to seconds
-    timeInSeconds <- switch(timeUnit
-                            , 's' = timeNum
-                            , 'm' = timeNum * 60
-                            , 'h' = timeNum * 60 * 60
-                            , 'd' = timeNum * 60 * 60 * 24
-                            , 'w' = timeNum * 60 * 60 * 24 * 7
-                            , {
-                                msg <- paste0('Could not figure out units of datemath ',
-                                              'string! Only durations in seconds (s), ',
-                                              'minutes (m), hours (h), days (d), or weeks (w) ',
-                                              'are supported. You provided: ',
-                                              duration_string)
-                                log_fatal(msg)
-                            }
+    timeInSeconds <- switch(
+        timeUnit
+        , 's' = timeNum
+        , 'm' = timeNum * 60
+        , 'h' = timeNum * 60 * 60
+        , 'd' = timeNum * 60 * 60 * 24
+        , 'w' = timeNum * 60 * 60 * 24 * 7
+        , {
+            msg <- paste0('Could not figure out units of datemath ',
+                          'string! Only durations in seconds (s), ',
+                          'minutes (m), hours (h), days (d), or weeks (w) ',
+                          'are supported. You provided: ',
+                          duration_string)
+            log_fatal(msg)
+        }
     )
-    
+
     return(timeInSeconds)
 }
