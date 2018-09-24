@@ -39,7 +39,12 @@ devtools::install_github("UptakeOpenSource/uptasticsearch")
 
 ### Python <a name="pythoninstallation"></a>
 
-We plan to release a Python implementation of this functionality, but that is not available at this time. Check back often!
+This package is not currently available on PyPi. To build the development version from source, clone this repo, then :
+
+```
+cd py-pkg
+pip install .
+```
 
 ## Usage Examples <a name="examples"></a>
 
