@@ -39,7 +39,7 @@ devtools::install_github("UptakeOpenSource/uptasticsearch")
 
 ### Python <a name="pythoninstallation"></a>
 
-To install the python package:
+This package is not currently available on PyPi. To build the development version from source, clone this repo, then :
 
 ```
 cd py-pkg
