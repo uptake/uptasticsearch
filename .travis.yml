@@ -36,7 +36,7 @@ matrix:
         - R CMD build r-pkg/
         - R CMD check *.tar.gz
       after_success:
-        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
     - language: python
       python: 3.5
       install:

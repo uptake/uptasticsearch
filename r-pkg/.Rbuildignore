@@ -57,3 +57,4 @@ vignettes/*\.pdf
 
 # Stuff
 .Rbuildignore
+.*\.gitkeep
