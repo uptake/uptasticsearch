@@ -39,3 +39,10 @@ vignettes/*.pdf
 sandbox/
 lib/
 coverage.html
+
+# shared files copied into package at build time
+r-pkg/NEWS.md
+r-pkg/README.md
+py-pkg/LICENSE
+py-pkg/NEWS.md
+py-pkg/README.md

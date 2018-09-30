@@ -39,5 +39,5 @@ License: BSD_3_clause + file LICENSE
 URL: https://github.com/UptakeOpenSource/uptasticsearch
 BugReports: https://github.com/UptakeOpenSource/uptasticsearch/issues
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 VignetteBuilder: knitr
