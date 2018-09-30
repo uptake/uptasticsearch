@@ -41,7 +41,6 @@ lib/
 coverage.html
 
 # shared files copied into package at build time
-r-pkg/LICENSE
 r-pkg/NEWS.md
 r-pkg/README.md
 py-pkg/LICENSE
