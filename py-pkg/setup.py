@@ -14,10 +14,10 @@ CURRENT_VERSION = "0.1.0"
 
 # Packages used
 documentation_packages = [
-"sphinx",
-"sphinx_rtd_theme",
-"sphinxcontrib-napoleon",
-"sphinxcontrib-programoutput"
+    "sphinx",
+    "sphinx_rtd_theme",
+    "sphinxcontrib-napoleon",
+    "sphinxcontrib-programoutput"
 ]
 regular_packages = [
     'pandas',

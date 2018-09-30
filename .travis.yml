@@ -1,11 +1,21 @@
-language: R
-cache: packages
-warnings_are_errors: true
+
 
 addons:
   apt:
     packages:
       - oracle-java8-set-default
+
+matrix:
+  include:
+    - language: python
+      python: 3.5
+      script:
+        - pytest py-pkg/
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
 
 env:
   matrix:
@@ -115,15 +125,12 @@ before_install:
 
   - sleep 20
   - sudo service elasticsearch status
-  - mv r-pkg/inst/testdata/${MAPPING_FILE} shakespeare_mapping.json
+  - mv test_data/${MAPPING_FILE} shakespeare_mapping.json
   - echo $(ls)
   - curl --silent -X PUT "http://127.0.0.1:9200/shakespeare" -H 'Content-Type:application/json' -d @shakespeare_mapping.json
   - curl --silent -X PUT "http://127.0.0.1:9200/empty_index" -H 'Content-Type:application/json' -d @shakespeare_mapping.json
-  - mv r-pkg/inst/testdata/sample.json sample.json
+  - mv test_data/sample.json sample.json
   - curl --silent -X POST "http://127.0.0.1:9200/shakespeare/_bulk" -H 'Content-Type:application/json' --data-binary @sample.json
   - curl -X POST "http://127.0.0.1:9200/_refresh"
   - curl -X GET "http://127.0.0.1:9200/shakespeare/_search?size=1" -H 'Content-Type:application/json'
   - cd 'r-pkg/'
-
-after_success:
-- Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
