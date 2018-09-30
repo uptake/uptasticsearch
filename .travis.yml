@@ -36,6 +36,9 @@ matrix:
       warnings_are_errors: true
       cache: packages
       env: ES_VERSION=1.0.0
+      before_script:
+        - cp test_data/* r-pkg/inst/testdata/
+        - cd r-pkg/
       after_success:
         - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
 
@@ -138,4 +141,3 @@ before_install:
   - curl --silent -X POST "http://127.0.0.1:9200/shakespeare/_bulk" -H 'Content-Type:application/json' --data-binary @sample.json
   - curl -X POST "http://127.0.0.1:9200/_refresh"
   - curl -X GET "http://127.0.0.1:9200/shakespeare/_search?size=1" -H 'Content-Type:application/json'
-  - cd 'r-pkg/'
