@@ -1,0 +1,22 @@
+
+
+.PHONY: r-pkg
+
+docs_r:
+	cp LICENSE r-pkg/
+	cp NEWS.md r-pkg/
+	cp README.md r-pkg/
+	Rscript -e "devtools::document('r-pkg/')"
+	Rscript -e "pkgdown::build_site('r-pkg/')"
+
+install_r:
+	cp LICENSE r-pkg/
+	cp NEWS.md r-pkg/
+	cp README.md r-pkg/
+	R CMD INSTALL r-pkg/
+
+install_py:
+	cp LICENSE py-pkg/
+	cp NEWS.md py-pkg/
+	cp README.md py-pkg/
+	pip install py-pkg/
