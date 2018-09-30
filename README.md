@@ -34,7 +34,7 @@ install.packages('uptasticsearch')
 To use the development version of the package, which has the newest changes, you can install directly from GitHub
 
 ```
-devtools::install_github("UptakeOpenSource/uptasticsearch")
+devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = "r-pkg")
 ```
 
 ### Python <a name="pythoninstallation"></a>
@@ -202,10 +202,10 @@ To run the code below, you will need [Docker](https://www.docker.com/). Note tha
 ./setup_local.sh 5.5
 
 # Run tests
-Rscript -e "devtools::test()"
+make test_r
 
 # Get test coverage and generate coverage report
-./coverage.sh
+make coverage_r
 
 # Tear down the container and remove testing files
 ./cleanup_local.sh
