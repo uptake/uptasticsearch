@@ -26,6 +26,18 @@ addons:
 # - ES_VERSION=6.2.4
 matrix:
   include:
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=1.0.0
+      install:
+        - cp test_data/* r-pkg/inst/testdata/
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD BUILD r-pkg/
+        - R CMD CHECK *.tar.gz --as-cran
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
     - language: python
       python: 3.5
       install:
@@ -40,17 +52,90 @@ matrix:
       script:
         - pytest --verbose py-pkg/
       env: ES_VERSION=1.4.4
-    - language: r
-      warnings_are_errors: true
-      cache: packages
-      env: ES_VERSION=1.0.0
-      before_install:
-        - cp test_data/* r-pkg/inst/testdata/
-        - cd r-pkg/
-      after_install:
-        - cd ../
-      after_success:
-        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=1.7.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.0.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.1.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.2.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.3.5
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.0.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.3.3
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.4.3
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.6.9
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=6.0.1
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=6.1.4
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=6.2.4
 
 before_script:
   - case "$ES_VERSION" in
