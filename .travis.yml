@@ -30,6 +30,11 @@ matrix:
       warnings_are_errors: true
       cache: packages
       env: ES_VERSION=1.0.0
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD BUILD r-pkg/
+        - R CMD CHECK *.tar.gz
       after_success:
         - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
     - language: python
