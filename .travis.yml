@@ -31,14 +31,14 @@ matrix:
       install:
         pip install py-pkg/
       script:
-        - pytest py-pkg/
+        - pytest --verbose py-pkg/
       env: ES_VERSION=1.0.0
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
-        - pytest py-pkg/
+        - pytest --verbose py-pkg/
       env: ES_VERSION=1.4.4
     - language: r
       warnings_are_errors: true
@@ -47,6 +47,8 @@ matrix:
       before_install:
         - cp test_data/* r-pkg/inst/testdata/
         - cd r-pkg/
+      after_install:
+        - cd ../
       after_success:
         - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
 
