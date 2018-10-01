@@ -1,30 +1,289 @@
-language: R
-cache: packages
-warnings_are_errors: true
 
+# every build needs java8 so it can build and run Elasticsearch
 addons:
   apt:
     packages:
       - oracle-java8-set-default
 
-env:
-  matrix:
-  - ES_VERSION=1.0.0
-  - ES_VERSION=1.4.4
-  - ES_VERSION=1.7.2
-  - ES_VERSION=2.0.2
-  - ES_VERSION=2.1.2
-  - ES_VERSION=2.2.2
-  - ES_VERSION=2.3.5
-  - ES_VERSION=5.0.2
-  - ES_VERSION=5.3.3
-  - ES_VERSION=5.4.3
-  - ES_VERSION=5.6.9
-  - ES_VERSION=6.0.1
-  - ES_VERSION=6.1.4
-  - ES_VERSION=6.2.4
+# Manually specifying each build configuration.
+# Would be better to figure out how to build a matrix with two
+# languages but share the ES_VERSION matrix across all builds.
+# - ES_VERSION=1.0.0
+# - ES_VERSION=1.4.4
+# - ES_VERSION=1.7.2
+# - ES_VERSION=2.0.2
+# - ES_VERSION=2.1.2
+# - ES_VERSION=2.2.2
+# - ES_VERSION=2.3.5
+# - ES_VERSION=5.0.2
+# - ES_VERSION=5.3.3
+# - ES_VERSION=5.4.3
+# - ES_VERSION=5.6.9
+# - ES_VERSION=6.0.1
+# - ES_VERSION=6.1.4
+# - ES_VERSION=6.2.4
+matrix:
+  include:
+    ############
+    # R builds #
+    ############
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=1.0.0
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=1.4.4
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=1.7.2
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=2.0.2
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=2.1.2
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=2.2.2
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=2.3.5
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=5.0.2
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=5.3.3
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=5.4.3
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=5.6.9
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=6.0.1
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=6.1.4
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env: ES_VERSION=6.2.4
+      install:
+        - Rscript -e "devtools::install('r-pkg')"
+      script:
+        - R CMD build r-pkg/
+        - R CMD check *.tar.gz
+      after_success:
+        - Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov("r-pkg/")'
+    #################
+    # Python builds #
+    #################
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=1.0.0
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=1.4.4
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=1.7.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.0.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.1.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.2.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=2.3.5
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.0.2
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.3.3
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.4.3
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=5.6.9
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=6.0.1
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=6.1.4
+    - language: python
+      python: 3.5
+      install:
+        pip install py-pkg/
+      script:
+        - pytest --verbose py-pkg/
+      env: ES_VERSION=6.2.4
 
-before_install:
+before_script:
   - case "$ES_VERSION" in
     "") ;;
 
@@ -115,15 +374,12 @@ before_install:
 
   - sleep 20
   - sudo service elasticsearch status
-  - mv r-pkg/inst/testdata/${MAPPING_FILE} shakespeare_mapping.json
+  - mv test_data/${MAPPING_FILE} shakespeare_mapping.json
   - echo $(ls)
   - curl --silent -X PUT "http://127.0.0.1:9200/shakespeare" -H 'Content-Type:application/json' -d @shakespeare_mapping.json
   - curl --silent -X PUT "http://127.0.0.1:9200/empty_index" -H 'Content-Type:application/json' -d @shakespeare_mapping.json
-  - mv r-pkg/inst/testdata/sample.json sample.json
+  - mv test_data/sample.json sample.json
   - curl --silent -X POST "http://127.0.0.1:9200/shakespeare/_bulk" -H 'Content-Type:application/json' --data-binary @sample.json
   - curl -X POST "http://127.0.0.1:9200/_refresh"
   - curl -X GET "http://127.0.0.1:9200/shakespeare/_search?size=1" -H 'Content-Type:application/json'
-  - cd 'r-pkg/'
-
-after_success:
-- Rscript -e 'install.packages("covr"); Sys.setenv(NOT_CRAN = "true"); covr::codecov()'
+  - cp test_data/* r-pkg/inst/testdata/
