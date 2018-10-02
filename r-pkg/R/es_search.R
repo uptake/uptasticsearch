@@ -105,7 +105,7 @@ es_search <- function(es_host
     if (is.na(n_cores)){
       msg <- "detectCores() returned NA. Assigning number of cores to be 1."
       log_warn(msg)
-      n_cores = 1
+      n_cores <- 1
     }
 
     # Other input checks we don't have explicit error messages for
