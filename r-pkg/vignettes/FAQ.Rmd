@@ -1,0 +1,49 @@
+---
+title: "Frequently Asked Questions"
+author: "Stephanie Kirmer"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+      toc: TRUE
+      toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{FAQ - Help with Uptasticsearch Functionalities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+Welcome to uptasticsearch! This package exists to help R users connect to elasticsearch databases smoothly and easily. However, sometimes things go wrong! This FAQ is an ongoing project to catalog common errors and questions people have about this system, and provide simple and useful answers.
+
+If your question is not presented here, and google doesn't help, go ahead and post an issue on github so somebody can help you.
+
+***
+
+# Questions
+
+## Query Syntax Problems
+Developing queries of your own for elasticsearch is sometimes tough. If you are finding that the queries you write are not valid, there may be many reasons. You are probably in this situation if your error is `Bad Request (HTTP 400)` or similar.
+
+### Troubleshooting Guide
+
+* Are all your **brackets and curly braces** correct and paired? Check just to make sure.  
+* Are you **quoting** things correctly? This syntax calls for an awful lot of quotation marks, don't forget them.  
+
+## Query Returns No Results
+
+After you have verified with certainty that your query is appropriately structured and written, you might still have challenges. What to do if you get the error `Query is syntactically valid but 0 documents were matched. Returning NULL` ?
+
+### Troubleshooting Guide
+
+* Are your **search terms** named and described correctly? All spelled right?  
+* Are you looking in the **correct index**? Perhaps your document is in a different one.  
+* If you are passing **dates or datetimes**, are the formats of your input formatted just right? 
+* IMPORTANT: **Are the terms you are using indexed**? This is a tricky one. Your term may exist and have data in the documents, but if your particular elasticsearch database has not indexed that term, you won't be able to use it for searching. This does not mean that the document/s aren't there, but just that you can't use that term for searching.  
+* Are you sure the **document exists**? It might just not be there.
+
+***
+
+# Contribute to this Guide!
+
+We are always happy to get more questions and answers to add to this guide. If you have a tricky issue that you have figured out the solution to, please submit a PR on github and add it to this guide.

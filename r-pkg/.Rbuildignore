@@ -54,3 +54,7 @@ vignettes/*\.pdf
 ^lib$
 ^sandbox$
 ^coverage.html$
+
+# Stuff
+.Rbuildignore
+.*\.gitkeep
