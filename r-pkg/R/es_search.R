@@ -100,6 +100,13 @@ es_search <- function(es_host
         )
         log_fatal(msg)
     }
+  
+    # assign 1 core by default, if the number of cores is NA
+    if (is.na(n_cores) || !assertthat::is.count(n_cores)){
+      msg <- "detectCores() returned NA. Assigning number of cores to be 1."
+      log_warn(msg)
+      n_cores <- 1
+    }
 
     # Other input checks we don't have explicit error messages for
     .assert(
