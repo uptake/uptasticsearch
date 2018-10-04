@@ -102,7 +102,7 @@ es_search <- function(es_host
     }
   
     # assign 1 core by default, if the number of cores is NA
-    if (is.na(n_cores)){
+    if (is.na(n_cores) || !assertthat::is.count(n_cores)){
       msg <- "detectCores() returned NA. Assigning number of cores to be 1."
       log_warn(msg)
       n_cores <- 1
@@ -119,6 +119,7 @@ es_search <- function(es_host
         , assertthat::is.string(scroll)
         , scroll != ""
         , max_hits >= 0
+        , assertthat::is.count(n_cores)
         , n_cores >= 1
         , assertthat::is.flag(break_on_duplicates)
         , !is.na(break_on_duplicates)
