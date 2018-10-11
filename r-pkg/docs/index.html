@@ -51,8 +51,17 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="news/index.html">Changelog</a>
+      <a href="articles/FAQ.html">Frequently Asked Questions</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -74,322 +83,13 @@
       </header><div class="row">
   <div class="contents col-md-9">
     
-<div id="uptasticsearch" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#uptasticsearch" class="anchor"></a>uptasticsearch</h1></div>
-
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This project tackles the issue of getting data out of Elasticsearch and into a tabular format in R.</p>
-</div>
-</div>
-<div id="table-of-contents" class="section level1">
-<h1 class="hasAnchor">
-<a href="#table-of-contents" class="anchor"></a>Table of contents</h1>
-<ol>
-<li><a href="#howitworks">How it Works</a></li>
-<li>
-<a href="#installation">Installation</a>
-<ol>
-<li><a href="#rinstallation">R</a></li>
-<li><a href="#pythoninstallation">Python</a></li>
-</ol>
-</li>
-<li>
-<a href="#examples">Usage Examples</a>
-<ol>
-<li><a href="#example1">Get a Batch of Documents</a></li>
-<li><a href="#example2">Aggregation Results</a></li>
-</ol>
-</li>
-<li>
-<a href="#nextsteps">Next Steps</a>
-<ol>
-<li><a href="#authsupport">Auth Support</a></li>
-</ol>
-</li>
-</ol>
-<div id="how-it-works" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-it-works" class="anchor"></a>How it Works <a name="howitworks"></a>
-</h2>
-<p>The core functionality of this package is the <code>es_search</code> function. This returns a <code>data.table</code> containing the parsed result of any given query. Note that this includes <code>aggs</code> queries.</p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation <a name="installation"></a>
-</h2>
-<div id="r" class="section level3">
-<h3 class="hasAnchor">
-<a href="#r" class="anchor"></a>R <a name="rinstallation"></a>
-</h3>
-<p>Releases of this package can be installed from CRAN:</p>
-<pre><code>install.packages('uptasticsearch')</code></pre>
-<p>To use the development version of the package, which has the newest changes, you can install directly from GitHub</p>
-<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("UptakeOpenSource/uptasticsearch")</a></code></pre>
-</div>
-<div id="python" class="section level3">
-<h3 class="hasAnchor">
-<a href="#python" class="anchor"></a>Python <a name="pythoninstallation"></a>
-</h3>
-<p>We plan to release a Python implementation of this functionality, but that is not available at this time. Check back often!</p>
-</div>
-</div>
-<div id="usage-examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage-examples" class="anchor"></a>Usage Examples <a name="examples"></a>
-</h2>
-<p>The examples presented here pertain to a fictional Elasticsearch index holding some information on a movie theater business.</p>
-<div id="example-1-get-a-batch-of-documents" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-1-get-a-batch-of-documents" class="anchor"></a>Example 1: Get a Batch of Documents <a name="example1"></a>
-</h3>
-<p>The most common use case for this package will be the case where you have an ES query and want to get a data frame representation of many resulting documents.</p>
-<p>In the example below, we use <code>uptasticsearch</code> to look for all survey results in which customers said their satisfaction was “low” or “very low” and mentioned food in their comments.</p>
-<pre><code>library(uptasticsearch)
-
-# Build your query in an R string
-qbody &lt;- '{
-  "query": {
-    "filtered": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "exists": {
-                "field": "customer_comments"
-              }
-            },
-            {
-              "terms": {
-                "overall_satisfaction": ["very low", "low"]
-              }
-            }
-          ]
-        }
-      }
-    },
-    "query": {
-      "match_phrase": {
-        "customer_comments": "food"
-      }
-    }
-  }
-}'
-
-# Execute the query, parse into a data.table
-commentDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                       , es_index = "survey_results"
-                       , query_body = qbody
-                       , scroll = "1m"
-                       , n_cores = 4)</code></pre>
-</div>
-<div id="example-2-aggregation-results" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-2-aggregation-results" class="anchor"></a>Example 2: Aggregation Results <a name="example2"></a>
-</h3>
-<p>Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. <code>uptasticsearch</code> has built-in support for these aggregations.</p>
-<p>In the example below, we use <code>uptasticsearch</code> to create daily timeseries of summary statistics like total revenue and average payment amount.</p>
-<pre><code>library(uptasticsearch)
-
-# Build your query in an R string
-qbody &lt;- '{
-  "query": {
-    "filtered": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "exists": {
-                "field": "pmt_amount"
-              }
-            }
-          ]
-        }
-      }
-    }
-  },
-  "aggs": {
-    "timestamp": {
-      "date_histogram": {
-        "field": "timestamp",
-        "interval": "day"
-      },
-      "aggs": {
-        "revenue": {
-          "extended_stats": {
-            "field": "pmt_amount"
-          }
-        }
-      }
-    }
-  },
-  "size": 0
-}'
-
-# Execute the query, parse result into a data.table
-revenueDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                       , es_index = "transactions"
-                       , size = 1000
-                       , query_body = qbody
-                       , n_cores = 1)</code></pre>
-<p>In the example above, we used the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html">date_histogram</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html">extended_stats</a> aggregations. <code>es_search</code> has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form “agg1 - agg2” refer to the ability to handled aggregations nested inside other aggregations.</p>
-<table class="table">
-<thead><tr class="header">
-<th align="left">Agg type</th>
-<th align="center">R support?</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left"><a href="http://bit.ly/2sn5Qiw">“cardinality”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://bit.ly/2qIR97Z">“date_histogram”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">date_histogram - cardinality</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">date_histogram - extended_stats</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">date_histogram - histogram</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">date_histogram - percentiles</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">date_histogram - significant_terms</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">date_histogram - stats</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">date_histogram - terms</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://bit.ly/2qKqsDU">“extended_stats”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://bit.ly/2sn4LXF">“histogram”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://bit.ly/2sy4z7f">“percentiles”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://bit.ly/1KnhT1r">“significant terms”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://bit.ly/2sn1t74">“stats”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://bit.ly/2mJyQ0C">“terms”</a></td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - cardinality</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">terms - date_histogram</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - date_histogram - cardinality</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">terms - date_histogram - extended_stats</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - date_histogram - histogram</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">terms - date_histogram - percentiles</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - date_histogram - significant_terms</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">terms - date_histogram - stats</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - date_histogram - terms</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">terms - extended_stats</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - histogram</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">terms - percentiles</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - significant_terms</td>
-<td align="center">YES</td>
-</tr>
-<tr class="odd">
-<td align="left">terms - stats</td>
-<td align="center">YES</td>
-</tr>
-<tr class="even">
-<td align="left">terms - terms</td>
-<td align="center">YES</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="auth-support" class="section level3">
-<h3 class="hasAnchor">
-<a href="#auth-support" class="anchor"></a>Auth Support <a name="authsupport"></a>
-</h3>
-<p><code>uptasticsearch</code> does not currently support queries with authentication. This will be added in future versions.</p>
-</div>
-<div id="running-tests-locally" class="section level3">
-<h3 class="hasAnchor">
-<a href="#running-tests-locally" class="anchor"></a>Running Tests Locally</h3>
-<p>When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We’ve provided some gross bash scripts at the root of this repo to help!</p>
-<p>To run the code below, you will need <a href="https://www.docker.com/">Docker</a>. Note that I’ve passed an argument to <code>setup_local.sh</code> indicating the major version of ES I want to run. If you don’t do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of <code>setup_local.sh</code> for a list of the valid arguments.</p>
-<pre><code># Start up Elasticsearch on localhost:9200 and seed it with data
-./setup_local.sh 5.5
-
-# Run tests
-Rscript -e "devtools::test()"
-
-# Get test coverage and generate coverage report
-./coverage.sh
-
-# Tear down the container and remove testing files
-./cleanup_local.sh</code></pre>
-</div>
-</div>
-</div>
-
+    'Elasticsearch' is an open-source, distributed, document-based datastore
+    (&lt;<a href="https://www.elastic.co/products/elasticsearch">https://www.elastic.co/products/elasticsearch</a>&gt;).
+    It provides an 'HTTP' 'API' for querying the database and extracting datasets, but that
+    'API' was not designed for common data science workflows like pulling large batches of
+    records and normalizing those documents into a data frame that can be used as a training
+    dataset for statistical models. 'uptasticsearch' provides an interface for 'Elasticsearch'
+    that is explicitly designed to make these data science workflows easy and fun.
   </div>
 
   <div class="col-md-3" id="sidebar">
@@ -422,15 +122,7 @@ Rscript -e "devtools::test()"
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=uptasticsearch"><img src="https://www.r-pkg.org/badges/version-last-release/uptasticsearch" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://cran.r-project.org/package=uptasticsearch"><img src="https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch" alt="CRAN_Download_Badge"></a></li>
-<li><a href="https://travis-ci.org/UptakeOpenSource/uptasticsearch"><img src="https://travis-ci.org/UptakeOpenSource/uptasticsearch.svg?branch=master" alt="Build Status"></a></li>
-</ul>
-</div>
-</div>
+  </div>
 </div>
 
 

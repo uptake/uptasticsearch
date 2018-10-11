@@ -32,11 +32,11 @@
 
 <meta property="og:title" content="Unpack a nested data.table — unpack_nested_data" />
 
-<meta property="og:description" content="After calling a chomp_* function or es_search, if 
-  you had a nested array in the JSON, its corresponding column in the 
-  resulting data.table is a data.frame itself (or a list of vectors). This 
-  function expands that nested column out, adding its data to the original 
-  data.table, and duplicating metadata down the rows as necessary.  
+<meta property="og:description" content="After calling a chomp_* function or es_search, if
+  you had a nested array in the JSON, its corresponding column in the
+  resulting data.table is a data.frame itself (or a list of vectors). This
+  function expands that nested column out, adding its data to the original
+  data.table, and duplicating metadata down the rows as necessary.
 This is a side-effect-free function: it returns a new data.table and the
   input data.table is unmodified." />
 <meta name="twitter:card" content="summary" />
@@ -82,8 +82,17 @@ This is a side-effect-free function: it returns a new data.table and the
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/FAQ.html">Frequently Asked Questions</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -113,11 +122,11 @@ This is a side-effect-free function: it returns a new data.table and the
 
     <div class="ref-description">
     
-    <p>After calling a <code>chomp_*</code> function or <code>es_search</code>, if 
-  you had a nested array in the JSON, its corresponding column in the 
-  resulting data.table is a data.frame itself (or a list of vectors). This 
-  function expands that nested column out, adding its data to the original 
-  data.table, and duplicating metadata down the rows as necessary.</p>  
+    <p>After calling a <code>chomp_*</code> function or <code>es_search</code>, if
+  you had a nested array in the JSON, its corresponding column in the
+  resulting data.table is a data.frame itself (or a list of vectors). This
+  function expands that nested column out, adding its data to the original
+  data.table, and duplicating metadata down the rows as necessary.</p>
 <p>This is a side-effect-free function: it returns a new data.table and the
   input data.table is unmodified.</p>
     
@@ -134,7 +143,7 @@ This is a side-effect-free function: it returns a new data.table and the
     </tr>
     <tr>
       <th>col_to_unpack</th>
-      <td><p>a character vector of length one: the column name to 
+      <td><p>a character vector of length one: the column name to
 unpack</p></td>
     </tr>
     </table>
@@ -155,7 +164,7 @@ unpack</p></td>
 "film":"Avengers: Infinity War","pmt_amount":12.75}]}}}]'</span>
 
 <span class='co'># Chomp into a data.table</span>
-<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2018-06-19 01:35:26] Keeping the following nested data columns. Consider using unpack_nested_data for one:
+<span class='no'>sampleChompedDT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chomp_hits.html'>chomp_hits</a></span>(<span class='kw'>hits_json</span> <span class='kw'>=</span> <span class='no'>result</span>, <span class='kw'>keep_nested_data_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; INFO [2018-10-11 00:14:45] Keeping the following nested data columns. Consider using unpack_nested_data for one:
 #&gt;  details.pastPurchases</div><div class='input'><span class='fu'>print</span>(<span class='no'>sampleChompedDT</span>)</div><div class='output co'>#&gt;     timestamp cust_name details.cust_class details.location
 #&gt; 1: 2017-01-01    Austin        big_spender          chicago
 #&gt; 2: 2017-02-02     James            peasant          chicago

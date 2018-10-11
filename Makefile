@@ -48,3 +48,10 @@ install_py:
 
 test_py:
 	pytest py-pkg/
+
+###########
+# General #
+###########
+
+gh_pages: docs_r
+	mv -R r-pkg/docs docs

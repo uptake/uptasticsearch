@@ -77,8 +77,17 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/FAQ.html">Frequently Asked Questions</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -120,7 +129,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>aggs_json</th>
-      <td><p>A character vector. If its length is greater than 1, its elements will be pasted 
+      <td><p>A character vector. If its length is greater than 1, its elements will be pasted
 together. This can contain a JSON returned from an <code>aggs</code> query in Elasticsearch, or
 a filepath or URL pointing at one.</p></td>
     </tr>
