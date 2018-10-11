@@ -1,6 +1,6 @@
 
 
-.PHONY: r-pkg
+.PHONY: docs_r r-pkg
 
 #####
 # R #
@@ -54,4 +54,4 @@ test_py:
 ###########
 
 gh_pages: docs_r
-	mv -R r-pkg/docs docs
+	mv -r r-pkg/docs/* docs
