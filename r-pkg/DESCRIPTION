@@ -41,3 +41,4 @@ BugReports: https://github.com/UptakeOpenSource/uptasticsearch/issues
 LazyData: TRUE
 RoxygenNote: 6.1.0
 VignetteBuilder: knitr
+Encoding: UTF-8

@@ -16,6 +16,8 @@ This project tackles the issue of getting data out of Elasticsearch and into a t
     2. [Aggregation Results](#example2)
 4. [Next Steps](#nextsteps)
     1. [Auth Support](#authsupport)
+5. [Running Tests Locally](#local-tests)
+6. [Regenerating the Documentation Site](#the-site)
 
 ## How it Works <a name="howitworks"></a>
 
@@ -191,7 +193,7 @@ In the example above, we used the [date_histogram](https://www.elastic.co/guide/
 
 `uptasticsearch` does not currently support queries with authentication. This will be added in future versions.
 
-### Running Tests Locally
+## Running Tests Locally <a name="local-tests"></a>
 
 When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We've provided some gross bash scripts at the root of this repo to help!
 
@@ -209,4 +211,16 @@ make coverage_r
 
 # Tear down the container and remove testing files
 ./cleanup_local.sh
+```
+
+## Regenerating the Documentation Site <a name="the-site"></a>
+
+This project uses Github Pages to host a documentation site:
+
+https://uptakeopensource.github.io/uptasticsearch/
+
+This documentation needs to be periodically, manually updated. To generate the new files for an "update the site" PR, just run the following:
+
+```
+make gh_pages
 ```

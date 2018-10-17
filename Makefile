@@ -1,6 +1,6 @@
 
 
-.PHONY: r-pkg
+.PHONY: docs_r r-pkg
 
 #####
 # R #
@@ -48,3 +48,10 @@ install_py:
 
 test_py:
 	pytest py-pkg/
+
+###########
+# General #
+###########
+
+gh_pages: docs_r
+	mv -r r-pkg/docs/* docs

@@ -51,6 +51,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/FAQ.html">Frequently Asked Questions</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
@@ -109,6 +121,8 @@
 <li><a href="#authsupport">Auth Support</a></li>
 </ol>
 </li>
+<li><a href="#local-tests">Running Tests Locally</a></li>
+<li><a href="#the-site">Regenerating the Documentation Site</a></li>
 </ol>
 <div id="how-it-works" class="section level2">
 <h2 class="hasAnchor">
@@ -127,13 +141,15 @@
 <p>Releases of this package can be installed from CRAN:</p>
 <pre><code>install.packages('uptasticsearch')</code></pre>
 <p>To use the development version of the package, which has the newest changes, you can install directly from GitHub</p>
-<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("UptakeOpenSource/uptasticsearch")</a></code></pre>
+<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("UptakeOpenSource/uptasticsearch", subdir = "r-pkg")</a></code></pre>
 </div>
 <div id="python" class="section level3">
 <h3 class="hasAnchor">
 <a href="#python" class="anchor"></a>Python <a name="pythoninstallation"></a>
 </h3>
-<p>We plan to release a Python implementation of this functionality, but that is not available at this time. Check back often!</p>
+<p>This package is not currently available on PyPi. To build the development version from source, clone this repo, then :</p>
+<pre><code>cd py-pkg
+pip install .</code></pre>
 </div>
 </div>
 <div id="usage-examples" class="section level2">
@@ -179,11 +195,13 @@ qbody &lt;- '{
 }'
 
 # Execute the query, parse into a data.table
-commentDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                       , es_index = "survey_results"
-                       , query_body = qbody
-                       , scroll = "1m"
-                       , n_cores = 4)</code></pre>
+commentDT &lt;- es_search(
+    es_host = 'http://mydb.mycompany.com:9200'
+    , es_index = "survey_results"
+    , query_body = qbody
+    , scroll = "1m"
+    , n_cores = 4
+)</code></pre>
 </div>
 <div id="example-2-aggregation-results" class="section level3">
 <h3 class="hasAnchor">
@@ -229,11 +247,13 @@ qbody &lt;- '{
 }'
 
 # Execute the query, parse result into a data.table
-revenueDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
-                       , es_index = "transactions"
-                       , size = 1000
-                       , query_body = qbody
-                       , n_cores = 1)</code></pre>
+revenueDT &lt;- es_search(
+    es_host = 'http://mydb.mycompany.com:9200'
+    , es_index = "transactions"
+    , size = 1000
+    , query_body = qbody
+    , n_cores = 1
+)</code></pre>
 <p>In the example above, we used the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html">date_histogram</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html">extended_stats</a> aggregations. <code>es_search</code> has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form “agg1 - agg2” refer to the ability to handled aggregations nested inside other aggregations.</p>
 <table class="table">
 <thead><tr class="header">
@@ -370,23 +390,33 @@ revenueDT &lt;- es_search(es_host = 'http://mydb.mycompany.com:9200'
 </h3>
 <p><code>uptasticsearch</code> does not currently support queries with authentication. This will be added in future versions.</p>
 </div>
-<div id="running-tests-locally" class="section level3">
-<h3 class="hasAnchor">
-<a href="#running-tests-locally" class="anchor"></a>Running Tests Locally</h3>
+</div>
+<div id="running-tests-locally" class="section level2">
+<h2 class="hasAnchor">
+<a href="#running-tests-locally" class="anchor"></a>Running Tests Locally <a name="local-tests"></a>
+</h2>
 <p>When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We’ve provided some gross bash scripts at the root of this repo to help!</p>
 <p>To run the code below, you will need <a href="https://www.docker.com/">Docker</a>. Note that I’ve passed an argument to <code>setup_local.sh</code> indicating the major version of ES I want to run. If you don’t do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of <code>setup_local.sh</code> for a list of the valid arguments.</p>
 <pre><code># Start up Elasticsearch on localhost:9200 and seed it with data
 ./setup_local.sh 5.5
 
 # Run tests
-Rscript -e "devtools::test()"
+make test_r
 
 # Get test coverage and generate coverage report
-./coverage.sh
+make coverage_r
 
 # Tear down the container and remove testing files
 ./cleanup_local.sh</code></pre>
 </div>
+<div id="regenerating-the-documentation-site" class="section level2">
+<h2 class="hasAnchor">
+<a href="#regenerating-the-documentation-site" class="anchor"></a>Regenerating the Documentation Site <a name="the-site"></a>
+</h2>
+<p>This project uses Github Pages to host a documentation site:</p>
+<p><a href="https://uptakeopensource.github.io/uptasticsearch/" class="uri">https://uptakeopensource.github.io/uptasticsearch/</a></p>
+<p>This documentation needs to be periodically, manually updated. To generate the new files for an “update the site” PR, just run the following:</p>
+<pre><code>make gh_pages</code></pre>
 </div>
 </div>
 

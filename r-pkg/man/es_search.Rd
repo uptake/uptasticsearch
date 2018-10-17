@@ -6,8 +6,9 @@
 \usage{
 es_search(es_host, es_index, size = 10000, query_body = "{}",
   scroll = "5m", max_hits = Inf,
-  n_cores = ceiling(parallel::detectCores()/2), break_on_duplicates = TRUE,
-  ignore_scroll_restriction = FALSE, intermediates_dir = getwd())
+  n_cores = ceiling(parallel::detectCores()/2),
+  break_on_duplicates = TRUE, ignore_scroll_restriction = FALSE,
+  intermediates_dir = getwd())
 }
 \arguments{
 \item{es_host}{A string identifying an Elasticsearch host. This should be of the form 
