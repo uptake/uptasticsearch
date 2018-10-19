@@ -32,6 +32,7 @@ matrix:
       cache: packages
       env: ES_VERSION=1.0.0
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -43,6 +44,7 @@ matrix:
       cache: packages
       env: ES_VERSION=1.4.4
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -54,6 +56,7 @@ matrix:
       cache: packages
       env: ES_VERSION=1.7.2
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -65,6 +68,7 @@ matrix:
       cache: packages
       env: ES_VERSION=2.0.2
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -76,6 +80,7 @@ matrix:
       cache: packages
       env: ES_VERSION=2.1.2
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -87,6 +92,7 @@ matrix:
       cache: packages
       env: ES_VERSION=2.2.2
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -98,6 +104,7 @@ matrix:
       cache: packages
       env: ES_VERSION=2.3.5
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -109,6 +116,7 @@ matrix:
       cache: packages
       env: ES_VERSION=5.0.2
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -120,6 +128,7 @@ matrix:
       cache: packages
       env: ES_VERSION=5.3.3
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -131,6 +140,7 @@ matrix:
       cache: packages
       env: ES_VERSION=5.4.3
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -142,6 +152,7 @@ matrix:
       cache: packages
       env: ES_VERSION=5.6.9
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -153,6 +164,7 @@ matrix:
       cache: packages
       env: ES_VERSION=6.0.1
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -164,6 +176,7 @@ matrix:
       cache: packages
       env: ES_VERSION=6.1.4
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -175,6 +188,7 @@ matrix:
       cache: packages
       env: ES_VERSION=6.2.4
       install:
+        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -282,9 +296,6 @@ matrix:
       script:
         - pytest --verbose py-pkg/
       env: ES_VERSION=6.2.4
-
-before_install:
-  - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
 
 before_script:
   - case "$ES_VERSION" in
