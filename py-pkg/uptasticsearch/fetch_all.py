@@ -8,7 +8,8 @@ from uptasticsearch.clients import uptasticsearch_factory
 
 
 def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None, scroll="5m"):
-    """Execute a query to elasticsearch and get a DataFrame back
+    """
+    Execute a query to elasticsearch and get a DataFrame back
 
     Args:
         es_host (string): a url of the elasticsearch cluster e.g. http://localhost:9200
@@ -21,6 +22,7 @@ def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None, scr
 
     Return:
         A pandas DataFrame
+
     """
 
     client = uptasticsearch_factory(es_host)

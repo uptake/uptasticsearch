@@ -43,7 +43,8 @@
 
 
 <div class="viewcode-block" id="es_search"><a class="viewcode-back" href="../Fetch_All.html#fetch_all.es_search">[docs]</a><span class="k">def</span> <span class="nf">es_search</span><span class="p">(</span><span class="n">es_host</span><span class="p">,</span> <span class="n">es_index</span><span class="p">,</span> <span class="n">query_body</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">max_hits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scroll</span><span class="o">=</span><span class="s2">&quot;5m&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Execute a query to elasticsearch and get a DataFrame back</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Execute a query to elasticsearch and get a DataFrame back</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        es_host (string): a url of the elasticsearch cluster e.g. http://localhost:9200</span>
@@ -56,6 +57,7 @@
 
 <span class="sd">    Return:</span>
 <span class="sd">        A pandas DataFrame</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">client</span> <span class="o">=</span> <span class="n">uptasticsearch_factory</span><span class="p">(</span><span class="n">es_host</span><span class="p">)</span>
