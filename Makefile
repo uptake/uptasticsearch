@@ -39,7 +39,7 @@ build_py:
 docs_py:
 	# Create sphinx rst files for every package and subpackage
 	cd py-pkg && \
-	sphinx-apidoc -f -e -o docs uptasticsearch && \
+	sphinx-apidoc -f -F -e -o docs uptasticsearch && \
 	cd docs && \
 	make html
 

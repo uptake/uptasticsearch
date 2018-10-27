@@ -40,15 +40,13 @@ class Uptasticsearch(object):
             body (json string): The query body
             index (string): The name of the Index to Query. Default: "" (no index)
             doc_type (string): The Doc Type to query. Default: "" (no doc_type)
-            scroll_context_timer (string): A string such as "1m" or "5m" that specifies
-                how long to keep the scroll context alive between pages for large
-                queries. Default: "1m"
+            scroll_context_timer (string): A string such as "1m" or "5m" that specifies how long to keep the scroll context alive between pages for large queries. Default: "1m"
             page_size (int): The number of 'hits' per page. Default: 10000
-            max_hits (int): The maximum number of 'hits' to return. Default: None, all
-                hits will be returned
+            max_hits (int): The maximum number of 'hits' to return. Default: None, all hits will be returned
 
         Return:
             A List of Dicts. Each Dict is the value of the "_source" key for each of the hits.
+
         """
 
         convert_to_sec(scroll_context_timer)  # check context timer input
