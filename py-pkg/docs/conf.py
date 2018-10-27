@@ -14,9 +14,7 @@
 #
 import os
 import sys
-print('sys.path = {}'.format(sys.path))
 sys.path.insert(0, os.path.abspath('..'))
-print('Added path. sys.path = {}'.format(sys.path))
 
 # -- Project information -----------------------------------------------------
 
