@@ -7,7 +7,8 @@ import json
 from uptasticsearch.clients import uptasticsearch_factory
 
 
-def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None, scroll="5m"):
+def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None,
+              scroll="5m"):
     """
     Execute a query to elasticsearch and get a DataFrame back
 
@@ -15,8 +16,7 @@ def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None, scr
         es_host (string): a url of the elasticsearch cluster e.g. http://localhost:9200
         es_index (string): the name of the ES index
         query_body (json): json query
-        size (int): the number of hits per page. Note: the size will not affect max_hits, 
-            but it will affect the time to return the max_hits.
+        size (int): the number of hits per page. Note: the size will not affect max_hits, but it will affect the time to return the max_hits.
         max_hits (int, None): the total number of hits to allow. If None, no limit
         scroll (str): the time to keep the scroll context alive for each page
 

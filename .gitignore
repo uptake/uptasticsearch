@@ -51,7 +51,7 @@ r-pkg/inst/testdata/*.json
 py-pkg/LICENSE
 py-pkg/NEWS.md
 py-pkg/README.md
-py-pkg/build/
+py-pkg/docs/_build
 
 # As long as we're storing the pkgdown site
 # at the repo root, should protect against

@@ -12,10 +12,11 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, '/home/clare/GitHub/uptasticsearch/py-pkg/uptasticsearch')
-
+import os
+import sys
+print('sys.path = {}'.format(sys.path))
+sys.path.insert(0, os.path.abspath('..'))
+print('Added path. sys.path = {}'.format(sys.path))
 
 # -- Project information -----------------------------------------------------
 
@@ -24,9 +25,9 @@ copyright = '2018, Author'
 author = 'Author'
 
 # The short X.Y version
-version = ''
+version = '0.1.0'
 # The full version, including alpha/beta/rc tags
-release = ''
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
