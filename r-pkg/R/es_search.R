@@ -18,7 +18,7 @@
 #'               time you expect to pass between requests. See the
 #'               \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
 #'               for more information.
-#' @param n_cores Number of cores to distribute fetching + processing over.
+#' @param n_cores Number of cores to distribute fetching and processing over.
 #' @param break_on_duplicates Boolean, defaults to TRUE. \code{es_search} uses the size of the final object it returns
 #'                          to check whether or not some data were lost during the processing.
 #'                          If you have duplicates in the source data, you will have to set this flag to
