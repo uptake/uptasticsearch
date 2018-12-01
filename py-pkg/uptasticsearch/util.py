@@ -58,7 +58,7 @@ def _format_es_url(es_host):
     return es_host
 
 
-def convert_to_sec(duration_string):
+def _convert_to_sec(duration_string):
     """
     Given a string that could be passed as a datemath expression to
         Elasticsearch (e.g. "2m"), parse it and return numerical value

@@ -4,7 +4,7 @@
 import pandas as pd
 import json
 
-from uptasticsearch.clients import uptasticsearch_factory
+from uptasticsearch.clients import _uptasticsearch_factory
 
 
 def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None,
@@ -25,7 +25,7 @@ def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None,
 
     """
 
-    client = uptasticsearch_factory(es_host)
+    client = _uptasticsearch_factory(es_host)
 
     # Figure out if we are scrolling or getting an aggs result
     if json.loads(query_body).get("aggs") is not None:

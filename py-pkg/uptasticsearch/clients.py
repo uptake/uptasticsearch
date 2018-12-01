@@ -6,10 +6,10 @@ from requests.adapters import HTTPAdapter
 import os
 
 from uptasticsearch.util import _format_es_url
-from uptasticsearch.util import convert_to_sec
+from uptasticsearch.util import _convert_to_sec
 
 
-class HttpClient(object):
+class _HttpClient(object):
 
     def __init__(self, retries=5, backoff_factor=0.1):
         self.retry = Retry(total=retries,
@@ -27,9 +27,9 @@ class HttpClient(object):
         return s.post(url, data=data, headers=headers)
 
 
-class Uptasticsearch(object):
+class _Uptasticsearch(object):
 
-    def __init__(self, url, http_client=HttpClient()):
+    def __init__(self, url, http_client=_HttpClient()):
         self.url = _format_es_url(url)
         self.client = http_client
 
@@ -49,7 +49,7 @@ class Uptasticsearch(object):
 
         """
 
-        convert_to_sec(scroll_context_timer)  # check context timer input
+        _convert_to_sec(scroll_context_timer)  # check context timer input
 
         response = self.client.post(os.path.join(self.url,
                                                  index,
@@ -81,7 +81,7 @@ class Uptasticsearch(object):
         raise NotImplementedError("_make_scroll_request is abstract. Use a subclass instead of Uptasticsearch")
 
 
-class Uptasticsearch1(Uptasticsearch):
+class _Uptasticsearch1(_Uptasticsearch):
 
     def _make_scroll_request(self, scroll_context_timer, scroll_id):
         return self.client.post(os.path.join(self.url,
@@ -89,7 +89,7 @@ class Uptasticsearch1(Uptasticsearch):
                                 data=scroll_id)
 
 
-class Uptasticsearch2(Uptasticsearch):
+class _Uptasticsearch2(_Uptasticsearch):
 
     def _make_scroll_request(self, scroll_context_timer, scroll_id):
         return self.client.post(os.path.join(self.url,
@@ -99,7 +99,7 @@ class Uptasticsearch2(Uptasticsearch):
                                 headers={'Content-Type': 'application/json'})
 
 
-class Uptasticsearch5(Uptasticsearch):
+class _Uptasticsearch5(_Uptasticsearch):
 
     def _make_scroll_request(self, scroll_context_timer, scroll_id):
         return self.client.post(os.path.join(self.url,
@@ -109,7 +109,7 @@ class Uptasticsearch5(Uptasticsearch):
                                 headers={'Content-Type': 'application/json'})
 
 
-class Uptasticsearch6(Uptasticsearch):
+class _Uptasticsearch6(_Uptasticsearch):
 
     def _make_scroll_request(self, scroll_context_timer, scroll_id):
         return self.client.post(os.path.join(self.url,
@@ -119,8 +119,8 @@ class Uptasticsearch6(Uptasticsearch):
                                 headers={'Content-Type': 'application/json'})
 
 
-def uptasticsearch_factory(url, retries=5, backoff_factor=0.1):
-    http_client = HttpClient(retries=retries, backoff_factor=backoff_factor)
+def _uptasticsearch_factory(url, retries=5, backoff_factor=0.1):
+    http_client = _HttpClient(retries=retries, backoff_factor=backoff_factor)
     es_url = _format_es_url(url)
     cluster_version = http_client.get(es_url).json()['version']['number'].split('.')[0]
 
