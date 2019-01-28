@@ -131,4 +131,3 @@ test_that(".major_version should correctly parse semver version strings", {
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
-closeAllConnections()

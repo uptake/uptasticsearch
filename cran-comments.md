@@ -84,3 +84,11 @@
 
 ### CRAN Response
 * No issues. v0.3.0 released to CRAN!
+
+## v0.3.1 - Submission 1 - (January 28, 2019)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* No issues. v0.3.0 released to CRAN!

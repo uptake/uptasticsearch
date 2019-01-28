@@ -111,3 +111,7 @@ futile.logger::flog.threshold(0)
                   expect_identical(aliasDT, expected)
               }
     )
+
+##### TEST TEAR DOWN #####
+futile.logger::flog.threshold(origLogThreshold)
+rm(list = ls())

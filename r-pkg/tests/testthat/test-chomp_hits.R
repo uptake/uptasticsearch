@@ -128,4 +128,3 @@ test_that("chomp_hits should warn and delete if the resulting data is nested wit
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
-closeAllConnections()

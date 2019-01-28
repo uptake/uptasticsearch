@@ -604,4 +604,3 @@ test_that("chomp_aggs should work for an empty terms result", {
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
-closeAllConnections()

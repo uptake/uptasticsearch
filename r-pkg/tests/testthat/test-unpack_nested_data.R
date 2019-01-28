@@ -113,4 +113,3 @@ context("Elasticsearch result-parsing functions")
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
-closeAllConnections()

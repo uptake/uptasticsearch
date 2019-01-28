@@ -1,3 +1,10 @@
+# uptasticsearch 0.3.1
+
+## Bugfixes
+
+### Minor changes to unit tests to comply with CRAN
+- [#TBD]() removed calls to `closeAllConnections()` in unit tests because they were superfluous and causing problems on certain operating systems in the CRAN check farm.
+
 # uptasticsearch 0.3.0
 
 ## Features
