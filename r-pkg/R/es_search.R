@@ -100,7 +100,7 @@ es_search <- function(es_host
         )
         log_fatal(msg)
     }
-  
+
     # assign 1 core by default, if the number of cores is NA
     if (is.na(n_cores) || !assertthat::is.count(n_cores)){
       msg <- "detectCores() returned NA. Assigning number of cores to be 1."
@@ -397,7 +397,7 @@ es_search <- function(es_host
 
     # It's POSSIBLE that the parallel process gave us duplicates. Correct for that
     data.table::setkeyv(outDT, NULL)
-    outDT <- unique(outDT)
+    outDT <- unique(outDT, by = "_id")
 
     # Check we got the number of unique records we expected
     if (nrow(outDT) < hits_to_pull && break_on_duplicates){
