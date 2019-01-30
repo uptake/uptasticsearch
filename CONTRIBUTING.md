@@ -19,7 +19,7 @@ If you are reporting a bug, please describe as many as possible of the following
 
 - your operating system (type and version)
 - your version of R
-- your version of `uptasticsearcht`
+- your version of `uptasticsearch`
 
 The text of your issue should answer the question "what did you expect `uptasticsearch` to do and what did it actually do?".
 
