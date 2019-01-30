@@ -6,10 +6,7 @@ addons:
       - oracle-java8-set-default
 
 before_install:
-  - if [ -z "$TRAVIS_R_VERSION" ]; \
-    then \
-      Rscript -e "install.packages(c('devtools', 'knitr', 'testthat', 'rmarkdown'), repos = 'http://cran.rstudio.com')" \
-    fi
+  - .ci/before_install.sh
 
 # Manually specifying each build configuration.
 # Would be better to figure out how to build a matrix with two
