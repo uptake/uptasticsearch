@@ -5,6 +5,12 @@ addons:
     packages:
       - oracle-java8-set-default
 
+before_install:
+  - if [ -z "$TRAVIS_R_VERSION" ]; \
+    then \
+      Rscript -e "install.packages(c('devtools', 'knitr', 'testthat', 'rmarkdown'), repos = 'http://cran.rstudio.com')" \
+    fi
+
 # Manually specifying each build configuration.
 # Would be better to figure out how to build a matrix with two
 # languages but share the ES_VERSION matrix across all builds.
@@ -32,7 +38,6 @@ matrix:
       cache: packages
       env: ES_VERSION=1.0.0
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -44,7 +49,6 @@ matrix:
       cache: packages
       env: ES_VERSION=1.4.4
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -56,7 +60,6 @@ matrix:
       cache: packages
       env: ES_VERSION=1.7.2
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -68,7 +71,6 @@ matrix:
       cache: packages
       env: ES_VERSION=2.0.2
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -80,7 +82,6 @@ matrix:
       cache: packages
       env: ES_VERSION=2.1.2
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -92,7 +93,6 @@ matrix:
       cache: packages
       env: ES_VERSION=2.2.2
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -104,7 +104,6 @@ matrix:
       cache: packages
       env: ES_VERSION=2.3.5
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -116,7 +115,6 @@ matrix:
       cache: packages
       env: ES_VERSION=5.0.2
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -128,7 +126,6 @@ matrix:
       cache: packages
       env: ES_VERSION=5.3.3
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -140,7 +137,6 @@ matrix:
       cache: packages
       env: ES_VERSION=5.4.3
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -152,7 +148,6 @@ matrix:
       cache: packages
       env: ES_VERSION=5.6.9
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -164,7 +159,6 @@ matrix:
       cache: packages
       env: ES_VERSION=6.0.1
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -176,7 +170,6 @@ matrix:
       cache: packages
       env: ES_VERSION=6.1.4
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -188,7 +181,6 @@ matrix:
       cache: packages
       env: ES_VERSION=6.2.4
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
