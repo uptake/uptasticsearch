@@ -5,6 +5,9 @@ addons:
     packages:
       - oracle-java8-set-default
 
+before_install:
+  - .ci/before_install.sh
+
 # Manually specifying each build configuration.
 # Would be better to figure out how to build a matrix with two
 # languages but share the ES_VERSION matrix across all builds.
@@ -30,9 +33,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=1.0.0
+      env:
+        - ES_VERSION=1.0.0
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -42,9 +46,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=1.4.4
+      env:
+        - ES_VERSION=1.4.4
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -54,9 +59,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=1.7.2
+      env:
+        - ES_VERSION=1.7.2
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -66,9 +72,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=2.0.2
+      env:
+        - ES_VERSION=2.0.2
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -78,9 +85,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=2.1.2
+      env:
+        - ES_VERSION=2.1.2
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -90,9 +98,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=2.2.2
+      env:
+        - ES_VERSION=2.2.2
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -102,9 +111,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=2.3.5
+      env:
+        - ES_VERSION=2.3.5
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -114,9 +124,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=5.0.2
+      env:
+        - ES_VERSION=5.0.2
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -126,9 +137,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=5.3.3
+      env:
+        - ES_VERSION=5.3.3
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -138,9 +150,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=5.4.3
+      env:
+        - ES_VERSION=5.4.3
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -150,9 +163,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=5.6.9
+      env:
+        - ES_VERSION=5.6.9
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -162,9 +176,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=6.0.1
+      env:
+        - ES_VERSION=6.0.1
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -174,9 +189,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=6.1.4
+      env:
+        - ES_VERSION=6.1.4
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -186,9 +202,10 @@ matrix:
     - language: r
       warnings_are_errors: true
       cache: packages
-      env: ES_VERSION=6.2.4
+      env:
+        - ES_VERSION=6.2.4
+        - TASK=rpkg
       install:
-        - Rscript -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
         - Rscript -e "devtools::install('r-pkg')"
       script:
         - R CMD build r-pkg/
@@ -204,98 +221,126 @@ matrix:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=1.0.0
+      env:
+        - ES_VERSION=1.0.0
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=1.4.4
+      env:
+        - ES_VERSION=1.4.4
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=1.7.2
+      env:
+        - ES_VERSION=1.7.2
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=2.0.2
+      env:
+        - ES_VERSION=2.0.2
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=2.1.2
+      env:
+        - ES_VERSION=2.1.2
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=2.2.2
+      env:
+        - ES_VERSION=2.2.2
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=2.3.5
+      env:
+        - ES_VERSION=2.3.5
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=5.0.2
+      env:
+        - ES_VERSION=5.0.2
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=5.3.3
+      env:
+        - ES_VERSION=5.3.3
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=5.4.3
+      env:
+        - ES_VERSION=5.4.3
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=5.6.9
+      env:
+        - ES_VERSION=5.6.9
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=6.0.1
+      env:
+        - ES_VERSION=6.0.1
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=6.1.4
+      env:
+        - ES_VERSION=6.1.4
+        - TASK=pypkg
     - language: python
       python: 3.5
       install:
         pip install py-pkg/
       script:
         - pytest --verbose py-pkg/
-      env: ES_VERSION=6.2.4
+      env:
+        - ES_VERSION=6.2.4
+        - TASK=pypkg
 
 before_script:
   - case "$ES_VERSION" in
