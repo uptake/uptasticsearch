@@ -88,7 +88,15 @@
 ## v0.3.1 - Submission 1 - (January 28, 2019)
 
 ### R CMD check results
-* No issues
+* Issues on several platforms, of the form `premature EOF...`. This is a result of forgetting to put the test data in the package tarball before upload.
 
 ### CRAN Response
-* No issues. v0.3.0 released to CRAN!
+* Upload a new version with this fixed or your package comes down in 7 days
+
+## v0.3.1 - Submission 2 - (January 29, 2019)
+
+### R CMD check results
+* Pending
+
+### CRAN Response
+* Pending
