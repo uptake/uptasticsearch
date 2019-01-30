@@ -4,7 +4,7 @@ set -e
 
 # If language: r,
 # install these testing packages we need
-if [ -z "$TRAVIS_R_VERSION" ];
+if [[ "$TASK" == "rpkg" ]];
 then
   Rscript -e "install.packages(c('devtools', 'knitr', 'testthat', 'rmarkdown'), repos = 'http://cran.rstudio.com')"
 fi
