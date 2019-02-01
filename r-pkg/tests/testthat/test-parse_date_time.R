@@ -177,4 +177,3 @@ test_that("parse_date_time should leave the original DT unchanged", {
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
-closeAllConnections()

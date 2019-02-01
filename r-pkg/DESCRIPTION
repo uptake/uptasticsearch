@@ -1,7 +1,7 @@
 Package: uptasticsearch
 Type: Package
 Title: Get Data Frame Representations of 'Elasticsearch' Results
-Version: 0.3.0.9999
+Version: 0.3.1
 Authors@R: c(
     person("James", "Lamb", email = "james.lamb@uptake.com", role = c("aut", "cre")),
     person("Nick", "Paras", email = "nick.paras@uptake.com", role = c("aut")),
@@ -39,6 +39,6 @@ License: BSD_3_clause + file LICENSE
 URL: https://github.com/UptakeOpenSource/uptasticsearch
 BugReports: https://github.com/UptakeOpenSource/uptasticsearch/issues
 LazyData: TRUE
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Encoding: UTF-8

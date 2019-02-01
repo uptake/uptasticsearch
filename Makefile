@@ -10,6 +10,7 @@ build_r:
 	cp test_data/* r-pkg/inst/testdata/
 	cp NEWS.md r-pkg/
 	cp README.md r-pkg/
+	R CMD BUILD r-pkg/
 
 coverage_r: build_r
 	echo "Calculating test coverage..."
@@ -25,7 +26,7 @@ install_r: build_r
 	R CMD INSTALL r-pkg/
 
 test_r: build_r
-	Rscript -e "devtools::test('r-pkg')"
+	R CMD CHECK uptasticsearch_*.tar.gz
 
 ##########
 # Python #
@@ -54,4 +55,4 @@ test_py:
 ###########
 
 gh_pages: docs_r
-	mv -r r-pkg/docs/* docs
+	cp -R r-pkg/docs/* docs/

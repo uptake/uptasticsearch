@@ -2,7 +2,7 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]    
+    origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -11,8 +11,9 @@ futile.logger::flog.threshold(0)
 context("chomp_aggs")
 
 # Works with 1 variable from an R string
-test_that("chomp_aggs should work from an R string with one grouping variable",
-          {oneVarJSON <- '{"took": 5,
+test_that(
+    "chomp_aggs should work from an R string with one grouping variable", {
+    oneVarJSON <- '{"took": 5,
           "timed_out": false,
           "_shards": {"total": 16, "successful": 16, "failed": 0},
           "hits": {"total": 110207,"max_score": 0,"hits": []},
@@ -25,11 +26,16 @@ test_that("chomp_aggs should work from an R string with one grouping variable",
           {"key": "level2", "doc_count": 21576},
           {"key": "level3", "doc_count": 10575}
           ]
-          }}}'
-                  expect_identical(chomp_aggs(aggs_json = oneVarJSON)
-                                   , data.table::data.table(some_variable = c("level1", "level2", "level3")
-                                                            , doc_count = c(62159L, 21576L, 10575L)))}
-          )
+    }}}'
+
+    expect_identical(
+        chomp_aggs(aggs_json = oneVarJSON)
+        , data.table::data.table(
+            some_variable = c("level1", "level2", "level3")
+            , doc_count = c(62159L, 21576L, 10575L)
+        )
+    )
+})
 
 # Works w/ one variable from a file
 test_that("chomp_aggs should work from a file with one grouping variable",
@@ -109,7 +115,7 @@ test_that("chomp_aggs should work for a one-level 'cardinality' aggregation",
           {
               result <- system.file("testdata", "aggs_cardinality.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, 'number_of_things.value')
               expect_true('data.table' %in% class(chompDT))
               expect_true(nrow(chompDT) == 1)
@@ -121,7 +127,7 @@ test_that("chomp_aggs should work for a one-level 'date_histogram' aggregation",
           {
               result <- system.file("testdata", "aggs_date_histogram.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -134,7 +140,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'cardinality' aggrega
           {
               result <- system.file("testdata", "aggs_date_histogram_cardinality.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'num_customers.value', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -148,7 +154,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'extended_stats' aggr
           {
               result <- system.file("testdata", "aggs_date_histogram_extended_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'some_score.count',
                                       'some_score.min', 'some_score.max', 'some_score.avg',
                                       'some_score.sum', 'some_score.sum_of_squares',
@@ -168,7 +174,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'histogram' aggregati
           {
               result <- system.file("testdata", "aggs_date_histogram_histogram.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'num_customers', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -182,7 +188,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'percentiles' aggrega
           {
               result <- system.file("testdata", "aggs_date_histogram_percentiles.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'some_score.values.1.0',
                                       'some_score.values.5.0', 'some_score.values.25.0',
                                       'some_score.values.50.0',
@@ -201,7 +207,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'significant_terms' a
           {
               result <- system.file("testdata", "aggs_date_histogram_significant_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'key_words', 'score',
                                       'bg_count', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
@@ -220,7 +226,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'stats' aggregation",
           {
               result <- system.file("testdata", "aggs_date_histogram_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'some_score.count',
                                       'some_score.min', 'some_score.max', 'some_score.avg',
                                       'some_score.sum','doc_count')
@@ -236,7 +242,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'terms' aggregation",
           {
               result <- system.file("testdata", "aggs_date_histogram_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('report_week', 'theater_number', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -251,7 +257,7 @@ test_that("chomp_aggs should work for a one-level 'extended_stats' aggregation",
           {
               result <- system.file("testdata", "aggs_extended_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('affinity_score.count',
                                       'affinity_score.min',
                                       'affinity_score.max',
@@ -274,7 +280,7 @@ test_that("chomp_aggs should work for a 'histogram' aggregation",
           {
               result <- system.file("testdata", "aggs_histogram.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('affinity_score', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -287,7 +293,7 @@ test_that("chomp_aggs should work for a one-level 'percentiles' aggregation",
           {
               result <- system.file("testdata", "aggs_percentiles.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('affinity_score.percentile_1.0',
                                       'affinity_score.percentile_5.0',
                                       'affinity_score.percentile_25.0',
@@ -307,7 +313,7 @@ test_that("chomp_aggs should work for a one-level 'significant terms' aggregatio
           {
               result <- system.file("testdata", "aggs_significant_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('top_tweet_keywords',
                                       'doc_count',
                                       'score',
@@ -325,7 +331,7 @@ test_that("chomp_aggs should work for a one-level 'stats' aggregation",
           {
               result <- system.file("testdata", "aggs_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('affinity_score.count',
                                       'affinity_score.min',
                                       'affinity_score.max',
@@ -343,7 +349,7 @@ test_that("chomp_aggs should work for a one-level 'terms' aggregation",
           {
               result <- system.file("testdata", "aggs_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('magic_number', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -355,7 +361,7 @@ test_that("chomp_aggs should work for a 'terms' - 'cardinality' nested aggregati
           {
               result <- system.file("testdata", "aggs_terms_cardinality.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('customerNumber', 'purchase_types.value', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -368,7 +374,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' nested aggreg
           {
               result <- system.file("testdata", "aggs_terms_date_histogram.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('customerNumber', 'purchase_date', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -383,7 +389,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'cardinalit
           {
               result <- system.file("testdata", "aggs_terms_date_histogram_cardinality.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('theater_number', 'report_week', 'screenings.value', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -398,7 +404,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'extended_s
           {
               result <- system.file("testdata", "aggs_terms_date_histogram_extended_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('customer_type', 'report_week',
                                       'satisfaction_score.count', 'satisfaction_score.min',
                                       'satisfaction_score.max', 'satisfaction_score.avg',
@@ -422,8 +428,8 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'percentile
           {
               result <- system.file("testdata", "aggs_terms_date_histogram_percentiles.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
-              expect_named(chompDT, c('customer_type', 
+
+              expect_named(chompDT, c('customer_type',
                                       'report_week',
                                       'satisfaction_score.values.1.0',
                                       'satisfaction_score.values.5.0',
@@ -448,8 +454,8 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'significan
           {
               result <- system.file("testdata", "aggs_terms_date_histogram_significant_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
-              expect_named(chompDT, c('theater_number', 
+
+              expect_named(chompDT, c('theater_number',
                                       'report_week',
                                       'top_tweet_keywords',
                                       'score',
@@ -468,7 +474,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'stats' nes
           {
               result <- system.file("testdata", "aggs_terms_date_histogram_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('customer_type',
                                       'report_week',
                                       'satisfaction_score.count',
@@ -490,7 +496,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'terms' nes
           {
               result <- system.file("testdata", "aggs_terms_date_histogram_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('customer_type',
                                       'report_week',
                                       'topCustomer',
@@ -508,7 +514,7 @@ test_that("chomp_aggs should work for a 'terms' - 'extended_stats' nested aggreg
           {
               result <- system.file("testdata", "aggs_terms_extended_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('campaign_status', 'some_score.count',
                                       'some_score.min', 'some_score.max', 'some_score.avg',
                                       'some_score.sum', 'some_score.sum_of_squares',
@@ -528,7 +534,7 @@ test_that("chomp_aggs should work for a 'terms' - 'histogram' nested aggregation
           {
               result <- system.file("testdata", "aggs_terms_histogram.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('campaign_status', 'affinity_score', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -541,7 +547,7 @@ test_that("chomp_aggs should work for a 'terms' - 'percentiles' nested aggregati
           {
               result <- system.file("testdata", "aggs_terms_percentiles.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('campaign_status', 'some_score.values.1.0',
                                       'some_score.values.5.0', 'some_score.values.25.0',
                                       'some_score.values.50.0', 'some_score.values.60.58934',
@@ -557,7 +563,7 @@ test_that("chomp_aggs should work for a 'terms' - 'significant_terms' nested agg
           {
               result <- system.file("testdata", "aggs_terms_significant_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('popularity_score', 'comment_term', 'score',
                                       'bg_count', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
@@ -571,7 +577,7 @@ test_that("chomp_aggs should work for a 'terms' - 'stats' nested aggregation",
           {
               result <- system.file("testdata", "aggs_terms_stats.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('customerNumber', 'some_score.count',
                                       'some_score.min', 'some_score.max', 'some_score.avg',
                                       'some_score.sum', 'doc_count')
@@ -586,7 +592,7 @@ test_that("chomp_aggs should work for a two-level 'terms' aggregation",
           {
               result <- system.file("testdata", "aggs_terms_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
-              
+
               expect_named(chompDT, c('magic_number', 'customerType','doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true('data.table' %in% class(chompDT))
@@ -604,4 +610,3 @@ test_that("chomp_aggs should work for an empty terms result", {
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
-closeAllConnections()

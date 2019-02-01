@@ -39,7 +39,7 @@ for more information.}
 as it has pulled this many hits. Default is \code{Inf}, meaning that
 all possible hits will be pulled.}
 
-\item{n_cores}{Number of cores to distribute fetching + processing over.}
+\item{n_cores}{Number of cores to distribute fetching and processing over.}
 
 \item{break_on_duplicates}{Boolean, defaults to TRUE. \code{es_search} uses the size of the final object it returns
 to check whether or not some data were lost during the processing.

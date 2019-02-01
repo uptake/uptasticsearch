@@ -30,4 +30,3 @@ test_that("Files in extdata/ and testdata/ should be smaller than 10MB on disk"
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
 rm(list = ls())
-closeAllConnections()

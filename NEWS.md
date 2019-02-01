@@ -1,3 +1,13 @@
+# uptasticsearch 0.3.1
+
+## Bugfixes
+
+### Minor changes to unit tests to comply with CRAN
+- [#136](https://github.com/UptakeOpenSource/uptasticsearch/pull/136) removed calls to `closeAllConnections()` in unit tests because they were superfluous and causing problems on certain operating systems in the CRAN check farm.
+
+### Changed strategy for removing duplicate records
+- [#138](https://github.com/UptakeOpenSource/uptasticsearch/pull/138) changed our strategy for deduping records from `unique(outDT)` to `unique(outDT, by = "_id")`. This was prompted by [Rdatatable/data.table#3332](https://github.com/Rdatatable/data.table/issues/3332) (changes in `data.table` 1.12.0), but it's actually faster and safer anyway!
+
 # uptasticsearch 0.3.0
 
 ## Features

@@ -188,39 +188,3 @@ In the example above, we used the [date_histogram](https://www.elastic.co/guide/
 |terms - significant_terms                    |YES          |NO                |
 |terms - stats                                |YES          |NO                |
 |terms - terms                                |YES          |NO                |
-
-### Auth Support <a name="authsupport"></a>
-
-`uptasticsearch` does not currently support queries with authentication. This will be added in future versions.
-
-## Running Tests Locally <a name="local-tests"></a>
-
-When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We've provided some gross bash scripts at the root of this repo to help!
-
-To run the code below, you will need [Docker](https://www.docker.com/). Note that I've passed an argument to `setup_local.sh` indicating the major version of ES I want to run. If you don't do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of `setup_local.sh` for a list of the valid arguments.
-
-```
-# Start up Elasticsearch on localhost:9200 and seed it with data
-./setup_local.sh 5.5
-
-# Run tests
-make test_r
-
-# Get test coverage and generate coverage report
-make coverage_r
-
-# Tear down the container and remove testing files
-./cleanup_local.sh
-```
-
-## Regenerating the Documentation Site <a name="the-site"></a>
-
-This project uses Github Pages to host a documentation site:
-
-https://uptakeopensource.github.io/uptasticsearch/
-
-This documentation needs to be periodically, manually updated. To generate the new files for an "update the site" PR, just run the following:
-
-```
-make gh_pages
-```
