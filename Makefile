@@ -55,4 +55,4 @@ test_py:
 ###########
 
 gh_pages: docs_r
-	mv -r r-pkg/docs/* docs
+	cp -R r-pkg/docs/* docs/
