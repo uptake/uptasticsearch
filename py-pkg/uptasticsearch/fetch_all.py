@@ -33,7 +33,6 @@ def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None,
               "and will only return aggregation results."
         print(msg)
 
-        # TODO (james.lamb@uptake.com): implemented the aggs parser
         raise NotImplementedError("es_search aggs parser has not been implemented yet!")
 
     else:
