@@ -2,7 +2,7 @@ context("Elasticsearch integration tests")
 
 # tests in this file are run automatically on Travis and require
 # an actual Elasticsearch cluster to be up and running. For details,
-# see: https://github.com/UptakeOpenSource/uptasticsearch/blob/master/.travis.yml
+# see: https://github.com/uptake/uptasticsearch/blob/master/.travis.yml
 
 # Sample data from:
 # - https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html
