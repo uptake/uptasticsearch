@@ -1,6 +1,6 @@
 # uptasticsearch
-[![Travis Build Status](https://api.travis-ci.org/uptake/uptasticsearch.svg?branch=master)](https://travis-ci.org/uptake/uptasticsearch)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) [![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) [![Build Status](https://travis-ci.org/UptakeOpenSource/uptasticsearch.svg?branch=master)](https://travis-ci.org/UptakeOpenSource/uptasticsearch)
+
+[![Travis Build Status](https://api.travis-ci.org/uptake/uptasticsearch.svg?branch=master)](https://travis-ci.org/uptake/uptasticsearch)[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) [![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) [![Build Status](https://travis-ci.org/UptakeOpenSource/uptasticsearch.svg?branch=master)](https://travis-ci.org/UptakeOpenSource/uptasticsearch)
 
 ## Introduction
 
