@@ -1,12 +1,6 @@
 
-# every build needs java8 so it can build and run Elasticsearch
-addons:
-  apt:
-    packages:
-      - oracle-java9-set-default
-
 before_install:
-  - .ci/before_install.sh
+  - .ci/setup.sh
 
 # Manually specifying each build configuration.
 # Would be better to figure out how to build a matrix with two
@@ -441,4 +435,3 @@ before_script:
   - curl --silent -X POST "http://127.0.0.1:9200/shakespeare/_bulk" -H 'Content-Type:application/json' --data-binary @sample.json
   - curl -X POST "http://127.0.0.1:9200/_refresh"
   - curl -X GET "http://127.0.0.1:9200/shakespeare/_search?size=1" -H 'Content-Type:application/json'
-  - cp test_data/* r-pkg/inst/testdata/
