@@ -1,6 +1,6 @@
 # uptasticsearch
 
-[![Travis Build Status](https://api.travis-ci.org/uptake/uptasticsearch.svg?branch=master)](https://travis-ci.org/uptake/uptasticsearch)[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) [![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) 
+[![Travis Build Status](https://img.shields.io/travis/uptake/uptasticsearch.svg?label=travis&logo=travis&branch=master)](https://travis-ci.org/uptake/uptasticsearch)[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) [![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) 
 ## Introduction
 
 This project tackles the issue of getting data out of Elasticsearch and into a tabular format in R.
