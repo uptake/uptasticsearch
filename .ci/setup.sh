@@ -25,10 +25,10 @@ then
 fi
 
 # Install java
-sudo -e \
-apt-get \
-    -yq \
-    --no-install-suggests \
-    --no-install-recommends \
-    install \
-        ${JAVA_APT_PKG}
+sudo -E \
+  apt-get \
+      -yq \
+      --no-install-suggests \
+      --no-install-recommends \
+      install \
+          ${JAVA_APT_PKG}
