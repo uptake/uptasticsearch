@@ -25,6 +25,7 @@ then
 fi
 
 # Install java
+sudo -e \
 apt-get \
     -yq \
     --no-install-suggests \
