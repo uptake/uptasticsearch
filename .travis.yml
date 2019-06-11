@@ -1,6 +1,6 @@
 
 before_install:
-  - .ci/setup.sh
+  - sudo .ci/setup.sh
 
 # Manually specifying each build configuration.
 # Would be better to figure out how to build a matrix with two
