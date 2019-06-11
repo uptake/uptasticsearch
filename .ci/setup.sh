@@ -19,8 +19,6 @@ fi
 # install these testing packages we need
 if [[ "$TASK" == "pypkg" ]];
 then
-  Rscript -e "install.packages(c('devtools', 'knitr', 'testthat', 'rmarkdown'), repos = 'http://cran.rstudio.com')"
-  cp test_data/* r-pkg/inst/testdata/
   export JAVA_APT_PKG="oracle-java9-set-default"
 fi
 
