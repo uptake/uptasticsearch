@@ -11,7 +11,7 @@ The primary goal of this guide is to help you contribute to `uptasticsearch` as 
 
 ## Creating an Issue <a name="issues"></a>
 
-To report bugs, request features, or ask questions about the structure of the code, please [open an issue](https://github.com/UptakeOpenSource/uptasticsearch/issues).
+To report bugs, request features, or ask questions about the structure of the code, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
 
 ### Bug Reports
 
@@ -57,7 +57,7 @@ To submit a PR, please follow these steps:
 3. When you are ready, click "Compare & Pull Request". Open A PR comparing your branch to the `master` branch in this repo
 4. In the description section on your PR, please indicate the following:
     - description of what the PR is trying to do and how it improves `uptasticsearch`
-    - links to any open [issues](https://github.com/UptakeOpenSource/uptasticsearch/issues) that your PR is addressing
+    - links to any open [issues](https://github.com/uptake/uptasticsearch/issues) that your PR is addressing
 
 We will try to review PRs promptly and get back to you within a few days.
 
@@ -101,7 +101,7 @@ Change the `Version:` field in `DESCRIPTION` to the official version you want on
 
 This project uses Github Pages to host a documentation site:
 
-https://uptakeopensource.github.io/uptasticsearch/
+https://uptake.github.io/uptasticsearch/
 
 This documentation needs to be periodically, manually updated. To generate the new files for an "update the site" PR, just run the following:
 
@@ -133,9 +133,9 @@ Once the submission is accepted, great! Update `cran-comments.md` and merge the 
 
 ### Create a Release on GitHub
 
-We use [the releases section](https://github.com/UptakeOpenSource/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `devtools::install_github()` for old versions.
+We use [the releases section](https://github.com/uptake/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `devtools::install_github()` for old versions.
 
-Navigate to https://github.com/UptakeOpenSource/uptasticsearch/releases/new. Click the dropdown in the "target" section, then click "recent commits". Choose the latest commit for the release PR you just merged. This will automatically create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on that commit and tell Github which revision to build when people ask for a given release.
+Navigate to https://github.com/uptake/uptasticsearch/releases/new. Click the dropdown in the "target" section, then click "recent commits". Choose the latest commit for the release PR you just merged. This will automatically create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on that commit and tell Github which revision to build when people ask for a given release.
 
 Add some notes explaining what has changed since the previous release.
 

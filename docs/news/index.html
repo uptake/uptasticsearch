@@ -94,7 +94,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/UptakeOpenSource/uptasticsearch">
+  <a href="https://github.com/uptake/uptasticsearch">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -112,7 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/UptakeOpenSource/uptasticsearch/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/uptake/uptasticsearch/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="uptasticsearch-0-3-1" class="section level1">
@@ -127,7 +127,7 @@
 <a href="#minor-changes-to-unit-tests-to-comply-with-cran" class="anchor"></a>Minor changes to unit tests to comply with CRAN</h3>
 <ul>
 <li>
-<a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/136"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/136'>#136</a></a> removed calls to <code><a href="https://www.rdocumentation.org/packages/base/topics/showConnections">closeAllConnections()</a></code> in unit tests because they were superfluous and causing problems on certain operating systems in the CRAN check farm.</li>
+<a href="https://github.com/uptake/uptasticsearch/pull/136"><a href='https://github.com/uptake/uptasticsearch/issues/136'>#136</a></a> removed calls to <code><a href="https://www.rdocumentation.org/packages/base/topics/showConnections">closeAllConnections()</a></code> in unit tests because they were superfluous and causing problems on certain operating systems in the CRAN check farm.</li>
 </ul>
 </div>
 <div id="changed-strategy-for-removing-duplicate-records" class="section level3">
@@ -135,7 +135,7 @@
 <a href="#changed-strategy-for-removing-duplicate-records" class="anchor"></a>Changed strategy for removing duplicate records</h3>
 <ul>
 <li>
-<a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/138"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/138'>#138</a></a> changed our strategy for deduping records from <code><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique(outDT)</a></code> to <code><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique(outDT, by = "_id")</a></code>. This was prompted by <a href="https://github.com/Rdatatable/data.table/issues/3332">Rdatatable/data.table<a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/3332'>#3332</a></a> (changes in <code>data.table</code> 1.12.0), but it’s actually faster and safer anyway!</li>
+<a href="https://github.com/uptake/uptasticsearch/pull/138"><a href='https://github.com/uptake/uptasticsearch/issues/138'>#138</a></a> changed our strategy for deduping records from <code><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique(outDT)</a></code> to <code><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique(outDT, by = "_id")</a></code>. This was prompted by <a href="https://github.com/Rdatatable/data.table/issues/3332">Rdatatable/data.table<a href='https://github.com/uptake/uptasticsearch/issues/3332'>#3332</a></a> (changes in <code>data.table</code> 1.12.0), but it’s actually faster and safer anyway!</li>
 </ul>
 </div>
 </div>
@@ -152,9 +152,9 @@
 <a href="#full-support-for-es6-x" class="anchor"></a>Full support for ES6.x</h3>
 <ul>
 <li>
-<a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/64"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/64'>#64</a></a> added support for ES6.x. The biggest change between that major version and v5.x is that as of ES6.x all requests issued to the ES HTTP API must pass an explicit <code>Content-Type</code> header. Previous versions of ES tried to guess the <code>Content-Type</code> when none was declared</li>
+<a href="https://github.com/uptake/uptasticsearch/pull/64"><a href='https://github.com/uptake/uptasticsearch/issues/64'>#64</a></a> added support for ES6.x. The biggest change between that major version and v5.x is that as of ES6.x all requests issued to the ES HTTP API must pass an explicit <code>Content-Type</code> header. Previous versions of ES tried to guess the <code>Content-Type</code> when none was declared</li>
 <li>
-<a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/66"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/66'>#66</a></a> completed support for ES6.x. ES6.x changed the supported strategy for issuing scrolling requests. <code>uptasticsearch</code> will now hit the cluster to try to figure out which version of ES it is running, then use the appropriate scrolling strategy.</li>
+<a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a> completed support for ES6.x. ES6.x changed the supported strategy for issuing scrolling requests. <code>uptasticsearch</code> will now hit the cluster to try to figure out which version of ES it is running, then use the appropriate scrolling strategy.</li>
 </ul>
 </div>
 </div>
@@ -165,28 +165,28 @@
 <h3 class="hasAnchor">
 <a href="#get_fields-when-your-index-has-no-aliases" class="anchor"></a><code>get_fields</code> when your index has no aliases</h3>
 <ul>
-<li>previously, <code>get_fields</code> broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the <code>_cat/aliases</code> endpoint has changed from major version to major version. <a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/66"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/66'>#66</a></a> fixed this for all major versions of ES from 1.0 to 6.2</li>
+<li>previously, <code>get_fields</code> broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the <code>_cat/aliases</code> endpoint has changed from major version to major version. <a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a> fixed this for all major versions of ES from 1.0 to 6.2</li>
 </ul>
 </div>
 <div id="get_fields-when-your-index-has-multiple-aliases" class="section level3">
 <h3 class="hasAnchor">
 <a href="#get_fields-when-your-index-has-multiple-aliases" class="anchor"></a><code>get_fields</code> when your index has multiple aliases</h3>
 <ul>
-<li>previously, if you had multiple aliases pointing to the same physical index, <code>get_fields</code> would only return one of those. As of <a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/73"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/73'>#73</a></a>, mappings for the underlying physical index will now be duplicated once per alias in the table returned by <code>get_fields</code>.</li>
+<li>previously, if you had multiple aliases pointing to the same physical index, <code>get_fields</code> would only return one of those. As of <a href="https://github.com/uptake/uptasticsearch/pull/73"><a href='https://github.com/uptake/uptasticsearch/issues/73'>#73</a></a>, mappings for the underlying physical index will now be duplicated once per alias in the table returned by <code>get_fields</code>.</li>
 </ul>
 </div>
 <div id="bad-parsing-of-es-major-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bad-parsing-of-es-major-version" class="anchor"></a>bad parsing of ES major version</h3>
 <ul>
-<li>as of <a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/64"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/64'>#64</a></a>, <code>uptasticsearch</code> attempts to query the ES host to figure out what major version of Elasticsearch is running there. Implementation errors in that PR led to versions being parsed incorrectly but silently passing tests. This was fixed in <a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/66"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/66'>#66</a></a>. NOTE: this only impacted the dev version of the library on Github.</li>
+<li>as of <a href="https://github.com/uptake/uptasticsearch/pull/64"><a href='https://github.com/uptake/uptasticsearch/issues/64'>#64</a></a>, <code>uptasticsearch</code> attempts to query the ES host to figure out what major version of Elasticsearch is running there. Implementation errors in that PR led to versions being parsed incorrectly but silently passing tests. This was fixed in <a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a>. NOTE: this only impacted the dev version of the library on Github.</li>
 </ul>
 </div>
 <div id="ignore_scroll_restriction-not-being-respected" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ignore_scroll_restriction-not-being-respected" class="anchor"></a><code>ignore_scroll_restriction</code> not being respected</h3>
 <ul>
-<li>In previous versions of <code>uptasticsearch</code>, the value passed to <code>es_search</code> for <code>ignore_scroll_restriction</code> was not actually respected. This was possible because an internal function had defaults specified, so we never caught the fact that that value wasn’t getting passed through. <a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/66"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/66'>#66</a></a> instituted the practice of not specifying defaults on function arguments in internal functions, so similar bugs won’t be able to silently get through testing in the future.</li>
+<li>In previous versions of <code>uptasticsearch</code>, the value passed to <code>es_search</code> for <code>ignore_scroll_restriction</code> was not actually respected. This was possible because an internal function had defaults specified, so we never caught the fact that that value wasn’t getting passed through. <a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a> instituted the practice of not specifying defaults on function arguments in internal functions, so similar bugs won’t be able to silently get through testing in the future.</li>
 </ul>
 </div>
 </div>
@@ -195,7 +195,7 @@
 <a href="#deprecations-and-removals" class="anchor"></a>Deprecations and Removals</h2>
 <ul>
 <li>
-<a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/69"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/69'>#69</a></a> added a deprecation warning on <code>get_counts</code>. This function was outside the core mission of the package and exposed us unnecessarily to changes in the Elasticsearch DSL</li>
+<a href="https://github.com/uptake/uptasticsearch/pull/69"><a href='https://github.com/uptake/uptasticsearch/issues/69'>#69</a></a> added a deprecation warning on <code>get_counts</code>. This function was outside the core mission of the package and exposed us unnecessarily to changes in the Elasticsearch DSL</li>
 </ul>
 </div>
 </div>
@@ -212,7 +212,7 @@
 </h3>
 <ul>
 <li>
-<a href="https://github.com/UptakeOpenSource/uptasticsearch/pull/51"><a href='https://github.com/UptakeOpenSource/uptasticsearch/issues/51'>#51</a></a> changed the parsing strategy for nested data and made it 9x faster than the previous implementation</li>
+<a href="https://github.com/uptake/uptasticsearch/pull/51"><a href='https://github.com/uptake/uptasticsearch/issues/51'>#51</a></a> changed the parsing strategy for nested data and made it 9x faster than the previous implementation</li>
 </ul>
 </div>
 <div id="retry-logic" class="section level3">
