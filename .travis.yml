@@ -1,4 +1,6 @@
 
+dist: trusty
+
 addons:
   apt:
     packages: oracle-java8-set-default
