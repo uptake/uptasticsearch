@@ -329,7 +329,6 @@ matrix:
         - ES_VERSION=6.1.4
         - TASK=pypkg
     - language: python
-      os: linux
       python: 3.5
       install:
         pip install py-pkg/
