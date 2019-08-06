@@ -1,4 +1,8 @@
 
+addons:
+  apt:
+    packages: oracle-java8-set-default
+
 before_install:
   - .ci/setup.sh
 
