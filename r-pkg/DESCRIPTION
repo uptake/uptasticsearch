@@ -10,7 +10,7 @@ Authors@R: c(
     person("Weiwen", "Gu", email = "weiwen.gu@uptake.com", role = c("ctb")),
     person("Will", "Dearden", email = "william.dearden@uptake.com", role = c("ctb")),
     person("Uptake Technologies Inc.", role = c("cph")))
-Maintainer: James Lamb <james.lamb@uptake.com>
+Maintainer: James Lamb <jaylamb20@gmail.com>
 Description:
     'Elasticsearch' is an open-source, distributed, document-based datastore
     (<https://www.elastic.co/products/elasticsearch>).
