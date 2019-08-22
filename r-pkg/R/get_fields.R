@@ -3,8 +3,9 @@
 #' @name get_fields
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
-#' @importFrom data.table := rbindlist uniqueN
+#' @importFrom data.table := as.data.table rbindlist uniqueN
 #' @importFrom httr add_headers content GET stop_for_status
+#' @importFrom jsonlite fromJSON
 #' @importFrom purrr map2
 #' @param es_indices A character vector that contains the names of indices for
 #'                   which to get mappings. Default is \code{'_all'}, which means
@@ -34,15 +35,50 @@ get_fields <- function(es_host
     # are NULL, create an empty string
     indices <- paste(es_indices, collapse = ',')
 
-    ########################## build the query ################################
-    if (nchar(indices) > 0) {
-        es_url <- paste(es_url, indices, '_mapping', sep = '/')
-    } else {
+    if (nchar(indices) == 0){
         msg <- paste("get_fields must be passed a valid es_indices."
                      , "You provided", paste(es_indices, collapse = ', ')
                      , 'which resulted in an empty string')
         log_fatal(msg)
     }
+
+    major_version <- .get_es_version(
+        es_host = es_host
+    )
+
+    # The use of "_all" to indicate "all indices" was removed in Elasticsearch 7.
+    if (as.integer(major_version) > 6 && indices == "_all"){
+        log_warn(sprintf(
+            paste0(
+                "You are running Elasticsearch version '%s.x'. _all is not supported in this version."
+                , " Pulling all indices with 'POST /_cat/indices' for you."
+            )
+            , major_version
+        ))
+        res <- httr::RETRY(
+            verb = "GET"
+            , url = paste(
+                es_url
+                , "_cat"
+                , "indices?format=json"
+                , sep = "/"
+            )
+            , times = 3
+        )
+        indexDT <- data.table::as.data.table(
+            jsonlite::fromJSON(
+                httr::content(res, "text")
+                , simplifyDataFrame = TRUE
+            )
+        )
+        indices <- paste0(
+            indexDT[, unique(index)]
+            , collapse = ","
+        )
+    }
+
+    ########################## build the query ################################
+    es_url <- paste(es_url, indices, '_mapping', sep = '/')
 
     ########################## make the query ################################
     log_info(paste('Getting indexed fields for indices:', indices))
@@ -55,7 +91,29 @@ get_fields <- function(es_host
     resultContent <- httr::content(result, as = 'parsed')
 
     ######################### flatten the result ##############################
-    mappingDT <- .flatten_mapping(mapping = resultContent)
+    if (as.integer(major_version) > 6){
+        # As of ES7, indices cannot contain multiple types so the concept of
+        # a "type" in a mapping is irrelevant. Maintaining the field here
+        # for backwards compatibility of this function.
+        mappingDT <- data.table::rbindlist(
+            l = lapply(
+                X = names(resultContent)
+                , FUN = function(index_name){
+                    props <- resultContent[[index_name]][["mappings"]][["properties"]]
+                    thisIndexDT <- data.table::data.table(
+                        index = index_name
+                        , type = NA_character_
+                        , field = names(props)
+                        , data_type = sapply(props, function(x){x$type})
+                    )
+                    return(thisIndexDT)
+                }
+            )
+            , fill = TRUE
+        )
+    } else {
+        mappingDT <- .flatten_mapping(mapping = resultContent)
+    }
 
     ##################### get aliases for index names #########################
     rawAliasDT <- .get_aliases(es_host = es_host)

@@ -296,7 +296,13 @@ es_search <- function(es_host
 
     # Parse to JSON to get total number of documents matching the query
     firstResult <- jsonlite::fromJSON(firstResultJSON, simplifyVector = FALSE)
-    hits_to_pull <- min(firstResult[["hits"]][["total"]], max_hits)
+
+    major_version <- .get_es_version(es_host)
+    if (as.integer(major_version) > 6){
+      hits_to_pull <- min(firstResult[["hits"]][["total"]][["value"]], max_hits)
+    } else {
+      hits_to_pull <- min(firstResult[["hits"]][["total"]], max_hits)
+    }
 
     # If we got everything possible, just return here
     hits_pulled <- length(firstResult[["hits"]][["hits"]])

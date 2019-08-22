@@ -3,7 +3,7 @@ context("get_fields")
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]    
+    origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -23,7 +23,7 @@ futile.logger::flog.threshold(0)
                                regexp = "get_fields must be passed a valid es_indices")
               }
     )
-    
+
     # works as expected when mocked
     test_that('get_fields works as expected when mocked',
               {
@@ -35,6 +35,7 @@ futile.logger::flog.threshold(0)
                       `httr::GET` = function(...) {return(NULL)},
                       `httr::content` = function(...) {return(jsonlite::fromJSON(txt = test_json))},
                       `uptasticsearch::.get_aliases` = function(...) {return(aliasDT)},
+                      `uptasticsearch::.get_es_version` = function(...) {return("6")},
                       {
                           outDT <- get_fields(es_host = 'http://db.mycompany.com:9200'
                                               , es_indices = c('company', 'hotel'))
@@ -52,10 +53,10 @@ futile.logger::flog.threshold(0)
                   )
               }
     )
-    
-    
+
+
 #--- .flatten_mapping
-    
+
     # Works if one index is passed
     test_that(".flatten_mapping should work if the mapping for one index is provided",
               {
@@ -71,7 +72,7 @@ futile.logger::flog.threshold(0)
                   expect_identical(mappingDT, expected)
               }
     )
-    
+
     # works if multiple indices are passed
     test_that(".flatten_mapping should work if the mapping for multiple indices are provided",
               {
@@ -91,7 +92,7 @@ futile.logger::flog.threshold(0)
     )
 
 #--- .process_alias
-    
+
     # works if one alias is passed
     test_that(".process_new_alias works if one alias is included",
               {
@@ -101,7 +102,7 @@ futile.logger::flog.threshold(0)
                   expect_identical(aliasDT, expected)
               }
     )
-    
+
     # works if multiple aliases are passed
     test_that(".process_new_alias works if one alias is included",
               {
