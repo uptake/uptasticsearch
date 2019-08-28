@@ -8,6 +8,7 @@ from uptasticsearch.clients import Uptasticsearch1
 from uptasticsearch.clients import Uptasticsearch2
 from uptasticsearch.clients import Uptasticsearch5
 from uptasticsearch.clients import Uptasticsearch6
+from uptasticsearch.clients import Uptasticsearch7
 from uptasticsearch.clients import uptasticsearch_factory
 
 from uptasticsearch.fetch_all import es_search
