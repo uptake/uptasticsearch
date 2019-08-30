@@ -96,13 +96,13 @@ case "$ES_VERSION" in
     
     "6.1.4")
       export ES_VERSION=6.1.4;
-      export MAPPING_FILE=${ES5_MAPPING_FILE};
+      export MAPPING_FILE=${ES6_MAPPING_FILE};
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
       
     "6.2.4")
       export ES_VERSION=6.2.4;
-      export MAPPING_FILE=${ES5_MAPPING_FILE};
+      export MAPPING_FILE=${ES6_MAPPING_FILE};
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
    esac
