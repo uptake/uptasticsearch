@@ -12,5 +12,5 @@ fi
 
 if [[ "$TASK" == "pypkg" ]]; then
   PY_PACKAGE_DIR=$(pwd)/py-pkg
-  pip install ${R_PACKAGE_DIR}
+  pip install ${PY_PACKAGE_DIR}
 fi
