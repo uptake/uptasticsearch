@@ -129,7 +129,14 @@ futile.logger::flog.threshold(0)
         )
 
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 3)
+        num_expected_levels <- 3
+        major_version <- .major_version(
+            .get_es_version("http://127.0.0.1:9200")
+        )
+        if (as.integer(major_version) >= 7){
+            num_expected_levels <- 4
+        }
+        expect_true(nrow(outDT) == num_expected_levels)
         expect_named(
             outDT
             , c("thing", "doc_count")
