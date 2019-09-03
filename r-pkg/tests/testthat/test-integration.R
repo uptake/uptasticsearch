@@ -129,12 +129,12 @@ futile.logger::flog.threshold(0)
         )
 
         expect_true(data.table::is.data.table(outDT))
-        num_expected_levels <- 3
+        num_expected_levels <- 4
         major_version <- .major_version(
             .get_es_version("http://127.0.0.1:9200")
         )
         if (as.integer(major_version) >= 7){
-            num_expected_levels <- 4
+            num_expected_levels <- 3
         }
         expect_true(nrow(outDT) == num_expected_levels)
         expect_named(
