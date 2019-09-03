@@ -87,7 +87,7 @@ case "${MAJOR_VERSION}" in
 7.3) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:7.3.0
+          docker.elastic.co/elasticsearch/elasticsearch:7.3.1
      MAPPING_FILE=$(pwd)/test_data/es7_shakespeare_mapping.json
      SAMPLE_DATA_FILE=$(pwd)/test_data/sample_es7.json
     ;;
