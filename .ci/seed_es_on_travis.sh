@@ -108,6 +108,7 @@ sudo dpkg \
     -i \
     --force-confnew \
     elasticsearch.deb
+sudo systemctl enable elasticsearch.service
 sudo service elasticsearch start
 sleep ${SLEEP_TIL_STARTUP_SECONDS}
 sudo service elasticsearch status
