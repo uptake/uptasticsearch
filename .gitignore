@@ -48,6 +48,9 @@ r-pkg/inst/testdata/*.json
 # Python stuff
 **/.pytest_cache/
 **/__pycache__/
+**/dist/
+**/htmlcov/
+**/*.egg-info/
 py-pkg/LICENSE
 py-pkg/NEWS.md
 py-pkg/README.md
