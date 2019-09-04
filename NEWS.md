@@ -2,7 +2,7 @@
 
 ## Features
 
-### Full support for ES7.x
+### Added support for ES7.x
 - [#161](https://github.com/uptake/uptasticsearch/pull/161) Added support for ES7.x. The biggest changes between that major version and 6.x were the removal of `_all` as a way to reference all indices, changing the response format of `hits.total` into an object like `{"hits": {"total": 50}}`, and restricting all indices to have a single type of document. More details can be found at https://www.elastic.co/guide/en/elasticsearch/reference/current/breaking-changes-7.0.html.
 
 # uptasticsearch 0.3.1
