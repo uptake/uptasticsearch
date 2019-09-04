@@ -8,7 +8,7 @@ install:
   - .ci/install.sh
 
 before_script:
-  - .ci/seed_es_on_travis.sh
+  - sudo .ci/seed_es_on_travis.sh
 
 script:
   - .ci/test.sh
