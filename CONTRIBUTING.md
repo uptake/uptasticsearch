@@ -6,7 +6,9 @@ The primary goal of this guide is to help you contribute to `uptasticsearch` as 
 
 * [Creating an Issue](#issues)
 * [Submitting a Pull Request](#prs)
-* [Running Tests Locally](#testing)
+* [Testing Strategy](#testing)
+    * [Travis CI](#travis)
+    * [Running tests locally](#testing-local)
 * [Releasing to CRAN (for maintainer)](#cran)
 
 ## Creating an Issue <a name="issues"></a>
@@ -61,7 +63,47 @@ To submit a PR, please follow these steps:
 
 We will try to review PRs promptly and get back to you within a few days.
 
-## Running Tests Locally <a name="testing"></a>
+## Testing Strategy <a name="testing"></a>
+
+### Travis CI <a name="travis"></a>
+
+This project uses [Travis CI](https://travis-ci.org/help) to run a variety of tests on every build.
+
+Each Travis build actually runs many sub-builds. Those sub-builds run once for each combination of:
+
+* programming language
+* Elasticsearch version
+
+As of this writing, this project has clients in two programming languages: [R](./r-pkg) and [Python](./py-pkg).
+
+The set of Elasticsearch versions this project tests against changes regularly as [new Elasticsearch versions are released](https://www.elastic.co/downloads/past-releases#elasticsearch). The strategy in this project is to test against the following Elasticsearch versions:
+
+> `uptasticsearch` is tested against Elasticsearch 1.0.0
+
+> `uptasticsearch` is tested against the most recent release in every major release stream from 1.x onwards
+
+> `uptasticsearch` is tested against the most recent maintenance release of the first and last minor releases on the prior stable version
+
+> `uptasticsearch` is tested against the most recent maintenance release on every minor release in the release stream of the current stable version
+
+> `uptasticsearch` may be tested against specific additional intermediate versions if bugs are found in the interaction between `uptasticsearch` and those versions
+
+So, for example, as of September 2019 that meant we tested against:
+
+* 1.0.0
+* 1.7.5
+* 2.4.2
+* 5.6.16
+* 6.0.1
+* 6.8.2
+* 7.0.1
+* 7.1.1
+* 7.2.1
+* 7.3.1
+
+You may notice that this strategy means that `uptasticsearch` is tested for backwards compatibility with Elasticsearch versions which have already reached [End-of-Life](https://www.elastic.co/support/eol). For example, support for Elasticsearch 1.7.x officially ended in January 2017. We test these old versions because we know of users whose companies still run those versions, and for whom Elasticsearch upgrades are prohibitively expensive. In general, upgrades across major versions pre-6.x [require a full cluster restart](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-upgrade.html).
+
+### Running Tests Locally <a name="testing-local"></a>
 
 When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We've provided some gross bash scripts at the root of this repo to help!
 

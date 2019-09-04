@@ -6,20 +6,17 @@
 
 ## Introduction
 
-This project tackles the issue of getting data out of Elasticsearch and into a tabular format in R.
+`uptasticsearch` tackles the issue of getting data out of Elasticsearch and into a tabular format in R and Python. It should work for all versions of Elasticsearch from 1.0.0 onwards, but [is not regularly tested against all of them](./CONTRIBUTING.md#travis). If you run into a problem, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
 
 # Table of contents
-1. [How it Works](#howitworks)
-2. [Installation](#installation)
-    1. [R](#rinstallation)
-    2. [Python](#pythoninstallation)
-3. [Usage Examples](#examples)
-    1. [Get a Batch of Documents](#example1)
-    2. [Aggregation Results](#example2)
-4. [Next Steps](#nextsteps)
-    1. [Auth Support](#authsupport)
-5. [Running Tests Locally](#local-tests)
-6. [Regenerating the Documentation Site](#the-site)
+
+* [How it Works](#howitworks)
+* [Installation](#installation)
+    * [R](#rinstallation)
+    * [Python](#pythoninstallation)
+* [Usage Examples](#examples)
+    * [Get a Batch of Documents](#example1)
+    * [Aggregation Results](#example2)
 
 ## How it Works <a name="howitworks"></a>
 
@@ -32,13 +29,19 @@ The core functionality of this package is the `es_search` function. This returns
 Releases of this package can be installed from CRAN:
 
 ```
-install.packages('uptasticsearch')
+install.packages(
+  'uptasticsearch'
+  , repos = "http://cran.rstudio.com"
+)
 ```
 
 To use the development version of the package, which has the newest changes, you can install directly from GitHub
 
 ```
-devtools::install_github("uptake/uptasticsearch", subdir = "r-pkg")
+devtools::install_github(
+  "uptake/uptasticsearch"
+  , subdir = "r-pkg"
+)
 ```
 
 ### Python <a name="pythoninstallation"></a>
