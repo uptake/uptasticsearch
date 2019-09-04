@@ -19,6 +19,9 @@ ES5_MAPPING_FILE="${TEST_DATA_DIR}/es5_shakespeare_mapping.json"
 ES6_MAPPING_FILE="${TEST_DATA_DIR}/es6_shakespeare_mapping.json"
 ES7_MAPPING_FILE="${TEST_DATA_DIR}/es7_shakespeare_mapping.json"
 
+SAMPLE_DATA_FILE=${TEST_DATA_DIR}/sample.json
+ES7_SAMPLE_DATA_FILE=${TEST_DATA_DIR}/sample_es7.json
+
 case "$ES_VERSION" in
     "") ;;
 
@@ -96,6 +99,8 @@ case "$ES_VERSION" in
     "7.3.1")
       export MAPPING_FILE=${ES7_MAPPING_FILE};
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION-amd64.deb"
+      # overwrite SAMPLE_DATA_FILE to use the ES7-compliant data
+      export SAMPLE_DATA_FILE="${ES7_SAMPLE_DATA_FILE}"
       ;;
    esac
 
@@ -135,7 +140,7 @@ curl -X PUT \
     -H 'Content-Type:application/json' \
     -d @shakespeare_mapping.json
 
-mv test_data/sample.json sample.json
+mv ${SAMPLE_DATA_FILE} sample.json
 
 curl -X POST \
     "${ES_HOST}/shakespeare/_bulk" \
