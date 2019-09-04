@@ -8,7 +8,7 @@ install:
   - .ci/install.sh
 
 before_script:
-  - sudo .ci/seed_es_on_travis.sh
+  - .ci/seed_es_on_travis.sh
 
 script:
   - .ci/test.sh
@@ -36,84 +36,84 @@ matrix:
     ############
     # R builds #
     ############
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=1.0.0
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=1.4.4
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=1.7.2
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=2.0.2
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=2.1.2
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=2.2.2
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=2.3.5
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=5.0.2
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=5.3.3
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=5.4.3
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=5.6.9
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=6.0.1
-    #     - TASK=rpkg
-    # - language: r
-    #   warnings_are_errors: true
-    #   cache: packages
-    #   env:
-    #     - ES_VERSION=6.1.4
-    #     - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=1.0.0
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=1.4.4
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=1.7.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=2.0.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=2.1.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=2.2.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=2.3.5
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=5.0.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=5.3.3
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=5.4.3
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=5.6.9
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=6.0.1
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=6.1.4
+        - TASK=rpkg
     - language: r
       warnings_are_errors: true
       cache: packages
@@ -128,74 +128,74 @@ matrix:
         - TASK=rpkg
       after_success:
         - .ci/report_to_covr.sh
-    # #################
-    # # Python builds #
-    # #################
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=1.0.0
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=1.4.4
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=1.7.2
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=2.0.2
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=2.1.2
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=2.2.2
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=2.3.5
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=5.0.2
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=5.3.3
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=5.4.3
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=5.6.9
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=6.0.1
-    #     - TASK=pypkg
-    # - language: python
-    #   python: 3.5
-    #   env:
-    #     - ES_VERSION=6.1.4
-    #     - TASK=pypkg
+    #################
+    # Python builds #
+    #################
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=1.0.0
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=1.4.4
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=1.7.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=2.0.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=2.1.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=2.2.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=2.3.5
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=5.0.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=5.3.3
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=5.4.3
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=5.6.9
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=6.0.1
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=6.1.4
+        - TASK=pypkg
     - language: python
       python: 3.5
       env:
