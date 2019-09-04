@@ -16,14 +16,18 @@ from uptasticsearch.fetch_all import es_search
 
 class TestEsSearch(object):
     """
-    es_search should work an return a pandas DataFrame
+    es_search should work and return a pandas DataFrame
     """
     host = "http://127.0.0.1:9200"
+
     def test_rectangle(self):
-        assert isinstance(es_search(self.host,
-                                    "shakespeare",
-                                    query_body=json.dumps({}),
-                                    size=10000,
-                                    max_hits=10,
-                                    scroll="1m"),
-                          pd.DataFrame)
+        result = es_search(
+            self.host,
+            "shakespeare",
+            query_body=json.dumps({}),
+            size=10000,
+            max_hits=10,
+            scroll="1m"
+        )
+        print(result)
+        assert isinstance(result, pd.DataFrame)

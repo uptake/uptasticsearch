@@ -109,7 +109,8 @@ sudo dpkg \
     --force-confnew \
     elasticsearch.deb
 
-# deal with permissions (https://bit.ly/2ktshmX)
+# deal with permissions
+# reference: https://discuss.elastic.co/t/permission-denied-starting-elasticsearch-7-0/179336
 sudo chown -R \
     elasticsearch:elasticsearch \
     /etc/default/elasticsearch
