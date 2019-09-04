@@ -1,0 +1,24 @@
+{
+  "mappings": {
+    "properties": {
+      "speaker": {
+        "type": "keyword"
+      },
+      "play_name": {
+        "type": "keyword"
+      },
+      "line_id": {
+        "type": "integer"
+      },
+      "line_number": {
+        "type": "keyword"
+      },
+      "speech_number": {
+        "type": "keyword"
+      },
+      "text_entry": {
+        "type": "text"
+      }
+    }
+  }
+}

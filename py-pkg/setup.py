@@ -8,7 +8,7 @@ from setuptools import setup
 import subprocess
 import datetime
 
-CURRENT_VERSION = "0.1.0"
+CURRENT_VERSION = "0.2.0"
 
 #########################
 

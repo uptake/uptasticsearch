@@ -30,6 +30,7 @@ script:
 # - ES_VERSION=6.0.1
 # - ES_VERSION=6.1.4
 # - ES_VERSION=6.2.4
+# - ES_VERSION=7.3.1
 matrix:
   include:
     ############
@@ -119,6 +120,12 @@ matrix:
       env:
         - ES_VERSION=6.2.4
         - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=7.3.1
+        - TASK=rpkg
       after_success:
         - .ci/report_to_covr.sh
     #################
@@ -193,4 +200,9 @@ matrix:
       python: 3.5
       env:
         - ES_VERSION=6.2.4
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=7.3.1
         - TASK=pypkg
