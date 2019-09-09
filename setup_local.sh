@@ -63,7 +63,7 @@ case "${MAJOR_VERSION}" in
     ;;
 5.6) docker run -d -p 9200:9200 \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:5.6.9
+          docker.elastic.co/elasticsearch/elasticsearch:5.6.16
      MAPPING_FILE=$(pwd)/test_data/es5_shakespeare_mapping.json
     ;;
 6.0) docker run -d -p 9200:9200 \
@@ -84,6 +84,12 @@ case "${MAJOR_VERSION}" in
           docker.elastic.co/elasticsearch/elasticsearch:6.2.4
      MAPPING_FILE=$(pwd)/test_data/es6_shakespeare_mapping.json
     ;;
+6.8) docker run -d -p 9200:9200 \
+          -e "discovery.type=single-node" \
+          -e "xpack.security.enabled=false" \
+          docker.elastic.co/elasticsearch/elasticsearch:6.8.2
+     MAPPING_FILE=$(pwd)/test_data/es6_shakespeare_mapping.json
+     ;;
 7.3) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \

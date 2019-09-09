@@ -30,52 +30,17 @@ case "$ES_VERSION" in
       export ES_BINARY_URL="${ES1_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
 
-    "1.4.4")
+    "1.7.5")
       export MAPPING_FILE=${LEGACY_MAPPING_FILE};
       export ES_BINARY_URL="${ES1_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
 
-    "1.7.2")
-      export MAPPING_FILE=${LEGACY_MAPPING_FILE};
-      export ES_BINARY_URL="${ES1_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
-      ;;
-
-    "2.0.2")
+    "2.4.2")
       export MAPPING_FILE=${LEGACY_MAPPING_FILE};
       export ES_BINARY_URL="${ES2_ARCHIVE}/$ES_VERSION/elasticsearch-$ES_VERSION.deb"
       ;;
 
-    "2.1.2")
-      export MAPPING_FILE=${LEGACY_MAPPING_FILE};
-      export ES_BINARY_URL="${ES2_ARCHIVE}/$ES_VERSION/elasticsearch-$ES_VERSION.deb"
-      ;;
-
-    "2.2.2")
-      export MAPPING_FILE=${LEGACY_MAPPING_FILE};
-      export ES_BINARY_URL="${ES2_ARCHIVE}/$ES_VERSION/elasticsearch-$ES_VERSION.deb"
-      ;;
-
-    "2.3.5")
-      export MAPPING_FILE=${LEGACY_MAPPING_FILE};
-      export ES_BINARY_URL="${ES2_ARCHIVE}/$ES_VERSION/elasticsearch-$ES_VERSION.deb"
-      ;;
-
-    "5.0.2")
-      export MAPPING_FILE=${ES5_MAPPING_FILE};
-      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
-      ;;
-
-    "5.3.3")
-      export MAPPING_FILE=${ES5_MAPPING_FILE};
-      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
-      ;;
-
-    "5.4.3")
-      export MAPPING_FILE=${ES5_MAPPING_FILE};
-      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
-      ;;
-
-    "5.6.9")
+    "5.6.16")
       export MAPPING_FILE=${ES5_MAPPING_FILE};
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
@@ -85,15 +50,30 @@ case "$ES_VERSION" in
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
 
-    "6.1.4")
-      export ES_VERSION=6.1.4;
+    "6.8.2")
       export MAPPING_FILE=${ES6_MAPPING_FILE};
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
 
-    "6.2.4")
-      export MAPPING_FILE=${ES6_MAPPING_FILE};
-      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
+    "7.0.1")
+      export MAPPING_FILE=${ES7_MAPPING_FILE};
+      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION-amd64.deb"
+      # overwrite SAMPLE_DATA_FILE to use the ES7-compliant data
+      export SAMPLE_DATA_FILE="${ES7_SAMPLE_DATA_FILE}"
+      ;;
+
+    "7.1.1")
+      export MAPPING_FILE=${ES7_MAPPING_FILE};
+      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION-amd64.deb"
+      # overwrite SAMPLE_DATA_FILE to use the ES7-compliant data
+      export SAMPLE_DATA_FILE="${ES7_SAMPLE_DATA_FILE}"
+      ;;
+
+    "7.2.1")
+      export MAPPING_FILE=${ES7_MAPPING_FILE};
+      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION-amd64.deb"
+      # overwrite SAMPLE_DATA_FILE to use the ES7-compliant data
+      export SAMPLE_DATA_FILE="${ES7_SAMPLE_DATA_FILE}"
       ;;
 
     "7.3.1")
