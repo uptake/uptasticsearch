@@ -111,8 +111,14 @@
 
 ## v0.4.0 - Submission 1 - (September 9, 2019)
 
+In this submission, we changed maintainer from `james.lamb@uptake.com` to `jaylamb20@gmail.com`. Added this note in the initial submission:
+
+> This is a release to add support for Elasticsearch 7.x, a major release stream that has been General Availability since April 2019.
+
+> You may see that the maintainer email is changing from "james.lamb@uptake.com" to "jaylamb20@gmail.com". This is a contact info update only, not an actual maintainer change. The "uptake.com" address is tied to the company that holds copyright over this project (https://github.com/uptake/uptasticsearch/blob/master/LICENSE#L3). I no longer work there but have received their permission to continue on as the maintainer. If you need confirmation you can contact my coauthors who still work there (austin.dickey@uptake.com, nick.paras@uptake.com) or that company's legal team (dennis.lee@uptake.com) 
+
 ### R CMD check results
 * No issues
 
 ### CRAN Response
-* TBD
+* Release was auto-accepted, but the response email said "We are waiting for confirmation from the old maintainer address now.". I responded and re-iterated the message above about changed maintainer email. No response yet. We are blocked until they respond.
