@@ -1,5 +1,7 @@
 # uptasticsearch development version
 
+# uptasticsearch 0.4.0
+
 ## Features
 
 ### Added support for ES7.x

@@ -108,3 +108,11 @@
 
 ### CRAN Response
 * No issues. v0.3.1 released to CRAN!
+
+## v0.4.0 - Submission 1 - (September 9, 2019)
+
+### R CMD check results
+* No issues
+
+### CRAN Response
+* TBD

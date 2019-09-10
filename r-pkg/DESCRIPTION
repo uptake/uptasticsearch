@@ -1,7 +1,7 @@
 Package: uptasticsearch
 Type: Package
 Title: Get Data Frame Representations of 'Elasticsearch' Results
-Version: 0.4.1
+Version: 0.4.0
 Authors@R: c(
     person("James", "Lamb", email = "jaylamb20@gmail.com", role = c("aut", "cre")),
     person("Nick", "Paras", email = "nick.paras@uptake.com", role = c("aut")),
@@ -33,8 +33,8 @@ Imports:
     uuid
 Suggests:
     knitr,
-    testthat,
-    rmarkdown
+    rmarkdown,
+    testthat
 License: BSD_3_clause + file LICENSE
 URL: https://github.com/uptake/uptasticsearch
 BugReports: https://github.com/uptake/uptasticsearch/issues
