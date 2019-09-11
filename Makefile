@@ -26,7 +26,7 @@ install_r: build_r
 	R CMD INSTALL r-pkg/
 
 test_r: build_r
-	R CMD CHECK uptasticsearch_*.tar.gz
+	R CMD CHECK --as-cran uptasticsearch_*.tar.gz
 
 ##########
 # Python #
