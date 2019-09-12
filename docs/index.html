@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">uptasticsearch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -94,37 +94,29 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This project tackles the issue of getting data out of Elasticsearch and into a tabular format in R.</p>
+<p><code>uptasticsearch</code> tackles the issue of getting data out of Elasticsearch and into a tabular format in R and Python. It should work for all versions of Elasticsearch from 1.0.0 onwards, but <a href="./CONTRIBUTING.md#travis">is not regularly tested against all of them</a>. If you run into a problem, please <a href="https://github.com/uptake/uptasticsearch/issues">open an issue</a>.</p>
 </div>
 </div>
 <div id="table-of-contents" class="section level1">
 <h1 class="hasAnchor">
 <a href="#table-of-contents" class="anchor"></a>Table of contents</h1>
-<ol>
+<ul>
 <li><a href="#howitworks">How it Works</a></li>
 <li>
 <a href="#installation">Installation</a>
-<ol>
+<ul>
 <li><a href="#rinstallation">R</a></li>
 <li><a href="#pythoninstallation">Python</a></li>
-</ol>
+</ul>
 </li>
 <li>
 <a href="#examples">Usage Examples</a>
-<ol>
+<ul>
 <li><a href="#example1">Get a Batch of Documents</a></li>
 <li><a href="#example2">Aggregation Results</a></li>
-</ol>
+</ul>
 </li>
-<li>
-<a href="#nextsteps">Next Steps</a>
-<ol>
-<li><a href="#authsupport">Auth Support</a></li>
-</ol>
-</li>
-<li><a href="#local-tests">Running Tests Locally</a></li>
-<li><a href="#the-site">Regenerating the Documentation Site</a></li>
-</ol>
+</ul>
 <div id="how-it-works" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-it-works" class="anchor"></a>How it Works <a name="howitworks"></a>
@@ -140,9 +132,15 @@
 <a href="#r" class="anchor"></a>R <a name="rinstallation"></a>
 </h3>
 <p>Releases of this package can be installed from CRAN:</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('uptasticsearch')</a></code></pre>
+<pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages(
+  'uptasticsearch'
+  , repos = "http://cran.rstudio.com"
+)</a></code></pre>
 <p>To use the development version of the package, which has the newest changes, you can install directly from GitHub</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("uptake/uptasticsearch", subdir = "r-pkg")</a></code></pre>
+<pre><code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github(
+  "uptake/uptasticsearch"
+  , subdir = "r-pkg"
+)</a></code></pre>
 </div>
 <div id="python" class="section level3">
 <h3 class="hasAnchor">
@@ -454,9 +452,9 @@ revenueDT &lt;- es_search(
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://travis-ci.org/uptake/uptasticsearch"><img src="https://img.shields.io/travis/uptake/uptasticsearch.svg?label=travis&amp;logo=travis&amp;branch=master" alt="Travis Build Status"></a></li>
 <li><a href="https://cran.r-project.org/package=uptasticsearch"><img src="https://www.r-pkg.org/badges/version-last-release/uptasticsearch" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://cran.r-project.org/package=uptasticsearch"><img src="https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch" alt="CRAN_Download_Badge"></a></li>
-<li><a href="https://travis-ci.org/uptake/uptasticsearch"><img src="https://travis-ci.org/uptake/uptasticsearch.svg?branch=master" alt="Build Status"></a></li>
 </ul>
 </div>
 </div>

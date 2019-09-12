@@ -6,7 +6,7 @@
 
 ## Introduction
 
-`uptasticsearch` tackles the issue of getting data out of Elasticsearch and into a tabular format in R and Python. It should work for all versions of Elasticsearch from 1.0.0 onwards, but [is not regularly tested against all of them](./CONTRIBUTING.md#travis). If you run into a problem, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
+`uptasticsearch` tackles the issue of getting data out of Elasticsearch and into a tabular format in R and Python. It should work for all versions of Elasticsearch from 1.0.0 onwards, but [is not regularly tested against all of them](https://github.com/uptake/uptasticsearch/blob/master/CONTRIBUTING.md#travis). If you run into a problem, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
 
 # Table of contents
 
