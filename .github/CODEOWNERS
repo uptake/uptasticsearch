@@ -1,0 +1,20 @@
+# This file controls default reviewers for 'uptasticsearch' code.
+# See https://help.github.com/en/articles/about-code-owners
+# for details
+#
+# Maintainers are encouraged to use their best discretion in
+# setting reviewers on PRs manually, but this file should
+# offer a reasonable automatic best-guess.
+#
+# NOTE: according to GitHub, the LAST rule matched in this
+#       file will determine who is added to a PR for review
+
+# Default reviewers for all code
+*    @jameslamb @austin3dickey
+
+# Python package
+py-pkg/*    @ngparas @jameslamb @austin3dickey
+
+# community files
+LICENSE    @jameslamb @austin3dickey @bburns632
+CONDUCT.md    @jameslamb @austin3dickey @bburns632
