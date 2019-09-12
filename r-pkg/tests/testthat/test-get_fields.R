@@ -32,7 +32,7 @@ futile.logger::flog.threshold(0)
                                                     , index = c('company', 'otherIndex'))
                   testthat::with_mock(
                       `httr::stop_for_status` = function(...) {return(NULL)},
-                      `httr::GET` = function(...) {return(NULL)},
+                      `httr::RETRY` = function(...) {return(NULL)},
                       `httr::content` = function(...) {return(jsonlite::fromJSON(txt = test_json))},
                       `uptasticsearch::.get_aliases` = function(...) {return(aliasDT)},
                       `uptasticsearch::.get_es_version` = function(...) {return("6")},

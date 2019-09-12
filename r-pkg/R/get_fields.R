@@ -4,7 +4,7 @@
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
 #' @importFrom data.table := as.data.table rbindlist uniqueN
-#' @importFrom httr add_headers content GET stop_for_status
+#' @importFrom httr add_headers content RETRY stop_for_status
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr map2
 #' @param es_indices A character vector that contains the names of indices for
@@ -83,8 +83,9 @@ get_fields <- function(es_host
     ########################## make the query ################################
     log_info(paste('Getting indexed fields for indices:', indices))
 
-    result <- httr::GET(
-        url = es_url
+    result <- httr::RETRY(
+        verb = "GET"
+        , url = es_url
         , httr::add_headers(c('Content-Type' = 'application/json'))
     )
     httr::stop_for_status(result)
@@ -193,15 +194,16 @@ get_fields <- function(es_host
 
 # [title] Get a data.table containing names of indices and aliases
 # [es_host] A string identifying an Elasticsearch host.
-#' @importFrom httr add_headers content GET stop_for_status
+#' @importFrom httr add_headers content RETRY stop_for_status
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
     url <- paste0(es_host, '/_cat/aliases')
 
     # make the request
-    result <- httr::GET(
-        url = url
+    result <- httr::RETRY(
+        verb = "GET"
+        , url = url
         , httr::add_headers(c('Content-Type' = 'application/json'))
     )
     httr::stop_for_status(result)
