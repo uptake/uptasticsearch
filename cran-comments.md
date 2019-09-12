@@ -130,4 +130,4 @@ In this submission, we changed maintainer from `james.lamb@uptake.com` to `jayla
 * No isses
 
 ### CRAN Response
-* TBD
+* No issues. v0.4.0 released to CRAN!
