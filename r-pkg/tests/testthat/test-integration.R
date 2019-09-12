@@ -210,8 +210,9 @@ futile.logger::flog.threshold(0)
     # set up helper function for manipulating aliases. Valid actions below are
     # "add" and "remove"
     .alias_action <- function(action, alias_name){
-        res <- httr::POST(
-            url = "http://127.0.0.1:9200/_aliases"
+        res <- httr::RETRY(
+            verb = "POST"
+            , url = "http://127.0.0.1:9200/_aliases"
             , httr::add_headers(c('Content-Type' = 'application/json'))
             , body = sprintf(
                 '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'

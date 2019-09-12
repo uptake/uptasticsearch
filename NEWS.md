@@ -1,5 +1,10 @@
 # uptasticsearch development version
 
+## Features
+
+### Changed R package to use retry logic for HTTP requests
+- Changed all code in the R package to retry failed HTTP requests. This should make `uptasticsearch` more resilient to transient network issues.
+
 # uptasticsearch 0.4.0
 
 ## Features
