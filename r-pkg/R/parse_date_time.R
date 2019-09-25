@@ -8,7 +8,7 @@
 #'              This is a side-effect-free function: it returns a new data.table and the
 #'              input data.table is unmodified.
 #' @importFrom assertthat is.string
-#' @importFrom data.table copy
+#' @importFrom data.table copy is.data.table
 #' @importFrom purrr map2 simplify
 #' @importFrom stringr str_extract
 #' @export
@@ -40,7 +40,7 @@ parse_date_time <- function(input_df
 ){
 
     # Break if input_df isn't actually a data.table
-    if (!any(class(input_df) %in% "data.table")){
+    if (!data.table::is.data.table(input_df)){
         msg <- paste("parse_date_time expects to receive a data.table object."
                      , "You provided an object of class"
                      , paste(class(input_df), collapse = ", ")

@@ -117,7 +117,7 @@ test_that("chomp_aggs should work for a one-level 'cardinality' aggregation",
               chompDT <- chomp_aggs(aggs_json = result)
 
               expect_named(chompDT, 'number_of_things.value')
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 1)
               expect_identical(chompDT, data.table::data.table(number_of_things.value = 777L))
           })
@@ -130,7 +130,7 @@ test_that("chomp_aggs should work for a one-level 'date_histogram' aggregation",
 
               expect_named(chompDT, c('report_week', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 10)
               expect_identical(chompDT[10, report_week], "2017-05-01T00:00:00.000Z")
           })
@@ -143,7 +143,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'cardinality' aggrega
 
               expect_named(chompDT, c('report_week', 'num_customers.value', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 10)
               expect_identical(chompDT[10, report_week], "2017-05-01T00:00:00.000Z")
               expect_identical(sort(chompDT[, unique(num_customers.value)]), c(4L, 5L))
@@ -163,7 +163,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'extended_stats' aggr
                                       'some_score.std_deviation_bounds.lower',
                                       'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 10)
               expect_identical(chompDT[10, report_week], "2017-05-01T00:00:00.000Z")
               expect_identical(sort(chompDT[, unique(some_score.max)]), c(3L, 7L))
@@ -177,7 +177,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'histogram' aggregati
 
               expect_named(chompDT, c('report_week', 'num_customers', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 26)
               expect_identical(chompDT[26, report_week], "2017-05-01T00:00:00.000Z")
               expect_identical(sort(chompDT[, unique(num_customers)]), c(0L, 2L, 6L))
@@ -195,7 +195,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'percentiles' aggrega
                                       'some_score.values.75.0', 'some_score.values.95.0',
                                       'some_score.values.99.0', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 10)
               expect_identical(chompDT[10, report_week], "2017-05-01T00:00:00.000Z")
               expect_true(all(chompDT$some_score.values.99.0 > 50))
@@ -211,7 +211,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'significant_terms' a
               expect_named(chompDT, c('report_week', 'key_words', 'score',
                                       'bg_count', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 50)
               expect_identical(chompDT[10, report_week], "2017-03-06T00:00:00.000Z")
               expect_identical(sort(chompDT[, unique(key_words)])
@@ -231,7 +231,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'stats' aggregation",
                                       'some_score.min', 'some_score.max', 'some_score.avg',
                                       'some_score.sum','doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 10)
               expect_identical(chompDT[10, report_week], "2017-05-01T00:00:00.000Z")
               expect_identical(sort(chompDT[, unique(some_score.max)]), c(3L, 7L))
@@ -245,7 +245,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'terms' aggregation",
 
               expect_named(chompDT, c('report_week', 'theater_number', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 31)
               expect_identical(chompDT[31, report_week], "2017-05-01T00:00:00.000Z")
               expect_identical(sort(chompDT[, unique(theater_number)]), c(0L, 1L, 2L, 3L))
@@ -269,9 +269,9 @@ test_that("chomp_aggs should work for a one-level 'extended_stats' aggregation",
                                       'affinity_score.std_deviation_bounds.upper',
                                       'affinity_score.std_deviation_bounds.lower')
                            , ignore.order = TRUE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 1)
-              expect_true("integer" %in% class(chompDT[, affinity_score.count]))
+              expect_true(is.integer(chompDT[, affinity_score.count]))
               expect_true(sum(sapply(chompDT, class) == 'numeric') == 9) # all but count will be numeric
           })
 
@@ -283,7 +283,7 @@ test_that("chomp_aggs should work for a 'histogram' aggregation",
 
               expect_named(chompDT, c('affinity_score', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 5)
               expect_identical(chompDT$affinity_score, c(-50L, -25L, 0L, 25L, 50L))
           })
@@ -303,7 +303,7 @@ test_that("chomp_aggs should work for a one-level 'percentiles' aggregation",
                                       'affinity_score.percentile_95.0',
                                       'affinity_score.percentile_99.0')
                            , ignore.order = TRUE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 1)
               expect_identical(round(chompDT[1, affinity_score.percentile_99.0], 2), 55.49)
           })
@@ -319,9 +319,9 @@ test_that("chomp_aggs should work for a one-level 'significant terms' aggregatio
                                       'score',
                                       'bg_count')
                            , ignore.order = TRUE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 5)
-              expect_true("integer" %in% class(chompDT[, doc_count]))
+              expect_true(is.integer(chompDT[, doc_count]))
               expect_identical(chompDT[, top_tweet_keywords], c('no', 'cont', 'sa', 'norm', 'nor'))
               expect_identical(chompDT[, bg_count], c(384901L, 328493L, 330583L, 340281L, 340300L))
           })
@@ -338,9 +338,9 @@ test_that("chomp_aggs should work for a one-level 'stats' aggregation",
                                       'affinity_score.avg',
                                       'affinity_score.sum')
                            , ignore.order = TRUE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 1)
-              expect_true("integer" %in% class(chompDT[, affinity_score.count]))
+              expect_true(is.integer(chompDT[, affinity_score.count]))
               expect_true(sum(sapply(chompDT, class) == 'numeric') == 4) # all but count will be numeric
           })
 
@@ -352,7 +352,7 @@ test_that("chomp_aggs should work for a one-level 'terms' aggregation",
 
               expect_named(chompDT, c('magic_number', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 10)
           })
 
@@ -364,7 +364,7 @@ test_that("chomp_aggs should work for a 'terms' - 'cardinality' nested aggregati
 
               expect_named(chompDT, c('customerNumber', 'purchase_types.value', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 3)
               expect_identical(chompDT$purchase_types.value, c(4L, 4L, 2L))
           })
@@ -377,7 +377,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' nested aggreg
 
               expect_named(chompDT, c('customerNumber', 'purchase_date', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 30)
               expect_identical(unique(chompDT$customerNumber), c(3L, 5L, 19L))
               expect_identical(chompDT[1, purchase_date], "2017-02-27T00:00:00.000Z")
@@ -392,7 +392,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'cardinalit
 
               expect_named(chompDT, c('theater_number', 'report_week', 'screenings.value', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 46)
               expect_identical(chompDT[1, report_week], "2017-02-27T00:00:00.000Z")
               expect_identical(chompDT[30, report_week], "2017-05-01T00:00:00.000Z")
@@ -414,7 +414,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'extended_s
                                       'satisfaction_score.std_deviation_bounds.lower',
                                       'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 50)
               expect_identical(chompDT[, min(report_week)], "2017-02-27T00:00:00.000Z")
               expect_identical(chompDT[, max(report_week)], "2017-05-01T00:00:00.000Z")
@@ -440,7 +440,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'percentile
                                       'satisfaction_score.values.99.0',
                                       'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 46)
               expect_identical(chompDT[, min(report_week)], "2017-02-27T00:00:00.000Z")
               expect_identical(chompDT[, max(report_week)], "2017-05-01T00:00:00.000Z")
@@ -462,7 +462,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'significan
                                       'bg_count',
                                       'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 151)
               expect_identical(chompDT[, min(report_week)], "2017-02-27T00:00:00.000Z")
               expect_identical(chompDT[, max(report_week)], "2017-05-01T00:00:00.000Z")
@@ -484,7 +484,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'stats' nes
                                       'satisfaction_score.sum',
                                       'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 50)
               expect_identical(chompDT[, min(report_week)], "2017-02-27T00:00:00.000Z")
               expect_identical(chompDT[, max(report_week)], "2017-05-01T00:00:00.000Z")
@@ -502,7 +502,7 @@ test_that("chomp_aggs should work for a 'terms' - 'date_histogram' - 'terms' nes
                                       'topCustomer',
                                       'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 64)
               expect_identical(chompDT[, min(report_week)], "2017-02-27T00:00:00.000Z")
               expect_identical(chompDT[, max(report_week)], "2017-05-01T00:00:00.000Z")
@@ -523,7 +523,7 @@ test_that("chomp_aggs should work for a 'terms' - 'extended_stats' nested aggreg
                                       'some_score.std_deviation_bounds.lower',
                                       'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 3)
           })
 
@@ -537,7 +537,7 @@ test_that("chomp_aggs should work for a 'terms' - 'histogram' nested aggregation
 
               expect_named(chompDT, c('campaign_status', 'affinity_score', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 7)
               expect_identical(sort(chompDT[, unique(affinity_score)]), c(-50L, 0L, 50L))
           })
@@ -554,7 +554,7 @@ test_that("chomp_aggs should work for a 'terms' - 'percentiles' nested aggregati
                                       'some_score.values.75.0', 'some_score.values.95.0',
                                       'some_score.values.99.0', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 3)
           })
 
@@ -567,7 +567,7 @@ test_that("chomp_aggs should work for a 'terms' - 'significant_terms' nested agg
               expect_named(chompDT, c('popularity_score', 'comment_term', 'score',
                                       'bg_count', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 30)
               expect_identical(sort(chompDT[, unique(popularity_score)]), c('opinion', 'reviews', 'summaries'))
           })
@@ -582,7 +582,7 @@ test_that("chomp_aggs should work for a 'terms' - 'stats' nested aggregation",
                                       'some_score.min', 'some_score.max', 'some_score.avg',
                                       'some_score.sum', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 3)
               expect_identical(sort(chompDT$customerNumber), c(3L, 9L, 19L))
           })
@@ -595,7 +595,7 @@ test_that("chomp_aggs should work for a two-level 'terms' aggregation",
 
               expect_named(chompDT, c('magic_number', 'customerType','doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
-              expect_true('data.table' %in% class(chompDT))
+              expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 3)
               expect_true(all(chompDT$customerType == 'type_a'))
           })
