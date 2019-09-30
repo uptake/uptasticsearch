@@ -85,7 +85,7 @@ es_search <- function(es_host
 ){
 
     # Check if this is an aggs or straight-up search query
-    if (assertthat::is.string(query_body)){
+    if (!assertthat::is.string(query_body)){
         msg <- sprintf(paste0("query_body should be a single string. ",
                               "You gave an object of length %s")
                        , length(query_body))

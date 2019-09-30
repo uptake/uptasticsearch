@@ -8,9 +8,6 @@ if [[ "$TASK" == "rpkg" ]]; then
   R CMD INSTALL \
     --clean \
     ${R_PACKAGE_DIR}
-  cd $(pwd)/r-pkg/tests
-  Rscript testthat.R
-  exit 10
 fi
 
 if [[ "$TASK" == "pypkg" ]]; then
