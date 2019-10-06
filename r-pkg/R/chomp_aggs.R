@@ -31,7 +31,7 @@ chomp_aggs <- function(aggs_json = NULL) {
         return(invisible(NULL))
     }
 
-    if (!("character" %in% class(aggs_json))) {
+    if (!is.character(aggs_json)) {
         msg <- paste0("The first argument of chomp_aggs must be a character vector."
                       , "You may have passed an R list. Try querying with uptasticsearch:::.search_request()")
         log_fatal(msg)
@@ -202,7 +202,7 @@ chomp_aggs <- function(aggs_json = NULL) {
     }
 
     # check 2 - "buckets" is a data.frame
-    if (!"data.frame" %in% class(aggsList[['buckets']])){
+    if (!is.data.frame(aggsList[['buckets']])){
         return(FALSE)
     }
 

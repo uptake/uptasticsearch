@@ -8,7 +8,7 @@
 #'
 #'   This is a side-effect-free function: it returns a new data.table and the
 #'   input data.table is unmodified.
-#' @importFrom data.table copy as.data.table rbindlist setnames
+#' @importFrom data.table as.data.table copy is.data.table rbindlist setnames
 #' @importFrom purrr map_if map_lgl map_int
 #' @export
 #' @param chomped_df a data.table
@@ -41,11 +41,11 @@
 unpack_nested_data <- function(chomped_df, col_to_unpack)  {
 
     # Input checks
-    if (!("data.table" %in% class(chomped_df))) {
+    if (!data.table::is.data.table(chomped_df)) {
         msg <- "For unpack_nested_data, chomped_df must be a data.table"
         log_fatal(msg)
     }
-    if (!("character" %in% class(col_to_unpack)) || length(col_to_unpack) != 1) {
+    if (!assertthat::is.string(col_to_unpack)) {
         msg <- "For unpack_nested_data, col_to_unpack must be a character of length 1"
         log_fatal(msg)
     }

@@ -45,7 +45,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
         return(invisible(NULL))
     }
 
-    if (!("character" %in% class(hits_json))) {
+    if (!is.character(hits_json)) {
         msg <- paste0("The first argument of chomp_hits must be a character vector."
                       , "You may have passed an R list. In that case, if you already "
                       , "used jsonlite::fromJSON(), you can just call "

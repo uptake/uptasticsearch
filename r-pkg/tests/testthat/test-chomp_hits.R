@@ -2,7 +2,7 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]    
+    origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -34,7 +34,7 @@ test_that("chomp_hits should work from a one-element character vector",
           "full_career": {"avg": 0.256, "HR": "193", "R": 664}}}}
           ]}}'
           chompDT <- chomp_hits(hits_json = jsonString)
-          expect_true("data.table" %in% class(chompDT))
+          expect_true(data.table::is.data.table(chompDT))
           expect_equivalent(dim(chompDT), c(5, 12))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",
@@ -64,7 +64,7 @@ test_that("chomp_hits should work with just the hits array",
           "full_career": {"avg": 0.256, "HR": "193", "R": 664}}}}
           ]'
           chompDT <- chomp_hits(hits_json = jsonString)
-          expect_true("data.table" %in% class(chompDT))
+          expect_true(data.table::is.data.table(chompDT))
           expect_equivalent(dim(chompDT), c(5, 12))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",
@@ -79,7 +79,7 @@ test_that("chomp_hits should work from a multi-element character vector",
           {test_json <- system.file("testdata", "es_hits.json", package = "uptasticsearch")
           jsonVec <- suppressWarnings(readLines(test_json))
           chompDT <- chomp_hits(hits_json = jsonVec)
-          expect_true("data.table" %in% class(chompDT))
+          expect_true(data.table::is.data.table(chompDT))
           expect_equivalent(dim(chompDT), c(5, 12))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",
@@ -89,11 +89,11 @@ test_that("chomp_hits should work from a multi-element character vector",
           expect_identical(chompDT$stats.full_career.HR, as.character(c(541, 150, 137, 555, 193)))}
 )
 
-# In case you need to have a non-R, non-Python run queries for you and store them in a file 
+# In case you need to have a non-R, non-Python run queries for you and store them in a file
 test_that("chomp_hits should work from a file",
           {test_json <- system.file("testdata", "es_hits.json", package = "uptasticsearch")
           chompDT <- chomp_hits(hits_json = test_json)
-          expect_true("data.table" %in% class(chompDT))
+          expect_true(data.table::is.data.table(chompDT))
           expect_equivalent(dim(chompDT), c(5, 12))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",

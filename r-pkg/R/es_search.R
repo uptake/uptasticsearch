@@ -85,7 +85,7 @@ es_search <- function(es_host
 ){
 
     # Check if this is an aggs or straight-up search query
-    if (length(query_body) > 1 || ! "character" %in% class(query_body)){
+    if (!assertthat::is.string(query_body)){
         msg <- sprintf(paste0("query_body should be a single string. ",
                               "You gave an object of length %s")
                        , length(query_body))
@@ -568,15 +568,15 @@ es_search <- function(es_host
 .ValidateAndFormatHost <- function(es_host){
 
     # [1] es_host is a string
-    if (! "character" %in% class(es_host)){
-        msg <- paste0("es_host should be a string! You gave an object of type"
+    if (! is.character(es_host)){
+        msg <- paste0("es_host should be a string. You gave an object of type"
                       , paste0(class(es_host), collapse = '/'))
         log_fatal(msg)
     }
 
     # [2] es_host is length 1
     if (! length(es_host) == 1){
-        msg <- paste0("es_host should be length 1!"
+        msg <- paste0("es_host should be length 1."
                       , " You provided an object of length "
                       , length(es_host))
         log_fatal(msg)
