@@ -14,7 +14,7 @@
 #' @export
 #' @param input_df a data.table with one or more date-time columns you want to convert
 #' @param date_cols Character vector of column names to convert. Columns should have
-#'                string dates of the form "2016-07-25T22:15:19Z".
+#'                  string dates of the form "2016-07-25T22:15:19Z".
 #' @param assume_tz Timezone to convert to if parsing fails. Default is UTC
 #' @references \url{https://www.timeanddate.com/time/zones/military}
 #' @references \url{https://en.wikipedia.org/wiki/List_of_tz_database_time_zones}
