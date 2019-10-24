@@ -567,14 +567,14 @@ es_search <- function(es_host
 #         If any of those elements are missing, some defaults will be added
 .ValidateAndFormatHost <- function(es_host){
 
-    # [1] es_host is a string
+    # es_host is a string
     if (! is.character(es_host)){
         msg <- paste0("es_host should be a string. You gave an object of type"
                       , paste0(class(es_host), collapse = '/'))
         log_fatal(msg)
     }
 
-    # [2] es_host is length 1
+    # es_host is length 1
     if (! length(es_host) == 1){
         msg <- paste0("es_host should be length 1."
                       , " You provided an object of length "
@@ -582,14 +582,14 @@ es_search <- function(es_host
         log_fatal(msg)
     }
 
-    # [3] Does not end in a slash
+    # Does not end in a slash
     trailingSlashPattern <- '/+$'
     if (grepl(trailingSlashPattern, es_host)){
         # Remove it
         es_host <- gsub('/+$', '', es_host)
     }
 
-    # [4] es_host has a port number
+    # es_host has a port number
     portPattern <- ':[0-9]+$'
     if (! grepl(portPattern, es_host) == 1){
         msg <- paste0('No port found in es_host! es_host should be a string of the'
@@ -598,7 +598,7 @@ es_search <- function(es_host
         log_fatal(msg)
     }
 
-    # [4] es_host has a valid transfer protocol
+    # es_host has a valid transfer protocol
     protocolPattern <- '^[A-Za-z]+://'
     if (! grepl(protocolPattern, es_host) == 1){
         msg <- paste0('You did not provide a transfer protocol (e.g. http://) with es_host.'
