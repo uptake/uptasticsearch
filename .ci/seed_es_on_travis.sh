@@ -13,7 +13,7 @@ ES2_ARCHIVE=https://download.elasticsearch.org/elasticsearch/release/org/elastic
 ES5PLUS_ARCHIVE=https://artifacts.elastic.co/downloads/elasticsearch
 
 # where is the test data? what file has the mapping for the test "shakespeare" index?
-TEST_DATA_DIR=$(pwd)/test_data
+TEST_DATA_DIR=$(pwd)/test-data
 LEGACY_MAPPING_FILE="${TEST_DATA_DIR}/legacy_shakespeare_mapping.json"
 ES5_MAPPING_FILE="${TEST_DATA_DIR}/es5_shakespeare_mapping.json"
 ES6_MAPPING_FILE="${TEST_DATA_DIR}/es6_shakespeare_mapping.json"
