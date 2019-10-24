@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unpack a nested data.table — unpack_nested_data • uptasticsearch</title>
+<title>Unpack a nested data.table — unpack_nested_data() • uptasticsearch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Unpack a nested data.table — unpack_nested_data" />
 
-<meta property="og:description" content="After calling a chomp_* function or es_search, if
+<meta property="og:description" content="After calling a chomp_*() function or es_search(), if
   you had a nested array in the JSON, its corresponding column in the
   resulting data.table is a data.frame itself (or a list of vectors). This
   function expands that nested column out, adding its data to the original
@@ -127,7 +127,7 @@ This is a side-effect-free function: it returns a new data.table and the
 
     <div class="ref-description">
     
-    <p>After calling a <code>chomp_*</code> function or <code>es_search</code>, if
+    <p>After calling a <code>chomp_*()</code> function or <code>es_search()</code>, if
   you had a nested array in the JSON, its corresponding column in the
   resulting data.table is a data.frame itself (or a list of vectors). This
   function expands that nested column out, adding its data to the original

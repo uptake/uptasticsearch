@@ -32,26 +32,26 @@
 
 ## Bugfixes
 
-### `get_fields` when your index has no aliases
-- previously, `get_fields` broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the `_cat/aliases` endpoint has changed from major version to major version. [#66](https://github.com/uptake/uptasticsearch/pull/66) fixed this for all major versions of ES from 1.0 to 6.2
+### `get_fields()` when your index has no aliases
+- previously, `get_fields()` broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the `_cat/aliases` endpoint has changed from major version to major version. [#66](https://github.com/uptake/uptasticsearch/pull/66) fixed this for all major versions of ES from 1.0 to 6.2
 
-### `get_fields` when your index has multiple aliases
-- previously, if you had multiple aliases pointing to the same physical index, `get_fields` would only return one of those. As of [#73](https://github.com/uptake/uptasticsearch/pull/73), mappings for the underlying physical index will now be duplicated once per alias in the table returned by `get_fields`.
+### `get_fields()` when your index has multiple aliases
+- previously, if you had multiple aliases pointing to the same physical index, `get_fields()` would only return one of those. As of [#73](https://github.com/uptake/uptasticsearch/pull/73), mappings for the underlying physical index will now be duplicated once per alias in the table returned by `get_fields()`.
 
 ### bad parsing of ES major version
 - as of [#64](https://github.com/uptake/uptasticsearch/pull/64), `uptasticsearch` attempts to query the ES host to figure out what major version of Elasticsearch is running there. Implementation errors in that PR led to versions being parsed incorrectly but silently passing tests. This was fixed in [#66](https://github.com/uptake/uptasticsearch/pull/66). NOTE: this only impacted the dev version of the library on Github.
 
 ### `ignore_scroll_restriction` not being respected
-- In previous versions of `uptasticsearch`, the value passed to `es_search` for `ignore_scroll_restriction` was not actually respected. This was possible because an internal function had defaults specified, so we never caught the fact that that value wasn't getting passed through. [#66](https://github.com/uptake/uptasticsearch/pull/66) instituted the practice of not specifying defaults on function arguments in internal functions, so similar bugs won't be able to silently get through testing in the future.
+- In previous versions of `uptasticsearch`, the value passed to `es_search()` for `ignore_scroll_restriction` was not actually respected. This was possible because an internal function had defaults specified, so we never caught the fact that that value wasn't getting passed through. [#66](https://github.com/uptake/uptasticsearch/pull/66) instituted the practice of not specifying defaults on function arguments in internal functions, so similar bugs won't be able to silently get through testing in the future.
 
 ## Deprecations and Removals
-- [#69](https://github.com/uptake/uptasticsearch/pull/69) added a deprecation warning on `get_counts`. This function was outside the core mission of the package and exposed us unnecessarily to changes in the Elasticsearch DSL
+- [#69](https://github.com/uptake/uptasticsearch/pull/69) added a deprecation warning on `get_counts()`. This function was outside the core mission of the package and exposed us unnecessarily to changes in the Elasticsearch DSL
 
 # uptasticsearch 0.2.0
 
 ## Features
 
-### Faster `unpack_nested_data`
+### Faster `unpack_nested_data()`
 - [#51](https://github.com/uptake/uptasticsearch/pull/51) changed the parsing strategy for nested data and made it 9x faster than the previous implementation
 
 ### Retry logic
@@ -62,10 +62,10 @@
 ## Features
 
 ### Elasticsearch metadata
-- `get_fields` returns a data.table with the names and types of all indexed fields across one or more indices
+- `get_fields()` returns a data.table with the names and types of all indexed fields across one or more indices
 
 ### Routing Temporary File Writing
-- `es_search` now accepts an `intermediates_dir` parameter, giving users control over the directory used for temporary I/O at query time
+- `es_search()` now accepts an `intermediates_dir` parameter, giving users control over the directory used for temporary I/O at query time
 
 ## Bugfixes
 
@@ -77,15 +77,15 @@
 ## Features
 
 ### Main function
-- `es_search` executes an ES query and gets a data.table
+- `es_search()` executes an ES query and gets a data.table
 
 ### Parse raw JSON into data.table
-- `chomp_aggs` converts a raw aggs JSON to data.table
-- `chomp_hits` converts a raw hits JSON to data.table
+- `chomp_aggs()` converts a raw aggs JSON to data.table
+- `chomp_hits()` converts a raw hits JSON to data.table
 
 ### Utilities
-- `unpack_nested_data` deals with nested Elasticsearch data not in a tabular format
-- `parse_date_time` parses date-times from Elasticsearch records
+- `unpack_nested_data()` deals with nested Elasticsearch data not in a tabular format
+- `parse_date_time()` parses date-times from Elasticsearch records
 
 ### Exploratory functions
-- `get_counts` examines the distribution of distinct values for a field in Elasticsearch
+- `get_counts()` examines the distribution of distinct values for a field in Elasticsearch

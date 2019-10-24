@@ -121,7 +121,7 @@
 <h2 class="hasAnchor">
 <a href="#how-it-works" class="anchor"></a>How it Works <a name="howitworks"></a>
 </h2>
-<p>The core functionality of this package is the <code>es_search</code> function. This returns a <code>data.table</code> containing the parsed result of any given query. Note that this includes <code>aggs</code> queries.</p>
+<p>The core functionality of this package is the <code>es_search()</code> function. This returns a <code>data.table</code> containing the parsed result of any given query. Note that this includes <code>aggs</code> queries.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -253,7 +253,7 @@ revenueDT &lt;- es_search(
     , query_body = qbody
     , n_cores = 1
 )</a></code></pre>
-<p>In the example above, we used the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html">date_histogram</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html">extended_stats</a> aggregations. <code>es_search</code> has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form “agg1 - agg2” refer to the ability to handled aggregations nested inside other aggregations.</p>
+<p>In the example above, we used the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html">date_histogram</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html">extended_stats</a> aggregations. <code>es_search()</code> has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form “agg1 - agg2” refer to the ability to handled aggregations nested inside other aggregations.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Agg type</th>
