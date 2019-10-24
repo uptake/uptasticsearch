@@ -7,7 +7,7 @@
 #####
 
 build_r:
-	cp test_data/* r-pkg/inst/testdata/
+	cp test-data/* r-pkg/inst/testdata/
 	cp NEWS.md r-pkg/
 	cp README.md r-pkg/
 	R CMD BUILD r-pkg/

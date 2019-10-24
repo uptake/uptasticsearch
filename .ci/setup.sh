@@ -12,7 +12,7 @@ export JAVA_APT_PKG="oracle-java8-set-default"
 if [[ "$TASK" == "rpkg" ]];
 then
   Rscript -e "install.packages(c('data.table', 'devtools', 'futile.logger', 'knitr', 'testthat', 'rmarkdown', 'uuid'), repos = 'http://cran.rstudio.com')"
-  cp test_data/* r-pkg/inst/testdata/
+  cp test-data/* r-pkg/inst/testdata/
 fi
 
 # If language: python,
