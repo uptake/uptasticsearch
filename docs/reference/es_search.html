@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Execute an ES query and get a data.table — es_search • uptasticsearch</title>
+<title>Execute an ES query and get a data.table — es_search() • uptasticsearch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Execute an ES query and get a data.table — es_search" />
+<meta property="og:title" content="Execute an ES query and get a data.table — es_search()" />
 
-<meta property="og:description" content="Given a query and some optional parameters, es_search gets results
+<meta property="og:description" content="Given a query and some optional parameters, es_search() gets results
              from HTTP requests to Elasticsearch and returns a data.table
              representation of those results." />
 <meta name="twitter:card" content="summary" />
@@ -123,7 +123,7 @@
 
     <div class="ref-description">
     
-    <p>Given a query and some optional parameters, <code>es_search</code> gets results
+    <p>Given a query and some optional parameters, <code>es_search()</code> gets results
              from HTTP requests to Elasticsearch and returns a data.table
              representation of those results.</p>
     
@@ -174,7 +174,7 @@ for more information.</p></td>
     </tr>
     <tr>
       <th>max_hits</th>
-      <td><p>Integer. If specified, <code>es_search</code> will stop pulling data as soon
+      <td><p>Integer. If specified, <code>es_search()</code> will stop pulling data as soon
 as it has pulled this many hits. Default is <code>Inf</code>, meaning that
 all possible hits will be pulled.</p></td>
     </tr>
@@ -184,7 +184,7 @@ all possible hits will be pulled.</p></td>
     </tr>
     <tr>
       <th>break_on_duplicates</th>
-      <td><p>Boolean, defaults to TRUE. <code>es_search</code> uses the size of the final object it returns
+      <td><p>Boolean, defaults to TRUE. <code>es_search()</code> uses the size of the final object it returns
 to check whether or not some data were lost during the processing.
 If you have duplicates in the source data, you will have to set this flag to
 FALSE and just trust that no data have been lost. Sorry :( .</p></td>
@@ -204,9 +204,9 @@ to <code>TRUE</code>.</p></td>
     <tr>
       <th>intermediates_dir</th>
       <td><p>When scrolling over search results, this function writes
-intermediate results to disk. By default, `es_search` will create a temporary
+intermediate results to disk. By default, <code>es_search()</code> will create a temporary
 directory in whatever working directory the function is called from. If you
-want to change this behavior, provide a path here. `es_search` will create
+want to change this behavior, provide a path here. <code>es_search()</code> will create
 and write to a temporary directory under whatever path you provide.</p></td>
     </tr>
     </table>

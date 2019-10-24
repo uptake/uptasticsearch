@@ -180,16 +180,16 @@
 <a href="#bugfixes-1" class="anchor"></a>Bugfixes</h2>
 <div id="get_fields-when-your-index-has-no-aliases" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get_fields-when-your-index-has-no-aliases" class="anchor"></a><code>get_fields</code> when your index has no aliases</h3>
+<a href="#get_fields-when-your-index-has-no-aliases" class="anchor"></a><code>get_fields()</code> when your index has no aliases</h3>
 <ul>
-<li>previously, <code>get_fields</code> broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the <code>_cat/aliases</code> endpoint has changed from major version to major version. <a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a> fixed this for all major versions of ES from 1.0 to 6.2</li>
+<li>previously, <code>get_fields()</code> broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the <code>_cat/aliases</code> endpoint has changed from major version to major version. <a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a> fixed this for all major versions of ES from 1.0 to 6.2</li>
 </ul>
 </div>
 <div id="get_fields-when-your-index-has-multiple-aliases" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get_fields-when-your-index-has-multiple-aliases" class="anchor"></a><code>get_fields</code> when your index has multiple aliases</h3>
+<a href="#get_fields-when-your-index-has-multiple-aliases" class="anchor"></a><code>get_fields()</code> when your index has multiple aliases</h3>
 <ul>
-<li>previously, if you had multiple aliases pointing to the same physical index, <code>get_fields</code> would only return one of those. As of <a href="https://github.com/uptake/uptasticsearch/pull/73"><a href='https://github.com/uptake/uptasticsearch/issues/73'>#73</a></a>, mappings for the underlying physical index will now be duplicated once per alias in the table returned by <code>get_fields</code>.</li>
+<li>previously, if you had multiple aliases pointing to the same physical index, <code>get_fields()</code> would only return one of those. As of <a href="https://github.com/uptake/uptasticsearch/pull/73"><a href='https://github.com/uptake/uptasticsearch/issues/73'>#73</a></a>, mappings for the underlying physical index will now be duplicated once per alias in the table returned by <code>get_fields()</code>.</li>
 </ul>
 </div>
 <div id="bad-parsing-of-es-major-version" class="section level3">
@@ -203,7 +203,7 @@
 <h3 class="hasAnchor">
 <a href="#ignore_scroll_restriction-not-being-respected" class="anchor"></a><code>ignore_scroll_restriction</code> not being respected</h3>
 <ul>
-<li>In previous versions of <code>uptasticsearch</code>, the value passed to <code>es_search</code> for <code>ignore_scroll_restriction</code> was not actually respected. This was possible because an internal function had defaults specified, so we never caught the fact that that value wasn’t getting passed through. <a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a> instituted the practice of not specifying defaults on function arguments in internal functions, so similar bugs won’t be able to silently get through testing in the future.</li>
+<li>In previous versions of <code>uptasticsearch</code>, the value passed to <code>es_search()</code> for <code>ignore_scroll_restriction</code> was not actually respected. This was possible because an internal function had defaults specified, so we never caught the fact that that value wasn’t getting passed through. <a href="https://github.com/uptake/uptasticsearch/pull/66"><a href='https://github.com/uptake/uptasticsearch/issues/66'>#66</a></a> instituted the practice of not specifying defaults on function arguments in internal functions, so similar bugs won’t be able to silently get through testing in the future.</li>
 </ul>
 </div>
 </div>
@@ -225,7 +225,7 @@
 <a href="#features-2" class="anchor"></a>Features</h2>
 <div id="faster-unpack_nested_data" class="section level3">
 <h3 class="hasAnchor">
-<a href="#faster-unpack_nested_data" class="anchor"></a>Faster <code>unpack_nested_data</code>
+<a href="#faster-unpack_nested_data" class="anchor"></a>Faster <code>unpack_nested_data()</code>
 </h3>
 <ul>
 <li>
@@ -253,7 +253,7 @@
 <a href="#elasticsearch-metadata" class="anchor"></a>Elasticsearch metadata</h3>
 <ul>
 <li>
-<code>get_fields</code> returns a data.table with the names and types of all indexed fields across one or more indices</li>
+<code>get_fields()</code> returns a data.table with the names and types of all indexed fields across one or more indices</li>
 </ul>
 </div>
 <div id="routing-temporary-file-writing" class="section level3">
@@ -261,7 +261,7 @@
 <a href="#routing-temporary-file-writing" class="anchor"></a>Routing Temporary File Writing</h3>
 <ul>
 <li>
-<code>es_search</code> now accepts an <code>intermediates_dir</code> parameter, giving users control over the directory used for temporary I/O at query time</li>
+<code>es_search()</code> now accepts an <code>intermediates_dir</code> parameter, giving users control over the directory used for temporary I/O at query time</li>
 </ul>
 </div>
 </div>
@@ -289,7 +289,7 @@
 <a href="#main-function" class="anchor"></a>Main function</h3>
 <ul>
 <li>
-<code>es_search</code> executes an ES query and gets a data.table</li>
+<code>es_search()</code> executes an ES query and gets a data.table</li>
 </ul>
 </div>
 <div id="parse-raw-json-into-data-table" class="section level3">
@@ -297,9 +297,9 @@
 <a href="#parse-raw-json-into-data-table" class="anchor"></a>Parse raw JSON into data.table</h3>
 <ul>
 <li>
-<code>chomp_aggs</code> converts a raw aggs JSON to data.table</li>
+<code>chomp_aggs()</code> converts a raw aggs JSON to data.table</li>
 <li>
-<code>chomp_hits</code> converts a raw hits JSON to data.table</li>
+<code>chomp_hits()</code> converts a raw hits JSON to data.table</li>
 </ul>
 </div>
 <div id="utilities" class="section level3">
@@ -307,9 +307,9 @@
 <a href="#utilities" class="anchor"></a>Utilities</h3>
 <ul>
 <li>
-<code>unpack_nested_data</code> deals with nested Elasticsearch data not in a tabular format</li>
+<code>unpack_nested_data()</code> deals with nested Elasticsearch data not in a tabular format</li>
 <li>
-<code>parse_date_time</code> parses date-times from Elasticsearch records</li>
+<code>parse_date_time()</code> parses date-times from Elasticsearch records</li>
 </ul>
 </div>
 <div id="exploratory-functions" class="section level3">
@@ -317,7 +317,7 @@
 <a href="#exploratory-functions" class="anchor"></a>Exploratory functions</h3>
 <ul>
 <li>
-<code>get_counts</code> examines the distribution of distinct values for a field in Elasticsearch</li>
+<code>get_counts()</code> examines the distribution of distinct values for a field in Elasticsearch</li>
 </ul>
 </div>
 </div>

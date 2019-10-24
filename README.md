@@ -21,7 +21,7 @@
 
 ## How it Works <a name="howitworks"></a>
 
-The core functionality of this package is the `es_search` function. This returns a `data.table` containing the parsed result of any given query. Note that this includes `aggs` queries.
+The core functionality of this package is the `es_search()` function. This returns a `data.table` containing the parsed result of any given query. Note that this includes `aggs` queries.
 
 ## Installation <a name="installation"></a>
 
@@ -160,7 +160,7 @@ revenueDT <- es_search(
 )
 ```
 
-In the example above, we used the [date_histogram](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html) and [extended_stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html) aggregations. `es_search` has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form "agg1 - agg2" refer to the ability to handled aggregations nested inside other aggregations.
+In the example above, we used the [date_histogram](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html) and [extended_stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html) aggregations. `es_search()` has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form "agg1 - agg2" refer to the ability to handled aggregations nested inside other aggregations.
 
 |Agg type                                     | R support?  | Python support?  |
 |:--------------------------------------------|:-----------:|:----------------:|
