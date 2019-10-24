@@ -49,7 +49,7 @@ devtools::install_github(
 
 ### Python <a name="pythoninstallation"></a>
 
-![Lifecycle Dormant](https://img.shields.io/badge/lifecycle-dormant-blue.svg)
+![Lifecycle Dormant](https://img.shields.io/badge/lifecycle-dormant-orange.svg)
 
 This package is not currently available on PyPi. To build the development version from source, clone this repo, then :
 
