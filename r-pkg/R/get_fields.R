@@ -14,7 +14,8 @@
 #' @inheritParams doc_shared
 #' @export
 #' @return A data.table containing four columns: index, type, field, and data_type
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #' # get the mapping for all indexed fields in the ticket_sales and customers indices
 #' mappingDT <- get_fields(es_host = "http://es.custdb.mycompany.com:9200"
 #'                               , es_indices = c("ticket_sales", "customers"))

@@ -1,19 +1,18 @@
 #' @title Unpack a nested data.table
 #' @name unpack_nested_data
 #' @description After calling a \code{chomp_*} function or \code{es_search}, if
-#'   you had a nested array in the JSON, its corresponding column in the
-#'   resulting data.table is a data.frame itself (or a list of vectors). This
-#'   function expands that nested column out, adding its data to the original
-#'   data.table, and duplicating metadata down the rows as necessary.
+#'              you had a nested array in the JSON, its corresponding column in the
+#'              resulting data.table is a data.frame itself (or a list of vectors). This
+#'              function expands that nested column out, adding its data to the original
+#'              data.table, and duplicating metadata down the rows as necessary.
 #'
-#'   This is a side-effect-free function: it returns a new data.table and the
-#'   input data.table is unmodified.
+#'              This is a side-effect-free function: it returns a new data.table and the
+#'              input data.table is unmodified.
 #' @importFrom data.table as.data.table copy is.data.table rbindlist setnames
 #' @importFrom purrr map_if map_lgl map_int
 #' @export
 #' @param chomped_df a data.table
-#' @param col_to_unpack a character vector of length one: the column name to
-#'   unpack
+#' @param col_to_unpack a character vector of length one: the column name to unpack
 #' @examples
 #' # A sample raw result from a hits query:
 #' result <- '[{"_source":{"timestamp":"2017-01-01","cust_name":"Austin","details":{

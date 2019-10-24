@@ -6,8 +6,8 @@
 #' @importFrom data.table as.data.table setnames setcolorder
 #' @export
 #' @param aggs_json A character vector. If its length is greater than 1, its elements will be pasted
-#'        together. This can contain a JSON returned from an \code{aggs} query in Elasticsearch, or
-#'        a filepath or URL pointing at one.
+#'                  together. This can contain a JSON returned from an \code{aggs} query in 
+#'                  Elasticsearch, or a filepath or URL pointing at one.
 #' @examples
 #' # A sample raw result from an aggs query combining date_histogram and extended_stats:
 #' result <- '{"aggregations":{"dateTime":{"buckets":[{"key_as_string":"2016-12-01T00:00:00.000Z",

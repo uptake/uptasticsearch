@@ -7,7 +7,8 @@
 #' @param max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
 #'                 as it has pulled this many hits. Default is \code{Inf}, meaning that
 #'                 all possible hits will be pulled.
-#' @param size Number of records per page of results. See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
+#' @param size Number of records per page of results. 
+#'             See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
 #'             Note that this will be reset to 0 if you submit a \code{query_body} with
 #'             an "aggs" request in it. Also see \code{max_hits}.
 #' @param query_body String with a valid Elasticsearch query. Default is an empty query.
@@ -19,24 +20,25 @@
 #'               \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
 #'               for more information.
 #' @param n_cores Number of cores to distribute fetching and processing over.
-#' @param break_on_duplicates Boolean, defaults to TRUE. \code{es_search} uses the size of the final object it returns
-#'                          to check whether or not some data were lost during the processing.
-#'                          If you have duplicates in the source data, you will have to set this flag to
-#'                          FALSE and just trust that no data have been lost. Sorry :( .
+#' @param break_on_duplicates Boolean, defaults to TRUE. \code{es_search} uses the size of the 
+#'                            final object it returns to check whether or not some data were lost
+#'                            during the processing. If you have duplicates in the source data, you
+#'                            will have to set this flag to FALSE and just trust that no data have 
+#'                            been lost. Sorry :( .
 #' @param ignore_scroll_restriction There is a cost associated with keeping an
-#'                                Elasticsearch scroll context open. By default,
-#'                                this function does not allow arguments to \code{scroll}
-#'                                which exceed one hour. This is done to prevent
-#'                                costly mistakes made by novice Elasticsearch users.
-#'                                If you understand the cost of keeping the context
-#'                                open for a long time and would like to pass a \code{scroll}
-#'                                value longer than an hour, set \code{ignore_scroll_restriction}
-#'                                to \code{TRUE}.
+#'                                  Elasticsearch scroll context open. By default,
+#'                                  this function does not allow arguments to \code{scroll}
+#'                                  which exceed one hour. This is done to prevent
+#'                                  costly mistakes made by novice Elasticsearch users.
+#'                                  If you understand the cost of keeping the context
+#'                                  open for a long time and would like to pass a \code{scroll}
+#'                                  value longer than an hour, set \code{ignore_scroll_restriction}
+#'                                  to \code{TRUE}.
 #' @param intermediates_dir When scrolling over search results, this function writes
-#'        intermediate results to disk. By default, `es_search` will create a temporary
-#'        directory in whatever working directory the function is called from. If you
-#'        want to change this behavior, provide a path here. `es_search` will create
-#'        and write to a temporary directory under whatever path you provide.
+#'                          intermediate results to disk. By default, `es_search` will create a temporary
+#'                          directory in whatever working directory the function is called from. If you
+#'                          want to change this behavior, provide a path here. `es_search` will create
+#'                          and write to a temporary directory under whatever path you provide.
 #' @inheritParams doc_shared
 #' @importFrom assertthat is.count is.flag is.number is.string is.writeable
 #' @importFrom parallel detectCores
