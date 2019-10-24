@@ -2,7 +2,7 @@
 
 [![Travis Build Status](https://img.shields.io/travis/uptake/uptasticsearch.svg?label=travis&logo=travis&branch=master)](https://travis-ci.org/uptake/uptasticsearch)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch)
-[![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) 
+[![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) [![codecov](https://codecov.io/gh/uptake/uptasticsearch/branch/master/graph/badge.svg)](https://codecov.io/gh/uptake/uptasticsearch)
 
 ## Introduction
 
