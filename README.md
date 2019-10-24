@@ -25,7 +25,7 @@ The core functionality of this package is the `es_search` function. This returns
 
 ## Installation <a name="installation"></a>
 
-### R <a name="rinstallation"></a>
+### R <a name="rinstallation"></a>     ![Lifecycle Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
 
 Releases of this package can be installed from CRAN:
 
