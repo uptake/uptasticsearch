@@ -5,7 +5,7 @@ set -e
 echo "collecting arguments..."
 
 DEFAULT_VERSION="6.2"
-MAJOR_VERSION=${1:-DEFAULT_VERSION}
+MAJOR_VERSION=${1:-$DEFAULT_VERSION}
 echo "major version: $MAJOR_VERSION"
 
 WDIR=$(pwd)
