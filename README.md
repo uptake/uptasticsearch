@@ -27,6 +27,8 @@ The core functionality of this package is the `es_search()` function. This retur
 
 ### R <a name="rinstallation"></a>
 
+![Lifecycle Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
+
 Releases of this package can be installed from CRAN:
 
 ```
@@ -46,6 +48,8 @@ devtools::install_github(
 ```
 
 ### Python <a name="pythoninstallation"></a>
+
+![Lifecycle Dormant](https://img.shields.io/badge/lifecycle-dormant-orange.svg)
 
 This package is not currently available on PyPi. To build the development version from source, clone this repo, then :
 
