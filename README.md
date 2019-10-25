@@ -109,6 +109,53 @@ commentDT <- es_search(
     , n_cores = 4
 )
 ```
+### Example 1 (alter): Get a Batch of Documents <a name="example1"></a>
+
+The most common use case for this package will be the case where you have an ES query and want to get a data frame representation of many resulting documents. 
+
+In the example below, we use `uptasticsearch` to look for all survey results in which customers said their satisfaction was "low" or "very low" and mentioned food in their comments.
+
+```
+library(uptasticsearch)
+
+# Build your query in an R string
+qbody <- '{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "exists": {
+                "field": "customer_comments"
+              }
+            },
+            {
+              "terms": {
+                "overall_satisfaction": ["very low", "low"]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "query": {
+      "match_phrase": {
+        "customer_comments": "food"
+      }
+    }
+  }
+}'
+
+# Execute the query, parse into a data.table
+commentDT <- es_search(
+    es_host = 'http://mydb.mycompany.com:9200'
+    , es_index = "survey_results"
+    , query_body = qbody
+    , scroll = "1m"
+    , n_cores = 8
+)
+```
 
 ### Example 2: Aggregation Results <a name="example2"></a>
 
