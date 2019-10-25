@@ -53,7 +53,7 @@ devtools::install_github(
 
 This package is not currently available on PyPi. To build the development version from source, clone this repo, then :
 
-``` python
+``` shell
 cd py-pkg
 pip install .
 ```
