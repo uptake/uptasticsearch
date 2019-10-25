@@ -31,7 +31,7 @@ The core functionality of this package is the `es_search()` function. This retur
 
 Releases of this package can be installed from CRAN:
 
-```
+```r
 install.packages(
   'uptasticsearch'
   , repos = "http://cran.rstudio.com"
@@ -40,7 +40,7 @@ install.packages(
 
 To use the development version of the package, which has the newest changes, you can install directly from GitHub
 
-```
+```r
 devtools::install_github(
   "uptake/uptasticsearch"
   , subdir = "r-pkg"
@@ -53,7 +53,7 @@ devtools::install_github(
 
 This package is not currently available on PyPi. To build the development version from source, clone this repo, then :
 
-```
+```shell
 cd py-pkg
 pip install .
 ```
@@ -68,7 +68,7 @@ The most common use case for this package will be the case where you have an ES 
 
 In the example below, we use `uptasticsearch` to look for all survey results in which customers said their satisfaction was "low" or "very low" and mentioned food in their comments.
 
-```
+```r
 library(uptasticsearch)
 
 # Build your query in an R string
@@ -116,7 +116,7 @@ Elasticsearch ships with a rich set of aggregations for creating summarized view
 
 In the example below, we use `uptasticsearch` to create daily timeseries of summary statistics like total revenue and average payment amount.
 
-```
+```r
 library(uptasticsearch)
 
 # Build your query in an R string
