@@ -32,7 +32,6 @@ Imports:
     utils,
     uuid
 Suggests:
-    covr,
     knitr,
     rmarkdown,
     testthat
