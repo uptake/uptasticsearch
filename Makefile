@@ -18,6 +18,11 @@ coverage_r: build_r
 	echo "Done calculating coverage"
 	open coverage.html
 
+lint_r:
+	echo "Linting R source..."
+	TASK=rpkg .ci/lint.sh
+	echo "Done linting"
+
 docs_r: build_r
 	Rscript -e "devtools::document('r-pkg/')"
 	Rscript -e "pkgdown::build_site('r-pkg/')"

@@ -79,6 +79,7 @@ matrix:
         - ES_VERSION=7.3.1
         - TASK=rpkg
       after_success:
+        - .ci/lint.sh
         - .ci/report_to_covr.sh
     #################
     # Python builds #
