@@ -59,5 +59,3 @@ vignettes/*\.pdf
 .Rbuildignore
 .*\.gitkeep
 
-# Lintr
-.lintr

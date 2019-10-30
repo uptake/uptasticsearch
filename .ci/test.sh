@@ -5,6 +5,8 @@ set -e
 
 if [[ "$TASK" == "rpkg" ]]; then
   R_PACKAGE_DIR=$(pwd)/r-pkg
+  Rscript .ci/lint.R ${R_PACKAGE_DIR}
+
   R CMD build ${R_PACKAGE_DIR}
   R CMD check \
     --as-cran \
