@@ -20,7 +20,7 @@ coverage_r: build_r
 
 lint_r:
 	echo "Linting R source..."
-	TASK=rpkg .ci/lint.sh
+	Rscript .ci/lint.R $$(pwd)
 	echo "Done linting"
 
 docs_r: build_r
