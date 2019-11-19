@@ -3,20 +3,16 @@ library(lintr)
 args <- commandArgs(
     trailingOnly = TRUE
 )
-SOURCE_DIR <- args[[1]]
+SOURCE_DIR <- args[[1L]]
 
-FILES_TO_LINT <- list.files(
-    path = SOURCE_DIR
-    , pattern = "\\.r$"
+excluded_files <- list.files(
+    paste(SOURCE_DIR, "uptasticsearch.Rcheck", sep = "/")
+    , pattern = rex::rex(".", one_of("Rr"), end)
     , all.files = TRUE
-    , ignore.case = TRUE
-    , full.names = TRUE
     , recursive = TRUE
-    , include.dirs = FALSE
+    , full.names = TRUE
 )
 
-# Some linters from the lintr package have not made it to CRAN yet
-# We build lintr from source to address that.
 LINTERS_TO_USE <- list(
     "assignment" = lintr::assignment_linter
     , "closed_curly" = lintr::closed_curly_linter
@@ -40,32 +36,27 @@ LINTERS_TO_USE <- list(
     , "trailing_white" = lintr::trailing_whitespace_linter
     , "true_false" = lintr::T_and_F_symbol_linter
 )
-cat(sprintf("Found %i R files to lint\n", length(FILES_TO_LINT)))
 
-results <- c()
+results <- lintr::lint_dir(
+    path = SOURCE_DIR
+    , linters = LINTERS_TO_USE
+    , cache = FALSE
+    , exclusions = excluded_files
+)
 
-for (r_file in FILES_TO_LINT){
+results_df <- as.data.frame(results)
 
-    this_result <- lintr::lint(
-        filename = r_file
-        , linters = LINTERS_TO_USE
-        , cache = FALSE
-    )
-
-    cat(sprintf(
-        "Found %i linting errors in %s\n"
-        , length(this_result)
-        , r_file
-    ))
-
-    results <- c(results, this_result)
-
-}
+cat(sprintf(
+    "Found %i linting errors in project\n"
+    , length(results)
+))
 
 issues_found <- length(results)
 
-if (issues_found > 0){
+if (issues_found > 0L) {
+    print(addmargins(table(results_df[c("filename", "linter")])))
     cat("\n")
+
     print(results)
 }
 
