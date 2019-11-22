@@ -2,12 +2,12 @@ context("get_fields")
 
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+if (!identical(loggerOptions, list())) {
+    origLogThreshold <- loggerOptions[[1L]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
-futile.logger::flog.threshold(0)
+futile.logger::flog.threshold(0L)
 
 
 #--- get_fields
@@ -19,17 +19,17 @@ futile.logger::flog.threshold(0)
                                           , es_indices = NULL),
                                regexp = "not greater than 0")
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
-                                          , es_indices = ''),
+                                          , es_indices = ""),
                                regexp = "get_fields must be passed a valid es_indices")
               }
     )
 
     # works as expected when mocked
-    test_that('get_fields works as expected when mocked',
+    test_that("get_fields works as expected when mocked",
               {
                   test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
-                  aliasDT <- data.table::data.table(alias = c('alias1', 'alias2')
-                                                    , index = c('company', 'otherIndex'))
+                  aliasDT <- data.table::data.table(alias = c("alias1", "alias2")
+                                                    , index = c("company", "otherIndex"))
                   testthat::with_mock(
                       `httr::stop_for_status` = function(...) {return(NULL)},
                       `httr::RETRY` = function(...) {return(NULL)},
@@ -37,16 +37,16 @@ futile.logger::flog.threshold(0)
                       `uptasticsearch::.get_aliases` = function(...) {return(aliasDT)},
                       `uptasticsearch::.get_es_version` = function(...) {return("6")},
                       {
-                          outDT <- get_fields(es_host = 'http://db.mycompany.com:9200'
-                                              , es_indices = c('company', 'hotel'))
+                          outDT <- get_fields(es_host = "http://db.mycompany.com:9200"
+                                              , es_indices = c("company", "hotel"))
                           data.table::setkey(outDT, NULL)
                           expected <- data.table::data.table(
-                              index = c(rep('alias1', 3), rep('hotel', 5))
-                              , type = c(rep('building', 3), rep('bed_room', 2), rep('conference_room', 3))
-                              , field = c('id', 'address', 'address.keyword', 'num_beds', 'description'
-                                          , 'num_people', 'purpose', 'purpose.keyword')
-                              , data_type = c('long', 'text', 'keyword', 'integer', 'text', 'integer'
-                                              , 'text', 'keyword')
+                              index = c(rep("alias1", 3L), rep("hotel", 5L))
+                              , type = c(rep("building", 3L), rep("bed_room", 2L), rep("conference_room", 3L))
+                              , field = c("id", "address", "address.keyword", "num_beds", "description"
+                                          , "num_people", "purpose", "purpose.keyword")
+                              , data_type = c("long", "text", "keyword", "integer", "text", "integer"
+                                              , "text", "keyword")
                           )
                           expect_identical(outDT, expected)
                       }
@@ -64,10 +64,10 @@ futile.logger::flog.threshold(0)
                   mapping <- jsonlite::fromJSON(txt = test_json)
                   mappingDT <- uptasticsearch:::.flatten_mapping(mapping = mapping)
                   expected <- data.table::data.table(
-                      index = rep('basketball', 5)
-                      , type = rep('players', 5)
-                      , field = c('team', 'name.first', 'name.last', 'age', 'position')
-                      , data_type = c('keyword', 'text', 'text', 'integer', 'keyword')
+                      index = rep("basketball", 5L)
+                      , type = rep("players", 5L)
+                      , field = c("team", "name.first", "name.last", "age", "position")
+                      , data_type = c("keyword", "text", "text", "integer", "keyword")
                   )
                   expect_identical(mappingDT, expected)
               }
@@ -80,12 +80,12 @@ futile.logger::flog.threshold(0)
                   mapping <- jsonlite::fromJSON(txt = test_json)
                   mappingDT <- uptasticsearch:::.flatten_mapping(mapping = mapping)
                   expected <- data.table::data.table(
-                      index = c(rep('company', 3), rep('hotel', 5))
-                      , type = c(rep('building', 3), rep('bed_room', 2), rep('conference_room', 3))
-                      , field = c('id', 'address', 'address.keyword', 'num_beds', 'description'
-                                  , 'num_people', 'purpose', 'purpose.keyword')
-                      , data_type = c('long', 'text', 'keyword', 'integer', 'text', 'integer'
-                                      , 'text', 'keyword')
+                      index = c(rep("company", 3L), rep("hotel", 5L))
+                      , type = c(rep("building", 3L), rep("bed_room", 2L), rep("conference_room", 3L))
+                      , field = c("id", "address", "address.keyword", "num_beds", "description"
+                                  , "num_people", "purpose", "purpose.keyword")
+                      , data_type = c("long", "text", "keyword", "integer", "text", "integer"
+                                      , "text", "keyword")
                   )
                   expect_identical(mappingDT, expected)
               }
@@ -96,9 +96,9 @@ futile.logger::flog.threshold(0)
     # works if one alias is passed
     test_that(".process_new_alias works if one alias is included",
               {
-                  alias_string <- 'dwm shakespeare - - -\n'
+                  alias_string <- "dwm shakespeare - - -\n"
                   aliasDT <- uptasticsearch:::.process_new_alias(alias_string = alias_string)
-                  expected <- data.table::data.table(alias = 'dwm', index = 'shakespeare')
+                  expected <- data.table::data.table(alias = "dwm", index = "shakespeare")
                   expect_identical(aliasDT, expected)
               }
     )
@@ -106,9 +106,9 @@ futile.logger::flog.threshold(0)
     # works if multiple aliases are passed
     test_that(".process_new_alias works if one alias is included",
               {
-                  alias_string <- 'dwm   shakespeare - - -\nmoney bank        - - -\n'
+                  alias_string <- "dwm   shakespeare - - -\nmoney bank        - - -\n"
                   aliasDT <- uptasticsearch:::.process_new_alias(alias_string = alias_string)
-                  expected <- data.table::data.table(alias = c('dwm', 'money'), index = c('shakespeare', 'bank'))
+                  expected <- data.table::data.table(alias = c("dwm", "money"), index = c("shakespeare", "bank"))
                   expect_identical(aliasDT, expected)
               }
     )

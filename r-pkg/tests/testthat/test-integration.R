@@ -9,12 +9,12 @@ context("Elasticsearch integration tests")
 
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+if (!identical(loggerOptions, list())) {
+    origLogThreshold <- loggerOptions[[1L]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
-futile.logger::flog.threshold(0)
+futile.logger::flog.threshold(0L)
 
 #--- es_search
 
@@ -25,8 +25,8 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 100
-            , size = 100
+            , max_hits = 100L
+            , size = 100L
         )
 
        expect_true(data.table::is.data.table(outDT))
@@ -38,11 +38,11 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 30
-            , size = 2
+            , max_hits = 30L
+            , size = 2L
         )
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 30)
+        expect_true(nrow(outDT) == 30L)
     })
 
     test_that("es_search works in single-threaded mode", {
@@ -51,12 +51,12 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 30
-            , size = 2
-            , n_cores = 1
+            , max_hits = 30L
+            , size = 2L
+            , n_cores = 1L
         )
         expect_true(data.table::is.data.table(outDT))
-        expect_true(nrow(outDT) == 30)
+        expect_true(nrow(outDT) == 30L)
     })
 
     test_that("es_search rejects scrolls longer than 1 hour", {
@@ -66,8 +66,8 @@ futile.logger::flog.threshold(0)
             outDT <- es_search(
                 es_host = "http://127.0.0.1:9200"
                 , es_index = "shakespeare"
-                , max_hits = 100
-                , size = 100
+                , max_hits = 100L
+                , size = 100L
                 , scroll = "2h"
             )
         }, regexp = "By default, this function does not permit scroll requests which keep the scroll")
@@ -81,7 +81,7 @@ futile.logger::flog.threshold(0)
             outDT <- es_search(
                 es_host = "http://127.0.0.1:9200"
                 , es_index = "shakespeare"
-                , max_hits = 9999
+                , max_hits = 9999L
             )
         }, regexp = "You requested a maximum of 9999 hits and a page size of 10000")
         expect_true(data.table::is.data.table(outDT))
@@ -95,8 +95,8 @@ futile.logger::flog.threshold(0)
             outDT <- es_search(
                 es_host = "http://127.0.0.1:9200"
                 , es_index = "shakespeare"
-                , max_hits = 12
-                , size = 7
+                , max_hits = 12L
+                , size = 7L
             )
         }, regexp = "When max_hits is not an exact multiple of size, it is possible to get a few more than max_hits results back")
         expect_true(data.table::is.data.table(outDT))
@@ -124,17 +124,17 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 100
+            , max_hits = 100L
             , query = '{"aggs": {"thing": {"terms": {"field": "speaker", "size": 12}}}}'
         )
 
         expect_true(data.table::is.data.table(outDT))
-        num_expected_levels <- 4
+        num_expected_levels <- 4L
         major_version <- .major_version(
             .get_es_version("http://127.0.0.1:9200")
         )
-        if (as.integer(major_version) >= 7){
-            num_expected_levels <- 3
+        if (as.integer(major_version) >= 7L) {
+            num_expected_levels <- 3L
         }
         expect_true(nrow(outDT) == num_expected_levels)
         expect_named(
@@ -145,7 +145,7 @@ futile.logger::flog.threshold(0)
         )
         expect_true(is.numeric(outDT[, doc_count]))
         expect_true(is.character(outDT[, thing]))
-        expect_true(all(outDT[, doc_count > 0]))
+        expect_true(all(outDT[, doc_count > 0L]))
     })
 
     test_that("es_search respects the names you assign to aggregation results", {
@@ -154,7 +154,7 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 100
+            , max_hits = 100L
             , query = '{"aggs": {"name_i_picked": {"terms": {"field": "speaker", "size": 12}}}}'
         )
 
@@ -170,7 +170,7 @@ futile.logger::flog.threshold(0)
         expect_true(data.table::is.data.table(outDT))
         expect_true(is.numeric(outDT[, doc_count]))
         expect_true(is.character(outDT[, name_i_picked]))
-        expect_true(all(outDT[, doc_count > 0]))
+        expect_true(all(outDT[, doc_count > 0L]))
     })
 
     # We have tests on static empty results, but this test will catch
@@ -182,7 +182,7 @@ futile.logger::flog.threshold(0)
         outDT <- es_search(
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
-            , max_hits = 100
+            , max_hits = 100L
             , query = '{"aggs": {"blegh": {"terms": {"field": "nonsense_field"}}}}'
         )
         expect_null(outDT)
@@ -209,11 +209,11 @@ futile.logger::flog.threshold(0)
 
     # set up helper function for manipulating aliases. Valid actions below are
     # "add" and "remove"
-    .alias_action <- function(action, alias_name){
+    .alias_action <- function(action, alias_name) {
         res <- httr::RETRY(
             verb = "POST"
             , url = "http://127.0.0.1:9200/_aliases"
-            , httr::add_headers(c('Content-Type' = 'application/json'))
+            , httr::add_headers(c("Content-Type" = "application/json"))
             , body = sprintf(
                 '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'
                 , action
@@ -241,7 +241,7 @@ futile.logger::flog.threshold(0)
             , es_indices = "_all"
         )
         expect_true(data.table::is.data.table(fieldDT))
-        expect_true(nrow(fieldDT) > 0)
+        expect_true(nrow(fieldDT) > 0L)
         expect_named(
             fieldDT
             , c("index", "type", "field", "data_type")
@@ -253,7 +253,7 @@ futile.logger::flog.threshold(0)
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0L)
     })
 
     test_that(".get_aliases and get_fields work as expected when exactly one alias exists for one index in the cluster", {
@@ -266,7 +266,7 @@ futile.logger::flog.threshold(0)
         # get_aliases should work
         resultDT <- .get_aliases("http://127.0.0.1:9200")
         expect_true(data.table::is.data.table(resultDT))
-        expect_true(nrow(resultDT) == 1)
+        expect_true(nrow(resultDT) == 1L)
         expect_named(
             resultDT
             , c("alias", "index")
@@ -283,7 +283,7 @@ futile.logger::flog.threshold(0)
         )
 
         expect_true(data.table::is.data.table(fieldDT))
-        expect_true(nrow(fieldDT) > 0)
+        expect_true(nrow(fieldDT) > 0L)
         expect_named(
             fieldDT
             , c("index", "type", "field", "data_type")
@@ -294,12 +294,12 @@ futile.logger::flog.threshold(0)
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0L)
 
         # get_fields should replace index names with their aliases
-        expect_true(fieldDT[, sum(index == "the_test_alias")] > 0)
+        expect_true(fieldDT[, sum(index == "the_test_alias")] > 0L)
         expect_true(
-            fieldDT[, sum(index == "shakespeare")] == 0
+            fieldDT[, sum(index == "shakespeare")] == 0L
             , info = "get_fields didn't replace index names with their aliases"
         )
 
@@ -316,21 +316,21 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         # create an alias
-        .alias_action('add', 'the_test_alias')
-        .alias_action('add', 'the_best_alias')
-        .alias_action('add', 'the_nest_alias')
+        .alias_action("add", "the_test_alias")
+        .alias_action("add", "the_best_alias")
+        .alias_action("add", "the_nest_alias")
 
         # get_aliases should work
         resultDT <- .get_aliases("http://127.0.0.1:9200")
         expect_true(data.table::is.data.table(resultDT))
-        expect_true(nrow(resultDT) == 3)
+        expect_true(nrow(resultDT) == 3L)
         expect_named(
             resultDT
             , c("alias", "index")
             , ignore.case = FALSE
             , ignore.order = TRUE
         )
-        expect_identical(resultDT[, index], rep("shakespeare", 3))
+        expect_identical(resultDT[, index], rep("shakespeare", 3L))
         expect_true(resultDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% alias)])
 
         # get_fields should work for "_all" indices
@@ -343,7 +343,7 @@ futile.logger::flog.threshold(0)
         )
 
         expect_true(data.table::is.data.table(fieldDT))
-        expect_true(nrow(fieldDT) > 0)
+        expect_true(nrow(fieldDT) > 0L)
         expect_named(
             fieldDT
             , c("index", "type", "field", "data_type")
@@ -354,23 +354,23 @@ futile.logger::flog.threshold(0)
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0L)
 
         # get_fields should replace index names with their aliases
         expect_true(fieldDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% index)])
         expect_true(
-            fieldDT[, sum(index == "shakespeare")] == 0
+            fieldDT[, sum(index == "shakespeare")] == 0L
             , info = "get_fields didn't replace index names with their aliases"
         )
 
         # since we aliased the same index three times, the subsections should all be identical
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_nest_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_nest_alias", .(type, field, data_type)]
         ))
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_test_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_test_alias", .(type, field, data_type)]
         ))
 
         # get_fields should work targeting a specific index with aliases
@@ -380,7 +380,7 @@ futile.logger::flog.threshold(0)
         )
 
         expect_true(data.table::is.data.table(fieldDT))
-        expect_true(nrow(fieldDT) > 0)
+        expect_true(nrow(fieldDT) > 0L)
         expect_named(
             fieldDT
             , c("index", "type", "field", "data_type")
@@ -391,29 +391,29 @@ futile.logger::flog.threshold(0)
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0L)
 
         # get_fields should replace index names with their aliases
         expect_true(fieldDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% index)])
         expect_true(
-            fieldDT[, sum(index == "shakespeare")] == 0
+            fieldDT[, sum(index == "shakespeare")] == 0L
             , info = "get_fields didn't replace index names with their aliases"
         )
 
         # since we aliased the same index three times, the subsections should all be identical
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_nest_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_nest_alias", .(type, field, data_type)]
         ))
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_test_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_test_alias", .(type, field, data_type)]
         ))
 
         # delete the aliases we created (to keep tests self-contained)
-        .alias_action('remove', 'the_test_alias')
-        .alias_action('remove', 'the_best_alias')
-        .alias_action('remove', 'the_nest_alias')
+        .alias_action("remove", "the_test_alias")
+        .alias_action("remove", "the_best_alias")
+        .alias_action("remove", "the_nest_alias")
 
         # confirm that they're gone
         resultDT <- .get_aliases("http://127.0.0.1:9200")
@@ -429,7 +429,7 @@ futile.logger::flog.threshold(0)
             , es_indices = "empty_index"
         )
         expect_true(data.table::is.data.table(fieldDT))
-        expect_true(nrow(fieldDT) > 0)
+        expect_true(nrow(fieldDT) > 0L)
         expect_named(
             fieldDT
             , c("index", "type", "field", "data_type")
@@ -440,7 +440,7 @@ futile.logger::flog.threshold(0)
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0L)
 
         # should only give us back records on the one index we requested
         expect_true(fieldDT[, all(index == "empty_index")])
@@ -456,7 +456,7 @@ futile.logger::flog.threshold(0)
             , es_indices = c("empty_index", "shakespeare")
         )
         expect_true(data.table::is.data.table(fieldDT))
-        expect_true(nrow(fieldDT) > 0)
+        expect_true(nrow(fieldDT) > 0L)
         expect_named(
             fieldDT
             , c("index", "type", "field", "data_type")
@@ -467,11 +467,11 @@ futile.logger::flog.threshold(0)
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0L)
 
         # should only give us back records on indexes we requested
         expect_true(fieldDT[, any(index == "empty_index")])
-        expect_true(fieldDT[, length(unique(index))] >= 2)
+        expect_true(fieldDT[, length(unique(index))] >= 2L)
     })
 
 ##### TEST TEAR DOWN #####

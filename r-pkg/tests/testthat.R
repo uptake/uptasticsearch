@@ -9,4 +9,4 @@ Sys.setenv("R_TESTS" = "")
 
 library(uptasticsearch)
 
-testthat::test_check('uptasticsearch')
+testthat::test_check("uptasticsearch")

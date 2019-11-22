@@ -23,6 +23,11 @@ lint_r:
 	Rscript .ci/lint.R $$(pwd)
 	echo "Done linting"
 
+style_r:
+	echo "Styling R source..."
+	Rscript .ci/styler.R $$(pwd)
+	echo "Done styling"
+
 docs_r: build_r
 	Rscript -e "devtools::document('r-pkg/')"
 	Rscript -e "pkgdown::build_site('r-pkg/')"

@@ -20,7 +20,7 @@
 #' @references \url{https://en.wikipedia.org/wiki/List_of_tz_database_time_zones}
 #' @examples
 #' # Sample es_search(), chomp_hits(), or chomp_aggs() output:
-#' someDT <- data.table::data.table(id = 1:5
+#' someDT <- data.table::data.table(id = 1L:5L
 #'                                  , company = c("Apple", "Apple", "Banana", "Banana", "Cucumber")
 #'                                  , timestamp = c("2015-03-14T09:26:53B", "2015-03-14T09:26:54B"
 #'                                                  , "2031-06-28T08:53:07Z", "2031-06-28T08:53:08Z"
@@ -37,10 +37,10 @@
 parse_date_time <- function(input_df
                             , date_cols
                             , assume_tz = "UTC"
-){
+) {
 
     # Break if input_df isn't actually a data.table
-    if (!data.table::is.data.table(input_df)){
+    if (!data.table::is.data.table(input_df)) {
         msg <- paste("parse_date_time expects to receive a data.table object."
                      , "You provided an object of class"
                      , paste(class(input_df), collapse = ", ")
@@ -57,7 +57,7 @@ parse_date_time <- function(input_df
     }
 
     # Break if any of the date_cols are not actually in this DT
-    if (!all(date_cols %in% names(input_df))){
+    if (!all(date_cols %in% names(input_df))) {
         not_there <- date_cols[!(date_cols %in% names(input_df))]
         msg <- paste("The following columns, which you passed to date_cols,",
                      "do not actually exist in input_df:",
@@ -105,7 +105,7 @@ parse_date_time <- function(input_df
     tzHash["Z"] <-  "UTC" # UTC
 
     # Parse dates, return POSIXct UTC dates
-    for (dateCol in date_cols){
+    for (dateCol in date_cols)      {
 
         # Grab this vector to work on
         dateVec <- outDT[[dateCol]]
@@ -123,7 +123,7 @@ parse_date_time <- function(input_df
         dateTimes <- purrr::map2(
             dateTimes
             , timeZones
-            , function(dateTime, timeZone){as.POSIXct(dateTime, tz = timeZone)}
+            , function(dateTime, timeZone) {as.POSIXct(dateTime, tz = timeZone)}
         )
 
         utcDates <- as.POSIXct.numeric(

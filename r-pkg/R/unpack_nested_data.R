@@ -64,12 +64,12 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     inDT[, (col_to_unpack) := NULL]
 
     # Check for empty column
-    if (all(purrr::map_int(listDT, NROW) == 0)) {
+    if (all(purrr::map_int(listDT, NROW) == 0L)) {
         msg <- "The column given to unpack_nested_data had no data in it."
         log_fatal(msg)
     }
 
-    listDT[lengths(listDT) == 0] <- NA
+    listDT[lengths(listDT) == 0L] <- NA
 
     is_df <- purrr::map_lgl(listDT, is.data.frame)
     is_list <- purrr::map_lgl(listDT, is.list)
@@ -83,7 +83,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     } else if (all(is_df | is_list | is_na)) {
         # Find name to use for NA columns
         first_df <- min(which(is_df))
-        col_name <- names(listDT[[first_df]])[1]
+        col_name <- names(listDT[[first_df]])[1L]
 
         .prep_na_row <- function(x, col_name) {
             x <- data.table::as.data.table(x)

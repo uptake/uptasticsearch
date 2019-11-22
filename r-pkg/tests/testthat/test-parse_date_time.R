@@ -1,17 +1,17 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+if (!identical(loggerOptions, list())) {
+    origLogThreshold <- loggerOptions[[1L]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
-futile.logger::flog.threshold(0)
+futile.logger::flog.threshold(0L)
 
 context("parse_date_time")
 
 
 # Correctly adjusts UTC date-times
-test_that("parse_date_time should transform the indicated date_cols to POSIXct with timezone UTC if they're given in UTC",{
+test_that("parse_date_time should transform the indicated date_cols to POSIXct with timezone UTC if they're given in UTC", {
     testDT <- data.table::data.table(
         id = c("a", "b", "c")
         , dateTime = c("2016-07-16T21:15:00Z", "2015-04-16T02:15:00Z", "2015-03-04T15:25:00Z")
@@ -47,7 +47,7 @@ test_that("parse_date_time should transform the indicated date_cols to POSIXct w
 })
 
 # Returns object of class POSIXct
-test_that("parse_date_time should transform the indicated date_cols to class POSIXct",{
+test_that("parse_date_time should transform the indicated date_cols to class POSIXct", {
     testDT <- data.table::data.table(
         id = c("a", "b", "c")
         , dateTime = c("2016-07-16T21:15:00Z", "2015-04-16T02:15:00Z", "2015-03-04T15:25:00Z")
@@ -87,7 +87,7 @@ test_that("parse_date_time should perform adjustments only on the columns you as
 })
 
 # works for multiple date columns
-test_that("parse_date_time should perform adjustments for multiple data columns if asked",{
+test_that("parse_date_time should perform adjustments for multiple data columns if asked", {
     testDT <- data.table::data.table(
         id = c("a", "b", "c")
         , dateTime = c("2016-07-16T21:15:00Z", "2015-04-16T02:15:00Z", "2015-03-04T15:25:00Z")
@@ -171,7 +171,7 @@ test_that("parse_date_time should leave the original DT unchanged", {
     origAddress <- data.table::address(testDT)
     newDT <- parse_date_time(testDT, date_cols = "dateTime", assume_tz = "UTC")
 
-    expect_identical(newDT[id=="a", dateTime], as.POSIXct("2016-07-16 21:15:00", tz = "UTC"))
+    expect_identical(newDT[id == "a", dateTime], as.POSIXct("2016-07-16 21:15:00", tz = "UTC"))
 })
 
 ##### TEST TEAR DOWN #####

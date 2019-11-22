@@ -1,12 +1,12 @@
 
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+if (!identical(loggerOptions, list())) {
+    origLogThreshold <- loggerOptions[[1L]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
-futile.logger::flog.threshold(0)
+futile.logger::flog.threshold(0L)
 
 context("chomp_hits")
 
@@ -35,13 +35,13 @@ test_that("chomp_hits should work from a one-element character vector",
           ]}}'
           chompDT <- chomp_hits(hits_json = jsonString)
           expect_true(data.table::is.data.table(chompDT))
-          expect_equivalent(dim(chompDT), c(5, 12))
+          expect_equivalent(dim(chompDT), c(5L, 12L))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",
                             "stats.full_career.HR", "stats.full_career.R", "stats.yrs_played", "_type") %in%
                               names(chompDT)))
-          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419, 653, 579, 1544, 664)))
-          expect_identical(chompDT$stats.full_career.HR, as.character(c(541, 150, 137, 555, 193)))}
+          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419L, 653L, 579L, 1544L, 664L)))
+          expect_identical(chompDT$stats.full_career.HR, as.character(c(541L, 150L, 137L, 555L, 193L)))}
 )
 
 # What if we're passing the hits array, not the entire result?
@@ -65,13 +65,13 @@ test_that("chomp_hits should work with just the hits array",
           ]'
           chompDT <- chomp_hits(hits_json = jsonString)
           expect_true(data.table::is.data.table(chompDT))
-          expect_equivalent(dim(chompDT), c(5, 12))
+          expect_equivalent(dim(chompDT), c(5L, 12L))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",
                             "stats.full_career.HR", "stats.full_career.R", "stats.yrs_played", "_type") %in%
                               names(chompDT)))
-          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419, 653, 579, 1544, 664)))
-          expect_identical(chompDT$stats.full_career.HR, as.character(c(541, 150, 137, 555, 193)))}
+          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419L, 653L, 579L, 1544L, 664L)))
+          expect_identical(chompDT$stats.full_career.HR, as.character(c(541L, 150L, 137L, 555L, 193L)))}
 )
 
 # This tests the type of data representation you'd get from reading in a JSON file with readLines
@@ -80,13 +80,13 @@ test_that("chomp_hits should work from a multi-element character vector",
           jsonVec <- suppressWarnings(readLines(test_json))
           chompDT <- chomp_hits(hits_json = jsonVec)
           expect_true(data.table::is.data.table(chompDT))
-          expect_equivalent(dim(chompDT), c(5, 12))
+          expect_equivalent(dim(chompDT), c(5L, 12L))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",
                             "stats.full_career.HR", "stats.full_career.R", "stats.yrs_played", "_type") %in%
                               names(chompDT)))
-          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419, 653, 579, 1544, 664)))
-          expect_identical(chompDT$stats.full_career.HR, as.character(c(541, 150, 137, 555, 193)))}
+          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419L, 653L, 579L, 1544L, 664L)))
+          expect_identical(chompDT$stats.full_career.HR, as.character(c(541L, 150L, 137L, 555L, 193L)))}
 )
 
 # In case you need to have a non-R, non-Python run queries for you and store them in a file
@@ -94,13 +94,13 @@ test_that("chomp_hits should work from a file",
           {test_json <- system.file("testdata", "es_hits.json", package = "uptasticsearch")
           chompDT <- chomp_hits(hits_json = test_json)
           expect_true(data.table::is.data.table(chompDT))
-          expect_equivalent(dim(chompDT), c(5, 12))
+          expect_equivalent(dim(chompDT), c(5L, 12L))
           expect_true(all(c("_id", "_index", "_score", "name", "stats.final_season.avg",
                             "stats.final_season.HR", "stats.final_season.R", "stats.full_career.avg",
                             "stats.full_career.HR", "stats.full_career.R", "stats.yrs_played", "_type") %in%
                               names(chompDT)))
-          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419, 653, 579, 1544, 664)))
-          expect_identical(chompDT$stats.full_career.HR, as.character(c(541, 150, 137, 555, 193)))}
+          expect_identical(chompDT$stats.full_career.R, as.integer(c(1419L, 653L, 579L, 1544L, 664L)))
+          expect_identical(chompDT$stats.full_career.HR, as.character(c(541L, 150L, 137L, 555L, 193L)))}
 )
 
 # Should warn and return null if you don't provide any data
@@ -113,7 +113,7 @@ test_that("chomp_hits should return NULL if you do not provide data",
 
 # Should break if you pass the wrong kind of input
 test_that("chomp_hits should break if you pass the wrong input",
-          {expect_error(chomp_hits(hits_json = data.frame(a = 1:5)),
+          {expect_error(chomp_hits(hits_json = data.frame(a = 1L:5L)),
                         regexp = "The first argument of chomp_hits must be a character vector")}
 )
 
