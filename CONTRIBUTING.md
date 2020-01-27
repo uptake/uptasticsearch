@@ -88,18 +88,20 @@ The set of Elasticsearch versions this project tests against changes regularly a
 
 > `uptasticsearch` may be tested against specific additional intermediate versions if bugs are found in the interaction between `uptasticsearch` and those versions
 
-So, for example, as of September 2019 that meant we tested against:
+So, for example, as of January 2020 that meant we tested against:
 
 * 1.0.0
-* 1.7.5
-* 2.4.2
+* 1.7.6
+* 2.4.6
 * 5.6.16
 * 6.0.1
-* 6.8.2
+* 6.8.6
 * 7.0.1
 * 7.1.1
 * 7.2.1
-* 7.3.1
+* 7.3.2
+* 7.4.2
+* 7.5.2
 
 You may notice that this strategy means that `uptasticsearch` is tested for backwards compatibility with Elasticsearch versions which have already reached [End-of-Life](https://www.elastic.co/support/eol). For example, support for Elasticsearch 1.7.x officially ended in January 2017. We test these old versions because we know of users whose companies still run those versions, and for whom Elasticsearch upgrades are prohibitively expensive. In general, upgrades across major versions pre-6.x [require a full cluster restart](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-upgrade.html).
 

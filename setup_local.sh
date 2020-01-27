@@ -4,7 +4,7 @@ set -e
 
 echo "collecting arguments..."
 
-DEFAULT_VERSION="6.2"
+DEFAULT_VERSION="7.5"
 MAJOR_VERSION=${1:-$DEFAULT_VERSION}
 echo "major version: $MAJOR_VERSION"
 
@@ -20,46 +20,11 @@ case "${MAJOR_VERSION}" in
 1.0) docker run -d -p 9200:9200 barnybug/elasticsearch:1.0.0
      MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
-1.4) docker run -d -p 9200:9200 barnybug/elasticsearch:1.4.4
-     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
-    ;;
-1.7) docker run -d -p 9200:9200 barnybug/elasticsearch:1.7.2
-     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
-    ;;
-2.0) docker run -d -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:2.0.2
-     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
-    ;;
-2.1) docker run -d -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:2.1.2
-     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
-    ;;
-2.2) docker run -d -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:2.2.2
-     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
-    ;;
-2.3) docker run -d -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:2.3.5
+1.7) docker run -d -p 9200:9200 barnybug/elasticsearch:1.7.6
      MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 2.4) docker run -d -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:2.4.6
      MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
-    ;;
-5.0) docker run -d -p 9200:9200 \
-          -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:5.0.2
-     MAPPING_FILE=$(pwd)/test-data/es5_shakespeare_mapping.json
-    ;;
-5.3) docker run -d -p 9200:9200 \
-          -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:5.3.3
-     MAPPING_FILE=$(pwd)/test-data/es5_shakespeare_mapping.json
-    ;;
-5.4) docker run -d -p 9200:9200 \
-          -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:5.4.3
-     MAPPING_FILE=$(pwd)/test-data/es5_shakespeare_mapping.json
-    ;;
-5.5) docker run -d -p 9200:9200 \
-          -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:5.5.3
-     MAPPING_FILE=$(pwd)/test-data/es5_shakespeare_mapping.json
     ;;
 5.6) docker run -d -p 9200:9200 \
           -e "xpack.security.enabled=false" \
@@ -72,28 +37,16 @@ case "${MAJOR_VERSION}" in
           docker.elastic.co/elasticsearch/elasticsearch:6.0.1
      MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
     ;;
-6.1) docker run -d -p 9200:9200 \
-          -e "discovery.type=single-node" \
-          -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:6.1.4
-     MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
-    ;;
-6.2) docker run -d -p 9200:9200 \
-          -e "discovery.type=single-node" \
-          -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:6.2.4
-     MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
-    ;;
 6.8) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:6.8.2
+          docker.elastic.co/elasticsearch/elasticsearch:6.8.6
      MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
      ;;
-7.3) docker run -d -p 9200:9200 \
+7.5) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:7.3.1
+          docker.elastic.co/elasticsearch/elasticsearch:7.5.2
      MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
      SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
