@@ -28,13 +28,13 @@ matrix:
       warnings_are_errors: true
       cache: packages
       env:
-        - ES_VERSION=1.7.5
+        - ES_VERSION=1.7.6
         - TASK=rpkg
     - language: r
       warnings_are_errors: true
       cache: packages
       env:
-        - ES_VERSION=2.4.2
+        - ES_VERSION=2.4.6
         - TASK=rpkg
     - language: r
       warnings_are_errors: true
@@ -52,7 +52,7 @@ matrix:
       warnings_are_errors: true
       cache: packages
       env:
-        - ES_VERSION=6.8.2
+        - ES_VERSION=6.8.6
         - TASK=rpkg
     - language: r
       warnings_are_errors: true
@@ -76,7 +76,19 @@ matrix:
       warnings_are_errors: true
       cache: packages
       env:
-        - ES_VERSION=7.3.1
+        - ES_VERSION=7.3.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=7.4.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=7.5.2
         - TASK=rpkg
       after_success:
         - .ci/report_to_covr.sh
@@ -91,12 +103,12 @@ matrix:
     - language: python
       python: 3.5
       env:
-        - ES_VERSION=1.7.5
+        - ES_VERSION=1.7.6
         - TASK=pypkg
     - language: python
       python: 3.5
       env:
-        - ES_VERSION=2.4.2
+        - ES_VERSION=2.4.6
         - TASK=pypkg
     - language: python
       python: 3.5
@@ -111,7 +123,7 @@ matrix:
     - language: python
       python: 3.5
       env:
-        - ES_VERSION=6.8.2
+        - ES_VERSION=6.8.6
         - TASK=pypkg
     - language: python
       python: 3.5
@@ -131,5 +143,15 @@ matrix:
     - language: python
       python: 3.5
       env:
-        - ES_VERSION=7.3.1
+        - ES_VERSION=7.3.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=7.4.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=7.5.2
         - TASK=pypkg
