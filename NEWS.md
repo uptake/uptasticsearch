@@ -9,8 +9,8 @@
 
 ## Features
 
-### Added support for ES7.x
-- [#161](https://github.com/uptake/uptasticsearch/pull/161) Added support for ES7.x. The biggest changes between that major version and 6.x were the removal of `_all` as a way to reference all indices, changing the response format of `hits.total` into an object like `{"hits": {"total": 50}}`, and restricting all indices to have a single type of document. More details can be found at https://www.elastic.co/guide/en/elasticsearch/reference/current/breaking-changes-7.0.html.
+### Added support for Elasticsearch 7.x
+- [#161](https://github.com/uptake/uptasticsearch/pull/161) Added support for Elasticsearch 7.x. The biggest changes between that major version and 6.x were the removal of `_all` as a way to reference all indices, changing the response format of `hits.total` into an object like `{"hits": {"total": 50}}`, and restricting all indices to have a single type of document. More details can be found at https://www.elastic.co/guide/en/elasticsearch/reference/current/breaking-changes-7.0.html.
 
 # uptasticsearch 0.3.1
 
@@ -26,20 +26,20 @@
 
 ## Features
 
-### Full support for ES6.x
-- [#64](https://github.com/uptake/uptasticsearch/pull/64) added support for ES6.x. The biggest change between that major version and v5.x is that as of ES6.x all requests issued to the ES HTTP API must pass an explicit `Content-Type` header. Previous versions of ES tried to guess the `Content-Type` when none was declared
-- [#66](https://github.com/uptake/uptasticsearch/pull/66) completed support for ES6.x. ES6.x changed the supported strategy for issuing scrolling requests. `uptasticsearch` will now hit the cluster to try to figure out which version of ES it is running, then use the appropriate scrolling strategy.
+### Full support for Elasticsearch 6.x
+- [#64](https://github.com/uptake/uptasticsearch/pull/64) added support for Elasticsearch 6.x. The biggest change between that major version and v5.x is that as of Elasticsearch 6.x all requests issued to the Elasticsearch HTTP API must pass an explicit `Content-Type` header. Previous versions of Elasticsearch tried to guess the `Content-Type` when none was declared
+- [#66](https://github.com/uptake/uptasticsearch/pull/66) completed support for Elasticsearch 6.x. Elasticsearch 6.x changed the supported strategy for issuing scrolling requests. `uptasticsearch` will now hit the cluster to try to figure out which version of Elasticsearch it is running, then use the appropriate scrolling strategy.
 
 ## Bugfixes
 
 ### `get_fields()` when your index has no aliases
-- previously, `get_fields()` broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the `_cat/aliases` endpoint has changed from major version to major version. [#66](https://github.com/uptake/uptasticsearch/pull/66) fixed this for all major versions of ES from 1.0 to 6.2
+- previously, `get_fields()` broke on some legacy versions of Elasticsearch where no aliases had been created. The response on the `_cat/aliases` endpoint has changed from major version to major version. [#66](https://github.com/uptake/uptasticsearch/pull/66) fixed this for all major versions of Elasticsearch from 1.0 to 6.2
 
 ### `get_fields()` when your index has multiple aliases
 - previously, if you had multiple aliases pointing to the same physical index, `get_fields()` would only return one of those. As of [#73](https://github.com/uptake/uptasticsearch/pull/73), mappings for the underlying physical index will now be duplicated once per alias in the table returned by `get_fields()`.
 
-### bad parsing of ES major version
-- as of [#64](https://github.com/uptake/uptasticsearch/pull/64), `uptasticsearch` attempts to query the ES host to figure out what major version of Elasticsearch is running there. Implementation errors in that PR led to versions being parsed incorrectly but silently passing tests. This was fixed in [#66](https://github.com/uptake/uptasticsearch/pull/66). NOTE: this only impacted the dev version of the library on Github.
+### bad parsing of Elasticsearch major version
+- as of [#64](https://github.com/uptake/uptasticsearch/pull/64), `uptasticsearch` attempts to query the Elasticsearch host to figure out what major version of Elasticsearch is running there. Implementation errors in that PR led to versions being parsed incorrectly but silently passing tests. This was fixed in [#66](https://github.com/uptake/uptasticsearch/pull/66). NOTE: this only impacted the dev version of the library on Github.
 
 ### `ignore_scroll_restriction` not being respected
 - In previous versions of `uptasticsearch`, the value passed to `es_search()` for `ignore_scroll_restriction` was not actually respected. This was possible because an internal function had defaults specified, so we never caught the fact that that value wasn't getting passed through. [#66](https://github.com/uptake/uptasticsearch/pull/66) instituted the practice of not specifying defaults on function arguments in internal functions, so similar bugs won't be able to silently get through testing in the future.
@@ -77,7 +77,7 @@
 ## Features
 
 ### Main function
-- `es_search()` executes an ES query and gets a data.table
+- `es_search()` executes an Elasticsearch query and gets a data.table
 
 ### Parse raw JSON into data.table
 - `chomp_aggs()` converts a raw aggs JSON to data.table

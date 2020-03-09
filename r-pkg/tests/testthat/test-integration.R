@@ -174,7 +174,7 @@ futile.logger::flog.threshold(0)
     })
 
     # We have tests on static empty results, but this test will catch
-    # changes across versions in the way ES actually responds to aggs results that
+    # changes across versions in the way Elasticsearch actually responds to aggs results that
     # return nothing
     test_that("es_search correctly handles empty bucketed aggregation result", {
         testthat::skip_on_cran()
@@ -199,8 +199,8 @@ futile.logger::flog.threshold(0)
         expect_true(assertthat::is.string(ver), info = paste0("returned version: ", ver))
 
         # Decided to check that it's coercible to an integer instead of
-        # hard-coding known ES versions so this test won't require
-        # attention or break builds if/when ES7 or whatever the next major verison
+        # hard-coding known Elasticsearch versions so this test won't require
+        # attention or break builds if/when Elasticsearch 7 or whatever the next major verison
         # is comes out
         expect_true(!is.na(as.integer(ver)), info = paste0("returned version: ", ver))
     })
@@ -233,7 +233,7 @@ futile.logger::flog.threshold(0)
         expect_null(result)
     })
 
-    test_that("get_fields works on an actual running ES cluster with no aliases", {
+    test_that("get_fields works on an actual running Elasticsearch cluster with no aliases", {
         testthat::skip_on_cran()
 
         fieldDT <- get_fields(
@@ -335,7 +335,7 @@ futile.logger::flog.threshold(0)
 
         # get_fields should work for "_all" indices
         # NOTE: this was deprecated in Elasticsearch 6 and removed in
-        #       ES7, but we use it here so that old uptasticsearch code
+        #       Elasticsearch 7, but we use it here so that old uptasticsearch code
         #       continues to work
         fieldDT <- get_fields(
             es_host = "http://127.0.0.1:9200"
