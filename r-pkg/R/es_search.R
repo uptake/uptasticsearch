@@ -1,5 +1,5 @@
 
-#' @title Execute an ES query and get a data.table
+#' @title Execute an Elasticsearch query and get a data.table
 #' @name es_search
 #' @description Given a query and some optional parameters, \code{es_search} gets results
 #'              from HTTP requests to Elasticsearch and returns a data.table
@@ -73,7 +73,7 @@
 #'                       , es_index = 'ticket_sales'
 #'                       , query_body = query_body)
 #' }
-#' @references \href{https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html}{ES 6 scrolling strategy}
+#' @references \href{https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html}{Elasticsearch 6 scrolling strategy}
 es_search <- function(es_host
                       , es_index
                       , size = 10000
@@ -256,7 +256,7 @@ es_search <- function(es_host
 
     # If max_hits < size, we should just request exactly that many hits
     # requesting more hits than you get is not costless:
-    # - ES allocates a temporary data structure of size <size>
+    # - Elasticsearch allocates a temporary data structure of size <size>
     # - you end up transmitting more data over the wire than the user wants
     if (max_hits < size) {
         msg <- paste0(sprintf("You requested a maximum of %s hits", max_hits),
@@ -427,7 +427,7 @@ es_search <- function(es_host
 # [params] file_name Full path to a .json file with a query result
 # [params] keep_nested_data_cols Boolean flag indicating whether or not to
 #          preserver columns that could not be flattened in the result
-#          data.table (i.e. live as arrays with duplicate keys in the result from ES)
+#          data.table (i.e. live as arrays with duplicate keys in the result from Elasticsearch)
 .read_and_parse_tempfile <- function(file_name, keep_nested_data_cols){
 
     # NOTE: namespacing uptasticsearch here to prevent against weirdness
@@ -474,8 +474,8 @@ es_search <- function(es_host
                             , hits_to_pull
 ){
 
-    # Note that the old scrolling strategy was deprecated in ES5.x and
-    # officially dropped in ES6.x. Need to grab the correct method here
+    # Note that the old scrolling strategy was deprecated in Elasticsearch 5.x and
+    # officially dropped in Elasticsearch 6.x. Need to grab the correct method here
     major_version <- .get_es_version(es_host)
     scrolling_request <- switch(
         major_version
@@ -524,7 +524,7 @@ es_search <- function(es_host
 }
 
 
-# [title] Make a scroll request with the strategy supported by ES 5.x and later
+# [title] Make a scroll request with the strategy supported by Elasticsearch 5.x and later
 # [name] .new_scroll_request
 # [description] Make a scrolling request and return the result
 # [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html
@@ -544,7 +544,7 @@ es_search <- function(es_host
     return(result)
 }
 
-# [title] Make a scroll request with the strategy supported by ES 1.x and ES 2.x
+# [title] Make a scroll request with the strategy supported by Elasticsearch 1.x and Elasticsearch 2.x
 # [name] .legacy_scroll_request
 # [description] Make a scrolling request and return the result
 #' @importFrom httr add_headers RETRY
@@ -618,7 +618,7 @@ es_search <- function(es_host
 }
 
 
-# [title] Get ES cluster version
+# [title] Get Elasticsearch cluster version
 # [name] .get_es_version
 # [description] Hit the cluster and figure out the major
 #               version of Elasticsearch.

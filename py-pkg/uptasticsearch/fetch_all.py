@@ -1,4 +1,4 @@
-"""Functions for Pulling data from ES and unpacking into a table
+"""Functions for Pulling data from Elasticsearch and unpacking into a table
 """
 
 import pandas as pd
@@ -14,7 +14,7 @@ def es_search(es_host, es_index, query_body="{}", size=10000, max_hits=None,
 
     Args:
         es_host (string): a url of the elasticsearch cluster e.g. http://localhost:9200
-        es_index (string): the name of the ES index
+        es_index (string): the name of the Elasticsearch index
         query_body (json): json query
         size (int): the number of hits per page. Note: the size will not affect max_hits, but it will affect the time to return the max_hits.
         max_hits (int, None): the total number of hits to allow. If None, no limit

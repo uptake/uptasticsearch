@@ -2,7 +2,7 @@
 % Please edit documentation in R/es_search.R
 \name{es_search}
 \alias{es_search}
-\title{Execute an ES query and get a data.table}
+\title{Execute an Elasticsearch query and get a data.table}
 \usage{
 es_search(es_host, es_index, size = 10000, query_body = "{}",
   scroll = "5m", max_hits = Inf,
@@ -99,5 +99,5 @@ resultDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
 }
 }
 \references{
-\href{https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html}{ES 6 scrolling strategy}
+\href{https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html}{Elasticsearch 6 scrolling strategy}
 }

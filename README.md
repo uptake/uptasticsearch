@@ -64,7 +64,7 @@ The examples presented here pertain to a fictional Elasticsearch index holding s
 
 ### Example 1: Get a Batch of Documents <a name="example1"></a>
 
-The most common use case for this package will be the case where you have an ES query and want to get a data frame representation of many resulting documents. 
+The most common use case for this package will be the case where you have an Elasticsearch query and want to get a data frame representation of many resulting documents. 
 
 In the example below, we use `uptasticsearch` to look for all survey results in which customers said their satisfaction was "low" or "very low" and mentioned food in their comments.
 

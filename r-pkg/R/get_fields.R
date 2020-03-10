@@ -94,7 +94,7 @@ get_fields <- function(es_host
 
     ######################### flatten the result ##############################
     if (as.integer(major_version) > 6){
-        # As of ES7, indices cannot contain multiple types so the concept of
+        # As of Elasticsearch 7, indices cannot contain multiple types so the concept of
         # a "type" in a mapping is irrelevant. Maintaining the field here
         # for backwards compatibility of this function.
         mappingDT <- data.table::rbindlist(
@@ -211,8 +211,8 @@ get_fields <- function(es_host
     resultContent <- httr::content(result, as = 'text')
 
     # NOTES:
-    # - with ES1.7.2., this returns an empty array "[]"
-    # - with ES6, this results in an empty string instead of a NULL
+    # - with Elasticsearch 1.7.2., this returns an empty array "[]"
+    # - with Elasticsearch 6, this results in an empty string instead of a NULL
     if (is.null(resultContent) || identical(resultContent, "") || identical(resultContent, "[]")) {
         # there are no aliases in this Elasticsearch cluster
         return(invisible(NULL))
@@ -232,7 +232,7 @@ get_fields <- function(es_host
 
 
 # [title] Process the string returned by the GET alias API into a data.table
-# [description] Older version of ES (pre-5.x) had a slightly different return
+# [description] Older version of Elasticsearch (pre-5.x) had a slightly different return
 #               format for aliases. This handles those
 # [alias_string] A string returned by the alias API with index and alias name
 #' @importFrom data.table as.data.table
@@ -249,7 +249,7 @@ get_fields <- function(es_host
 }
 
 # [title] Process the string returned by the GET alias API into a data.table
-# [description] This only works for ES5 and up
+# [description] This only works for Elasticsearch 5 and up
 # [alias_string] A string returned by the alias API with index and alias name
 #' @importFrom data.table data.table
 #' @importFrom utils read.table
