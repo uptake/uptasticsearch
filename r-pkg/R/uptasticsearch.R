@@ -1,4 +1,4 @@
-# Globals to make R CMD check not spit out "no visible binding for global 
+# Globals to make R CMD check not spit out "no visible binding for global
 #   variable" notes.
 # Basically, R CMD check doesn't like it when you don't quote the "V1" in
 #   a call like DT[, V1].
@@ -18,8 +18,8 @@ utils::globalVariables(c(
 
 
 # NULL object for common parameter documentation
-#' @param es_host A string identifying an Elasticsearch host. This should be of the form 
-#'        \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}. 
+#' @param es_host A string identifying an Elasticsearch host. This should be of the form
+#'        \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.
 #' @param es_index The name of an Elasticsearch index to be queried. Note that passing
 #'                 \code{NULL} is not supported. Technically, not passing an index
 #'                 to Elasticsearch is legal and results in searching over all indexes.

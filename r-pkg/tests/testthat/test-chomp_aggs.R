@@ -229,7 +229,7 @@ test_that("chomp_aggs should work for a 'date_histogram' - 'stats' aggregation",
 
               expect_named(chompDT, c('report_week', 'some_score.count',
                                       'some_score.min', 'some_score.max', 'some_score.avg',
-                                      'some_score.sum','doc_count')
+                                      'some_score.sum', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 10)
@@ -593,7 +593,7 @@ test_that("chomp_aggs should work for a two-level 'terms' aggregation",
               result <- system.file("testdata", "aggs_terms_terms.json", package = "uptasticsearch")
               chompDT <- chomp_aggs(aggs_json = result)
 
-              expect_named(chompDT, c('magic_number', 'customerType','doc_count')
+              expect_named(chompDT, c('magic_number', 'customerType', 'doc_count')
                            , ignore.order = FALSE, ignore.case = FALSE)
               expect_true(data.table::is.data.table(chompDT))
               expect_true(nrow(chompDT) == 3)

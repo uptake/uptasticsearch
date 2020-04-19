@@ -2,7 +2,7 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())){
-    origLogThreshold <- loggerOptions[[1]][['threshold']]    
+    origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -91,7 +91,7 @@ test_that(".ValidateAndFormatHost should handle trailing slashes",
               # single slash
               newHost <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/")
               expect_identical(newHost, "http://mydb.mycompany.com:9200")
-              
+
               # objectively ridiculous number of slashes
               newHost2 <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/////////")
               expect_identical(newHost2, "http://mydb.mycompany.com:9200")
@@ -113,7 +113,7 @@ test_that(".ValidateAndFormatHost should warn and use http if you don't give a p
 
 #---- .major_version
 test_that(".major_version should correctly parse semver version strings", {
-    
+
     # yay random tests
     for (i in 1:50){
         v1 <- as.character(sample(0:9, size = 1))

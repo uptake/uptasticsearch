@@ -4,7 +4,7 @@
 \alias{doc_shared}
 \title{NULL Object For Common Documentation}
 \arguments{
-\item{es_host}{A string identifying an Elasticsearch host. This should be of the form 
+\item{es_host}{A string identifying an Elasticsearch host. This should be of the form
 \code{[transfer_protocol][hostname]:[port]}. For example, \code{'http://myindex.thing.com:9200'}.}
 
 \item{es_index}{The name of an Elasticsearch index to be queried. Note that passing

@@ -40,6 +40,6 @@ License: BSD_3_clause + file LICENSE
 URL: https://github.com/uptake/uptasticsearch
 BugReports: https://github.com/uptake/uptasticsearch/issues
 LazyData: TRUE
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 Encoding: UTF-8
