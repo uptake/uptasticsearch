@@ -4,7 +4,7 @@ set -e
 
 echo "collecting arguments..."
 
-DEFAULT_VERSION="7.5"
+DEFAULT_VERSION="7.6"
 MAJOR_VERSION=${1:-$DEFAULT_VERSION}
 echo "major version: $MAJOR_VERSION"
 
@@ -40,13 +40,13 @@ case "${MAJOR_VERSION}" in
 6.8) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+          docker.elastic.co/elasticsearch/elasticsearch:6.8.8
      MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
      ;;
-7.5) docker run -d -p 9200:9200 \
+7.6) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+          docker.elastic.co/elasticsearch/elasticsearch:7.6.2
      MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
      SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
