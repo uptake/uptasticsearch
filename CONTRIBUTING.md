@@ -112,7 +112,7 @@ When developing on this package, you may want to run Elasticsearch locally to sp
 
 To run the code below, you will need [Docker](https://www.docker.com/). Note that I've passed an argument to `setup_local.sh` indicating the major version of Elasticsearch I want to run. If you don't do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of `setup_local.sh` for a list of the valid arguments.
 
-```
+```shell
 # Start up Elasticsearch on localhost:9200 and seed it with data
 ./setup_local.sh 5.5
 
@@ -150,7 +150,7 @@ https://uptake.github.io/uptasticsearch/
 
 This documentation needs to be periodically, manually updated. To generate the new files for an "update the site" PR, just run the following:
 
-```
+```shell
 make gh_pages
 ```
 
@@ -160,7 +160,7 @@ Note that for now, the R project is more mature and that is the only docs we hos
 
 Build the package tarball by running the following
 
-```
+```shell
 make build_r
 ```
 
