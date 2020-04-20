@@ -50,7 +50,7 @@ case "$ES_VERSION" in
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
 
-    "6.8.6")
+    "6.8.8")
       export MAPPING_FILE=${ES6_MAPPING_FILE};
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION.deb"
       ;;
@@ -91,6 +91,13 @@ case "$ES_VERSION" in
       ;;
 
     "7.5.2")
+      export MAPPING_FILE=${ES7_MAPPING_FILE};
+      export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION-amd64.deb"
+      # overwrite SAMPLE_DATA_FILE to use the ES7-compliant data
+      export SAMPLE_DATA_FILE="${ES7_SAMPLE_DATA_FILE}"
+      ;;
+
+    "7.6.2")
       export MAPPING_FILE=${ES7_MAPPING_FILE};
       export ES_BINARY_URL="${ES5PLUS_ARCHIVE}/elasticsearch-$ES_VERSION-amd64.deb"
       # overwrite SAMPLE_DATA_FILE to use the ES7-compliant data

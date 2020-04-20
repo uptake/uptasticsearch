@@ -52,7 +52,7 @@ matrix:
       warnings_are_errors: true
       cache: packages
       env:
-        - ES_VERSION=6.8.6
+        - ES_VERSION=6.8.8
         - TASK=rpkg
     - language: r
       warnings_are_errors: true
@@ -89,6 +89,12 @@ matrix:
       cache: packages
       env:
         - ES_VERSION=7.5.2
+        - TASK=rpkg
+    - language: r
+      warnings_are_errors: true
+      cache: packages
+      env:
+        - ES_VERSION=7.6.2
         - TASK=rpkg
       after_success:
         - .ci/report_to_covr.sh
@@ -123,7 +129,7 @@ matrix:
     - language: python
       python: 3.5
       env:
-        - ES_VERSION=6.8.6
+        - ES_VERSION=6.8.8
         - TASK=pypkg
     - language: python
       python: 3.5
@@ -154,4 +160,9 @@ matrix:
       python: 3.5
       env:
         - ES_VERSION=7.5.2
+        - TASK=pypkg
+    - language: python
+      python: 3.5
+      env:
+        - ES_VERSION=7.6.2
         - TASK=pypkg
