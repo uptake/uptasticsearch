@@ -4,6 +4,7 @@
 set -e
 
 if [[ "$TASK" == "rpkg" ]]; then
+  Rscript .ci/lint_r_code.R $(pwd)
   R_PACKAGE_DIR=$(pwd)/r-pkg
   R CMD build ${R_PACKAGE_DIR}
   R CMD check \

@@ -6,7 +6,7 @@
 #' @importFrom data.table as.data.table setnames setcolorder
 #' @export
 #' @param aggs_json A character vector. If its length is greater than 1, its elements will be pasted
-#'                  together. This can contain a JSON returned from an \code{aggs} query in 
+#'                  together. This can contain a JSON returned from an \code{aggs} query in
 #'                  Elasticsearch, or a filepath or URL pointing at one.
 #' @examples
 #' # A sample raw result from an aggs query combining date_histogram and extended_stats:
@@ -85,7 +85,7 @@ chomp_aggs <- function(aggs_json = NULL) {
     outDT <- data.table::as.data.table(jsonList[["aggregations"]][[aggNames]])
 
     # Keep unpacking the nested arrays until you hit 'break'
-    while(TRUE) {
+    while (TRUE) {
         # Clean up the column names
         .clean_aggs_colnames(outDT)
 

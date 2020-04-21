@@ -7,7 +7,7 @@
 #' @param max_hits Integer. If specified, \code{es_search} will stop pulling data as soon
 #'                 as it has pulled this many hits. Default is \code{Inf}, meaning that
 #'                 all possible hits will be pulled.
-#' @param size Number of records per page of results. 
+#' @param size Number of records per page of results.
 #'             See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
 #'             Note that this will be reset to 0 if you submit a \code{query_body} with
 #'             an "aggs" request in it. Also see \code{max_hits}.
@@ -20,10 +20,10 @@
 #'               \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
 #'               for more information.
 #' @param n_cores Number of cores to distribute fetching and processing over.
-#' @param break_on_duplicates Boolean, defaults to TRUE. \code{es_search} uses the size of the 
+#' @param break_on_duplicates Boolean, defaults to TRUE. \code{es_search} uses the size of the
 #'                            final object it returns to check whether or not some data were lost
 #'                            during the processing. If you have duplicates in the source data, you
-#'                            will have to set this flag to FALSE and just trust that no data have 
+#'                            will have to set this flag to FALSE and just trust that no data have
 #'                            been lost. Sorry :( .
 #' @param ignore_scroll_restriction There is a cost associated with keeping an
 #'                                  Elasticsearch scroll context open. By default,
@@ -80,7 +80,7 @@ es_search <- function(es_host
                       , query_body = '{}'
                       , scroll = "5m"
                       , max_hits = Inf
-                      , n_cores = ceiling(parallel::detectCores()/2)
+                      , n_cores = ceiling(parallel::detectCores() / 2)
                       , break_on_duplicates = TRUE
                       , ignore_scroll_restriction = FALSE
                       , intermediates_dir = getwd()
@@ -241,7 +241,7 @@ es_search <- function(es_host
     es_host <- .ValidateAndFormatHost(es_host)
 
     # Protect against costly scroll settings
-    if (.ConvertToSec(scroll) > 60*60 & !ignore_scroll_restriction){
+    if (.ConvertToSec(scroll) > 60 * 60 & !ignore_scroll_restriction){
         msg <- paste0("By default, this function does not permit scroll requests ",
                       "which keep the scroll context open for more than one hour.\n",
                       "\nYou provided the following value to 'scroll': ",
@@ -737,8 +737,8 @@ es_search <- function(es_host
 # [examples]
 # \dontrun{
 # #--- Example 1: Basic Usage ---#
-# .ConvertToSec('1h') # returns 60*60 = 3600
-# .ConvertToSec('15m') # returns 60*15 = 900
+# .ConvertToSec('1h') # returns 60 * 60 = 3600
+# .ConvertToSec('15m') # returns 60 * 15 = 900
 # }
 #' @importFrom stringr str_extract
 .ConvertToSec <- function(duration_string) {

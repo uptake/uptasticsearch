@@ -7,8 +7,9 @@ The primary goal of this guide is to help you contribute to `uptasticsearch` as 
 * [Creating an Issue](#issues)
 * [Submitting a Pull Request](#prs)
 * [Testing Strategy](#testing)
-    * [Travis CI](#travis)
-    * [Running tests locally](#testing-local)
+    - [Travis CI](#travis)
+    - [Running tests locally](#testing-local)]
+        - [Checking code style](#lint)
 * [Releasing to CRAN (for maintainer)](#cran)
 
 ## Creating an Issue <a name="issues"></a>
@@ -124,6 +125,14 @@ make coverage_r
 
 # Tear down the container and remove testing files
 ./cleanup_local.sh
+```
+
+### Checking code style
+
+The R package's code style is tested with `{lintr}`. To check the code locally, r un the following
+
+```shell
+Rscript .ci/lint_r_code.R $(pwd)
 ```
 
 ## Releasing to CRAN (for maintainer) <a name="cran"></a>
