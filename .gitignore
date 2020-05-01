@@ -60,3 +60,6 @@ py-pkg/docs/_build
 # at the repo root, should protect against
 # people committing files in r-pkg
 r-pkg/docs/
+
+# backup files from command-line tools
+*.bak

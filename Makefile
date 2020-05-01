@@ -1,6 +1,4 @@
-
-
-.PHONY: docs_r r-pkg
+.PHONY: build_r coverage_r docs_r install_r test_r build_py docs_py install_py test_py gh_pages
 
 #####
 # R #
@@ -19,7 +17,7 @@ coverage_r: build_r
 	open coverage.html
 
 docs_r: build_r
-	Rscript -e "devtools::document('r-pkg/')"
+	Rscript -e "roxygen2::roxygenize('r-pkg/')"
 	Rscript -e "pkgdown::build_site('r-pkg/')"
 
 install_r: build_r

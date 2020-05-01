@@ -129,7 +129,7 @@ make coverage_r
 
 ### Checking code style
 
-The R package's code style is tested with `{lintr}`. To check the code locally, r un the following
+The R package's code style is tested with `{lintr}`. To check the code locally, run the following
 
 ```shell
 Rscript .ci/lint_r_code.R $(pwd)
@@ -157,7 +157,7 @@ Add a section for this release to `cran-comments.md`. This file holds details of
 
 Change the `Version:` field in `DESCRIPTION` to the official version you want on CRAN (should not have a trailing `.9000`).
 
-This project uses Github Pages to host a documentation site:
+This project uses GitHub Pages to host a documentation site:
 
 https://uptake.github.io/uptasticsearch/
 
@@ -167,7 +167,7 @@ This documentation needs to be periodically, manually updated. To generate the n
 make gh_pages
 ```
 
-Note that for now, the R project is more mature and that is the only docs we host on the Github Pages site.
+Note that for now, the R project is more mature and that is the only docs we host on the GitHub Pages site.
 
 **Submit to CRAN**
 
@@ -191,7 +191,7 @@ Once the submission is accepted, great! Update `cran-comments.md` and merge the 
 
 **Create a Release on GitHub**
 
-We use [the releases section](https://github.com/uptake/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `remotes::install_github()` for old versions.
+We use [the releases section](https://github.com/uptake/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `remotes:install_github()` for old versions.
 
 Navigate to https://github.com/uptake/uptasticsearch/releases/new. Click the dropdown in the "target" section, then click "recent commits". Choose the latest commit for the release PR you just merged. This will automatically create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on that commit and tell Github which revision to build when people ask for a given release.
 
