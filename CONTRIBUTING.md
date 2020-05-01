@@ -141,7 +141,7 @@ This section is intended for maintainers. It describes how to prepare an `uptast
 
 ### CRAN
 
-Once substantial time has passed or significant changes have been made to `uptasticsearch`, a new release should be pushed to [CRAN](https://cran.r-project.org). 
+Once substantial time has passed or significant changes have been made to `uptasticsearch`, a new release should be pushed to [CRAN](https://cran.r-project.org).
 
 This is the exclusively the responsibility of the package maintainer, but is documented here for our own reference and to reflect the consensus reached between the maintainer and other contributors.
 
@@ -151,9 +151,9 @@ This is a manual process, with the following steps.
 
 Open a PR with a branch name `release/v0.0.0` (replacing 0.0.0 with the actual version number).
 
-Add a section for this release to `NEWS.md`.  This file details the new features, changes, and bug fixes that occured since the last version.  
+Add a section for this release to `NEWS.md`.  This file details the new features, changes, and bug fixes that occurred since the last version.
 
-Add a section for this release to `cran-comments.md`. This file holds details of our submission comments to CRAN and their responses to our submissions.  
+Add a section for this release to `cran-comments.md`. This file holds details of our submission comments to CRAN and their responses to our submissions.
 
 Change the `Version:` field in `DESCRIPTION` to the official version you want on CRAN (should not have a trailing `.9000`).
 
@@ -181,7 +181,7 @@ Go to https://cran.r-project.org/submit.html and submit this new release! In the
 
 **Handle feedback from CRAN**
 
-The maintainer will get an email from CRAN with the status of the submission. 
+The maintainer will get an email from CRAN with the status of the submission.
 
 If the submission is not accepted, do whatever CRAN asked you to do. Update `cran-comments.md` with some comments explaining the requested changes. Rebuild the `pkgdown` site. Repeat this process until the package gets accepted.
 
@@ -203,36 +203,12 @@ The R project is also released to `conda-forge`, under the name `r-uptasticsearc
 
 `conda-forge` releases can only be done after releasing to CRAN. The details of `r-uptasticsearch` are managed in https://github.com/conda-forge/r-uptasticsearch-feedstock.
 
-1. Fork https://github.com/conda-forge/r-uptasticsearch-feedstock
-2. Clone your fork and update the recipe. Replace `jameslamb` below with your GitHub username.
+When a new version of the package is released to CRAN, `conda-forge`'s infrastructure will automatically create a pull request and update the recipe there. Merging that pull request will publish the new version to `conda-forge`.
 
-```shell
-GITHUB_USER=jameslamb
+In case you need to make bigger changes to the recipe, see the `conda-forge` documentation:
 
-git clone git@github.com:${GITHUB_USER}/r-uptasticsearch-feedstock.git
-cd r-uptasticsearch-feedstock
-
-git checkout -b new-release
-```
-
-3. Open `recipe/meta.yml`. This file was originally created by `conda skeleton cran` using [conda_r_skeleton_helper](https://github.com/bgruening/conda_r_skeleton_helper). In a typical release, you should only have to update two things:
-    a. Change the `version` to the latest version on CRAN
-    b. Update the sha256 hash of the source distribution. You can get this in R with code like this:
-
-```r
-library(openssl)
-VERSION <- "0.4.0"
-tarball <- sprintf(
-    "https://cran.r-project.org/src/contrib/uptasticsearch_%s.tar.gz"
-    , VERSION
-)
-pkg_hash <- openssl::sha256(url(tarball))
-print(as.character(pkg_hash))
-```
-
-4. This should work for typical releases, but read through `meta.yml` and check for other things that might need to be updated. For example, if `uptasticsearch`'s dependencies changed, you need to update the `requirements:` section.
-    * see [the official documentation](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html) for details on reading `meta.yml` files
-5. Commit and push your changes. Make a pull request into https://github.com/conda-forge/r-uptasticsearch-feedstock. Once that pull request is merged, all of the CI stuff set up there will publish the new package to the `conda-forge` channel.
+* [writing meta.yml files](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html)
+* [updates to CRAN-based R recipes](https://conda-forge.org/docs/maintainer/updating_pkgs.html)
 
 ### Open a new PR to begin development on the next version
 
