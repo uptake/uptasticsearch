@@ -11,7 +11,7 @@ export JAVA_APT_PKG="oracle-java8-set-default"
 # install these testing packages we need
 if [[ "$TASK" == "rpkg" ]];
 then
-  Rscript -e "install.packages(c('data.table', 'futile.logger', 'knitr', 'lintr', 'testthat', 'rmarkdown', 'uuid'), repos = 'http://cran.rstudio.com')"
+  Rscript -e "install.packages(c('assertthat', 'covr', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'lintr', 'purrr', 'rmarkdown', 'stringr', 'testthat', 'uuid'), repos = 'http://cran.rstudio.com')"
   cp test-data/* r-pkg/inst/testdata/
 fi
 
