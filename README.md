@@ -38,10 +38,16 @@ install.packages(
 )
 ```
 
+or from `conda-forge`
+
+```shell
+conda install -c conda-forge r-uptasticsearch
+```
+
 To use the development version of the package, which has the newest changes, you can install directly from GitHub
 
 ```r
-devtools::install_github(
+remotes::install_github(
   "uptake/uptasticsearch"
   , subdir = "r-pkg"
 )

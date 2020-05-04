@@ -10,7 +10,7 @@ The primary goal of this guide is to help you contribute to `uptasticsearch` as 
     - [Travis CI](#travis)
     - [Running tests locally](#testing-local)]
         - [Checking code style](#lint)
-* [Releasing to CRAN (for maintainer)](#cran)
+* [Releases](#releases)
 
 ## Creating an Issue <a name="issues"></a>
 
@@ -135,21 +135,25 @@ The R package's code style is tested with `{lintr}`. To check the code locally, 
 Rscript .ci/lint_r_code.R $(pwd)
 ```
 
-## Releasing to CRAN (for maintainer) <a name="cran"></a>
+## Releases <a name="releases"></a>
 
-Once substantial time has passed or significant changes have been made to `uptasticsearch`, a new release should be pushed to [CRAN](https://cran.r-project.org). 
+This section is intended for maintainers. It describes how to prepare an `uptasticsearch` release.
+
+### CRAN
+
+Once substantial time has passed or significant changes have been made to `uptasticsearch`, a new release should be pushed to [CRAN](https://cran.r-project.org).
 
 This is the exclusively the responsibility of the package maintainer, but is documented here for our own reference and to reflect the consensus reached between the maintainer and other contributors.
 
 This is a manual process, with the following steps.
 
-### Open a PR 
+**Open a Pull Request**
 
 Open a PR with a branch name `release/v0.0.0` (replacing 0.0.0 with the actual version number).
 
-Add a section for this release to `NEWS.md`.  This file details the new features, changes, and bug fixes that occured since the last version.  
+Add a section for this release to `NEWS.md`.  This file details the new features, changes, and bug fixes that occurred since the last version.
 
-Add a section for this release to `cran-comments.md`. This file holds details of our submission comments to CRAN and their responses to our submissions.  
+Add a section for this release to `cran-comments.md`. This file holds details of our submission comments to CRAN and their responses to our submissions.
 
 Change the `Version:` field in `DESCRIPTION` to the official version you want on CRAN (should not have a trailing `.9000`).
 
@@ -165,7 +169,7 @@ make gh_pages
 
 Note that for now, the R project is more mature and that is the only docs we host on the Github Pages site.
 
-### Submit to CRAN
+**Submit to CRAN**
 
 Build the package tarball by running the following
 
@@ -175,23 +179,36 @@ make build_r
 
 Go to https://cran.r-project.org/submit.html and submit this new release! In the upload section, upload the tarball you just built.
 
-### Handle feedback from CRAN
+**Handle feedback from CRAN**
 
-The maintainer will get an email from CRAN with the status of the submission. 
+The maintainer will get an email from CRAN with the status of the submission.
 
 If the submission is not accepted, do whatever CRAN asked you to do. Update `cran-comments.md` with some comments explaining the requested changes. Rebuild the `pkgdown` site. Repeat this process until the package gets accepted.
 
-### Merge the PR
+**Merge the Pull Request**
 
 Once the submission is accepted, great! Update `cran-comments.md` and merge the PR.
 
-### Create a Release on GitHub
+**Create a Release on GitHub**
 
-We use [the releases section](https://github.com/uptake/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `devtools::install_github()` for old versions.
+We use [the releases section](https://github.com/uptake/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `remotes::install_github()` for old versions.
 
 Navigate to https://github.com/uptake/uptasticsearch/releases/new. Click the dropdown in the "target" section, then click "recent commits". Choose the latest commit for the release PR you just merged. This will automatically create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on that commit and tell Github which revision to build when people ask for a given release.
 
 Add some notes explaining what has changed since the previous release.
+
+### conda-forge
+
+The R project is also released to `conda-forge`, under the name `r-uptasticsearch`.
+
+`conda-forge` releases can only be done after releasing to CRAN. The details of `r-uptasticsearch` are managed in https://github.com/conda-forge/r-uptasticsearch-feedstock.
+
+When a new version of the package is released to CRAN, `conda-forge`'s infrastructure will automatically create a pull request and update the recipe there. Merging that pull request will publish the new version to `conda-forge`.
+
+In case you need to make bigger changes to the recipe, see the `conda-forge` documentation:
+
+* [writing meta.yml files](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html)
+* [updates to CRAN-based R recipes](https://conda-forge.org/docs/maintainer/updating_pkgs.html)
 
 ### Open a new PR to begin development on the next version
 
