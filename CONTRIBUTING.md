@@ -191,7 +191,7 @@ Once the submission is accepted, great! Update `cran-comments.md` and merge the 
 
 **Create a Release on GitHub**
 
-We use [the releases section](https://github.com/uptake/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `remotes:install_github()` for old versions.
+We use [the releases section](https://github.com/uptake/uptasticsearch/releases) in the repo to categorize certain important commits as release checkpoints. This makes it easier for developers to associate changes in the source code with the release history on CRAN, and enables features like `remotes::install_github()` for old versions.
 
 Navigate to https://github.com/uptake/uptasticsearch/releases/new. Click the dropdown in the "target" section, then click "recent commits". Choose the latest commit for the release PR you just merged. This will automatically create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on that commit and tell Github which revision to build when people ask for a given release.
 
