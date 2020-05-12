@@ -6,23 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parse date-times from Elasticsearch records — parse_date_time() • uptasticsearch</title>
+<title>Parse date-times from Elasticsearch records — parse_date_time • uptasticsearch</title>
+
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,15 +38,15 @@
 
 
 
-<meta property="og:title" content="Parse date-times from Elasticsearch records — parse_date_time()" />
 
+<meta property="og:title" content="Parse date-times from Elasticsearch records — parse_date_time" />
 <meta property="og:description" content="Given a data.table with date-time strings,
              this function converts those dates-times to type POSIXct with the appropriate
              time zone. Assumption is that dates are of the form &quot;2016-07-25T22:15:19Z&quot;
              where T is just a separator and the last letter is a military timezone.
 This is a side-effect-free function: it returns a new data.table and the
              input data.table is unmodified." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,9 +60,10 @@ This is a side-effect-free function: it returns a new data.table and the
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -68,7 +77,7 @@ This is a side-effect-free function: it returns a new data.table and the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">uptasticsearch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.9999</span>
       </span>
     </div>
 
@@ -76,7 +85,7 @@ This is a side-effect-free function: it returns a new data.table and the
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,11 +108,10 @@ This is a side-effect-free function: it returns a new data.table and the
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/uptake/uptasticsearch">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/uptake/uptasticsearch/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -114,29 +122,28 @@ This is a side-effect-free function: it returns a new data.table and the
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Parse date-times from Elasticsearch records</h1>
-    <small class="dont-index">Source: <a href='https://github.com/uptake/uptasticsearch/blob/master/R/parse_date_time.R'><code>R/parse_date_time.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/uptake/uptasticsearch/tree/master/r-pkg/R/parse_date_time.R'><code>R/parse_date_time.R</code></a></small>
     <div class="hidden name"><code>parse_date_time.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Given a data.table with date-time strings,
              this function converts those dates-times to type POSIXct with the appropriate
              time zone. Assumption is that dates are of the form "2016-07-25T22:15:19Z"
              where T is just a separator and the last letter is a military timezone.</p>
 <p>This is a side-effect-free function: it returns a new data.table and the
              input data.table is unmodified.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>parse_date_time</span>(<span class='no'>input_df</span>, <span class='no'>date_cols</span>, <span class='kw'>assume_tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -154,23 +161,22 @@ string dates of the form "2016-07-25T22:15:19Z".</p></td>
       <td><p>Timezone to convert to if parsing fails. Default is UTC</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p><a href='https://www.timeanddate.com/time/zones/military'>https://www.timeanddate.com/time/zones/military</a></p>
 <p><a href='https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'>https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Sample es_search(), chomp_hits(), or chomp_aggs() output:</span>
-<span class='no'>someDT</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/data.table/topics/data.table'>data.table</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-                                 , <span class='kw'>company</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Apple"</span>, <span class='st'>"Apple"</span>, <span class='st'>"Banana"</span>, <span class='st'>"Banana"</span>, <span class='st'>"Cucumber"</span>)
-                                 , <span class='kw'>timestamp</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2015-03-14T09:26:53B"</span>, <span class='st'>"2015-03-14T09:26:54B"</span>
+<span class='no'>someDT</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>
+                                 , <span class='kw'>company</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Apple"</span>, <span class='st'>"Apple"</span>, <span class='st'>"Banana"</span>, <span class='st'>"Banana"</span>, <span class='st'>"Cucumber"</span>)
+                                 , <span class='kw'>timestamp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2015-03-14T09:26:53B"</span>, <span class='st'>"2015-03-14T09:26:54B"</span>
                                                  , <span class='st'>"2031-06-28T08:53:07Z"</span>, <span class='st'>"2031-06-28T08:53:08Z"</span>
                                                  , <span class='st'>"2000-01-01"</span>))
 
 <span class='co'># Note that the date field is character right now</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>someDT</span>)</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	5 obs. of  3 variables:
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>someDT</span>)</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	5 obs. of  3 variables:
 #&gt;  $ id       : int  1 2 3 4 5
 #&gt;  $ company  : chr  "Apple" "Apple" "Banana" "Banana" ...
 #&gt;  $ timestamp: chr  "2015-03-14T09:26:53B" "2015-03-14T09:26:54B" "2031-06-28T08:53:07Z" "2031-06-28T08:53:08Z" ...
@@ -179,24 +185,19 @@ string dates of the form "2016-07-25T22:15:19Z".</p></td>
 <span class='no'>someDT</span> <span class='kw'>&lt;-</span> <span class='fu'>parse_date_time</span>(<span class='kw'>input_df</span> <span class='kw'>=</span> <span class='no'>someDT</span>
                           , <span class='kw'>date_cols</span> <span class='kw'>=</span> <span class='st'>"timestamp"</span>
                           , <span class='kw'>assume_tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>someDT</span>)</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	5 obs. of  3 variables:
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>someDT</span>)</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	5 obs. of  3 variables:
 #&gt;  $ id       : int  1 2 3 4 5
 #&gt;  $ company  : chr  "Apple" "Apple" "Banana" "Banana" ...
 #&gt;  $ timestamp: POSIXct, format: "2015-03-14 07:26:53" "2015-03-14 07:26:54" ...
 #&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -204,13 +205,16 @@ string dates of the form "2016-07-25T22:15:19Z".</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
