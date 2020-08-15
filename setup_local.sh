@@ -40,13 +40,13 @@ case "${MAJOR_VERSION}" in
 6.8) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:6.8.8
+          docker.elastic.co/elasticsearch/elasticsearch:6.8.11
      MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
      ;;
-7.6) docker run -d -p 9200:9200 \
+7.8) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+          docker.elastic.co/elasticsearch/elasticsearch:7.8.1
      MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
      SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
