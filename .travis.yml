@@ -1,5 +1,5 @@
 
-dist: trusty
+dist: bionic
 
 before_install:
   - .ci/setup.sh
