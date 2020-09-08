@@ -17,4 +17,5 @@ sudo -E \
       --no-install-suggests \
       --no-install-recommends \
       install \
+          openjdk-8-jre \
           openjdk-8-jdk
