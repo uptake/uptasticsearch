@@ -1,5 +1,5 @@
 
-dist: xenial
+dist: bionic
 
 before_install:
   - .ci/setup.sh

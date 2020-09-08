@@ -17,4 +17,4 @@ sudo -E \
       --no-install-suggests \
       --no-install-recommends \
       install \
-          default-jdk
+          openjdk-8-jdk
