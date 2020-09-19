@@ -113,11 +113,11 @@ You may notice that this strategy means that `uptasticsearch` is tested for back
 
 When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We've provided some gross bash scripts at the root of this repo to help!
 
-To run the code below, you will need [Docker](https://www.docker.com/). Note that I've passed an argument to `setup_local.sh` indicating the major version of Elasticsearch I want to run. If you don't do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of `setup_local.sh` for a list of the valid arguments.
+To run the code below, you will need [Docker](https://www.docker.com/). Note that I've passed an argument to `setup_local.sh` indicating the version of Elasticsearch I want to run. Look at the source code of `setup_local.sh` for a list of the valid arguments.
 
 ```shell
 # Start up Elasticsearch on localhost:9200 and seed it with data
-./setup_local.sh 5.5
+./setup_local.sh 7.8.1
 
 # Run tests
 make test_r

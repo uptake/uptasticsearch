@@ -1,6 +1,9 @@
 
 dist: bionic
 
+services:
+  - docker
+
 before_install:
   - .ci/setup.sh
 
@@ -8,7 +11,7 @@ install:
   - .ci/install.sh
 
 before_script:
-  - .ci/seed_es_on_travis.sh
+  - setup_local.sh ${ES_VERSION}
 
 script:
   - .ci/test.sh
