@@ -11,7 +11,7 @@ install:
   - .ci/install.sh
 
 before_script:
-  - setup_local.sh ${ES_VERSION}
+  - ./setup_local.sh ${ES_VERSION}
 
 script:
   - .ci/test.sh
