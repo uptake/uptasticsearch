@@ -16,13 +16,13 @@ echo "Starting up Elasticsearch..."
 
 case "${ES_VERSION}" in
 
-1.0.0) docker run -d -p 9200:9200 barnybug/elasticsearch:1.0.0
+1.0.3) docker run -d -p 9200:9200 barnybug/elasticsearch:1.0.3
      MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
-1.7.6) docker run -d -p 9200:9200 barnybug/elasticsearch:1.7.6
+1.7.6) docker run -d -p 9200:9200 elasticsearch:1.7.6
      MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
-2.4.6) docker run -d -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:2.4.6
+2.4.6) docker run -d -p 9200:9200 elasticsearch:2.4.6
      MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 5.6.16) docker run -d -p 9200:9200 \
@@ -123,7 +123,7 @@ cp ${SAMPLE_DATA_FILE} ${TESTDIR}/sample.json
 cd ${TESTDIR}
 
 # give the cluster a chance
-sleep 15
+sleep 30
 
 # Create shakespeare index and shakespeare mapping
 curl -X PUT "http://${ES_HOST}:9200/shakespeare" \

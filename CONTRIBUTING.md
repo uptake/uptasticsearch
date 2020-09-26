@@ -91,7 +91,7 @@ The set of Elasticsearch versions this project tests against changes regularly a
 
 So, for example, as of August 2020 that meant we tested against:
 
-* 1.0.0
+* 1.0.3
 * 1.7.6
 * 2.4.6
 * 5.6.16
