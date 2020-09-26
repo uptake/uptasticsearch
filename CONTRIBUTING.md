@@ -79,8 +79,6 @@ As of this writing, this project has clients in two programming languages: [R](.
 
 The set of Elasticsearch versions this project tests against changes regularly as [new Elasticsearch versions are released](https://www.elastic.co/downloads/past-releases#elasticsearch). The strategy in this project is to test against the following Elasticsearch versions:
 
-> `uptasticsearch` is tested against Elasticsearch 1.0.0
-
 > `uptasticsearch` is tested against the most recent release in every major release stream from 1.x onwards
 
 > `uptasticsearch` is tested against the most recent maintenance release of the first and last minor releases on the prior stable version
@@ -89,7 +87,7 @@ The set of Elasticsearch versions this project tests against changes regularly a
 
 > `uptasticsearch` may be tested against specific additional intermediate versions if bugs are found in the interaction between `uptasticsearch` and those versions
 
-So, for example, as of August 2020 that meant we tested against:
+So, for example, as of September 2020 that meant we tested against:
 
 * 1.0.3
 * 1.7.6
