@@ -79,8 +79,6 @@ As of this writing, this project has clients in two programming languages: [R](.
 
 The set of Elasticsearch versions this project tests against changes regularly as [new Elasticsearch versions are released](https://www.elastic.co/downloads/past-releases#elasticsearch). The strategy in this project is to test against the following Elasticsearch versions:
 
-> `uptasticsearch` is tested against Elasticsearch 1.0.0
-
 > `uptasticsearch` is tested against the most recent release in every major release stream from 1.x onwards
 
 > `uptasticsearch` is tested against the most recent maintenance release of the first and last minor releases on the prior stable version
@@ -89,9 +87,9 @@ The set of Elasticsearch versions this project tests against changes regularly a
 
 > `uptasticsearch` may be tested against specific additional intermediate versions if bugs are found in the interaction between `uptasticsearch` and those versions
 
-So, for example, as of August 2020 that meant we tested against:
+So, for example, as of September 2020 that meant we tested against:
 
-* 1.0.0
+* 1.0.3
 * 1.7.6
 * 2.4.6
 * 5.6.16
@@ -113,11 +111,11 @@ You may notice that this strategy means that `uptasticsearch` is tested for back
 
 When developing on this package, you may want to run Elasticsearch locally to speed up the testing cycle. We've provided some gross bash scripts at the root of this repo to help!
 
-To run the code below, you will need [Docker](https://www.docker.com/). Note that I've passed an argument to `setup_local.sh` indicating the major version of Elasticsearch I want to run. If you don't do that, this script will just run the most recent major version of Elasticsearch. Look at the source code of `setup_local.sh` for a list of the valid arguments.
+To run the code below, you will need [Docker](https://www.docker.com/). Note that I've passed an argument to `setup_local.sh` indicating the version of Elasticsearch I want to run. Look at the source code of `setup_local.sh` for a list of the valid arguments.
 
 ```shell
 # Start up Elasticsearch on localhost:9200 and seed it with data
-./setup_local.sh 5.5
+./setup_local.sh 7.8.1
 
 # Run tests
 make test_r
