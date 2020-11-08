@@ -24,8 +24,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v1.7.0
         with:
           python-version: ${{ matrix.python_version }}
-      - name: Setup and run tests on Linux and macOS
-        if: matrix.os == 'macOS-latest' || matrix.os == 'ubuntu-latest'
+      - name: Setup and run tests
         shell: bash
         run: |
           export CONDA_DIR=${HOME}/miniconda3
