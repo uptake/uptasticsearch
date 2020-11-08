@@ -28,6 +28,8 @@ then
             --no-install-recommends \
             -y \
             --allow-downgrades \
+                libcurl4-openssl-dev \
+                curl \
                 devscripts \
                 r-base-dev=${R_LINUX_VERSION} \
                 texinfo \
@@ -38,6 +40,6 @@ then
                 || exit -1
     fi
 
-  Rscript -e "install.packages(c('assertthat', 'covr', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'lintr', 'purrr', 'rmarkdown', 'stringr', 'testthat', 'uuid'), repos = 'http://cran.rstudio.com', lib = '${R_LIBS}')"
-  cp test-data/* r-pkg/inst/testdata/
+    Rscript -e "install.packages(c('assertthat', 'covr', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'lintr', 'purrr', 'rmarkdown', 'stringr', 'testthat', 'uuid'), repos = 'http://cran.rstudio.com', lib = '${R_LIBS}')"
+    cp test-data/* r-pkg/inst/testdata/
 fi
