@@ -10,6 +10,8 @@ then
     export R_LINUX_VERSION="4.0.3-1.1804.0"
     export R_APT_REPO="bionic-cran40/"
 
+    mkdir -p ${R_LIBS}
+
     # installing precompiled R for Ubuntu
     # https://cran.r-project.org/bin/linux/ubuntu/#installation
     # adding steps from https://stackoverflow.com/a/56378217/3986677 to get latest version
