@@ -1,13 +1,13 @@
 # uptasticsearch
 
-[![Travis Build Status](https://img.shields.io/travis/uptake/uptasticsearch.svg?label=travis&logo=travis&branch=master)](https://travis-ci.org/uptake/uptasticsearch)
+[![GitHub Actions Build Status](https://github.com/uptake/uptasticsearch/workflows/Tests/badge.svg?branch=master)](https://github.com/uptake/uptasticsearch/actions)
 [![codecov](https://codecov.io/gh/uptake/uptasticsearch/branch/master/graph/badge.svg)](https://codecov.io/gh/uptake/uptasticsearch)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch)
 [![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) 
 
 ## Introduction
 
-`uptasticsearch` tackles the issue of getting data out of Elasticsearch and into a tabular format in R and Python. It should work for all versions of Elasticsearch from 1.0.0 onwards, but [is not regularly tested against all of them](https://github.com/uptake/uptasticsearch/blob/master/CONTRIBUTING.md#travis). If you run into a problem, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
+`uptasticsearch` tackles the issue of getting data out of Elasticsearch and into a tabular format in R and Python. It should work for all versions of Elasticsearch from 1.0.0 onwards, but [is not regularly tested against all of them](https://github.com/uptake/uptasticsearch/blob/master/CONTRIBUTING.md#gha). If you run into a problem, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
 
 # Table of contents
 

@@ -7,7 +7,7 @@ The primary goal of this guide is to help you contribute to `uptasticsearch` as 
 * [Creating an Issue](#issues)
 * [Submitting a Pull Request](#prs)
 * [Testing Strategy](#testing)
-    - [Travis CI](#travis)
+    - [GitHub Actions](#gha)
     - [Running tests locally](#testing-local)]
         - [Checking code style](#lint)
 * [Releases](#releases)
@@ -66,11 +66,11 @@ We will try to review PRs promptly and get back to you within a few days.
 
 ## Testing Strategy <a name="testing"></a>
 
-### Travis CI <a name="travis"></a>
+### GitHub Actions <a name="gha"></a>
 
-This project uses [Travis CI](https://travis-ci.org/help) to run a variety of tests on every build.
+This project uses [GitHub Actions](https://github.com/features/actions) to run a variety of tests on every build.
 
-Each Travis build actually runs many sub-builds. Those sub-builds run once for each combination of:
+Each build actually runs many sub-builds. Those sub-builds run once for each combination of:
 
 * programming language
 * Elasticsearch version
