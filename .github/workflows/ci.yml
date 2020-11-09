@@ -12,9 +12,9 @@ jobs:
       matrix:
         include:
           - task: rpkg
-            es_versin: 1.0.3
+            es_version: 1.0.3
           - task: rpkg
-            es_versin: 1.7.6
+            es_version: 1.7.6
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.3.4
@@ -28,6 +28,7 @@ jobs:
         shell: bash
         run: |
           export CONDA_DIR=${HOME}/miniconda3
+          export ES_VERSION=${{ matrix.es_version }}
           export OS_NAME="linux"
           export PATH=${CONDA_DIR}/bin:${HOME}/.local/bin:$PATH
           export TASK="${{ matrix.task }}"
