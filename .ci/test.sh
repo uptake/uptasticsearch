@@ -13,6 +13,7 @@ if [[ "$TASK" == "rpkg" ]]; then
 fi
 
 if [[ "$TASK" == "pypkg" ]]; then
+  pip install wheel
   pytest \
     --verbose \
     $(pwd)/py-pkg
