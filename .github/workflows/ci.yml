@@ -28,8 +28,9 @@ jobs:
         shell: bash
         run: |
           export CONDA_DIR=${HOME}/miniconda3
-          export TASK="${{ matrix.task }}"
+          export OS_NAME="linux"
           export PATH=${CONDA_DIR}/bin:${HOME}/.local/bin:$PATH
+          export TASK="${{ matrix.task }}"
           $GITHUB_WORKSPACE/.ci/setup.sh
           $GITHUB_WORKSPACE/.ci/install.sh
           $GITHUB_WORKSPACE/.ci/setup_local.sh ${{ matrix.es_version }}
