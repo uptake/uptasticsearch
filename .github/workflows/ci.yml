@@ -39,7 +39,7 @@ jobs:
           $GITHUB_WORKSPACE/.ci/install.sh
           $GITHUB_WORKSPACE/setup_local.sh ${{ matrix.es_version }}
           $GITHUB_WORKSPACE/.ci/test.sh
-          codecov
+          $GITHUB_WORKSPACE/.ci/report_to_covr.sh
   # https://github.community/t/is-it-possible-to-require-all-github-actions-tasks-to-pass-without-enumerating-them/117957/4?u=graingert
   all-successful:
     runs-on: ubuntu-latest
