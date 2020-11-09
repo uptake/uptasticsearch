@@ -37,7 +37,7 @@ jobs:
           export TASK="${{ matrix.task }}"
           $GITHUB_WORKSPACE/.ci/setup.sh
           $GITHUB_WORKSPACE/.ci/install.sh
-          $GITHUB_WORKSPACE/.ci/setup_local.sh ${{ matrix.es_version }}
+          $GITHUB_WORKSPACE/setup_local.sh ${{ matrix.es_version }}
           $GITHUB_WORKSPACE/.ci/test.sh
           codecov
   # https://github.community/t/is-it-possible-to-require-all-github-actions-tasks-to-pass-without-enumerating-them/117957/4?u=graingert
