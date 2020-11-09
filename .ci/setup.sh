@@ -12,17 +12,8 @@ then
 
     mkdir -p ${R_LIBS}
 
-    # installing precompiled R for Ubuntu
-    # https://cran.r-project.org/bin/linux/ubuntu/#installation
-    # adding steps from https://stackoverflow.com/a/56378217/3986677 to get latest version
-    #
     # `devscripts` is required for 'checkbashisms' (https://github.com/r-lib/actions/issues/111)
     if [[ $OS_NAME == "linux" ]]; then
-        sudo apt-key adv \
-            --keyserver keyserver.ubuntu.com \
-            --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-        sudo add-apt-repository \
-            "deb https://cloud.r-project.org/bin/linux/ubuntu ${R_APT_REPO}"
         sudo apt-get update
         sudo apt-get install \
             --no-install-recommends \
@@ -31,12 +22,6 @@ then
                 libcurl4-openssl-dev \
                 curl \
                 devscripts \
-                r-base-dev=${R_LINUX_VERSION} \
-                texinfo \
-                texlive-latex-recommended \
-                texlive-fonts-recommended \
-                texlive-fonts-extra \
-                qpdf \
                 || exit -1
     fi
 
