@@ -4,13 +4,11 @@
 set -e
 
 if [[ "$TASK" == "rpkg" ]]; then
-  R_PACKAGE_DIR=$(pwd)/r-pkg
   R CMD INSTALL \
     --clean \
-    ${R_PACKAGE_DIR}
+    $(pwd)/r-pkg
 fi
 
 if [[ "$TASK" == "pypkg" ]]; then
-  PY_PACKAGE_DIR=$(pwd)/py-pkg
-  pip install ${PY_PACKAGE_DIR}
+  pip install $(pwd)/py-pkg
 fi

@@ -5,7 +5,6 @@ set -e
 
 if [[ "$TASK" == "rpkg" ]]; then
   Rscript -e " \
-    install.packages('covr'); \
     Sys.setenv(NOT_CRAN = 'true'); \
     covr::codecov('r-pkg/') \
     "

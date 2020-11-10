@@ -5,16 +5,16 @@ set -e
 
 if [[ "$TASK" == "rpkg" ]]; then
   Rscript .ci/lint_r_code.R $(pwd)
-  R_PACKAGE_DIR=$(pwd)/r-pkg
-  R CMD build ${R_PACKAGE_DIR}
+  R CMD build $(pwd)/r-pkg
+  export _R_CHECK_CRAN_INCOMING_=false
   R CMD check \
     --as-cran \
     *.tar.gz
 fi
 
 if [[ "$TASK" == "pypkg" ]]; then
-  PY_PACKAGE_DIR=$(pwd)/py-pkg
+  pip install wheel
   pytest \
     --verbose \
-    ${PY_PACKAGE_DI}
+    $(pwd)/py-pkg
 fi
