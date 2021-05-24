@@ -36,7 +36,7 @@ case "${ES_VERSION}" in
           docker.elastic.co/elasticsearch/elasticsearch:6.0.1
      MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
     ;;
-6.8.11) docker run -d -p 9200:9200 \
+6.8.15) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
           docker.elastic.co/elasticsearch/elasticsearch:6.8.11
@@ -102,6 +102,34 @@ case "${ES_VERSION}" in
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
           docker.elastic.co/elasticsearch/elasticsearch:7.8.1
+     MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
+     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
+    ;;
+7.9.3) docker run -d -p 9200:9200 \
+          -e "discovery.type=single-node" \
+          -e "xpack.security.enabled=false" \
+          docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+     MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
+     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
+    ;;
+7.10.2) docker run -d -p 9200:9200 \
+          -e "discovery.type=single-node" \
+          -e "xpack.security.enabled=false" \
+          docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+     MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
+     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
+    ;;
+7.11.2) docker run -d -p 9200:9200 \
+          -e "discovery.type=single-node" \
+          -e "xpack.security.enabled=false" \
+          docker.elastic.co/elasticsearch/elasticsearch:7.12.2
+     MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
+     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
+    ;;
+7.12.1) docker run -d -p 9200:9200 \
+          -e "discovery.type=single-node" \
+          -e "xpack.security.enabled=false" \
+          docker.elastic.co/elasticsearch/elasticsearch:7.12.1
      MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
      SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
