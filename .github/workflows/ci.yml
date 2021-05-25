@@ -105,6 +105,9 @@ jobs:
         uses: r-lib/actions/setup-r@v1
         with:
           r-version: '4.1.0'
+      - name: set up pandoc
+        if: matrix.task == 'rpkg'
+        uses: r-lib/actions/setup-pandoc@v1
       - name: set up python
         uses: conda-incubator/setup-miniconda@v2
         with:
