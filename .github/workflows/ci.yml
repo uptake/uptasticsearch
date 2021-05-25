@@ -20,36 +20,36 @@ jobs:
           #---#
           # R #
           #---#
-          - task: rpkg
-            es_version: 1.0.3
-          - task: rpkg
-            es_version: 1.7.6
-          - task: rpkg
-            es_version: 2.4.6
-          - task: rpkg
-            es_version: 5.6.16
-          - task: rpkg
-            es_version: 6.0.1
-          - task: rpkg
-            es_version: 6.8.15
-          - task: rpkg
-            es_version: 7.1.1
-          - task: rpkg
-            es_version: 7.2.1
-          - task: rpkg
-            es_version: 7.3.2
-          - task: rpkg
-            es_version: 7.4.2
-          - task: rpkg
-            es_version: 7.5.2
-          - task: rpkg
-            es_version: 7.6.2
-          - task: rpkg
-            es_version: 7.7.1
-          - task: rpkg
-            es_version: 7.8.1
-          - task: rpkg
-            es_version: 7.9.3
+          # - task: rpkg
+          #   es_version: 1.0.3
+          # - task: rpkg
+          #   es_version: 1.7.6
+          # - task: rpkg
+          #   es_version: 2.4.6
+          # - task: rpkg
+          #   es_version: 5.6.16
+          # - task: rpkg
+          #   es_version: 6.0.1
+          # - task: rpkg
+          #   es_version: 6.8.15
+          # - task: rpkg
+          #   es_version: 7.1.1
+          # - task: rpkg
+          #   es_version: 7.2.1
+          # - task: rpkg
+          #   es_version: 7.3.2
+          # - task: rpkg
+          #   es_version: 7.4.2
+          # - task: rpkg
+          #   es_version: 7.5.2
+          # - task: rpkg
+          #   es_version: 7.6.2
+          # - task: rpkg
+          #   es_version: 7.7.1
+          # - task: rpkg
+          #   es_version: 7.8.1
+          # - task: rpkg
+          #   es_version: 7.9.3
           - task: rpkg
             es_version: 7.10.2
           - task: rpkg
@@ -59,42 +59,42 @@ jobs:
           #--------#
           # python #
           #--------#
-          - task: pypkg
-            es_version: 1.0.3
-          - task: pypkg
-            es_version: 1.7.6
-          - task: pypkg
-            es_version: 2.4.6
-          - task: pypkg
-            es_version: 5.6.16
-          - task: pypkg
-            es_version: 6.0.1
-          - task: pypkg
-            es_version: 6.8.15
-          - task: pypkg
-            es_version: 7.1.1
-          - task: pypkg
-            es_version: 7.2.1
-          - task: pypkg
-            es_version: 7.3.2
-          - task: pypkg
-            es_version: 7.4.2
-          - task: pypkg
-            es_version: 7.5.2
-          - task: pypkg
-            es_version: 7.6.2
-          - task: pypkg
-            es_version: 7.7.1
-          - task: pypkg
-            es_version: 7.8.1
-          - task: pypkg
-            es_version: 7.9.3
-          - task: pypkg
-            es_version: 7.10.2
-          - task: pypkg
-            es_version: 7.11.2
-          - task: pypkg
-            es_version: 7.12.1
+          # - task: pypkg
+          #   es_version: 1.0.3
+          # - task: pypkg
+          #   es_version: 1.7.6
+          # - task: pypkg
+          #   es_version: 2.4.6
+          # - task: pypkg
+          #   es_version: 5.6.16
+          # - task: pypkg
+          #   es_version: 6.0.1
+          # - task: pypkg
+          #   es_version: 6.8.15
+          # - task: pypkg
+          #   es_version: 7.1.1
+          # - task: pypkg
+          #   es_version: 7.2.1
+          # - task: pypkg
+          #   es_version: 7.3.2
+          # - task: pypkg
+          #   es_version: 7.4.2
+          # - task: pypkg
+          #   es_version: 7.5.2
+          # - task: pypkg
+          #   es_version: 7.6.2
+          # - task: pypkg
+          #   es_version: 7.7.1
+          # - task: pypkg
+          #   es_version: 7.8.1
+          # - task: pypkg
+          #   es_version: 7.9.3
+          # - task: pypkg
+          #   es_version: 7.10.2
+          # - task: pypkg
+          #   es_version: 7.11.2
+          # - task: pypkg
+          #   es_version: 7.12.1
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
@@ -106,7 +106,6 @@ jobs:
         with:
           r-version: '4.1.0'
       - name: set up python
-        if: matrix.task == 'pypkg'
         uses: conda-incubator/setup-miniconda@v2
         with:
           python-version: 3.7
