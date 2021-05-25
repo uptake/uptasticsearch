@@ -94,7 +94,7 @@ So, for example, as of September 2020 that meant we tested against:
 * 2.4.6
 * 5.6.16
 * 6.0.1
-* 6.8.11
+* 6.8.15
 * 7.0.1
 * 7.1.1
 * 7.2.1
@@ -104,6 +104,10 @@ So, for example, as of September 2020 that meant we tested against:
 * 7.6.2
 * 7.7.1
 * 7.8.1
+* 7.9.3
+* 7.10.2
+* 7.11.2
+* 7.12.1
 
 You may notice that this strategy means that `uptasticsearch` is tested for backwards compatibility with Elasticsearch versions which have already reached [End-of-Life](https://www.elastic.co/support/eol). For example, support for Elasticsearch 1.7.x officially ended in January 2017. We test these old versions because we know of users whose companies still run those versions, and for whom Elasticsearch upgrades are prohibitively expensive. In general, upgrades across major versions pre-6.x [require a full cluster restart](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-upgrade.html).
 
@@ -115,7 +119,7 @@ To run the code below, you will need [Docker](https://www.docker.com/). Note tha
 
 ```shell
 # Start up Elasticsearch on localhost:9200 and seed it with data
-./setup_local.sh 7.8.1
+./setup_local.sh 7.12.1
 
 # Run tests
 make test_r

@@ -31,6 +31,8 @@ jobs:
           - task: rpkg
             es_version: 6.0.1
           - task: rpkg
+            es_version: 6.8.15
+          - task: rpkg
             es_version: 7.1.1
           - task: rpkg
             es_version: 7.2.1
@@ -46,6 +48,14 @@ jobs:
             es_version: 7.7.1
           - task: rpkg
             es_version: 7.8.1
+          - task: rpkg
+            es_version: 7.9.3
+          - task: rpkg
+            es_version: 7.10.2
+          - task: rpkg
+            es_version: 7.11.2
+          - task: rpkg
+            es_version: 7.12.1
           #--------#
           # python #
           #--------#
@@ -60,6 +70,8 @@ jobs:
           - task: pypkg
             es_version: 6.0.1
           - task: pypkg
+            es_version: 6.8.15
+          - task: pypkg
             es_version: 7.1.1
           - task: pypkg
             es_version: 7.2.1
@@ -75,19 +87,29 @@ jobs:
             es_version: 7.7.1
           - task: pypkg
             es_version: 7.8.1
+          - task: pypkg
+            es_version: 7.9.3
+          - task: pypkg
+            es_version: 7.10.2
+          - task: pypkg
+            es_version: 7.11.2
+          - task: pypkg
+            es_version: 7.12.1
     steps:
       - name: checkout repository
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2
         with:
           fetch-depth: 1
       - name: set up R
         if: matrix.task == 'rpkg'
         uses: r-lib/actions/setup-r@v1
         with:
-          r-version: '4.0.3'
+          r-version: '4.1.0'
+      - name: set up pandoc
+        if: matrix.task == 'rpkg'
+        uses: r-lib/actions/setup-pandoc@v1
       - name: set up python
-        if: matrix.task == 'pypkg'
-        uses: conda-incubator/setup-miniconda@v1.7.0
+        uses: conda-incubator/setup-miniconda@v2
         with:
           python-version: 3.7
       - name: run tests
