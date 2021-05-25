@@ -39,7 +39,6 @@ Suggests:
 License: BSD_3_clause + file LICENSE
 URL: https://github.com/uptake/uptasticsearch
 BugReports: https://github.com/uptake/uptasticsearch/issues
-LazyData: TRUE
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Encoding: UTF-8
