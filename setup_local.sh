@@ -122,7 +122,7 @@ case "${ES_VERSION}" in
 7.11.2) docker run -d -p 9200:9200 \
           -e "discovery.type=single-node" \
           -e "xpack.security.enabled=false" \
-          docker.elastic.co/elasticsearch/elasticsearch:7.12.2
+          docker.elastic.co/elasticsearch/elasticsearch:7.11.2
      MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
      SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
