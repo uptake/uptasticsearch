@@ -24,6 +24,6 @@ then
 
     conda install -y -c conda-forge 'pandoc>1.12.3'
 
-    Rscript -e "install.packages(c('assertthat', 'covr', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'lintr', 'purrr', 'rmarkdown', 'stringr', 'testthat', 'uuid'), repos = 'https://cran.r-project.org'), Ncpus = parallel::detectCores())"
+    Rscript -e "install.packages(c('assertthat', 'covr', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'lintr', 'purrr', 'rmarkdown', 'stringr', 'testthat', 'uuid'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"
     cp test-data/* r-pkg/inst/testdata/
 fi
