@@ -14,7 +14,7 @@
 * One NOTE from `checking CRAN incoming feasibility ...` can be safely ignored since it's a note that notifies CRAN that this is a new maintainer/submission. 
 
 ### CRAN Response
-* Automatic checking upon CRAN submission yielded two notes. One was the "incoming feasbility..." item we mentioned above, which is not an issue. 
+* Automatic checking upon CRAN submission yielded two notes. One was the "incoming feasibility..." item we mentioned above, which is not an issue. 
 * The other note said that `Author field differs from that derived from Authors@R`. This did not arise when running `R CMD check --as-cran` locally, but it looks like "fnd" is not a supported tag for an author. Removed that tag.
 
 ## v0.0.2 - Submission 2 - (July 17, 2017)
@@ -127,7 +127,7 @@ In this submission, we changed maintainer from `james.lamb@uptake.com` to `jayla
 ## v0.4.0 - Submission 1 - (September 11, 2019)
 
 ### `R CMD check` results
-* No isses
+* No issues
 
 ### CRAN Response
 * No issues. v0.4.0 released to CRAN!

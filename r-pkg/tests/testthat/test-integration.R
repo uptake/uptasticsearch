@@ -166,7 +166,7 @@ futile.logger::flog.threshold(0)
             , ignore.order = TRUE
         )
 
-        # ther stuff we might as well test
+        # the stuff we might as well test
         expect_true(data.table::is.data.table(outDT))
         expect_true(is.numeric(outDT[, doc_count]))
         expect_true(is.character(outDT[, name_i_picked]))
@@ -200,7 +200,7 @@ futile.logger::flog.threshold(0)
 
         # Decided to check that it's coercible to an integer instead of
         # hard-coding known Elasticsearch versions so this test won't require
-        # attention or break builds if/when Elasticsearch 7 or whatever the next major verison
+        # attention or break builds if/when Elasticsearch 7 or whatever the next major version
         # is comes out
         expect_true(!is.na(as.integer(ver)), info = paste0("returned version: ", ver))
     })

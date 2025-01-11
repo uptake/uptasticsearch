@@ -641,7 +641,7 @@ es_search <- function(es_host
     log_info(sprintf("uptasticsearch thinks you are running Elasticsearch %s", version))
 
     # Parse out just the major version. We can adjust this if we find
-    # API differences that occured at the minor version level
+    # API differences that occurred at the minor version level
     major_version <- .major_version(version)
     return(major_version)
 }
