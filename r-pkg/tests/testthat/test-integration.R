@@ -2,7 +2,7 @@ context("Elasticsearch integration tests")
 
 # tests in this file are run automatically in CI and require
 # an actual Elasticsearch cluster to be up and running. For details,
-# see: https://github.com/uptake/uptasticsearch/blob/master/.github/workflows/ci.yml
+# see: https://github.com/uptake/uptasticsearch/blob/main/.github/workflows/ci.yml
 
 # Sample data from:
 # - https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html

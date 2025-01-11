@@ -57,7 +57,7 @@ To submit a PR, please follow these steps:
 1. Fork `uptasticsearch` to your GitHub account
 2. Create a branch on your fork and add your changes
 3. If you are changing or adding to the R code in the package, add unit tests confirming that your code works as expected
-3. When you are ready, click "Compare & Pull Request". Open A PR comparing your branch to the `master` branch in this repo
+3. When you are ready, click "Compare & Pull Request". Open A PR comparing your branch to the `main` branch in this repo
 4. In the description section on your PR, please indicate the following:
     - description of what the PR is trying to do and how it improves `uptasticsearch`
     - links to any open [issues](https://github.com/uptake/uptasticsearch/issues) that your PR is addressing
