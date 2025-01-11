@@ -5,7 +5,7 @@ template:
 repo:
   url:
     home: https://github.com/uptake/uptasticsearch/
-    source: https://github.com/uptake/uptasticsearch/tree/master/r-pkg/
+    source: https://github.com/uptake/uptasticsearch/tree/main/r-pkg/
     issue: https://github.com/uptake/uptasticsearch/issues
     user: https://github.com/
 
