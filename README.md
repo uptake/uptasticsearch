@@ -7,14 +7,13 @@
 
 ## Introduction
 
-`uptasticsearch` tackles the issue of getting data out of Elasticsearch and into a tabular format in R and Python. It should work for all versions of Elasticsearch from 1.0.0 onwards, but [is not regularly tested against all of them](https://github.com/uptake/uptasticsearch/blob/master/CONTRIBUTING.md#gha). If you run into a problem, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
+`uptasticsearch` tackles the issue of getting data out of Elasticsearch and into a tabular format in R. It should work for all versions of Elasticsearch from 1.0.0 onwards, but [is not regularly tested against all of them](https://github.com/uptake/uptasticsearch/blob/master/CONTRIBUTING.md#gha). If you run into a problem, please [open an issue](https://github.com/uptake/uptasticsearch/issues).
 
 # Table of contents
 
 * [How it Works](#howitworks)
 * [Installation](#installation)
     * [R](#rinstallation)
-    * [Python](#pythoninstallation)
 * [Usage Examples](#examples)
     * [Get a Batch of Documents](#example1)
     * [Aggregation Results](#example2)
@@ -51,17 +50,6 @@ remotes::install_github(
   "uptake/uptasticsearch"
   , subdir = "r-pkg"
 )
-```
-
-### Python <a name="pythoninstallation"></a>
-
-![Lifecycle Dormant](https://img.shields.io/badge/lifecycle-dormant-orange.svg)
-
-This package is not currently available on PyPi. To build the development version from source, clone this repo, then :
-
-```shell
-cd py-pkg
-pip install .
 ```
 
 ## Usage Examples <a name="examples"></a>
@@ -170,37 +158,40 @@ revenueDT <- es_search(
 )
 ```
 
-In the example above, we used the [date_histogram](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html) and [extended_stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html) aggregations. `es_search()` has built-in support for many other aggregations and combinations of aggregations, with more on the way. Please see the table below for the current status of the package. Note that names of the form "agg1 - agg2" refer to the ability to handled aggregations nested inside other aggregations.
+In the example above, we used the [date_histogram](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html) and [extended_stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-extendedstats-aggregation.html) aggregations.
+`es_search()` has built-in support for many other aggregations and combinations of aggregations, with more on the way.
+Please see the table below for the current status of the package.
+Note that names of the form "agg1 - agg2" refer to the ability to handled aggregations nested inside other aggregations.
 
-|Agg type                                     | R support?  | Python support?  |
-|:--------------------------------------------|:-----------:|:----------------:|
-|["cardinality"](http://bit.ly/2sn5Qiw)       |YES          |NO                |
-|["date_histogram"](http://bit.ly/2qIR97Z)    |YES          |NO                |
-|date_histogram - cardinality                 |YES          |NO                |
-|date_histogram - extended_stats              |YES          |NO                |
-|date_histogram - histogram                   |YES          |NO                |
-|date_histogram - percentiles                 |YES          |NO                |
-|date_histogram - significant_terms           |YES          |NO                |
-|date_histogram - stats                       |YES          |NO                |
-|date_histogram - terms                       |YES          |NO                |
-|["extended_stats"](http://bit.ly/2qKqsDU)    |YES          |NO                |
-|["histogram"](http://bit.ly/2sn4LXF)         |YES          |NO                |
-|["percentiles"](http://bit.ly/2sy4z7f)       |YES          |NO                |
-|["significant terms"](http://bit.ly/1KnhT1r) |YES          |NO                |
-|["stats"](http://bit.ly/2sn1t74)             |YES          |NO                |
-|["terms"](http://bit.ly/2mJyQ0C)             |YES          |NO                |
-|terms - cardinality                          |YES          |NO                |
-|terms - date_histogram                       |YES          |NO                |
-|terms - date_histogram - cardinality         |YES          |NO                |
-|terms - date_histogram - extended_stats      |YES          |NO                |
-|terms - date_histogram - histogram           |YES          |NO                |
-|terms - date_histogram - percentiles         |YES          |NO                |
-|terms - date_histogram - significant_terms   |YES          |NO                |
-|terms - date_histogram - stats               |YES          |NO                |
-|terms - date_histogram - terms               |YES          |NO                |
-|terms - extended_stats                       |YES          |NO                |
-|terms - histogram                            |YES          |NO                |
-|terms - percentiles                          |YES          |NO                |
-|terms - significant_terms                    |YES          |NO                |
-|terms - stats                                |YES          |NO                |
-|terms - terms                                |YES          |NO                |
+|Agg type                                     | R support?  |
+|:--------------------------------------------|:-----------:|
+|["cardinality"](http://bit.ly/2sn5Qiw)       |YES          |
+|["date_histogram"](http://bit.ly/2qIR97Z)    |YES          |
+|date_histogram - cardinality                 |YES          |
+|date_histogram - extended_stats              |YES          |
+|date_histogram - histogram                   |YES          |
+|date_histogram - percentiles                 |YES          |
+|date_histogram - significant_terms           |YES          |
+|date_histogram - stats                       |YES          |
+|date_histogram - terms                       |YES          |
+|["extended_stats"](http://bit.ly/2qKqsDU)    |YES          |
+|["histogram"](http://bit.ly/2sn4LXF)         |YES          |
+|["percentiles"](http://bit.ly/2sy4z7f)       |YES          |
+|["significant terms"](http://bit.ly/1KnhT1r) |YES          |
+|["stats"](http://bit.ly/2sn1t74)             |YES          |
+|["terms"](http://bit.ly/2mJyQ0C)             |YES          |
+|terms - cardinality                          |YES          |
+|terms - date_histogram                       |YES          |
+|terms - date_histogram - cardinality         |YES          |
+|terms - date_histogram - extended_stats      |YES          |
+|terms - date_histogram - histogram           |YES          |
+|terms - date_histogram - percentiles         |YES          |
+|terms - date_histogram - significant_terms   |YES          |
+|terms - date_histogram - stats               |YES          |
+|terms - date_histogram - terms               |YES          |
+|terms - extended_stats                       |YES          |
+|terms - histogram                            |YES          |
+|terms - percentiles                          |YES          |
+|terms - significant_terms                    |YES          |
+|terms - stats                                |YES          |
+|terms - terms                                |YES          |

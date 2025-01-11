@@ -1,4 +1,4 @@
-.PHONY: build_r coverage_r docs_r install_r test_r build_py docs_py install_py test_py gh_pages
+.PHONY: build_r coverage_r docs_r install_r test_r gh_pages
 
 #####
 # R #
@@ -25,28 +25,6 @@ install_r: build_r
 
 test_r: build_r
 	R CMD CHECK --as-cran uptasticsearch_*.tar.gz
-
-##########
-# Python #
-##########
-
-build_py:
-	cp LICENSE py-pkg/
-	cp NEWS.md py-pkg/
-	cp README.md py-pkg/
-
-docs_py:
-	# Create sphinx rst files for every package and subpackage
-	cd py-pkg && \
-	sphinx-apidoc -f -F -e -o docs uptasticsearch && \
-	cd docs && \
-	make html
-
-install_py:
-	pip install py-pkg/
-
-test_py:
-	pytest py-pkg/
 
 ###########
 # General #

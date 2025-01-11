@@ -75,7 +75,7 @@ Each build actually runs many sub-builds. Those sub-builds run once for each com
 * programming language
 * Elasticsearch version
 
-As of this writing, this project has clients in two programming languages: [R](./r-pkg) and [Python](./py-pkg).
+As of this writing, this project has clients in one programming language: [R](./r-pkg).
 
 The set of Elasticsearch versions this project tests against changes regularly as [new Elasticsearch versions are released](https://www.elastic.co/downloads/past-releases#elasticsearch). The strategy in this project is to test against the following Elasticsearch versions:
 

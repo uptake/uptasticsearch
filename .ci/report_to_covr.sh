@@ -9,7 +9,3 @@ if [[ "$TASK" == "rpkg" ]]; then
     covr::codecov('r-pkg/') \
     "
 fi
-
-if [[ "$TASK" == "pypkg" ]]; then
-  echo "This is a Python build. No post-build actions configured."
-fi

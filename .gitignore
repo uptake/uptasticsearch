@@ -51,10 +51,6 @@ r-pkg/inst/testdata/*.json
 **/dist/
 **/htmlcov/
 **/*.egg-info/
-py-pkg/LICENSE
-py-pkg/NEWS.md
-py-pkg/README.md
-py-pkg/docs/_build
 
 # As long as we're storing the pkgdown site
 # at the repo root, should protect against
