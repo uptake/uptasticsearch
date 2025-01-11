@@ -21,8 +21,6 @@ jobs:
           # R #
           #---#
           - task: rpkg
-            es_version: 1.0.3
-          - task: rpkg
             es_version: 1.7.6
           - task: rpkg
             es_version: 2.4.6
