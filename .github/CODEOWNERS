@@ -12,9 +12,6 @@
 # Default reviewers for all code
 *    @jameslamb @austin3dickey
 
-# Python package
-py-pkg/*    @ngparas @jameslamb @austin3dickey
-
 # community files
 LICENSE    @jameslamb @austin3dickey @bburns632
 CONDUCT.md    @jameslamb @austin3dickey @bburns632

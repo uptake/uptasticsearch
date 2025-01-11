@@ -11,10 +11,3 @@ if [[ "$TASK" == "rpkg" ]]; then
     --as-cran \
     *.tar.gz
 fi
-
-if [[ "$TASK" == "pypkg" ]]; then
-  pip install wheel
-  pytest \
-    --verbose \
-    $(pwd)/py-pkg
-fi

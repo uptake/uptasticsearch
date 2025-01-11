@@ -8,7 +8,3 @@ if [[ "$TASK" == "rpkg" ]]; then
     --clean \
     $(pwd)/r-pkg
 fi
-
-if [[ "$TASK" == "pypkg" ]]; then
-  pip install $(pwd)/py-pkg
-fi
