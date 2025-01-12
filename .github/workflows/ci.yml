@@ -37,7 +37,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
       - name: build package
         run: |
-          Rscript -e "install.packages(c('rmarkdown', 'knitr'), repos = 'https://cran.r-project.org')"
+          Rscript ./.ci/install-deps.R
           ./.ci/build-package.sh
           mkdir -p ./artifacts
           mv ./uptasticsearch*.tar.gz ./artifacts
