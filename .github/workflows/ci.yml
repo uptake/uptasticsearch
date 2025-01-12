@@ -37,7 +37,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
       - name: build package
         run: |
-          sh ./.ci/build-package.sh
+          ./.ci/build-package.sh
           mkdir -p ./artifacts
           mv ./uptasticsearch*.tar.gz ./artifacts
       - name: upload
