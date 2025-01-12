@@ -3,8 +3,8 @@
 # failure is a natural part of life
 set -e -u -o pipefail
 
-apt-get update
-apt-get install \
+sudo apt-get update
+sudo apt-get install \
     --no-install-recommends \
     -y \
     curl \
