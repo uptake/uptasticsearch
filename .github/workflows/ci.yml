@@ -37,7 +37,8 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
       - name: build package
         run: |
-          Rscript ./.ci/install-deps.R
+          ./.ci/setup.sh
+          Rscript ./.ci/install-build-deps.R
           ./.ci/build-package.sh
           mkdir -p ./artifacts
           mv ./uptasticsearch*.tar.gz ./artifacts
