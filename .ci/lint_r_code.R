@@ -106,4 +106,6 @@ if (issues_found > 0L) {
     print(results)
 }
 
+print("Done linting R code")
+
 quit(save = "no", status = issues_found)
