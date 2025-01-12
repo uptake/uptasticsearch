@@ -1,0 +1,22 @@
+---
+exclude: |
+    (?x)^(
+        test-data/.*
+    )$
+repos:
+  - repo: https://github.com/maxwinterstein/shfmt-py
+    rev: v3.7.0.1
+    hooks:
+      - id: shfmt
+        args: ["--indent=4", "--space-redirects", "--write"]
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        args: ["--exclude=SC2002"]
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        # additional_dependencies: [tomli]
+        # args: ["--toml", "pyproject.toml"]
