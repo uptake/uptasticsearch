@@ -29,6 +29,6 @@ test: build
 # General #
 ###########
 
-.PHONY:
+.PHONY: gh_pages
 gh_pages: docs
 	cp -R r-pkg/docs/* docs/
