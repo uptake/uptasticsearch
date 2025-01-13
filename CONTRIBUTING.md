@@ -123,10 +123,10 @@ To run the code below, you will need [Docker](https://www.docker.com/). Note tha
 ./setup_local.sh 7.12.1
 
 # Run tests
-make test_r
+make test
 
 # Get test coverage and generate coverage report
-make coverage_r
+make coverage
 
 # Tear down the container and remove testing files
 ./cleanup_local.sh
@@ -179,7 +179,7 @@ Note that for now, the R project is more mature and that is the only docs we hos
 Build the package tarball by running the following
 
 ```shell
-make build_r
+make build
 ```
 
 Go to https://cran.r-project.org/submit.html and submit this new release! In the upload section, upload the tarball you just built.
