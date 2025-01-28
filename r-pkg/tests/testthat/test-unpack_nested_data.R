@@ -8,8 +8,6 @@ if (!identical(loggerOptions, list())){
 }
 futile.logger::flog.threshold(0)
 
-context("Elasticsearch result-parsing functions")
-
 #--- unpack_nested_data
 
     # Should work with result of chomp_hits
@@ -112,4 +110,3 @@ context("Elasticsearch result-parsing functions")
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
-rm(list = ls())
