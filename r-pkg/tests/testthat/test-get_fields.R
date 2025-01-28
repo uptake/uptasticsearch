@@ -1,5 +1,3 @@
-context("get_fields")
-
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())){
@@ -115,4 +113,3 @@ futile.logger::flog.threshold(0)
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
-rm(list = ls())

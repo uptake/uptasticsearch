@@ -7,9 +7,6 @@ if (!identical(loggerOptions, list())){
 }
 futile.logger::flog.threshold(0)
 
-context("parse_date_time")
-
-
 # Correctly adjusts UTC date-times
 test_that("parse_date_time should transform the indicated date_cols to POSIXct with timezone UTC if they're given in UTC", {
     testDT <- data.table::data.table(
@@ -176,4 +173,3 @@ test_that("parse_date_time should leave the original DT unchanged", {
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
-rm(list = ls())

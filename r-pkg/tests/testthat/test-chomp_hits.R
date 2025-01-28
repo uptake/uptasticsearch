@@ -8,8 +8,6 @@ if (!identical(loggerOptions, list())){
 }
 futile.logger::flog.threshold(0)
 
-context("chomp_hits")
-
 # This is effectively a test of running elastic::Search(raw = TRUE) and passing it through chomp_hits()
 test_that("chomp_hits should work from a one-element character vector",
           {jsonString <- '{"took": 54, "timed_out": false, "_shards": {"total": 16,"successful": 16, "failed": 0},
@@ -127,4 +125,3 @@ test_that("chomp_hits should warn and delete if the resulting data is nested wit
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
-rm(list = ls())

@@ -8,8 +8,6 @@ if (!identical(loggerOptions, list())){
 }
 futile.logger::flog.threshold(0)
 
-context("chomp_aggs")
-
 # Works with 1 variable from an R string
 test_that(
     "chomp_aggs should work from an R string with one grouping variable", {
@@ -609,4 +607,3 @@ test_that("chomp_aggs should work for an empty terms result", {
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
-rm(list = ls())

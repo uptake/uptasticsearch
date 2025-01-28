@@ -1,5 +1,3 @@
-context("Elasticsearch integration tests")
-
 # tests in this file are run automatically in CI and require
 # an actual Elasticsearch cluster to be up and running. For details,
 # see: https://github.com/uptake/uptasticsearch/blob/main/.github/workflows/ci.yml
@@ -476,4 +474,3 @@ futile.logger::flog.threshold(0)
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
-rm(list = ls())

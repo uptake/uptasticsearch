@@ -8,8 +8,6 @@ if (!identical(loggerOptions, list())){
 }
 futile.logger::flog.threshold(0)
 
-context("es_search")
-
 # Should reject NULL index
 test_that("es_search should reject NULL index", {
     expect_error({
@@ -130,4 +128,3 @@ test_that(".major_version should correctly parse semver version strings", {
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
-rm(list = ls())
