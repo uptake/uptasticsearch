@@ -1,7 +1,7 @@
 
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
+if (!identical(loggerOptions, list())) {
     origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
@@ -112,7 +112,7 @@ test_that(".ValidateAndFormatHost should warn and use http if you don't give a p
 test_that(".major_version should correctly parse semver version strings", {
 
     # yay random tests
-    for (i in 1:50){
+    for (i in 1:50) {
         v1 <- as.character(sample(0:9, size = 1))
         v2 <- as.character(sample(0:9, size = 1))
         v3 <- as.character(sample(0:9, size = 1))

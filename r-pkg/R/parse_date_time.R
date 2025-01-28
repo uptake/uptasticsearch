@@ -37,10 +37,10 @@
 parse_date_time <- function(input_df
                             , date_cols
                             , assume_tz = "UTC"
-){
+) {
 
     # Break if input_df isn't actually a data.table
-    if (!data.table::is.data.table(input_df)){
+    if (!data.table::is.data.table(input_df)) {
         msg <- paste("parse_date_time expects to receive a data.table object."
                      , "You provided an object of class"
                      , paste(class(input_df), collapse = ", ")
@@ -57,7 +57,7 @@ parse_date_time <- function(input_df
     }
 
     # Break if any of the date_cols are not actually in this DT
-    if (!all(date_cols %in% names(input_df))){
+    if (!all(date_cols %in% names(input_df))) {
         not_there <- date_cols[!(date_cols %in% names(input_df))]
         msg <- paste("The following columns, which you passed to date_cols,",
                      "do not actually exist in input_df:",
@@ -107,7 +107,7 @@ parse_date_time <- function(input_df
     # nolint end
 
     # Parse dates, return POSIXct UTC dates
-    for (dateCol in date_cols){
+    for (dateCol in date_cols) {
 
         # Grab this vector to work on
         dateVec <- outDT[[dateCol]]
@@ -128,7 +128,7 @@ parse_date_time <- function(input_df
         dateTimes <- purrr::map2(
             dateTimes
             , timeZones
-            , function(dateTime, timeZone){
+            , function(dateTime, timeZone) {
                 return(as.POSIXct(dateTime, tz = timeZone))
             }
         )
