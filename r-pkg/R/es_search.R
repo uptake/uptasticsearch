@@ -84,10 +84,10 @@ es_search <- function(es_host
                       , break_on_duplicates = TRUE
                       , ignore_scroll_restriction = FALSE
                       , intermediates_dir = getwd()
-){
+) {
 
     # Check if this is an aggs or straight-up search query
-    if (!assertthat::is.string(query_body)){
+    if (!assertthat::is.string(query_body)) {
         msg <- sprintf(paste0("query_body should be a single string. ",
                               "You gave an object of length %s")
                        , length(query_body))
@@ -95,7 +95,7 @@ es_search <- function(es_host
     }
 
     # prevent NULL index
-    if (is.null(es_index)){
+    if (is.null(es_index)) {
         msg <- paste0(
             "You passed NULL to es_index. This is not supported. If you want to "
             , "search across all indices, use es_index = '_all'."
@@ -104,7 +104,7 @@ es_search <- function(es_host
     }
 
     # assign 1 core by default, if the number of cores is NA
-    if (is.na(n_cores) || !assertthat::is.count(n_cores)){
+    if (is.na(n_cores) || !assertthat::is.count(n_cores)) {
       msg <- "detectCores() returned NA. Assigning number of cores to be 1."
       log_warn(msg)
       n_cores <- 1
@@ -132,7 +132,7 @@ es_search <- function(es_host
     )
 
     # Aggregation Request
-    if (grepl('aggs', query_body)){
+    if (grepl('aggs', query_body)) {
 
         # Let them know
         msg <- paste0("es_search detected that this is an aggs request ",
@@ -235,13 +235,13 @@ es_search <- function(es_host
                      , break_on_duplicates
                      , ignore_scroll_restriction
                      , intermediates_dir
-){
+) {
 
     # Check es_host
     es_host <- .ValidateAndFormatHost(es_host)
 
     # Protect against costly scroll settings
-    if (.ConvertToSec(scroll) > 60 * 60 & !ignore_scroll_restriction){
+    if (.ConvertToSec(scroll) > 60 * 60 & !ignore_scroll_restriction) {
         msg <- paste0("By default, this function does not permit scroll requests ",
                       "which keep the scroll context open for more than one hour.\n",
                       "\nYou provided the following value to 'scroll': ",
@@ -502,7 +502,9 @@ es_search <- function(es_host
 
         # Break if we got nothing
         hitsInThisPage <- length(resultList[["hits"]][["hits"]])
-        if (hitsInThisPage == 0){break}
+        if (hitsInThisPage == 0){
+            break
+        }
 
         # If we have more to pull, get the new scroll_id
         # NOTE: http://stackoverflow.com/questions/25453872/why-does-this-elasticsearch-scan-and-scroll-keep-returning-the-same-scroll-id
@@ -532,12 +534,12 @@ es_search <- function(es_host
 .new_scroll_request <- function(es_host, scroll, scroll_id){
 
     # Set up scroll_url
-    scroll_url <- paste0(es_host, "/_search/scroll")
+    scroll_url <- paste0(es_host, "/_search/scroll")  # nolint[absolute_path,non_portable_path]
 
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = scroll_url
         , body = sprintf('{"scroll": "%s", "scroll_id": "%s"}', scroll, scroll_id)
     )
@@ -556,7 +558,7 @@ es_search <- function(es_host
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = scroll_url
         , body = scroll_id
     )
@@ -631,7 +633,7 @@ es_search <- function(es_host
     log_info("Checking Elasticsearch version...")
     result <- httr::RETRY(
         verb = "GET"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = es_host
     )
     httr::stop_for_status(result)
@@ -716,7 +718,7 @@ es_search <- function(es_host
     # Make request
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = reqURL
         , body = query_body
     )

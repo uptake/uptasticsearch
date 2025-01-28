@@ -52,7 +52,7 @@ get_fields <- function(es_host
         log_warn(sprintf(
             paste0(
                 "You are running Elasticsearch version '%s.x'. _all is not supported in this version."
-                , " Pulling all indices with 'POST /_cat/indices' for you."
+                , " Pulling all indices with 'POST /_cat/indices' for you."  # nolint[non_portable_path]
             )
             , major_version
         ))
@@ -87,7 +87,7 @@ get_fields <- function(es_host
     result <- httr::RETRY(
         verb = "GET"
         , url = es_url
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
     )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'parsed')
@@ -106,7 +106,7 @@ get_fields <- function(es_host
                         index = index_name
                         , type = NA_character_
                         , field = names(props)
-                        , data_type = sapply(props, function(x){x$type})
+                        , data_type = sapply(props, function(x){x$type})  # nolint[open_curly]
                     )
                     return(thisIndexDT)
                 }
@@ -199,13 +199,13 @@ get_fields <- function(es_host
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
-    url <- paste0(es_host, '/_cat/aliases')
+    url <- paste0(es_host, '/_cat/aliases')  # nolint[absolute_path, non_portable_path]
 
     # make the request
     result <- httr::RETRY(
         verb = "GET"
         , url = url
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
     )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'text')

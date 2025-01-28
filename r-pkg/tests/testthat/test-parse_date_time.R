@@ -126,7 +126,7 @@ test_that("parse_date_time should give an informative error if you don't pass it
 
     expect_error({
         parse_date_time(testDF, date_cols = "dateTime")
-    }, regexp = "parse_date_time expects to receive a data\\.table object")
+    }, regexp = "parse_date_time expects to receive a data\\.table object")  # nolint[non_portable_path]
 })
 
 # Gives informative error if you ask to adjust date_cols that don't exist

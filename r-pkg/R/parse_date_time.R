@@ -78,6 +78,7 @@ parse_date_time <- function(input_df
     # Military (one-letter) times:
     # Mapping UTC to etc --> https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     tzHash <- vector("character")
+    # nolint start
     tzHash["A"] <-  "Etc/GMT-1" # UTC +1
     tzHash["B"] <-  "Etc/GMT-2" # UTC +2
     tzHash["C"] <-  "Etc/GMT-3" # UTC +3
@@ -103,6 +104,7 @@ parse_date_time <- function(input_df
     tzHash["X"] <-  "Etc/GMT+11" # UTC -11
     tzHash["Y"] <-  "Etc/GMT+12" # UTC -12
     tzHash["Z"] <-  "UTC" # UTC
+    # nolint end
 
     # Parse dates, return POSIXct UTC dates
     for (dateCol in date_cols){
@@ -111,8 +113,11 @@ parse_date_time <- function(input_df
         dateVec <- outDT[[dateCol]]
 
         # Parse out timestamps and military timezone strings
-        dateTimes <- paste0(stringr::str_extract(dateVec, "^\\d{4}-\\d{2}-\\d{2}"), " ",
-                            stringr::str_extract(dateVec, "\\d{2}:\\d{2}:\\d{2}"))
+        dateTimes <- paste0(
+            stringr::str_extract(dateVec, "^\\d{4}-\\d{2}-\\d{2}")  # nolint[non_portable_path]
+            , " "
+            , stringr::str_extract(dateVec, "\\d{2}:\\d{2}:\\d{2}")
+        )
         tzKeys <- stringr::str_extract(dateVec, "[A-Za-z]{1}$")
 
         # Grab a vector of timezones
@@ -123,7 +128,9 @@ parse_date_time <- function(input_df
         dateTimes <- purrr::map2(
             dateTimes
             , timeZones
-            , function(dateTime, timeZone){as.POSIXct(dateTime, tz = timeZone)}
+            , function(dateTime, timeZone){
+                return(as.POSIXct(dateTime, tz = timeZone))
+            }
         )
 
         utcDates <- as.POSIXct.numeric(

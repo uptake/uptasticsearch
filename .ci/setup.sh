@@ -16,6 +16,7 @@ sudo apt-get install \
     texlive-latex-recommended \
     texlive-fonts-recommended \
     texlive-fonts-extra \
+    tidy \
     qpdf
 
 Rscript -e "install.packages(c('assertthat', 'covr', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'lintr', 'purrr', 'rmarkdown', 'stringr', 'testthat', 'uuid'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"

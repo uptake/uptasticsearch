@@ -211,7 +211,7 @@ futile.logger::flog.threshold(0)
         res <- httr::RETRY(
             verb = "POST"
             , url = "http://127.0.0.1:9200/_aliases"
-            , httr::add_headers(c('Content-Type' = 'application/json'))
+            , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
             , body = sprintf(
                 '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'
                 , action
