@@ -1,6 +1,6 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
+if (!identical(loggerOptions, list())) {
     origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
@@ -11,23 +11,21 @@ futile.logger::flog.threshold(0)
 #--- get_fields
 
     # Gives an informative error if es_indices is NULL or an empty string
-    test_that("get_fields should give an informative error if es_indices is NULL or an empty string",
-              {
+    test_that("get_fields should give an informative error if es_indices is NULL or an empty string", {
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
                                           , es_indices = NULL),
                                regexp = "not greater than 0")
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
                                           , es_indices = ''),
                                regexp = "get_fields must be passed a valid es_indices")
-              }
-    )
+    })
 
     # works as expected when mocked
-    test_that('get_fields works as expected when mocked',
-              {
+    test_that('get_fields works as expected when mocked', {
                   test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
                   aliasDT <- data.table::data.table(alias = c('alias1', 'alias2')
                                                     , index = c('company', 'otherIndex'))
+                  # nolint start
                   testthat::with_mock(
                       `httr::stop_for_status` = function(...) {return(NULL)},
                       `httr::RETRY` = function(...) {return(NULL)},
@@ -49,15 +47,13 @@ futile.logger::flog.threshold(0)
                           expect_identical(outDT, expected)
                       }
                   )
-              }
-    )
-
+                  # nolint end
+    })
 
 #--- .flatten_mapping
 
     # Works if one index is passed
-    test_that(".flatten_mapping should work if the mapping for one index is provided",
-              {
+    test_that(".flatten_mapping should work if the mapping for one index is provided", {
                   test_json <- system.file("testdata", "one_index_mapping.json", package = "uptasticsearch")
                   mapping <- jsonlite::fromJSON(txt = test_json)
                   mappingDT <- uptasticsearch:::.flatten_mapping(mapping = mapping)
@@ -68,12 +64,10 @@ futile.logger::flog.threshold(0)
                       , data_type = c('keyword', 'text', 'text', 'integer', 'keyword')
                   )
                   expect_identical(mappingDT, expected)
-              }
-    )
+    })
 
     # works if multiple indices are passed
-    test_that(".flatten_mapping should work if the mapping for multiple indices are provided",
-              {
+    test_that(".flatten_mapping should work if the mapping for multiple indices are provided", {
                   test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
                   mapping <- jsonlite::fromJSON(txt = test_json)
                   mappingDT <- uptasticsearch:::.flatten_mapping(mapping = mapping)
@@ -86,30 +80,25 @@ futile.logger::flog.threshold(0)
                                       , 'text', 'keyword')
                   )
                   expect_identical(mappingDT, expected)
-              }
-    )
+    })
 
 #--- .process_alias
 
     # works if one alias is passed
-    test_that(".process_new_alias works if one alias is included",
-              {
+    test_that(".process_new_alias works if one alias is included", {
                   alias_string <- 'dwm shakespeare - - -\n'
                   aliasDT <- uptasticsearch:::.process_new_alias(alias_string = alias_string)
                   expected <- data.table::data.table(alias = 'dwm', index = 'shakespeare')
                   expect_identical(aliasDT, expected)
-              }
-    )
+    })
 
     # works if multiple aliases are passed
-    test_that(".process_new_alias works if one alias is included",
-              {
+    test_that(".process_new_alias works if one alias is included", {
                   alias_string <- 'dwm   shakespeare - - -\nmoney bank        - - -\n'
                   aliasDT <- uptasticsearch:::.process_new_alias(alias_string = alias_string)
                   expected <- data.table::data.table(alias = c('dwm', 'money'), index = c('shakespeare', 'bank'))
                   expect_identical(aliasDT, expected)
-              }
-    )
+    })
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)

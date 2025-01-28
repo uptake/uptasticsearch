@@ -1,7 +1,7 @@
 
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
+if (!identical(loggerOptions, list())) {
     origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
@@ -84,8 +84,7 @@ test_that(".ValidateAndFormatHost should break if you give it a multi-element ve
                        , regexp = "es_host should be length 1"))
 
 # .ValidateAndFormatHost should warn you and drop trailing slashes if you have them
-test_that(".ValidateAndFormatHost should handle trailing slashes",
-          {
+test_that(".ValidateAndFormatHost should handle trailing slashes", {
               # single slash
               newHost <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/")
               expect_identical(newHost, "http://mydb.mycompany.com:9200")
@@ -93,7 +92,7 @@ test_that(".ValidateAndFormatHost should handle trailing slashes",
               # objectively ridiculous number of slashes
               newHost2 <- uptasticsearch:::.ValidateAndFormatHost("http://mydb.mycompany.com:9200/////////")
               expect_identical(newHost2, "http://mydb.mycompany.com:9200")
-          })
+})
 
 # .ValidateAndFormatHost should break if you don't have a port
 test_that(".ValidateAndFormatHost should break if you don't have a port",
@@ -101,19 +100,19 @@ test_that(".ValidateAndFormatHost should break if you don't have a port",
                        , regexp = "No port found in es_host"))
 
 # .ValidateAndFormatHost should warn if you don't have a valid transfer protocol
-test_that(".ValidateAndFormatHost should warn and use http if you don't give a port",
-          {
-              # single slash
-              expect_warning({hostWithTransfer <- uptasticsearch:::.ValidateAndFormatHost("mydb.mycompany.com:9200")}
-                             , regexp = "You did not provide a transfer protocol")
-              expect_identical(hostWithTransfer, "http://mydb.mycompany.com:9200")
-          })
+test_that(".ValidateAndFormatHost should warn and use http if you don't give a port", {
+    # single slash
+    expect_warning({
+        hostWithTransfer <- uptasticsearch:::.ValidateAndFormatHost("mydb.mycompany.com:9200")
+    }, regexp = "You did not provide a transfer protocol")
+    expect_identical(hostWithTransfer, "http://mydb.mycompany.com:9200")
+})
 
 #---- .major_version
 test_that(".major_version should correctly parse semver version strings", {
 
     # yay random tests
-    for (i in 1:50){
+    for (i in 1:50) {
         v1 <- as.character(sample(0:9, size = 1))
         v2 <- as.character(sample(0:9, size = 1))
         v3 <- as.character(sample(0:9, size = 1))

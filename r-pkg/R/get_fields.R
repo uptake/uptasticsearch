@@ -36,7 +36,7 @@ get_fields <- function(es_host
     # are NULL, create an empty string
     indices <- paste(es_indices, collapse = ',')
 
-    if (nchar(indices) == 0){
+    if (nchar(indices) == 0) {
         msg <- paste("get_fields must be passed a valid es_indices."
                      , "You provided", paste(es_indices, collapse = ', ')
                      , 'which resulted in an empty string')
@@ -48,11 +48,11 @@ get_fields <- function(es_host
     )
 
     # The use of "_all" to indicate "all indices" was removed in Elasticsearch 7.
-    if (as.integer(major_version) > 6 && indices == "_all"){
+    if (as.integer(major_version) > 6 && indices == "_all") {
         log_warn(sprintf(
             paste0(
                 "You are running Elasticsearch version '%s.x'. _all is not supported in this version."
-                , " Pulling all indices with 'POST /_cat/indices' for you."
+                , " Pulling all indices with 'POST /_cat/indices' for you."  # nolint[non_portable_path]
             )
             , major_version
         ))
@@ -87,26 +87,26 @@ get_fields <- function(es_host
     result <- httr::RETRY(
         verb = "GET"
         , url = es_url
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
     )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'parsed')
 
     ######################### flatten the result ##############################
-    if (as.integer(major_version) > 6){
+    if (as.integer(major_version) > 6) {
         # As of Elasticsearch 7, indices cannot contain multiple types so the concept of
         # a "type" in a mapping is irrelevant. Maintaining the field here
         # for backwards compatibility of this function.
         mappingDT <- data.table::rbindlist(
             l = lapply(
                 X = names(resultContent)
-                , FUN = function(index_name){
+                , FUN = function(index_name) {
                     props <- resultContent[[index_name]][["mappings"]][["properties"]]
                     thisIndexDT <- data.table::data.table(
                         index = index_name
                         , type = NA_character_
                         , field = names(props)
-                        , data_type = sapply(props, function(x){x$type})
+                        , data_type = sapply(props, function(x) {x$type})  # nolint[open_curly]
                     )
                     return(thisIndexDT)
                 }
@@ -130,7 +130,7 @@ get_fields <- function(es_host
             purrr::map2(
                 .x = rawAliasDT[["index"]]
                 , .y = rawAliasDT[["alias"]]
-                , .f = function(idx_name, alias_name, mappingDT){
+                , .f = function(idx_name, alias_name, mappingDT) {
                     tmpDT <- mappingDT[index == idx_name]
                     tmpDT[, index := alias_name]
                     return(tmpDT)
@@ -199,13 +199,13 @@ get_fields <- function(es_host
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
-    url <- paste0(es_host, '/_cat/aliases')
+    url <- paste0(es_host, '/_cat/aliases')  # nolint[absolute_path, non_portable_path]
 
     # make the request
     result <- httr::RETRY(
         verb = "GET"
         , url = url
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
     )
     httr::stop_for_status(result)
     resultContent <- httr::content(result, as = 'text')
@@ -237,7 +237,7 @@ get_fields <- function(es_host
 # [alias_string] A string returned by the alias API with index and alias name
 #' @importFrom data.table as.data.table
 #' @importFrom jsonlite fromJSON
-.process_legacy_alias <- function(alias_string){
+.process_legacy_alias <- function(alias_string) {
     aliasDT <- data.table::as.data.table(
         jsonlite::fromJSON(
             alias_string

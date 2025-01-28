@@ -8,6 +8,15 @@ on:
     branches:
       - main
 
+# automatically cancel in-progress builds if another commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # parallelize compilation (extra important for Linux, where CRAN doesn't supply pre-compiled binaries)
+  MAKEFLAGS: "-j4"
+
 jobs:
   test:
     name: test (ES ${{ matrix.es_version }})

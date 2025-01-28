@@ -29,17 +29,15 @@ interactive_text <- paste0(
 )
 
 LINTERS_TO_USE <- list(
-    # "absolute_path"          = lintr::absolute_path_linter()
-    "assignment"           = lintr::assignment_linter()
-    # , "closed_curly"         = lintr::closed_curly_linter()
+    "absolute_path"          = lintr::absolute_path_linter()
+    , "assignment"           = lintr::assignment_linter()
+    , "braces"               = lintr::brace_linter()
     , "commas"               = lintr::commas_linter()
     , "equals_na"            = lintr::equals_na_linter()
     , "function_left"        = lintr::function_left_parentheses_linter()
     , "infix_spaces"         = lintr::infix_spaces_linter()
-    , "no_tabs"              = lintr::no_tab_linter()
-    # , "non_portable_path"    = lintr::nonportable_path_linter()
-    # , "open_curly"           = lintr::open_curly_linter()
-    , "semicolon"            = lintr::semicolon_terminator_linter()
+    , "non_portable_path"    = lintr::nonportable_path_linter()
+    , "semicolon"            = lintr::semicolon_linter()
     , "seq"                  = lintr::seq_linter()
     , "spaces_inside"        = lintr::spaces_inside_linter()
     , "spaces_left_parens"   = lintr::spaces_left_parentheses_linter()
@@ -72,7 +70,8 @@ LINTERS_TO_USE <- list(
             , "??" = interactive_text
         )
     )
-    , "unneeded_concatenation" = lintr::unneeded_concatenation_linter()
+    , "unnecessary_concatenation" = lintr::unnecessary_concatenation_linter()
+    , "whitespace"                = lintr::whitespace_linter()
 )
 
 cat(sprintf("Found %i R files to lint\n", length(FILES_TO_LINT)))

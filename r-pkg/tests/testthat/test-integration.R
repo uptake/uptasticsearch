@@ -7,7 +7,7 @@
 
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())){
+if (!identical(loggerOptions, list())) {
     origLogThreshold <- loggerOptions[[1]][['threshold']]
 } else {
     origLogThreshold <- futile.logger::INFO
@@ -131,7 +131,7 @@ futile.logger::flog.threshold(0)
         major_version <- .major_version(
             .get_es_version("http://127.0.0.1:9200")
         )
-        if (as.integer(major_version) >= 7){
+        if (as.integer(major_version) >= 7) {
             num_expected_levels <- 3
         }
         expect_true(nrow(outDT) == num_expected_levels)
@@ -207,11 +207,11 @@ futile.logger::flog.threshold(0)
 
     # set up helper function for manipulating aliases. Valid actions below are
     # "add" and "remove"
-    .alias_action <- function(action, alias_name){
+    .alias_action <- function(action, alias_name) {
         res <- httr::RETRY(
             verb = "POST"
             , url = "http://127.0.0.1:9200/_aliases"
-            , httr::add_headers(c('Content-Type' = 'application/json'))
+            , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
             , body = sprintf(
                 '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'
                 , action

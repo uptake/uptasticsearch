@@ -84,10 +84,10 @@ es_search <- function(es_host
                       , break_on_duplicates = TRUE
                       , ignore_scroll_restriction = FALSE
                       , intermediates_dir = getwd()
-){
+) {
 
     # Check if this is an aggs or straight-up search query
-    if (!assertthat::is.string(query_body)){
+    if (!assertthat::is.string(query_body)) {
         msg <- sprintf(paste0("query_body should be a single string. ",
                               "You gave an object of length %s")
                        , length(query_body))
@@ -95,7 +95,7 @@ es_search <- function(es_host
     }
 
     # prevent NULL index
-    if (is.null(es_index)){
+    if (is.null(es_index)) {
         msg <- paste0(
             "You passed NULL to es_index. This is not supported. If you want to "
             , "search across all indices, use es_index = '_all'."
@@ -104,7 +104,7 @@ es_search <- function(es_host
     }
 
     # assign 1 core by default, if the number of cores is NA
-    if (is.na(n_cores) || !assertthat::is.count(n_cores)){
+    if (is.na(n_cores) || !assertthat::is.count(n_cores)) {
       msg <- "detectCores() returned NA. Assigning number of cores to be 1."
       log_warn(msg)
       n_cores <- 1
@@ -132,7 +132,7 @@ es_search <- function(es_host
     )
 
     # Aggregation Request
-    if (grepl('aggs', query_body)){
+    if (grepl('aggs', query_body)) {
 
         # Let them know
         msg <- paste0("es_search detected that this is an aggs request ",
@@ -235,13 +235,13 @@ es_search <- function(es_host
                      , break_on_duplicates
                      , ignore_scroll_restriction
                      , intermediates_dir
-){
+) {
 
     # Check es_host
     es_host <- .ValidateAndFormatHost(es_host)
 
     # Protect against costly scroll settings
-    if (.ConvertToSec(scroll) > 60 * 60 & !ignore_scroll_restriction){
+    if (.ConvertToSec(scroll) > 60 * 60 & !ignore_scroll_restriction) {
         msg <- paste0("By default, this function does not permit scroll requests ",
                       "which keep the scroll context open for more than one hour.\n",
                       "\nYou provided the following value to 'scroll': ",
@@ -300,7 +300,7 @@ es_search <- function(es_host
     firstResult <- jsonlite::fromJSON(firstResultJSON, simplifyVector = FALSE)
 
     major_version <- .get_es_version(es_host)
-    if (as.integer(major_version) > 6){
+    if (as.integer(major_version) > 6) {
       hits_to_pull <- min(firstResult[["hits"]][["total"]][["value"]], max_hits)
     } else {
       hits_to_pull <- min(firstResult[["hits"]][["total"]], max_hits)
@@ -366,7 +366,7 @@ es_search <- function(es_host
 
     # If the user requested 1 core, just run single-threaded.
     # Not worth the overhead of setting up the cluster.
-    if (n_cores == 1){
+    if (n_cores == 1) {
         outDT <- data.table::rbindlist(
             lapply(tempFiles
                    , FUN = .read_and_parse_tempfile
@@ -377,7 +377,7 @@ es_search <- function(es_host
     } else {
 
         # Set up cluster. Note that Fork clusters cannot be used on Windows
-        if (grepl('windows', Sys.info()[['sysname']], ignore.case = TRUE)){
+        if (grepl('windows', Sys.info()[['sysname']], ignore.case = TRUE)) {
             cl <- parallel::makePSOCKcluster(names = n_cores)
         } else {
             cl <- parallel::makeForkCluster(nnodes = n_cores)
@@ -408,7 +408,7 @@ es_search <- function(es_host
     outDT <- unique(outDT, by = "_id")
 
     # Check we got the number of unique records we expected
-    if (nrow(outDT) < hits_to_pull && break_on_duplicates){
+    if (nrow(outDT) < hits_to_pull && break_on_duplicates) {
         msg <- paste0("Some data was lost during parallel pulling + writing to disk.",
                       " Expected ", hits_to_pull, " records but only got ", nrow(outDT), ".",
                       " File collisions are unlikely but possible with this function.",
@@ -428,7 +428,7 @@ es_search <- function(es_host
 # [params] keep_nested_data_cols Boolean flag indicating whether or not to
 #          preserver columns that could not be flattened in the result
 #          data.table (i.e. live as arrays with duplicate keys in the result from Elasticsearch)
-.read_and_parse_tempfile <- function(file_name, keep_nested_data_cols){
+.read_and_parse_tempfile <- function(file_name, keep_nested_data_cols) {
 
     # NOTE: namespacing uptasticsearch here to prevent against weirdness
     #       when distributing this function to multiple workers in a cluster
@@ -472,7 +472,7 @@ es_search <- function(es_host
                             , scroll
                             , hits_pulled
                             , hits_to_pull
-){
+) {
 
     # Note that the old scrolling strategy was deprecated in Elasticsearch 5.x and
     # officially dropped in Elasticsearch 6.x. Need to grab the correct method here
@@ -486,7 +486,7 @@ es_search <- function(es_host
         , .new_scroll_request
     )
 
-    while (hits_pulled < max_hits){
+    while (hits_pulled < max_hits) {
 
         # Grab a page of hits, break if we got back an error.
         result <- scrolling_request(
@@ -502,7 +502,9 @@ es_search <- function(es_host
 
         # Break if we got nothing
         hitsInThisPage <- length(resultList[["hits"]][["hits"]])
-        if (hitsInThisPage == 0){break}
+        if (hitsInThisPage == 0) {
+            break
+        }
 
         # If we have more to pull, get the new scroll_id
         # NOTE: http://stackoverflow.com/questions/25453872/why-does-this-elasticsearch-scan-and-scroll-keep-returning-the-same-scroll-id
@@ -529,15 +531,15 @@ es_search <- function(es_host
 # [description] Make a scrolling request and return the result
 # [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html
 #' @importFrom httr add_headers RETRY
-.new_scroll_request <- function(es_host, scroll, scroll_id){
+.new_scroll_request <- function(es_host, scroll, scroll_id) {
 
     # Set up scroll_url
-    scroll_url <- paste0(es_host, "/_search/scroll")
+    scroll_url <- paste0(es_host, "/_search/scroll")  # nolint[absolute_path,non_portable_path]
 
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = scroll_url
         , body = sprintf('{"scroll": "%s", "scroll_id": "%s"}', scroll, scroll_id)
     )
@@ -548,7 +550,7 @@ es_search <- function(es_host
 # [name] .legacy_scroll_request
 # [description] Make a scrolling request and return the result
 #' @importFrom httr add_headers RETRY
-.legacy_scroll_request <- function(es_host, scroll, scroll_id){
+.legacy_scroll_request <- function(es_host, scroll, scroll_id) {
 
     # Set up scroll_url
     scroll_url <- paste0(es_host, "/_search/scroll?scroll=", scroll)
@@ -556,7 +558,7 @@ es_search <- function(es_host
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = scroll_url
         , body = scroll_id
     )
@@ -567,17 +569,17 @@ es_search <- function(es_host
 # [title] Check that a string is a valid host for an Elasticsearch cluster
 # [param] A string of the form [transfer_protocol][hostname]:[port].
 #         If any of those elements are missing, some defaults will be added
-.ValidateAndFormatHost <- function(es_host){
+.ValidateAndFormatHost <- function(es_host) {
 
     # es_host is a string
-    if (! is.character(es_host)){
+    if (! is.character(es_host)) {
         msg <- paste0("es_host should be a string. You gave an object of type"
                       , paste0(class(es_host), collapse = '/'))
         log_fatal(msg)
     }
 
     # es_host is length 1
-    if (! length(es_host) == 1){
+    if (! length(es_host) == 1) {
         msg <- paste0("es_host should be length 1."
                       , " You provided an object of length "
                       , length(es_host))
@@ -586,14 +588,14 @@ es_search <- function(es_host
 
     # Does not end in a slash
     trailingSlashPattern <- '/+$'
-    if (grepl(trailingSlashPattern, es_host)){
+    if (grepl(trailingSlashPattern, es_host)) {
         # Remove it
         es_host <- gsub('/+$', '', es_host)
     }
 
     # es_host has a port number
     portPattern <- ':[0-9]+$'
-    if (! grepl(portPattern, es_host) == 1){
+    if (! grepl(portPattern, es_host) == 1) {
         msg <- paste0('No port found in es_host! es_host should be a string of the'
                       , 'form [transfer_protocol][hostname]:[port]). for '
                       , 'example: "http://myindex.mysite.com:9200"')
@@ -602,7 +604,7 @@ es_search <- function(es_host
 
     # es_host has a valid transfer protocol
     protocolPattern <- '^[A-Za-z]+://'
-    if (! grepl(protocolPattern, es_host) == 1){
+    if (! grepl(protocolPattern, es_host) == 1) {
         msg <- paste0('You did not provide a transfer protocol (e.g. http://) with es_host.'
                       , 'Assuming http://...')
         log_warn(msg)
@@ -625,13 +627,13 @@ es_search <- function(es_host
 # [param] es_host A string identifying an Elasticsearch host. This should be of the form
 #         [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
 #' @importFrom httr content RETRY stop_for_status
-.get_es_version <- function(es_host){
+.get_es_version <- function(es_host) {
 
     # Hit the cluster root to get metadata
     log_info("Checking Elasticsearch version...")
     result <- httr::RETRY(
         verb = "GET"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = es_host
     )
     httr::stop_for_status(result)
@@ -652,7 +654,7 @@ es_search <- function(es_host
 # [description] Get major version from a dot-delimited version string
 # [param] version_string A dot-delimited version string
 #' @importFrom stringr str_split
-.major_version <- function(version_string){
+.major_version <- function(version_string) {
     components <- stringr::str_split(version_string, "\\.")[[1]]
     return(components[1])
 }
@@ -702,21 +704,21 @@ es_search <- function(es_host
                           , es_index
                           , trailing_args = NULL
                           , query_body
-){
+) {
 
     # Input checking
     es_host <- .ValidateAndFormatHost(es_host)
 
     # Build URL
     reqURL <- paste0(es_host, '/', es_index, '/_search')
-    if (!is.null(trailing_args)){
+    if (!is.null(trailing_args)) {
         reqURL <- paste0(reqURL, '?', paste0(trailing_args, collapse = "&"))
     }
 
     # Make request
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))
+        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
         , url = reqURL
         , body = query_body
     )
