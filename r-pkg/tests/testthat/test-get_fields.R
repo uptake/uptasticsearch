@@ -28,13 +28,23 @@ test_that("get_fields works as expected when mocked", {
         alias = c("alias1", "alias2")
         , index = c("company", "otherIndex")
     )
-    # nolint start
     testthat::with_mocked_bindings(
-        `.content` = function(...) {return(jsonlite::fromJSON(txt = test_json))},
-        `.get_aliases` = function(...) {return(aliasDT)},
-        `.get_es_version` = function(...) {return("6")},
-        `.request` = function(...) {return(NULL)},
-        `.stop_for_status` = function(...) {return(NULL)},
+        `.content` = function(...) {
+            return(jsonlite::fromJSON(txt = test_json))
+        },
+        `.get_aliases` = function(...) {
+            return(aliasDT)
+        },
+        `.get_es_version` = function(...) {
+            return("6")
+        }
+        ,
+        `.request` = function(...) {
+            return(NULL)
+        },
+        `.stop_for_status` = function(...) {
+            return(NULL)
+        },
         {
             outDT <- get_fields(
                 es_host = "http://db.mycompany.com:9200"
