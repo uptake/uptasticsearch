@@ -8,7 +8,7 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+    origLogThreshold <- loggerOptions[[1]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -123,7 +123,7 @@ futile.logger::flog.threshold(0)
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
             , max_hits = 100
-            , query = '{"aggs": {"thing": {"terms": {"field": "speaker", "size": 12}}}}'
+            , query = '{"aggs": {"thing": {"terms": {"field": "speaker", "size": 12}}}}'  # nolint[quotes]
         )
 
         expect_true(data.table::is.data.table(outDT))
@@ -153,7 +153,7 @@ futile.logger::flog.threshold(0)
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
             , max_hits = 100
-            , query = '{"aggs": {"name_i_picked": {"terms": {"field": "speaker", "size": 12}}}}'
+            , query = '{"aggs": {"name_i_picked": {"terms": {"field": "speaker", "size": 12}}}}'  # nolint[quotes]
         )
 
         # main test
@@ -181,7 +181,7 @@ futile.logger::flog.threshold(0)
             es_host = "http://127.0.0.1:9200"
             , es_index = "shakespeare"
             , max_hits = 100
-            , query = '{"aggs": {"blegh": {"terms": {"field": "nonsense_field"}}}}'
+            , query = '{"aggs": {"blegh": {"terms": {"field": "nonsense_field"}}}}'  # nolint[quotes]
         )
         expect_null(outDT)
     })
@@ -211,9 +211,9 @@ futile.logger::flog.threshold(0)
         res <- httr::RETRY(
             verb = "POST"
             , url = "http://127.0.0.1:9200/_aliases"
-            , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
+            , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
             , body = sprintf(
-                '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'
+                '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'  # nolint[quotes]
                 , action
                 , alias_name
             )
@@ -314,9 +314,9 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         # create an alias
-        .alias_action('add', 'the_test_alias')
-        .alias_action('add', 'the_best_alias')
-        .alias_action('add', 'the_nest_alias')
+        .alias_action("add", "the_test_alias")
+        .alias_action("add", "the_best_alias")
+        .alias_action("add", "the_nest_alias")
 
         # get_aliases should work
         resultDT <- .get_aliases("http://127.0.0.1:9200")
@@ -363,12 +363,12 @@ futile.logger::flog.threshold(0)
 
         # since we aliased the same index three times, the subsections should all be identical
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_nest_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_nest_alias", .(type, field, data_type)]
         ))
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_test_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_test_alias", .(type, field, data_type)]
         ))
 
         # get_fields should work targeting a specific index with aliases
@@ -400,18 +400,18 @@ futile.logger::flog.threshold(0)
 
         # since we aliased the same index three times, the subsections should all be identical
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_nest_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_nest_alias", .(type, field, data_type)]
         ))
         expect_true(identical(
-            fieldDT[index == 'the_best_alias', .(type, field, data_type)]
-            , fieldDT[index == 'the_test_alias', .(type, field, data_type)]
+            fieldDT[index == "the_best_alias", .(type, field, data_type)]
+            , fieldDT[index == "the_test_alias", .(type, field, data_type)]
         ))
 
         # delete the aliases we created (to keep tests self-contained)
-        .alias_action('remove', 'the_test_alias')
-        .alias_action('remove', 'the_best_alias')
-        .alias_action('remove', 'the_nest_alias')
+        .alias_action("remove", "the_test_alias")
+        .alias_action("remove", "the_best_alias")
+        .alias_action("remove", "the_nest_alias")
 
         # confirm that they're gone
         resultDT <- .get_aliases("http://127.0.0.1:9200")

@@ -65,22 +65,24 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
     }
 
     # Strip "_source" from all the column names because blegh
-    data.table::setnames(batchDT, gsub("_source\\.", "", names(batchDT)))
+    data.table::setnames(batchDT, gsub("_source.", "", names(batchDT), fixed = TRUE))
 
     # Warn the user if there's nested data
     colTypes <- sapply(batchDT, mode)
     if (any(colTypes == "list")) {
         if (keep_nested_data_cols) {
-            msg <- paste("Keeping the following nested data columns."
-                         , "Consider using unpack_nested_data for one:\n"
-                         , paste(names(colTypes)[colTypes == "list"]
-                                 , collapse = ", "))
+            msg <- paste(
+                "Keeping the following nested data columns."
+                , "Consider using unpack_nested_data for one:\n"
+                , toString(names(colTypes)[colTypes == "list"])
+            )
             log_info(msg)
         } else {
 
-            msg <- paste("Deleting the following nested data columns:\n"
-                         , paste(names(colTypes)[colTypes == "list"]
-                                 , collapse = ", "))
+            msg <- paste(
+                "Deleting the following nested data columns:\n"
+                , toString(names(colTypes)[colTypes == "list"])
+            )
             log_warn(msg)
             batchDT <- batchDT[, !names(colTypes[colTypes == "list"]), with = FALSE]
         }

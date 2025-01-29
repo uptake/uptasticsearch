@@ -2,7 +2,7 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+    origLogThreshold <- loggerOptions[[1]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -12,6 +12,7 @@ futile.logger::flog.threshold(0)
 
     # Should work with result of chomp_hits
     test_that("unpack_nested_data should work with the result of chomp_hits", {
+        # nolint start
         test_json <- '[{"_source":{"dateTime":"2017-01-01","username":"Austin1","details":{
                 "interactions":400,"userType":"active","appData":[{"appName":"farmville","minutes":500},
                 {"appName":"candy_crush","value":350},{"appName":"angry_birds","typovalue":422}]}}},
@@ -19,37 +20,40 @@ futile.logger::flog.threshold(0)
                 "userType":"very_active","appData":[{"appName":"minesweeper","value":28},{"appName":
                 "pokemon_go","value":190},{"appName":"pokemon_stay","value":1},{"appName":"block_dude",
                 "value":796}]}}}]'
+        # nolint end
               sampleChompedDT <- chomp_hits(test_json
                                              , keep_nested_data_cols = TRUE)
               unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
                                                , col_to_unpack = "details.appData")
               expect_true(data.table::is.data.table(unpackedDT))
               expect_equivalent(dim(unpackedDT), c(7, 8))
-              expect_named(unpackedDT, c('dateTime', 'username', 'details.interactions',
-                                         'details.userType', 'appName', 'minutes', 'value', 'typovalue'))
-              expect_identical(unpackedDT$appName, c('farmville', 'candy_crush', 'angry_birds',
-                                                     'minesweeper', 'pokemon_go', 'pokemon_stay',
-                                                     'block_dude'))
+              expect_named(unpackedDT, c("dateTime", "username", "details.interactions",
+                                         "details.userType", "appName", "minutes", "value", "typovalue"))
+              expect_identical(unpackedDT$appName, c("farmville", "candy_crush", "angry_birds",
+                                                     "minesweeper", "pokemon_go", "pokemon_stay",
+                                                     "block_dude"))
               expect_identical(unpackedDT$username, c(rep("Austin1", 3), rep("Austin2", 4)))
               expect_true(sum(is.na(unpackedDT$minutes)) == 6)
     })
 
     # Should work if the array is a simple array rather than an array of maps
     test_that("unpack_nested_data should work if the array is a simple array", {
+        # nolint start
         test_json <- '[{"_source":{"dateTime":"2017-01-01","username":"Austin1","details":{
               "interactions":400,"userType":"active","minutes":[500,350,422]}}},
               {"_source":{"dateTime":"2017-02-02","username":"Austin2","details":{"interactions":0,
               "userType":"never","minutes":[]}}},
               {"_source":{"dateTime":"2017-03-03","username":"Austin3","details":{"interactions":5,
               "userType":"very_active","minutes":[28,190,1,796]}}}]'
+        # nolint end
               sampleChompedDT <- chomp_hits(test_json
                                             , keep_nested_data_cols = TRUE)
               unpackedDT <- unpack_nested_data(chomped_df = sampleChompedDT
                                                , col_to_unpack = "details.minutes")
               expect_true(data.table::is.data.table(unpackedDT))
               expect_equivalent(dim(unpackedDT), c(8, 5))
-              expect_named(unpackedDT, c('dateTime', 'username', 'details.interactions',
-                                         'details.userType', 'details.minutes'))
+              expect_named(unpackedDT, c("dateTime", "username", "details.interactions",
+                                         "details.userType", "details.minutes"))
               expect_equivalent(unpackedDT$details.minutes, c(500, 350, 422, NA, 28, 190, 1, 796))
               expect_identical(unpackedDT$username, c(rep("Austin1", 3), "Austin2", rep("Austin3", 4)))
     })

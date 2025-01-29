@@ -1,7 +1,7 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+    origLogThreshold <- loggerOptions[[1]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -15,7 +15,7 @@ test_that("parse_date_time should transform the indicated date_cols to POSIXct w
     )
     newDT <- parse_date_time(testDT, date_cols = "dateTime")
 
-    expect_true("POSIXct" %in% class(newDT$dateTime))
+    expect_true(inherits(newDT$dateTime, "POSIXct"))
     expect_identical(
         newDT
         , data.table::data.table(
@@ -26,14 +26,14 @@ test_that("parse_date_time should transform the indicated date_cols to POSIXct w
 })
 
 # Correctly adjusts non-UTC date-times
-test_that("parse_date_time should transform the indicated date_cols to POSIXct with timezone UTC correctly even if the dates are not specified in UTC", {
+test_that("parse_date_time should transform the indicated date_cols to POSIXct with timezone UTC correctly even if the dates are not specified in UTC", {  # nolint[line_length]
     testDT <- data.table::data.table(
         id = c("a", "b", "c")
         , dateTime = c("2016-07-16T21:15:00Z", "2015-04-16T02:15:00A", "2015-03-04T15:25:00B")
     )
     newDT <- parse_date_time(testDT, date_cols = "dateTime")
 
-    expect_true("POSIXct" %in% class(newDT$dateTime))
+    expect_true(inherits(newDT$dateTime, "POSIXct"))
     expect_identical(
         newDT
         , data.table::data.table(
@@ -51,7 +51,7 @@ test_that("parse_date_time should transform the indicated date_cols to class POS
     )
     newDT <- parse_date_time(testDT, date_cols = "dateTime")
 
-    expect_true("POSIXct" %in% class(newDT$dateTime))
+    expect_true(inherits(newDT$dateTime, "POSIXct"))
     expect_identical(
         newDT
         , data.table::data.table(
@@ -71,7 +71,7 @@ test_that("parse_date_time should perform adjustments only on the columns you as
     newDT <- parse_date_time(testDT, date_cols = "dateTime")
 
     expect_true(all(c("dateTime", "otherDate") %in% names(newDT)))
-    expect_true("POSIXct" %in% class(newDT$dateTime))
+    expect_true(inherits(newDT$dateTime, "POSIXct"))
     expect_true(is.character(newDT$otherDate))
     expect_identical(
         newDT
@@ -93,8 +93,8 @@ test_that("parse_date_time should perform adjustments for multiple data columns 
     newDT <- parse_date_time(testDT, date_cols = c("dateTime", "otherDate"))
 
     expect_true(all(c("dateTime", "otherDate") %in% names(newDT)))
-    expect_true("POSIXct" %in% class(newDT$dateTime))
-    expect_true("POSIXct" %in% class(newDT$otherDate))
+    expect_true(inherits(newDT$dateTime, "POSIXct"))
+    expect_true(inherits(newDT$otherDate, "POSIXct"))
     expect_identical(
         newDT
         , data.table::data.table(
