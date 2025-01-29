@@ -32,13 +32,12 @@ Imports:
     utils,
     uuid
 Suggests:
-    covr,
     knitr,
     rmarkdown,
     testthat
 License: BSD_3_clause + file LICENSE
 URL: https://github.com/uptake/uptasticsearch
 BugReports: https://github.com/uptake/uptasticsearch/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Encoding: UTF-8

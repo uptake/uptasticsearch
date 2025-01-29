@@ -156,7 +156,7 @@ get_fields <- function(es_host
 # [title] Flatten a mapping list of field name to data type into a data.table
 # [mapping] A list of json that is returned from a request to the mappings API
 #' @importFrom data.table := data.table setnames
-#' @importFrom stringr str_detect str_split_fixed str_replace_all
+#' @importFrom stringr str_split_fixed str_replace_all
 .flatten_mapping <- function(mapping) {
 
     ######################### parse the result ###############################
