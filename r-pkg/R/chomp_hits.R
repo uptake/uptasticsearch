@@ -65,7 +65,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
     }
 
     # Strip "_source" from all the column names because blegh
-    data.table::setnames(batchDT, gsub("_source\\.", "", names(batchDT), fixed = TRUE))
+    data.table::setnames(batchDT, gsub("_source.", "", names(batchDT), fixed = TRUE))
 
     # Warn the user if there's nested data
     colTypes <- sapply(batchDT, mode)
