@@ -4,7 +4,7 @@
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
 #' @importFrom data.table := as.data.table rbindlist uniqueN
-#' @importFrom httr add_headers content RETRY stop_for_status
+#' @importFrom httr add_headers
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr map2
 #' @param es_indices A character vector that contains the names of indices for
@@ -56,14 +56,15 @@ get_fields <- function(es_host
             )
             , major_version
         ))
-        res <- httr::RETRY(
+        res <- .request(
             verb = "GET"
             , url = sprintf("%s/_cat/indices?format=json", es_url)
-            , times = 3
+            , config = list()
+            , body = NULL
         )
         indexDT <- data.table::as.data.table(
             jsonlite::fromJSON(
-                httr::content(res, "text")
+                .content(res, as = "text")
                 , simplifyDataFrame = TRUE
             )
         )
@@ -79,13 +80,14 @@ get_fields <- function(es_host
     ########################## make the query ################################
     log_info(paste("Getting indexed fields for indices:", indices))
 
-    result <- httr::RETRY(
+    result <- .request(
         verb = "GET"
         , url = es_url
-        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , body = NULL
     )
-    httr::stop_for_status(result)
-    resultContent <- httr::content(result, as = "parsed")
+    .stop_for_status(result)
+    resultContent <- .content(result, as = "parsed")
 
     ######################### flatten the result ##############################
     if (as.integer(major_version) > 6) {
@@ -190,20 +192,21 @@ get_fields <- function(es_host
 
 # [title] Get a data.table containing names of indices and aliases
 # [es_host] A string identifying an Elasticsearch host.
-#' @importFrom httr add_headers content RETRY stop_for_status
+#' @importFrom httr add_headers
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
     url <- paste0(es_host, "/_cat/aliases")  # nolint[absolute_path, non_portable_path]
 
     # make the request
-    result <- httr::RETRY(
+    result <- .request(
         verb = "GET"
         , url = url
-        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , body = NULL
     )
-    httr::stop_for_status(result)
-    resultContent <- httr::content(result, as = "text")
+    .stop_for_status(result)
+    resultContent <- .content(result, as = "text")
 
     # NOTES:
     # - with Elasticsearch 1.7.2., this returns an empty array "[]"

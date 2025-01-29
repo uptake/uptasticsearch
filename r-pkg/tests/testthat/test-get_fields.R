@@ -20,35 +20,39 @@ futile.logger::flog.threshold(0)
                                regexp = "get_fields must be passed a valid es_indices")
     })
 
-    # works as expected when mocked
-    test_that("get_fields works as expected when mocked", {
-                  test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
-                  aliasDT <- data.table::data.table(alias = c("alias1", "alias2")
-                                                    , index = c("company", "otherIndex"))
-                  # nolint start
-                  testthat::with_mock(
-                      `httr::stop_for_status` = function(...) {return(NULL)},
-                      `httr::RETRY` = function(...) {return(NULL)},
-                      `httr::content` = function(...) {return(jsonlite::fromJSON(txt = test_json))},
-                      `uptasticsearch::.get_aliases` = function(...) {return(aliasDT)},
-                      `uptasticsearch::.get_es_version` = function(...) {return("6")},
-                      {
-                          outDT <- get_fields(es_host = "http://db.mycompany.com:9200"
-                                              , es_indices = c("company", "hotel"))
-                          data.table::setkey(outDT, NULL)
-                          expected <- data.table::data.table(
-                              index = c(rep("alias1", 3), rep("hotel", 5))
-                              , type = c(rep("building", 3), rep("bed_room", 2), rep("conference_room", 3))
-                              , field = c("id", "address", "address.keyword", "num_beds", "description"
-                                          , "num_people", "purpose", "purpose.keyword")
-                              , data_type = c("long", "text", "keyword", "integer", "text", "integer"
-                                              , "text", "keyword")
-                          )
-                          expect_identical(outDT, expected)
-                      }
-                  )
-                  # nolint end
-    })
+# works as expected when mocked
+test_that("get_fields works as expected when mocked", {
+
+    test_json <- system.file("testdata", "two_index_mapping.json", package = "uptasticsearch")
+    aliasDT <- data.table::data.table(
+        alias = c("alias1", "alias2")
+        , index = c("company", "otherIndex")
+    )
+    # nolint start
+    testthat::with_mocked_bindings(
+        `.content` = function(...) {return(jsonlite::fromJSON(txt = test_json))},
+        `.get_aliases` = function(...) {return(aliasDT)},
+        `.get_es_version` = function(...) {return("6")},
+        `.request` = function(...) {return(NULL)},
+        `.stop_for_status` = function(...) {return(NULL)},
+        {
+            outDT <- get_fields(
+                es_host = "http://db.mycompany.com:9200"
+                , es_indices = c("company", "hotel")
+            )
+            data.table::setkey(outDT, NULL)
+            expected <- data.table::data.table(
+                index = c(rep("alias1", 3), rep("hotel", 5))
+                , type = c(rep("building", 3), rep("bed_room", 2), rep("conference_room", 3))
+                , field = c("id", "address", "address.keyword", "num_beds", "description"
+                            , "num_people", "purpose", "purpose.keyword")
+                , data_type = c("long", "text", "keyword", "integer", "text", "integer"
+                                , "text", "keyword")
+            )
+            expect_identical(outDT, expected)
+        }
+    )
+})
 
 #--- .flatten_mapping
 
