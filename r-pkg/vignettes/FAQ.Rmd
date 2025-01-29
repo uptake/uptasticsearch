@@ -2,13 +2,15 @@
 title: "Frequently Asked Questions"
 author: "Stephanie Kirmer"
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette:
-      toc: TRUE
+output:
+  markdown::html_format:
+    options:
+      toc: true
       toc_depth: 2
+      number_sections: true
 vignette: >
   %\VignetteIndexEntry{FAQ - Help with Uptasticsearch Functionalities}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 

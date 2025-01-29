@@ -33,7 +33,7 @@ Imports:
     uuid
 Suggests:
     knitr,
-    rmarkdown,
+    markdown,
     testthat
 License: BSD_3_clause + file LICENSE
 URL: https://github.com/uptake/uptasticsearch
