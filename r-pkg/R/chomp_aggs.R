@@ -71,7 +71,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 
         # We can grab that nested data.frame and break out right now
         outDT <- data.table::as.data.table(jsonList[["aggregations"]][[aggNames]][["buckets"]])
-        data.table::setnames(outDT, 'key', aggNames)
+        data.table::setnames(outDT, "key", aggNames)
         return(outDT)
     }
 
@@ -114,7 +114,7 @@ chomp_aggs <- function(aggs_json = NULL) {
             aggNames[length(aggNames) + 1] <- names(colTypes[colTypes == "list"])
 
             # Remove unwanted columns
-            badCols <- grep("doc_count", names(outDT))
+            badCols <- grep("doc_count", names(outDT), fixed = TRUE)
             if (length(badCols) > 0) {
                 outDT <- outDT[, !badCols, with = FALSE]
             }
@@ -124,7 +124,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 
         } else {
             # Remove unwanted columns, but keep doc_count
-            badCols <- base::setdiff(grep("doc_count", names(outDT), value = TRUE), "doc_count")
+            badCols <- base::setdiff(grep("doc_count", names(outDT), value = TRUE, fixed = TRUE), "doc_count")
             if (length(badCols) > 0) {
                 outDT <- outDT[, !badCols, with = FALSE]
             }
@@ -150,7 +150,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 # Used in chomp_aggs. Call this by reference, not assignment.
 #' @importFrom data.table setnames
 .clean_aggs_colnames <- function(DT) {
-    old <- grep("buckets", names(DT), value = TRUE)
+    old <- grep("buckets", names(DT), value = TRUE, fixed = TRUE)
     new <- gsub("\\.?buckets\\.?", "", old)
     data.table::setnames(DT, old, new)
 }
@@ -183,7 +183,7 @@ chomp_aggs <- function(aggs_json = NULL) {
     all_convertible <- all(
         vapply(
             X = as.numeric(names(aggsList[["values"]]))
-            , FUN = function(val) {
+            , FUN = function(val) {  # nolint[unnecessary_lambda]
                 return(!is.na(val))
             }
             , FUN.VALUE = TRUE
@@ -205,17 +205,17 @@ chomp_aggs <- function(aggs_json = NULL) {
 .IsSigTermsAgg <- function(aggsList) {
 
     # check 1 - has exactly two keys - "doc_count", "buckets"
-    if (! identical(sort(names(aggsList)), c('buckets', 'doc_count'))) {
+    if (! identical(sort(names(aggsList)), c("buckets", "doc_count"))) {
         return(FALSE)
     }
 
     # check 2 - "buckets" is a data.frame
-    if (!is.data.frame(aggsList[['buckets']])) {
+    if (!is.data.frame(aggsList[["buckets"]])) {
         return(FALSE)
     }
 
     # check 3 - "buckets" has at least the columns "key", "doc_count", and "bg_count"
-    if (!all(c('key', 'doc_count', 'bg_count') %in% names(aggsList[['buckets']]))) {
+    if (!all(c("key", "doc_count", "bg_count") %in% names(aggsList[["buckets"]]))) {
         return(FALSE)
     }
 

@@ -6,14 +6,14 @@
 # Also: see hadley's comments on his own post there. They're great.
 
 utils::globalVariables(c(
-    '.'
-    , '.I'
-    , '.id'
-    , 'alias'
-    , 'field'
-    , 'index'
-    , 'V1'
-    , 'V2'
+    "."
+    , ".I"
+    , ".id"
+    , "alias"
+    , "field"
+    , "index"
+    , "V1"
+    , "V2"
 ))
 
 

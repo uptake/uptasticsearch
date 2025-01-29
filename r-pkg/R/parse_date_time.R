@@ -43,7 +43,7 @@ parse_date_time <- function(input_df
     if (!data.table::is.data.table(input_df)) {
         msg <- paste("parse_date_time expects to receive a data.table object."
                      , "You provided an object of class"
-                     , paste(class(input_df), collapse = ", ")
+                     , toString(class(input_df))
                      , "to input_df.")
         log_fatal(msg)
     }
@@ -52,7 +52,7 @@ parse_date_time <- function(input_df
     if (!identical(class(date_cols), "character")) {
         msg <- paste("The date_cols argument in parse_date_time expects",
                      "a character vector of column names. You gave an object",
-                     "of class", paste(class(date_cols), collapse = ", "))
+                     "of class", toString(class(date_cols)))
         log_fatal(msg)
     }
 
@@ -61,7 +61,7 @@ parse_date_time <- function(input_df
         not_there <- date_cols[!(date_cols %in% names(input_df))]
         msg <- paste("The following columns, which you passed to date_cols,",
                      "do not actually exist in input_df:",
-                     paste(not_there, collapse = ", "))
+                     toString(not_there))
         log_fatal(msg)
     }
 

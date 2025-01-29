@@ -2,7 +2,7 @@
 # Configure logger (suppress all logs in testing)
 loggerOptions <- futile.logger::logger.options()
 if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][['threshold']]
+    origLogThreshold <- loggerOptions[[1]][["threshold"]]
 } else {
     origLogThreshold <- futile.logger::INFO
 }
@@ -10,6 +10,7 @@ futile.logger::flog.threshold(0)
 
 # This is effectively a test of running elastic::Search(raw = TRUE) and passing it through chomp_hits()
 test_that("chomp_hits should work from a one-element character vector", {
+          # nolint start
           jsonString <- '{"took": 54, "timed_out": false, "_shards": {"total": 16,"successful": 16, "failed": 0},
           "hits": {
           "total": 46872,
@@ -31,6 +32,7 @@ test_that("chomp_hits should work from a one-element character vector", {
           "_source": {"name": "Jason Varitek",  "stats" : {"yrs_played": 15, "final_season": {"avg": 0.221, "HR": 11, "R": 32},
           "full_career": {"avg": 0.256, "HR": "193", "R": 664}}}}
           ]}}'
+          # nolint end
           chompDT <- chomp_hits(hits_json = jsonString)
           expect_true(data.table::is.data.table(chompDT))
           expect_equivalent(dim(chompDT), c(5, 12))
@@ -44,6 +46,7 @@ test_that("chomp_hits should work from a one-element character vector", {
 
 # What if we're passing the hits array, not the entire result?
 test_that("chomp_hits should work with just the hits array", {
+          # nolint start
           jsonString <- '[
           {"_index": "redsawx", "_type": "ballplayer", "_id": "abc123", "_score": 0.882234,
           "_source": {"name": "David Ortiz", "stats" : {"yrs_played": 20, "final_season": {"avg": 0.315, "HR": 38, "R": 79},
@@ -61,6 +64,7 @@ test_that("chomp_hits should work with just the hits array", {
           "_source": {"name": "Jason Varitek",  "stats" : {"yrs_played": 15, "final_season": {"avg": 0.221, "HR": 11, "R": 32},
           "full_career": {"avg": 0.256, "HR": "193", "R": 664}}}}
           ]'
+          # nolint end
           chompDT <- chomp_hits(hits_json = jsonString)
           expect_true(data.table::is.data.table(chompDT))
           expect_equivalent(dim(chompDT), c(5, 12))

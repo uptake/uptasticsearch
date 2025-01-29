@@ -1,5 +1,5 @@
 library(testthat)
-library(uptasticsearch)
+library(uptasticsearch)  # nolint[unused_import]
 
 testthat::test_check(
     package = "uptasticsearch"

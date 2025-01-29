@@ -1,4 +1,4 @@
-
+# nolint start
 #' @title Execute an Elasticsearch query and get a data.table
 #' @name es_search
 #' @description Given a query and some optional parameters, \code{es_search} gets results
@@ -74,10 +74,11 @@
 #'                       , query_body = query_body)
 #' }
 #' @references \href{https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html}{Elasticsearch 6 scrolling strategy}
+# nolint end
 es_search <- function(es_host
                       , es_index
                       , size = 10000
-                      , query_body = '{}'
+                      , query_body = "{}"
                       , scroll = "5m"
                       , max_hits = Inf
                       , n_cores = ceiling(parallel::detectCores() / 2)
@@ -132,11 +133,10 @@ es_search <- function(es_host
     )
 
     # Aggregation Request
-    if (grepl('aggs', query_body)) {
+    if (grepl("aggs", query_body, fixed = TRUE)) {
 
         # Let them know
-        msg <- paste0("es_search detected that this is an aggs request ",
-                      "and will only return aggregation results.")
+        msg <- "es_search detected that this is an aggs request and will only return aggregation results."
         log_info(msg)
 
         # Get result
@@ -165,6 +165,7 @@ es_search <- function(es_host
                       , intermediates_dir = intermediates_dir))
 }
 
+# nolint start
 # [title] Use "scroll" in Elasticsearch to pull a large number of records
 # [name] .fetch_all
 # [description] Use the Elasticsearch scroll API to pull as many records as possible
@@ -225,6 +226,7 @@ es_search <- function(es_host
 #' @importFrom jsonlite fromJSON
 #' @importFrom parallel clusterMap makeForkCluster makePSOCKcluster stopCluster
 #' @importFrom uuid UUIDgenerate
+# nolint end
 .fetch_all <- function(es_host
                      , es_index
                      , size
@@ -241,7 +243,7 @@ es_search <- function(es_host
     es_host <- .ValidateAndFormatHost(es_host)
 
     # Protect against costly scroll settings
-    if (.ConvertToSec(scroll) > 60 * 60 & !ignore_scroll_restriction) {
+    if (.ConvertToSec(scroll) > 60 * 60 && !ignore_scroll_restriction) {
         msg <- paste0("By default, this function does not permit scroll requests ",
                       "which keep the scroll context open for more than one hour.\n",
                       "\nYou provided the following value to 'scroll': ",
@@ -292,7 +294,7 @@ es_search <- function(es_host
     firstResultJSON <- .search_request(
         es_host = es_host
         , es_index = es_index
-        , trailing_args = paste0('size=', size, '&scroll=', scroll)
+        , trailing_args = paste0("size=", size, "&scroll=", scroll)
         , query_body = query_body
     )
 
@@ -310,8 +312,7 @@ es_search <- function(es_host
     hits_pulled <- length(firstResult[["hits"]][["hits"]])
 
     if (hits_pulled == 0) {
-      msg <- paste0('Query is syntactically valid but 0 documents were matched. '
-                    , 'Returning NULL')
+      msg <- "Query is syntactically valid but 0 documents were matched. Returning NULL"
       log_warn(msg)
       return(invisible(NULL))
     }
@@ -377,7 +378,7 @@ es_search <- function(es_host
     } else {
 
         # Set up cluster. Note that Fork clusters cannot be used on Windows
-        if (grepl('windows', Sys.info()[['sysname']], ignore.case = TRUE)) {
+        if (grepl("windows", Sys.info()[["sysname"]], ignore.case = TRUE)) {
             cl <- parallel::makePSOCKcluster(names = n_cores)
         } else {
             cl <- parallel::makeForkCluster(nnodes = n_cores)
@@ -391,7 +392,7 @@ es_search <- function(es_host
                 , file_name = tempFiles
                 , MoreArgs = c(keep_nested_data_cols = TRUE)
                 , RECYCLE = FALSE
-                , .scheduling = 'dynamic'
+                , .scheduling = "dynamic"
             )
             , fill = TRUE
             , use.names = TRUE
@@ -508,7 +509,7 @@ es_search <- function(es_host
 
         # If we have more to pull, get the new scroll_id
         # NOTE: http://stackoverflow.com/questions/25453872/why-does-this-elasticsearch-scan-and-scroll-keep-returning-the-same-scroll-id
-        scroll_id <- resultList[['_scroll_id']]
+        scroll_id <- resultList[["_scroll_id"]]
 
         # Write out JSON to a temporary file
         write(x = resultJSON, file = file.path(out_path, paste0(uuid::UUIDgenerate(), ".json")))
@@ -517,7 +518,7 @@ es_search <- function(es_host
         hits_pulled <- hits_pulled + hitsInThisPage
 
         # Tell the people
-        msg <- sprintf('Pulled %s of %s results', hits_pulled, hits_to_pull)
+        msg <- sprintf("Pulled %s of %s results", hits_pulled, hits_to_pull)
         log_info(msg)
 
     }
@@ -539,7 +540,7 @@ es_search <- function(es_host
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
+        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = scroll_url
         , body = sprintf('{"scroll": "%s", "scroll_id": "%s"}', scroll, scroll_id)
     )
@@ -558,7 +559,7 @@ es_search <- function(es_host
     # Get the next page
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
+        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = scroll_url
         , body = scroll_id
     )
@@ -574,7 +575,7 @@ es_search <- function(es_host
     # es_host is a string
     if (! is.character(es_host)) {
         msg <- paste0("es_host should be a string. You gave an object of type"
-                      , paste0(class(es_host), collapse = '/'))
+                      , paste0(class(es_host), collapse = "/"))
         log_fatal(msg)
     }
 
@@ -587,33 +588,35 @@ es_search <- function(es_host
     }
 
     # Does not end in a slash
-    trailingSlashPattern <- '/+$'
+    trailingSlashPattern <- "/+$"
     if (grepl(trailingSlashPattern, es_host)) {
         # Remove it
-        es_host <- gsub('/+$', '', es_host)
+        es_host <- gsub("/+$", "", es_host)
     }
 
     # es_host has a port number
-    portPattern <- ':[0-9]+$'
+    portPattern <- ":[0-9]+$"
     if (! grepl(portPattern, es_host) == 1) {
-        msg <- paste0('No port found in es_host! es_host should be a string of the'
-                      , 'form [transfer_protocol][hostname]:[port]). for '
-                      , 'example: "http://myindex.mysite.com:9200"')
+        msg <- paste0("No port found in es_host! es_host should be a string of the"
+                      , "form [transfer_protocol][hostname]:[port]). for "
+                      , "example: 'http://myindex.mysite.com:9200'")
         log_fatal(msg)
     }
 
     # es_host has a valid transfer protocol
-    protocolPattern <- '^[A-Za-z]+://'
+    protocolPattern <- "^[A-Za-z]+://"
     if (! grepl(protocolPattern, es_host) == 1) {
-        msg <- paste0('You did not provide a transfer protocol (e.g. http://) with es_host.'
-                      , 'Assuming http://...')
+        msg <- "You did not provide a transfer protocol (e.g. http://) with es_host. Assuming http://..."
         log_warn(msg)
 
         # Doing this to avoid cases where you just missed a slash or something,
         # e.g. "http:/es.thing.com:9200" --> 'es.thing.com:9200'
         # This pattern should also catch IP hosts, e.g. '0.0.0.0:9200'
-        hostWithoutPartialProtocol <- stringr::str_extract(es_host, '[[A-Za-z0-9]+\\.[A-Za-z0-9]+]+\\.[A-Za-z0-9]+:[0-9]+$')
-        es_host <- paste0('http://', hostWithoutPartialProtocol)
+        hostWithoutPartialProtocol <- stringr::str_extract(
+            es_host
+            , "[[A-Za-z0-9]+\\.[A-Za-z0-9]+]+\\.[A-Za-z0-9]+:[0-9]+$"
+        )
+        es_host <- paste0("http://", hostWithoutPartialProtocol)
     }
 
     return(es_host)
@@ -633,7 +636,7 @@ es_search <- function(es_host
     log_info("Checking Elasticsearch version...")
     result <- httr::RETRY(
         verb = "GET"
-        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
+        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = es_host
     )
     httr::stop_for_status(result)
@@ -655,7 +658,7 @@ es_search <- function(es_host
 # [param] version_string A dot-delimited version string
 #' @importFrom stringr str_split
 .major_version <- function(version_string) {
-    components <- stringr::str_split(version_string, "\\.")[[1]]
+    components <- stringr::str_split(version_string, "\\.")[[1]]  # nolint[fixed_regex]
     return(components[1])
 }
 
@@ -710,15 +713,15 @@ es_search <- function(es_host
     es_host <- .ValidateAndFormatHost(es_host)
 
     # Build URL
-    reqURL <- paste0(es_host, '/', es_index, '/_search')
+    reqURL <- sprintf("%s/%s/_search", es_host, es_index)  # nolint[non_portable_path]
     if (!is.null(trailing_args)) {
-        reqURL <- paste0(reqURL, '?', paste0(trailing_args, collapse = "&"))
+        reqURL <- paste0(reqURL, "?", paste0(trailing_args, collapse = "&"))
     }
 
     # Make request
     result <- httr::RETRY(
         verb = "POST"
-        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
+        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = reqURL
         , body = query_body
     )
@@ -746,24 +749,24 @@ es_search <- function(es_host
 .ConvertToSec <- function(duration_string) {
 
     # Grab string from the end (e.g. "2d" --> "d")
-    timeUnit <- stringr::str_extract(duration_string, '[A-Za-z]+$')
+    timeUnit <- stringr::str_extract(duration_string, "[A-Za-z]+$")
 
     # Grab numeric component
-    timeNum <- as.numeric(gsub(timeUnit, '', duration_string))
+    timeNum <- as.numeric(gsub(timeUnit, "", duration_string))
 
     # Convert numeric value to seconds
     timeInSeconds <- switch(
         timeUnit
-        , 's' = timeNum
-        , 'm' = timeNum * 60
-        , 'h' = timeNum * 60 * 60
-        , 'd' = timeNum * 60 * 60 * 24
-        , 'w' = timeNum * 60 * 60 * 24 * 7
+        , "s" = timeNum
+        , "m" = timeNum * 60
+        , "h" = timeNum * 60 * 60
+        , "d" = timeNum * 60 * 60 * 24
+        , "w" = timeNum * 60 * 60 * 24 * 7
         , {
-            msg <- paste0('Could not figure out units of datemath ',
-                          'string! Only durations in seconds (s), ',
-                          'minutes (m), hours (h), days (d), or weeks (w) ',
-                          'are supported. You provided: ',
+            msg <- paste0("Could not figure out units of datemath ",
+                          "string! Only durations in seconds (s), ",
+                          "minutes (m), hours (h), days (d), or weeks (w) ",
+                          "are supported. You provided: ",
                           duration_string)
             log_fatal(msg)
         }

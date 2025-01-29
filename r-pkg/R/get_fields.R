@@ -21,7 +21,7 @@
 #'                               , es_indices = c("ticket_sales", "customers"))
 #' }
 get_fields <- function(es_host
-                       , es_indices = '_all'
+                       , es_indices = "_all"
 ) {
 
     # Input checking
@@ -34,12 +34,12 @@ get_fields <- function(es_host
 
     # collapse character vectors into comma separated strings. If any arguments
     # are NULL, create an empty string
-    indices <- paste(es_indices, collapse = ',')
+    indices <- paste(es_indices, collapse = ",")
 
     if (nchar(indices) == 0) {
         msg <- paste("get_fields must be passed a valid es_indices."
-                     , "You provided", paste(es_indices, collapse = ', ')
-                     , 'which resulted in an empty string')
+                     , "You provided", toString(es_indices)
+                     , "which resulted in an empty string")
         log_fatal(msg)
     }
 
@@ -58,12 +58,7 @@ get_fields <- function(es_host
         ))
         res <- httr::RETRY(
             verb = "GET"
-            , url = paste(
-                es_url
-                , "_cat"
-                , "indices?format=json"
-                , sep = "/"
-            )
+            , url = sprintf("%s/_cat/indices?format=json", es_url)
             , times = 3
         )
         indexDT <- data.table::as.data.table(
@@ -79,18 +74,18 @@ get_fields <- function(es_host
     }
 
     ########################## build the query ################################
-    es_url <- paste(es_url, indices, '_mapping', sep = '/')
+    es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
 
     ########################## make the query ################################
-    log_info(paste('Getting indexed fields for indices:', indices))
+    log_info(paste("Getting indexed fields for indices:", indices))
 
     result <- httr::RETRY(
         verb = "GET"
         , url = es_url
-        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
+        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
     )
     httr::stop_for_status(result)
-    resultContent <- httr::content(result, as = 'parsed')
+    resultContent <- httr::content(result, as = "parsed")
 
     ######################### flatten the result ##############################
     if (as.integer(major_version) > 6) {
@@ -153,7 +148,7 @@ get_fields <- function(es_host
     # log some information about this request to the user
     numFields <- nrow(mappingDT)
     numIndex <- mappingDT[, data.table::uniqueN(index)]
-    log_info(paste('Retrieved', numFields, 'fields across', numIndex, 'indices'))
+    log_info(paste("Retrieved", numFields, "fields across", numIndex, "indices"))
 
     return(mappingDT)
 }
@@ -171,24 +166,24 @@ get_fields <- function(es_host
     # the names of the flattened object has the index, type, and field name
     # however, it also has extra terms that we can use to split the name
     # into three distinct parts
-    mappingCols <- stringr::str_split_fixed(names(flattened), '\\.(mappings|properties)\\.', n = 3)
+    mappingCols <- stringr::str_split_fixed(names(flattened), "\\.(mappings|properties)\\.", n = 3)
 
     # convert to data.table and add the data type column
     mappingDT <- data.table::data.table(
         meta = mappingCols
         , data_type = as.character(flattened)
     )
-    newColNames <- c('index', 'type', 'field', 'data_type')
+    newColNames <- c("index", "type", "field", "data_type")
     data.table::setnames(mappingDT, newColNames)
 
-    # remove any rows, where the field does not end in ".type" to remove meta info
-    mappingDT <- mappingDT[stringr::str_detect(field, '\\.type$')]
+    # remove any rows where the field does not end in ".type" to remove meta info
+    mappingDT <- mappingDT[endsWith(field, ".type")]
 
     # mappings in nested objects have sub-fields called properties
     # mappings of fields that are indexed in different ways have multiple fields
     # we want to remove these terms from the field name
-    metaRegEx <- '\\.(properties|fields|type)'
-    mappingDT[, field := stringr::str_replace_all(field, metaRegEx, '')]
+    metaRegEx <- "\\.(properties|fields|type)"
+    mappingDT[, field := stringr::str_replace_all(field, metaRegEx, "")]
 
     return(mappingDT)
 }
@@ -199,16 +194,16 @@ get_fields <- function(es_host
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
-    url <- paste0(es_host, '/_cat/aliases')  # nolint[absolute_path, non_portable_path]
+    url <- paste0(es_host, "/_cat/aliases")  # nolint[absolute_path, non_portable_path]
 
     # make the request
     result <- httr::RETRY(
         verb = "GET"
         , url = url
-        , httr::add_headers(c('Content-Type' = 'application/json'))  # nolint[non_portable_path]
+        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
     )
     httr::stop_for_status(result)
-    resultContent <- httr::content(result, as = 'text')
+    resultContent <- httr::content(result, as = "text")
 
     # NOTES:
     # - with Elasticsearch 1.7.2., this returns an empty array "[]"
