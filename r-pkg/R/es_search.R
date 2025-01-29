@@ -222,7 +222,6 @@ es_search <- function(es_host
 # \item \href{http://stackoverflow.com/questions/25453872/why-does-this-elasticsearch-scan-and-scroll-keep-returning-the-same-scroll-id}{More background on how/why Elasticsearch generates and changes the scroll_id}
 # }
 #' @importFrom data.table rbindlist setkeyv
-#' @importFrom httr RETRY content
 #' @importFrom jsonlite fromJSON
 #' @importFrom parallel clusterMap makeForkCluster makePSOCKcluster stopCluster
 #' @importFrom uuid UUIDgenerate
@@ -463,7 +462,7 @@ es_search <- function(es_host
 #          hits_to_pull - Total hits to be pulled (documents matching user's query).
 #                       Or, in the case where max_hits < number of matching docs,
 #                       max_hits.
-#' @importFrom httr add_headers content RETRY stop_for_status
+#' @importFrom httr add_headers
 #' @importFrom jsonlite fromJSON
 #' @importFrom uuid UUIDgenerate
 .keep_on_pullin <- function(scroll_id
@@ -495,8 +494,8 @@ es_search <- function(es_host
             , scroll = scroll
             , scroll_id = scroll_id
         )
-        httr::stop_for_status(result)
-        resultJSON <- httr::content(result, as = "text")
+        .stop_for_status(result)
+        resultJSON <- .content(result, as = "text")
 
         # Parse to JSON to get total number of documents + new scroll_id
         resultList <- jsonlite::fromJSON(resultJSON, simplifyVector = FALSE)
@@ -531,17 +530,17 @@ es_search <- function(es_host
 # [name] .new_scroll_request
 # [description] Make a scrolling request and return the result
 # [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html
-#' @importFrom httr add_headers RETRY
+#' @importFrom httr add_headers
 .new_scroll_request <- function(es_host, scroll, scroll_id) {
 
     # Set up scroll_url
     scroll_url <- paste0(es_host, "/_search/scroll")  # nolint[absolute_path,non_portable_path]
 
     # Get the next page
-    result <- httr::RETRY(
+    result <- .request(
         verb = "POST"
-        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = scroll_url
+        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , body = sprintf('{"scroll": "%s", "scroll_id": "%s"}', scroll, scroll_id)
     )
     return(result)
@@ -550,17 +549,17 @@ es_search <- function(es_host
 # [title] Make a scroll request with the strategy supported by Elasticsearch 1.x and Elasticsearch 2.x
 # [name] .legacy_scroll_request
 # [description] Make a scrolling request and return the result
-#' @importFrom httr add_headers RETRY
+#' @importFrom httr add_headers
 .legacy_scroll_request <- function(es_host, scroll, scroll_id) {
 
     # Set up scroll_url
     scroll_url <- paste0(es_host, "/_search/scroll?scroll=", scroll)
 
     # Get the next page
-    result <- httr::RETRY(
+    result <- .request(
         verb = "POST"
-        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = scroll_url
+        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , body = scroll_id
     )
     return(result)
@@ -629,20 +628,20 @@ es_search <- function(es_host
 #               version of Elasticsearch.
 # [param] es_host A string identifying an Elasticsearch host. This should be of the form
 #         [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
-#' @importFrom httr content RETRY stop_for_status
 .get_es_version <- function(es_host) {
 
     # Hit the cluster root to get metadata
     log_info("Checking Elasticsearch version...")
-    result <- httr::RETRY(
+    result <- .request(
         verb = "GET"
-        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = es_host
+        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , body = NULL
     )
-    httr::stop_for_status(result)
+    .stop_for_status(result)
 
     # Extract version number from the result
-    version <- httr::content(result, as = "parsed")[["version"]][["number"]]
+    version <- .content(result, as = "parsed")[["version"]][["number"]]
     log_info(sprintf("uptasticsearch thinks you are running Elasticsearch %s", version))
 
     # Parse out just the major version. We can adjust this if we find
@@ -702,7 +701,7 @@ es_search <- function(es_host
 #  write(result, 'results.json')
 #
 # }
-#' @importFrom httr add_headers content RETRY stop_for_status
+#' @importFrom httr add_headers
 .search_request <- function(es_host
                           , es_index
                           , trailing_args = NULL
@@ -719,14 +718,14 @@ es_search <- function(es_host
     }
 
     # Make request
-    result <- httr::RETRY(
+    result <- .request(
         verb = "POST"
-        , httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , url = reqURL
+        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
         , body = query_body
     )
-    httr::stop_for_status(result)
-    result <- httr::content(result, as = "text")
+    .stop_for_status(result)
+    result <- .content(result, as = "text")
 
     return(result)
 }
