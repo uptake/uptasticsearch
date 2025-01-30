@@ -520,7 +520,9 @@ es_search <- function(es_host
         write(
             x = resultJSON
             , file = tempfile(
-
+                pattern = "es-"
+                , tmpdir = out_path
+                , fileext = ".json"
             )
         )
 
