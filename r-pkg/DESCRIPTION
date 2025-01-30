@@ -29,8 +29,7 @@ Imports:
     jsonlite,
     purrr,
     stringr,
-    utils,
-    uuid
+    utils
 Suggests:
     knitr,
     markdown,
