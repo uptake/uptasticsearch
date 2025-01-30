@@ -1,9 +1,17 @@
 ---
 exclude: |
     (?x)^(
-        test-data/.*
+        test-data/.*|
+        docs/.*html|
+        docs/.*js|
+        docs/.*css
     )$
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
   - repo: https://github.com/maxwinterstein/shfmt-py
     rev: v3.7.0.1
     hooks:
@@ -15,7 +23,7 @@ repos:
       - id: shellcheck
         args: ["--exclude=SC2002"]
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
+    rev: v2.4.1
     hooks:
       - id: codespell
         # additional_dependencies: [tomli]

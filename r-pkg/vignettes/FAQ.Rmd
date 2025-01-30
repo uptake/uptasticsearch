@@ -29,8 +29,8 @@ Developing queries of your own for elasticsearch is sometimes tough. If you are 
 
 ### Troubleshooting Guide
 
-* Are all your **brackets and curly braces** correct and paired? Check just to make sure.  
-* Are you **quoting** things correctly? This syntax calls for an awful lot of quotation marks, don't forget them.  
+* Are all your **brackets and curly braces** correct and paired? Check just to make sure.
+* Are you **quoting** things correctly? This syntax calls for an awful lot of quotation marks, don't forget them.
 
 ## Query Returns No Results
 
@@ -38,10 +38,10 @@ After you have verified with certainty that your query is appropriately structur
 
 ### Troubleshooting Guide
 
-* Are your **search terms** named and described correctly? All spelled right?  
-* Are you looking in the **correct index**? Perhaps your document is in a different one.  
-* If you are passing **dates or datetimes**, are the formats of your input formatted just right? 
-* IMPORTANT: **Are the terms you are using indexed**? This is a tricky one. Your term may exist and have data in the documents, but if your particular elasticsearch database has not indexed that term, you won't be able to use it for searching. This does not mean that the document/s aren't there, but just that you can't use that term for searching.  
+* Are your **search terms** named and described correctly? All spelled right?
+* Are you looking in the **correct index**? Perhaps your document is in a different one.
+* If you are passing **dates or datetimes**, are the formats of your input formatted just right?
+* IMPORTANT: **Are the terms you are using indexed**? This is a tricky one. Your term may exist and have data in the documents, but if your particular elasticsearch database has not indexed that term, you won't be able to use it for searching. This does not mean that the document/s aren't there, but just that you can't use that term for searching.
 * Are you sure the **document exists**? It might just not be there.
 
 ***
