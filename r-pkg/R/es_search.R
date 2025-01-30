@@ -276,7 +276,7 @@ es_search <- function(es_host
 
     # Find a safe path to write to and create it
     repeat {
-        random_dirname <- sprintf("tmp-%s", .random_string(20L))
+        random_dirname <- sprintf("tmp-%s", .random_string(36L))
         out_path <- file.path(intermediates_dir, random_dirname)
         if (!dir.exists(out_path)) {
             break
@@ -520,7 +520,7 @@ es_search <- function(es_host
         write(
             x = resultJSON
             , file = tempfile(
-                
+
             )
         )
 
