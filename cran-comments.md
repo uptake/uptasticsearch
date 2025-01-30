@@ -10,11 +10,11 @@
 * Windows via `devtools::build_win()`
 
 ### `R CMD check` results
-* There were no ERRORs, WARNINGs.  
-* One NOTE from `checking CRAN incoming feasibility ...` can be safely ignored since it's a note that notifies CRAN that this is a new maintainer/submission. 
+* There were no ERRORs, WARNINGs.
+* One NOTE from `checking CRAN incoming feasibility ...` can be safely ignored since it's a note that notifies CRAN that this is a new maintainer/submission.
 
 ### CRAN Response
-* Automatic checking upon CRAN submission yielded two notes. One was the "incoming feasibility..." item we mentioned above, which is not an issue. 
+* Automatic checking upon CRAN submission yielded two notes. One was the "incoming feasibility..." item we mentioned above, which is not an issue.
 * The other note said that `Author field differs from that derived from Authors@R`. This did not arise when running `R CMD check --as-cran` locally, but it looks like "fnd" is not a supported tag for an author. Removed that tag.
 
 ## v0.0.2 - Submission 2 - (July 17, 2017)
@@ -115,7 +115,7 @@ In this submission, we changed maintainer from `james.lamb@uptake.com` to `jayla
 
 > This is a release to add support for Elasticsearch 7.x, a major release stream that has been General Availability since April 2019.
 
-> You may see that the maintainer email is changing from "james.lamb@uptake.com" to "jaylamb20@gmail.com". This is a contact info update only, not an actual maintainer change. The "uptake.com" address is tied to the company that holds copyright over this project (https://github.com/uptake/uptasticsearch/blob/master/LICENSE#L3). I no longer work there but have received their permission to continue on as the maintainer. If you need confirmation you can contact my coauthors who still work there (austin.dickey@uptake.com, nick.paras@uptake.com) or that company's legal team (dennis.lee@uptake.com) 
+> You may see that the maintainer email is changing from "james.lamb@uptake.com" to "jaylamb20@gmail.com". This is a contact info update only, not an actual maintainer change. The "uptake.com" address is tied to the company that holds copyright over this project (https://github.com/uptake/uptasticsearch/blob/master/LICENSE#L3). I no longer work there but have received their permission to continue on as the maintainer. If you need confirmation you can contact my coauthors who still work there (austin.dickey@uptake.com, nick.paras@uptake.com) or that company's legal team (dennis.lee@uptake.com)
 
 ### `R CMD check` results
 * No issues

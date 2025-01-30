@@ -3,7 +3,7 @@
 [![GitHub Actions Build Status](https://github.com/uptake/uptasticsearch/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/uptake/uptasticsearch/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/uptake/uptasticsearch/branch/main/graph/badge.svg)](https://codecov.io/gh/uptake/uptasticsearch)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch)
-[![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch) 
+[![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch)
 
 ## Introduction
 
@@ -58,7 +58,7 @@ The examples presented here pertain to a fictional Elasticsearch index holding s
 
 ### Example 1: Get a Batch of Documents <a name="example1"></a>
 
-The most common use case for this package will be the case where you have an Elasticsearch query and want to get a data frame representation of many resulting documents. 
+The most common use case for this package will be the case where you have an Elasticsearch query and want to get a data frame representation of many resulting documents.
 
 In the example below, we use `uptasticsearch` to look for all survey results in which customers said their satisfaction was "low" or "very low" and mentioned food in their comments.
 
@@ -106,7 +106,7 @@ commentDT <- es_search(
 
 ### Example 2: Aggregation Results <a name="example2"></a>
 
-Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. `uptasticsearch` has built-in support for these aggregations. 
+Elasticsearch ships with a rich set of aggregations for creating summarized views of your data. `uptasticsearch` has built-in support for these aggregations.
 
 In the example below, we use `uptasticsearch` to create daily timeseries of summary statistics like total revenue and average payment amount.
 
