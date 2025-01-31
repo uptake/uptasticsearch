@@ -30,11 +30,7 @@ jobs:
         uses: r-lib/actions/setup-pandoc@v2
       - name: build docs
         run: |
-          .ci/setup.sh
-          R CMD INSTALL --with-keep.source ./r-pkg
-          Rscript -e "install.packages(c('pkgdown', 'roxygen2'), repos = 'https://cran.r-project.org')"
-          Rscript -e 'roxygen2::roxygenize("r-pkg/")'
-          Rscript -e 'pkgdown::build_site("r-pkg/")'
+          .ci/build-docs.sh
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./r-pkg/docs
