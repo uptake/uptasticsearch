@@ -18,3 +18,9 @@ sudo apt-get install \
     tidy
 
 Rscript -e "install.packages(c('assertthat', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'markdown', 'purrr', 'stringr'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"
+
+pushd ./r-pkg
+R CMD INSTALL --with-keep.source .
+Rscript -e "roxygen2::roxygenize()"
+Rscript -e "pkgdown::build_site()"
+popd
