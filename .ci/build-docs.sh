@@ -17,7 +17,7 @@ sudo apt-get install \
     texlive-fonts-extra \
     tidy
 
-Rscript -e "install.packages(c('assertthat', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'markdown', 'purrr', 'stringr'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"
+Rscript -e "install.packages(c('assertthat', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'markdown', 'purrr', 'stringr', 'uuid'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"
 
 pushd ./r-pkg
 R CMD INSTALL --with-keep.source .
