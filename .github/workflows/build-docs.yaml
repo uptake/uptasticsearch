@@ -13,13 +13,8 @@ on:
         type: boolean
         default: false
         description: "set to true to publish docs"
-      script:
-        required: true
-        type: string
-        description: "relative path to a script that builds conda packages"
 
 jobs:
-
   build:
     runs-on: macos-latest
     steps:
