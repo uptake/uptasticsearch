@@ -44,7 +44,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
         msg <- "For unpack_nested_data, chomped_df must be a data.table"
         log_fatal(msg)
     }
-    if (!assertthat::is.string(col_to_unpack)) {
+    if (!.is_string(col_to_unpack)) {
         msg <- "For unpack_nested_data, col_to_unpack must be a character of length 1"
         log_fatal(msg)
     }

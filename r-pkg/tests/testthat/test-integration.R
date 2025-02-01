@@ -194,7 +194,7 @@ futile.logger::flog.threshold(0)
         ver <- uptasticsearch:::.get_es_version(es_host = "http://127.0.0.1:9200")
 
         # is a string
-        expect_true(assertthat::is.string(ver), info = paste0("returned version: ", ver))
+        expect_true(.is_string(ver), info = paste0("returned version: ", ver))
 
         # Decided to check that it's coercible to an integer instead of
         # hard-coding known Elasticsearch versions so this test won't require

@@ -27,9 +27,10 @@ get_fields <- function(es_host
     # Input checking
     es_url <- .ValidateAndFormatHost(es_host)
 
+    # other input checks with simple error messages
     .assert(
-        is.character("es_indices")
-        , length(es_indices) > 0
+        is.character(es_indices) && length(es_indices) > 0
+        , "Argument 'es_indices' must be a non-empty character vector"
     )
 
     # collapse character vectors into comma separated strings. If any arguments
