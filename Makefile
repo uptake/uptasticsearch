@@ -24,11 +24,3 @@ install: build
 .PHONY: test
 test: build
 	R CMD CHECK --as-cran uptasticsearch_*.tar.gz
-
-###########
-# General #
-###########
-
-.PHONY: gh_pages
-gh_pages: docs
-	cp -R r-pkg/docs/* docs/

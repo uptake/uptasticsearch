@@ -166,14 +166,6 @@ This project uses GitHub Pages to host a documentation site:
 
 https://uptake.github.io/uptasticsearch/
 
-This documentation needs to be periodically, manually updated. To generate the new files for an "update the site" PR, just run the following:
-
-```shell
-make gh_pages
-```
-
-Note that for now, the R project is more mature and that is the only docs we host on the GitHub Pages site.
-
 **Submit to CRAN**
 
 Build the package tarball by running the following
@@ -219,4 +211,4 @@ In case you need to make bigger changes to the recipe, see the `conda-forge` doc
 
 Now that everything is done, the last thing you have to do is move the repo ahead of the version you just pushed to CRAN.
 
-Make a PR that adds a `.9000` on the end of the version you just released. This is a common practice in open source software development. It makes it obvious that the code in source control is newer than what's available from package managers, but doesn't interfere with the [semantic versioning](https://semver.org/) components of the package version.
+Make a PR that adds a `.9999` on the end of the version you just released. This is a common practice in open source software development. It makes it obvious that the code in source control is newer than what's available from package managers, but doesn't interfere with the [semantic versioning](https://semver.org/) components of the package version.

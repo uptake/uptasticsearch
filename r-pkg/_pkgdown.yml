@@ -1,6 +1,15 @@
 template:
+  bootstrap: 5
   params:
     bootswatch: flatly
+
+# this needs to be specified and to match 'URL:' in DESCRIPTION,
+# or pkgdown raises this error:
+#
+#   URLs not ok.
+#   In _pkgdown.yml, url is missing.
+#
+url: https://github.com/uptake/uptasticsearch
 
 repo:
   url:
@@ -9,9 +18,8 @@ repo:
     issue: https://github.com/uptake/uptasticsearch/issues
     user: https://github.com/
 
-
 reference:
-  - title: Main function
+  - title: Main function (DELETE ME)
     contents:
     - es_search
   - title: Parse raw JSON into data.table
