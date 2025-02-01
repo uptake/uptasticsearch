@@ -42,8 +42,8 @@ chomp_aggs <- function(aggs_json = NULL) {
 
     # Get first agg name
     aggNames <- names(jsonList[["aggregations"]])
-    assertthat::assert_that(
-        assertthat::is.string(aggNames)
+    .assert(
+        .is_string(aggNames)
         , msg = "aggregations are expected to have a single user-assigned name. This is a malformed aggregations response."
     )
 

@@ -7,7 +7,6 @@
 #'
 #'              This is a side-effect-free function: it returns a new data.table and the
 #'              input data.table is unmodified.
-#' @importFrom assertthat is.string
 #' @importFrom data.table copy is.data.table
 #' @importFrom purrr map2 simplify
 #' @importFrom stringr str_extract
@@ -66,10 +65,7 @@ parse_date_time <- function(input_df
     }
 
     # Other input checks we don't have explicit error messages for
-    .assert(
-        assertthat::is.string(assume_tz)
-        , assume_tz != ""
-    )
+    .assert(.is_string(assume_tz), "Argument 'assume_tz' must be a non-empty string")
 
     # Work on a copy of the DT to avoid side effects
     outDT <- data.table::copy(input_df)
