@@ -9,7 +9,9 @@
 
 # [title] Get a random length-n string
 # [name] .random_string
-# [description] Get a random length-n string of lowercase letters
+# [description] Get a random length-n string of lowercase letters.
+#               Note that this uses sample() and so might produce deterministic
+#               results in programs where set.seed() is used to control randomness.
 .random_string <- function(num_characters) {
     return(
         paste0(
