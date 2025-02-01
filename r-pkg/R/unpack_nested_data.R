@@ -56,7 +56,12 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     inDT <- data.table::copy(chomped_df)
 
     # Define a column name to store original row ID
-    joinCol <- uuid::UUIDgenerate()
+    repeat {
+        joinCol <- .random_string(36L)
+        if (!(joinCol %in% names(inDT))) {
+            break
+        }
+    }
     inDT[, (joinCol) := .I]
 
     # Take out the packed column

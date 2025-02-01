@@ -7,6 +7,20 @@
     return(httr::content(response, as = as))
 }
 
+# [title] Get a random length-n string
+# [name] .random_string
+# [description] Get a random length-n string of lowercase letters.
+#               Note that this uses sample() and so might produce deterministic
+#               results in programs where set.seed() is used to control randomness.
+.random_string <- function(num_characters) {
+    return(
+        paste0(
+            sample(letters, replace = TRUE, size = num_characters)
+            , collapse = ""
+        )
+    )
+}
+
 # [title] Execute an HTTP request and return the result
 # [name] .request
 # [description] Mainly here to making mocking easier in testing, but this

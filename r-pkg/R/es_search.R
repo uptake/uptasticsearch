@@ -224,7 +224,6 @@ es_search <- function(es_host
 #' @importFrom data.table rbindlist setkeyv
 #' @importFrom jsonlite fromJSON
 #' @importFrom parallel clusterMap makeForkCluster makePSOCKcluster stopCluster
-#' @importFrom uuid UUIDgenerate
 # nolint end
 .fetch_all <- function(es_host
                      , es_index
@@ -277,7 +276,8 @@ es_search <- function(es_host
 
     # Find a safe path to write to and create it
     repeat {
-        out_path <- file.path(intermediates_dir, uuid::UUIDgenerate())
+        random_dirname <- sprintf("tmp-%s", .random_string(36L))
+        out_path <- file.path(intermediates_dir, random_dirname)
         if (!dir.exists(out_path)) {
             break
         }
@@ -329,7 +329,14 @@ es_search <- function(es_host
     scroll_id <- enc2utf8(firstResult[["_scroll_id"]])
 
     # Write to disk
-    write(x = firstResultJSON, file = file.path(out_path, paste0(uuid::UUIDgenerate(), ".json")))
+    write(
+        x = firstResultJSON
+        , file = tempfile(
+            pattern = "es-"
+            , tmpdir = out_path
+            , fileext = ".json"
+        )
+    )
 
     # Clean up memory
     rm("firstResult", "firstResultJSON")
@@ -464,7 +471,6 @@ es_search <- function(es_host
 #                       max_hits.
 #' @importFrom httr add_headers
 #' @importFrom jsonlite fromJSON
-#' @importFrom uuid UUIDgenerate
 .keep_on_pullin <- function(scroll_id
                             , out_path
                             , max_hits
@@ -511,7 +517,14 @@ es_search <- function(es_host
         scroll_id <- resultList[["_scroll_id"]]
 
         # Write out JSON to a temporary file
-        write(x = resultJSON, file = file.path(out_path, paste0(uuid::UUIDgenerate(), ".json")))
+        write(
+            x = resultJSON
+            , file = tempfile(
+                pattern = "es-"
+                , tmpdir = out_path
+                , fileext = ".json"
+            )
+        )
 
         # Increment the count
         hits_pulled <- hits_pulled + hitsInThisPage
