@@ -12,6 +12,9 @@ sudo tlmgr --verify-repo=none install inconsolata helvetic rsfs
 # install dependencies
 Rscript -e "install.packages(c('assertthat', 'data.table', 'futile.logger', 'httr', 'jsonlite', 'knitr', 'markdown', 'pkgdown', 'purrr', 'roxygen2', 'stringr', 'uuid'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"
 
+cp NEWS.md ./r-pkg/
+cp README.md ./r-pkg/
+
 # build the docs
 pushd ./r-pkg
 R CMD INSTALL --with-keep.source .
