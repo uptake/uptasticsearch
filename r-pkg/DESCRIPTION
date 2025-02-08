@@ -22,15 +22,13 @@ Description:
 Depends:
     R (>= 3.3.0)
 Imports:
-    assertthat (>= 0.2.0),
     data.table,
     futile.logger,
     httr,
     jsonlite,
     purrr,
     stringr,
-    utils,
-    uuid
+    utils
 Suggests:
     knitr,
     markdown,

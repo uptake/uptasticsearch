@@ -40,7 +40,6 @@
 #'                          want to change this behavior, provide a path here. `es_search` will create
 #'                          and write to a temporary directory under whatever path you provide.
 #' @inheritParams doc_shared
-#' @importFrom assertthat is.count is.flag is.number is.string is.writeable
 #' @importFrom parallel detectCores
 #' @export
 #' @examples
@@ -88,7 +87,7 @@ es_search <- function(es_host
 ) {
 
     # Check if this is an aggs or straight-up search query
-    if (!assertthat::is.string(query_body)) {
+    if (!.is_string(query_body)) {
         msg <- sprintf(paste0("query_body should be a single string. ",
                               "You gave an object of length %s")
                        , length(query_body))
@@ -105,32 +104,22 @@ es_search <- function(es_host
     }
 
     # assign 1 core by default, if the number of cores is NA
-    if (is.na(n_cores) || !assertthat::is.count(n_cores)) {
+    if (is.na(n_cores) || !.is_count(n_cores)) {
       msg <- "detectCores() returned NA. Assigning number of cores to be 1."
       log_warn(msg)
       n_cores <- 1
     }
 
-    # Other input checks we don't have explicit error messages for
-    .assert(
-        assertthat::is.string(es_host)
-        , es_host != ""
-        , assertthat::is.string(es_index)
-        , es_index != ""
-        , assertthat::is.string(query_body)
-        , query_body != ""
-        , assertthat::is.string(scroll)
-        , scroll != ""
-        , max_hits >= 0
-        , assertthat::is.count(n_cores)
-        , n_cores >= 1
-        , assertthat::is.flag(break_on_duplicates)
-        , !is.na(break_on_duplicates)
-        , assertthat::is.flag(ignore_scroll_restriction)
-        , !is.na(ignore_scroll_restriction)
-        , assertthat::is.string(intermediates_dir)
-        , assertthat::is.writeable(intermediates_dir)
-    )
+    # other input checks with simple error messages
+    .assert(.is_string(es_host), "Argument 'es_host' must be a non-empty string")
+    .assert(.is_string(es_index), "Argument 'es_index' must be a non-empty string")
+    .assert(.is_string(query_body), "Argument 'query_body' must be a non-empty string")
+    .assert(.is_string(scroll), "Argument 'scroll' must be a non-empty string")
+    .assert(.is_count(max_hits), "Argument 'max_hits' must be a single positive integer")
+    .assert(.is_count(n_cores), "Argument 'n_cores' must be a single positive integer")
+    .assert(.is_flag(break_on_duplicates), "Argument 'break_on_duplicates' must be TRUE or FALSE")
+    .assert(.is_flag(ignore_scroll_restriction), "Argument 'ignore_scroll_restriction' must be TRUE or FALSE")
+    .assert(.is_writeable(intermediates_dir), "Argument 'intermediates_dir' must be a writeable filepath")
 
     # Aggregation Request
     if (grepl("aggs", query_body, fixed = TRUE)) {
@@ -224,7 +213,6 @@ es_search <- function(es_host
 #' @importFrom data.table rbindlist setkeyv
 #' @importFrom jsonlite fromJSON
 #' @importFrom parallel clusterMap makeForkCluster makePSOCKcluster stopCluster
-#' @importFrom uuid UUIDgenerate
 # nolint end
 .fetch_all <- function(es_host
                      , es_index
@@ -277,7 +265,8 @@ es_search <- function(es_host
 
     # Find a safe path to write to and create it
     repeat {
-        out_path <- file.path(intermediates_dir, uuid::UUIDgenerate())
+        random_dirname <- sprintf("tmp-%s", .random_string(36L))
+        out_path <- file.path(intermediates_dir, random_dirname)
         if (!dir.exists(out_path)) {
             break
         }
@@ -329,7 +318,14 @@ es_search <- function(es_host
     scroll_id <- enc2utf8(firstResult[["_scroll_id"]])
 
     # Write to disk
-    write(x = firstResultJSON, file = file.path(out_path, paste0(uuid::UUIDgenerate(), ".json")))
+    write(
+        x = firstResultJSON
+        , file = tempfile(
+            pattern = "es-"
+            , tmpdir = out_path
+            , fileext = ".json"
+        )
+    )
 
     # Clean up memory
     rm("firstResult", "firstResultJSON")
@@ -464,7 +460,6 @@ es_search <- function(es_host
 #                       max_hits.
 #' @importFrom httr add_headers
 #' @importFrom jsonlite fromJSON
-#' @importFrom uuid UUIDgenerate
 .keep_on_pullin <- function(scroll_id
                             , out_path
                             , max_hits
@@ -511,7 +506,14 @@ es_search <- function(es_host
         scroll_id <- resultList[["_scroll_id"]]
 
         # Write out JSON to a temporary file
-        write(x = resultJSON, file = file.path(out_path, paste0(uuid::UUIDgenerate(), ".json")))
+        write(
+            x = resultJSON
+            , file = tempfile(
+                pattern = "es-"
+                , tmpdir = out_path
+                , fileext = ".json"
+            )
+        )
 
         # Increment the count
         hits_pulled <- hits_pulled + hitsInThisPage

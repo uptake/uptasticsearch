@@ -14,7 +14,7 @@ futile.logger::flog.threshold(0)
     test_that("get_fields should give an informative error if es_indices is NULL or an empty string", {
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
                                           , es_indices = NULL),
-                               regexp = "not greater than 0")
+                               regexp = "Argument 'es_indices' must be a non-empty character vector")
                   expect_error(get_fields(es_host = "http://es.custdb.mycompany.com:9200"
                                           , es_indices = ""),
                                regexp = "get_fields must be passed a valid es_indices")
