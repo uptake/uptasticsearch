@@ -29,5 +29,6 @@ utils::globalVariables(c(
 #' @name doc_shared
 #' @title NULL Object For Common Documentation
 #' @description This is a NULL object with documentation so that later functions can call
-#' inheritParams
+#'              inheritParams
+#' @keywords internal
 NULL

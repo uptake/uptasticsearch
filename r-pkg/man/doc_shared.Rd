@@ -16,5 +16,6 @@ all indexes in the cluster, set this argument to \code{"_all"}.}
 }
 \description{
 This is a NULL object with documentation so that later functions can call
-inheritParams
+             inheritParams
 }
+\keyword{internal}
