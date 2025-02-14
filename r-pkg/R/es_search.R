@@ -458,7 +458,6 @@ es_search <- function(es_host
 #          hits_to_pull - Total hits to be pulled (documents matching user's query).
 #                       Or, in the case where max_hits < number of matching docs,
 #                       max_hits.
-#' @importFrom httr add_headers
 #' @importFrom jsonlite fromJSON
 .keep_on_pullin <- function(scroll_id
                             , out_path
@@ -532,7 +531,6 @@ es_search <- function(es_host
 # [name] .new_scroll_request
 # [description] Make a scrolling request and return the result
 # [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html
-#' @importFrom httr add_headers
 .new_scroll_request <- function(es_host, scroll, scroll_id) {
 
     # Set up scroll_url
@@ -542,7 +540,7 @@ es_search <- function(es_host
     result <- .request(
         verb = "POST"
         , url = scroll_url
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = sprintf('{"scroll": "%s", "scroll_id": "%s"}', scroll, scroll_id)
     )
     return(result)
@@ -551,7 +549,6 @@ es_search <- function(es_host
 # [title] Make a scroll request with the strategy supported by Elasticsearch 1.x and Elasticsearch 2.x
 # [name] .legacy_scroll_request
 # [description] Make a scrolling request and return the result
-#' @importFrom httr add_headers
 .legacy_scroll_request <- function(es_host, scroll, scroll_id) {
 
     # Set up scroll_url
@@ -561,7 +558,7 @@ es_search <- function(es_host
     result <- .request(
         verb = "POST"
         , url = scroll_url
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = scroll_id
     )
     return(result)
@@ -637,7 +634,7 @@ es_search <- function(es_host
     result <- .request(
         verb = "GET"
         , url = es_host
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
     .stop_for_status(result)
@@ -703,7 +700,6 @@ es_search <- function(es_host
 #  write(result, 'results.json')
 #
 # }
-#' @importFrom httr add_headers
 .search_request <- function(es_host
                           , es_index
                           , trailing_args = NULL
@@ -723,7 +719,7 @@ es_search <- function(es_host
     result <- .request(
         verb = "POST"
         , url = reqURL
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = query_body
     )
     .stop_for_status(result)

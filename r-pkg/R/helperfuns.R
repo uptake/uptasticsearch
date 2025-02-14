@@ -26,12 +26,12 @@
 # [description] Mainly here to making mocking easier in testing, but this
 #               also centralizes the mechanism for HTTP request exexcution in one place.
 # [references] https://testthat.r-lib.org/reference/local_mocked_bindings.html#namespaced-calls
-#' @importFrom httr RETRY
-.request <- function(verb, url, config, body) {
+#' @importFrom httr add_headers RETRY
+.request <- function(verb, url, headers, body) {
     result <- httr::RETRY(
         verb = verb
         , url = url
-        , config = config
+        , config = httr::add_headers(headers)
         , body = body
     )
     return(result)
