@@ -4,7 +4,6 @@
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
 #' @importFrom data.table := as.data.table rbindlist uniqueN
-#' @importFrom httr add_headers
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr map2
 #' @param es_indices A character vector that contains the names of indices for
@@ -60,7 +59,7 @@ get_fields <- function(es_host
         res <- .request(
             verb = "GET"
             , url = sprintf("%s/_cat/indices?format=json", es_url)
-            , config = list()
+            , headers = list()
             , body = NULL
         )
         indexDT <- data.table::as.data.table(
@@ -84,7 +83,7 @@ get_fields <- function(es_host
     result <- .request(
         verb = "GET"
         , url = es_url
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
     .stop_for_status(result)
@@ -193,7 +192,6 @@ get_fields <- function(es_host
 
 # [title] Get a data.table containing names of indices and aliases
 # [es_host] A string identifying an Elasticsearch host.
-#' @importFrom httr add_headers
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
@@ -203,7 +201,7 @@ get_fields <- function(es_host
     result <- .request(
         verb = "GET"
         , url = url
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
     .stop_for_status(result)
