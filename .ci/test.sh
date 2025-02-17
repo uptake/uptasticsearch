@@ -5,11 +5,6 @@ set -e -u -o pipefail
 
 R CMD build ./r-pkg
 
-# TODO(jameslamb): remove this before merging
-R CMD INSTALL ./*.tar.gz
-pushd ./r-pkg/tests
-Rscript testthat.R
-
 echo "--- trying GET /_cat/indices ---"
 curl \
     -i \
@@ -19,6 +14,11 @@ curl \
 
 echo "--- checking that the container is still up ---"
 docker ps
+
+# TODO(jameslamb): remove this before merging
+R CMD INSTALL ./*.tar.gz
+pushd ./r-pkg/tests
+Rscript testthat.R
 
 exit 123
 
