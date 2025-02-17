@@ -67,6 +67,8 @@ jobs:
           $GITHUB_WORKSPACE/.ci/setup.sh
           $GITHUB_WORKSPACE/.ci/install.sh
           $GITHUB_WORKSPACE/setup_local.sh ${{ matrix.es_version }}
+          # wait a few more seconds for the cluster to start up
+          sleep 60
           $GITHUB_WORKSPACE/.ci/test.sh
           $GITHUB_WORKSPACE/.ci/report_to_covr.sh
   all-successful:
