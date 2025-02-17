@@ -5,7 +5,7 @@
 #               issues a FATAL-level log message and then raises an R exception,
 #               both with the content of `msg`.
 .assert <- function(expr, msg) {
-    res <- eval(expr, env = parent.frame())
+    res <- eval(expr, envir = parent.frame())
     if (isTRUE(res)) {
         return(invisible(TRUE))
     }

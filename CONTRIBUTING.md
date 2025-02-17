@@ -137,7 +137,7 @@ make coverage
 The R package's code style is tested with `{lintr}`. To check the code locally, run the following
 
 ```shell
-Rscript .ci/lint_r_code.R $(pwd)
+Rscript .ci/lint-r-code.R $(pwd)
 ```
 
 ## Releases <a name="releases"></a>
