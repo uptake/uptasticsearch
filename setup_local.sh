@@ -24,6 +24,10 @@ case "${ES_VERSION}" in
     docker run -d -p 9200:9200 elasticsearch:1.7.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
+2.4.6)
+    docker run -d -p 9200:9200 elasticsearch:2.4.6
+    MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
+    ;;
 5.6.16)
     docker run -d -p 9200:9200 \
         -e "xpack.security.enabled=false" \
@@ -45,7 +49,7 @@ case "${ES_VERSION}" in
     MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
-7.17.2)
+7.17.22)
     docker run -d -p 9200:9200 \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
