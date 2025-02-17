@@ -28,8 +28,7 @@ jobs:
   build-docs:
     uses: ./.github/workflows/build-docs.yaml
     with:
-      #deploy: ${{ (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'workflow_dispatch' && inputs.deploy-docs == true) }}
-      deploy: true
+      deploy: ${{ (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'workflow_dispatch' && inputs.deploy-docs == true) }}
     secrets: inherit
   test:
     name: test (ES ${{ matrix.es_version }})
