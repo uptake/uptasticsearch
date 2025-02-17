@@ -10,6 +10,8 @@ R CMD INSTALL ./*.tar.gz
 pushd ./r-pkg/tests
 Rscript testthat.R
 
+exit 1
+
 export _R_CHECK_CRAN_INCOMING_=false
 R CMD check \
     --as-cran \
