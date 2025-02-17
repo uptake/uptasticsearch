@@ -59,7 +59,7 @@ get_fields <- function(es_host
         res <- .request(
             verb = "GET"
             , url = sprintf("%s/_cat/indices?format=json", es_url)
-            , headers = list()
+            , headers = character()
             , body = NULL
         )
         indexDT <- data.table::as.data.table(

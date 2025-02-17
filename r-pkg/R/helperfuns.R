@@ -31,7 +31,7 @@
     result <- httr::RETRY(
         verb = verb
         , url = url
-        , config = httr::add_headers(headers)
+        , config = httr::add_headers(.headers = headers)
         , body = body
     )
     return(result)
