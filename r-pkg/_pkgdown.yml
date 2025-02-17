@@ -19,7 +19,7 @@ repo:
     user: https://github.com/
 
 reference:
-  - title: Main function (DELETE ME)
+  - title: Main function
     contents:
     - es_search
   - title: Parse raw JSON into data.table
