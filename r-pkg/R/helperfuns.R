@@ -14,7 +14,7 @@
 #               results in programs where set.seed() is used to control randomness.
 .random_string <- function(num_characters) {
     return(
-        paste0(
+        paste(
             sample(letters, replace = TRUE, size = num_characters)
             , collapse = ""
         )
