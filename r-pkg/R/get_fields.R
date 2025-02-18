@@ -52,7 +52,7 @@ get_fields <- function(es_host
         log_warn(sprintf(
             paste0(
                 "You are running Elasticsearch version '%s.x'. _all is not supported in this version."
-                , " Pulling all indices with 'POST /_cat/indices' for you."  # nolint[non_portable_path]
+                , " Pulling all indices with 'GET /_cat/indices' for you."  # nolint[non_portable_path]
             )
             , major_version
         ))
@@ -73,6 +73,7 @@ get_fields <- function(es_host
             , collapse = ","
         )
     }
+    stop(indices)
 
     ########################## build the query ################################
     es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
@@ -80,14 +81,14 @@ get_fields <- function(es_host
     ########################## make the query ################################
     log_info(paste("Getting indexed fields for indices:", indices))
 
-    result <- .request(
+    mapping_results <- .request(
         verb = "GET"
         , url = es_url
         , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
-    .stop_for_status(result)
-    resultContent <- .content(result, as = "parsed")
+    .stop_for_status(mapping_result)
+    resultContent <- .content(mapping_result, as = "parsed")
 
     ######################### flatten the result ##############################
     if (as.integer(major_version) > 6) {
