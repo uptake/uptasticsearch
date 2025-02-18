@@ -573,7 +573,7 @@ es_search <- function(es_host
     # es_host is a string
     if (! is.character(es_host)) {
         msg <- paste0("es_host should be a string. You gave an object of type"
-                      , paste0(class(es_host), collapse = "/"))
+                      , paste(class(es_host), collapse = "/"))
         log_fatal(msg)
     }
 
@@ -712,7 +712,7 @@ es_search <- function(es_host
     # Build URL
     reqURL <- sprintf("%s/%s/_search", es_host, es_index)  # nolint[non_portable_path]
     if (!is.null(trailing_args)) {
-        reqURL <- paste0(reqURL, "?", paste0(trailing_args, collapse = "&"))
+        reqURL <- paste0(reqURL, "?", paste(trailing_args, collapse = "&"))
     }
 
     # Make request

@@ -68,7 +68,7 @@ get_fields <- function(es_host
                 , simplifyDataFrame = TRUE
             )
         )
-        indices <- paste0(
+        indices <- paste(
             indexDT[, unique(index)]
             , collapse = ","
         )
