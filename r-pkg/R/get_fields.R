@@ -73,22 +73,23 @@ get_fields <- function(es_host
             , collapse = ","
         )
     }
-    stop(indices)
+    log_warning(sprintf("indices: '%s'", toString(indices)))
 
     ########################## build the query ################################
     es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
+    log_warning(sprintf("mapping url: '%s'", es_url))
 
     ########################## make the query ################################
     log_info(paste("Getting indexed fields for indices:", indices))
 
-    mapping_results <- .request(
+    result <- .request(
         verb = "GET"
         , url = es_url
         , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
-    .stop_for_status(mapping_result)
-    resultContent <- .content(mapping_result, as = "parsed")
+    .stop_for_status(result)
+    resultContent <- .content(result, as = "parsed")
 
     ######################### flatten the result ##############################
     if (as.integer(major_version) > 6) {
