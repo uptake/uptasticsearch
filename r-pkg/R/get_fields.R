@@ -3,7 +3,7 @@
 # [description] Character vector of Elasticsearch indices
 #               Those are considered internal implementation details of Elasticsearch,
 #               but show up in a couple of APIs (namely 'GET /_cat/indices').
-.remove_system_indices <- function(indices){
+.remove_system_indices <- function(indices) {
     # references:
     #
     #   * why this exists: https://github.com/uptake/uptasticsearch/pull/245/files#r1960918283
@@ -24,7 +24,7 @@
     log_warn(paste0(
         "Excluding the following indices assumed to be internal 'system' indices: ["
         , toString(indices)
-        , "]. To suppress this warning and/or to query these indices, pass a vector of index names "
+        , "]. To suppress this warning and/or to query these indices, pass a vector of index names "  # nolint[non_portable_path]
         , "through 'es_indices' argument explicitly, instead of '_all'."
     ))
     return(setdiff(indices, system_indices))
