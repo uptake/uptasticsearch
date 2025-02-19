@@ -1,3 +1,34 @@
+# [title] remove system indices from a character of index names
+# [name] .remove_system_indices
+# [description] Character vector of Elasticsearch indices
+#               Those are considered internal implementation details of Elasticsearch,
+#               but show up in a couple of APIs (namely 'GET /_cat/indices').
+.remove_system_indices <- function(indices){
+    # references:
+    #
+    #   * why this exists: https://github.com/uptake/uptasticsearch/pull/245/files#r1960918283
+    #   * list of system indices: https://github.com/elastic/elasticsearch/issues/50251
+    #
+    #
+    # It might be possible for non-system index names to start with a ".", so this might
+    # miss some things. Tried to address that with the warning message below. This seems more
+    # resilient to changing Elasticsearch versions than enumerating all of the patterns for
+    # all of the system indices.
+    system_indices <- indices[startsWith(indices, ".")]
+
+    # no system indices found in list, just return early
+    if (length(system_indices) == 0L) {
+        return(indices)
+    }
+
+    log_warn(paste0(
+        "Excluding the following indices assumed to be internal 'system' indices: ["
+        , toString(indices)
+        , "]. To suppress this warning and/or to query these indices, pass a vector of index names "
+        , "through 'es_indices' argument explicitly, instead of '_all'."
+    ))
+    return(setdiff(indices, system_indices))
+}
 
 #' @title Get the names and data types of the indexed fields in an index
 #' @name get_fields
@@ -72,12 +103,11 @@ get_fields <- function(es_host
             indexDT[, unique(index)]
             , collapse = ","
         )
+        indices <- .remove_system_indices(indices)
     }
-    log_warn(sprintf("indices: '%s'", toString(indices)))
 
     ########################## build the query ################################
     es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
-    log_warn(sprintf("mapping url: '%s'", es_url))
 
     ########################## make the query ################################
     log_info(paste("Getting indexed fields for indices:", indices))
