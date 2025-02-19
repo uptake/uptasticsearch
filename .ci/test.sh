@@ -12,6 +12,13 @@ curl \
     -H 'Accept: application/json' \
     '127.0.0.1:9200/_cat/indices?format=json'
 
+echo "--- trying GET /.geoip_databases,empty_index,shakespeare/_mapping ---"
+curl \
+    -i \
+    -X GET \
+    -H 'Accept: application/json' \
+    'http://127.0.0.1:9200/.geoip_databases,empty_index,shakespeare/_mapping'
+
 echo "--- checking that the container is still up ---"
 docker ps
 
