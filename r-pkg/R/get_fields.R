@@ -73,11 +73,11 @@ get_fields <- function(es_host
             , collapse = ","
         )
     }
-    log_warning(sprintf("indices: '%s'", toString(indices)))
+    log_warn(sprintf("indices: '%s'", toString(indices)))
 
     ########################## build the query ################################
     es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
-    log_warning(sprintf("mapping url: '%s'", es_url))
+    log_warn(sprintf("mapping url: '%s'", es_url))
 
     ########################## make the query ################################
     log_info(paste("Getting indexed fields for indices:", indices))
