@@ -14,7 +14,7 @@
     # miss some things. Tried to address that with the warning message below. This seems more
     # resilient to changing Elasticsearch versions than enumerating all of the patterns for
     # all of the system indices.
-    system_indices <- indices[startsWith(indices, ".")]
+    system_indices <- indices[!startsWith(indices, ".")]
 
     # no system indices found in list, just return early
     if (length(system_indices) == 0L) {
