@@ -14,7 +14,7 @@
     # miss some things. Tried to address that with the warning message below. This seems more
     # resilient to changing Elasticsearch versions than enumerating all of the patterns for
     # all of the system indices.
-    system_indices <- indices[!startsWith(indices, ".")]
+    system_indices <- indices[startsWith(indices, ".")]
 
     # no system indices found in list, just return early
     if (length(system_indices) == 0L) {
@@ -99,11 +99,8 @@ get_fields <- function(es_host
                 , simplifyDataFrame = TRUE
             )
         )
-        indices <- paste(
-            indexDT[, unique(index)]
-            , collapse = ","
-        )
-        indices <- .remove_system_indices(indices)
+        indices <- .remove_system_indices(indexDT[, unique(index)])
+        indices <- paste(indices, collapse = ",")
     }
 
     ########################## build the query ################################
