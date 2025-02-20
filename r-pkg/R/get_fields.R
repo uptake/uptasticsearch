@@ -110,7 +110,7 @@ get_fields <- function(es_host
     es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
 
     ########################## make the query ################################
-    log_info(paste("Getting indexed fields for indices:", indices))
+    log_warn(paste("Getting indexed fields for indices:", indices))
 
     result <- .request(
         verb = "GET"
