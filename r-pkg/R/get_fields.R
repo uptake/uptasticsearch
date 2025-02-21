@@ -1,10 +1,40 @@
+# [title] remove system indices from a character of index names
+# [name] .remove_system_indices
+# [description] Character vector of Elasticsearch indices
+#               Those are considered internal implementation details of Elasticsearch,
+#               but show up in a couple of APIs (namely 'GET /_cat/indices').
+.remove_system_indices <- function(indices) {
+    # references:
+    #
+    #   * why this exists: https://github.com/uptake/uptasticsearch/pull/245/files#r1960918283
+    #   * list of system indices: https://github.com/elastic/elasticsearch/issues/50251
+    #
+    #
+    # It might be possible for non-system index names to start with a ".", so this might
+    # miss some things. Tried to address that with the warning message below. This seems more
+    # resilient to changing Elasticsearch versions than enumerating all of the patterns for
+    # all of the system indices.
+    system_indices <- indices[startsWith(indices, ".")]
+
+    # no system indices found in list, just return early
+    if (length(system_indices) == 0L) {
+        return(indices)
+    }
+
+    log_warn(paste0(
+        "Excluding the following indices assumed to be internal 'system' indices: ["
+        , toString(indices)
+        , "]. To suppress this warning and/or to query these indices, pass a vector of index names "  # nolint[non_portable_path]
+        , "through 'es_indices' argument explicitly, instead of '_all'."
+    ))
+    return(setdiff(indices, system_indices))
+}
 
 #' @title Get the names and data types of the indexed fields in an index
 #' @name get_fields
 #' @description For a given Elasticsearch index, return the mapping from field name
 #'              to data type for all indexed fields.
 #' @importFrom data.table := as.data.table rbindlist uniqueN
-#' @importFrom httr add_headers
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr map2
 #' @param es_indices A character vector that contains the names of indices for
@@ -53,14 +83,14 @@ get_fields <- function(es_host
         log_warn(sprintf(
             paste0(
                 "You are running Elasticsearch version '%s.x'. _all is not supported in this version."
-                , " Pulling all indices with 'POST /_cat/indices' for you."  # nolint[non_portable_path]
+                , " Pulling all indices with 'GET /_cat/indices' for you."  # nolint[non_portable_path]
             )
             , major_version
         ))
         res <- .request(
             verb = "GET"
             , url = sprintf("%s/_cat/indices?format=json", es_url)
-            , config = list()
+            , headers = character()
             , body = NULL
         )
         indexDT <- data.table::as.data.table(
@@ -69,10 +99,8 @@ get_fields <- function(es_host
                 , simplifyDataFrame = TRUE
             )
         )
-        indices <- paste(
-            indexDT[, unique(index)]
-            , collapse = ","
-        )
+        indices <- .remove_system_indices(indexDT[, unique(index)])
+        indices <- paste(indices, collapse = ",")
     }
 
     ########################## build the query ################################
@@ -84,7 +112,7 @@ get_fields <- function(es_host
     result <- .request(
         verb = "GET"
         , url = es_url
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
     .stop_for_status(result)
@@ -193,7 +221,6 @@ get_fields <- function(es_host
 
 # [title] Get a data.table containing names of indices and aliases
 # [es_host] A string identifying an Elasticsearch host.
-#' @importFrom httr add_headers
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
@@ -203,7 +230,7 @@ get_fields <- function(es_host
     result <- .request(
         verb = "GET"
         , url = url
-        , config = httr::add_headers(c("Content-Type" = "application/json"))  # nolint[non_portable_path]
+        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
     .stop_for_status(result)
