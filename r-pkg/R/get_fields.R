@@ -107,7 +107,7 @@ get_fields <- function(es_host
     es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
 
     ########################## make the query ################################
-    log_warn(paste("Getting indexed fields for indices:", indices))
+    log_info(paste("Getting indexed fields for indices:", indices))
 
     result <- .request(
         verb = "GET"
@@ -117,7 +117,6 @@ get_fields <- function(es_host
     )
     .stop_for_status(result)
     resultContent <- .content(result, as = "parsed")
-    log_warn("made it past getting mapping")
 
     ######################### flatten the result ##############################
     if (as.integer(major_version) > 6) {
