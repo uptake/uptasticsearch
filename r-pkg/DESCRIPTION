@@ -22,9 +22,9 @@ Description:
 Depends:
     R (>= 3.3.0)
 Imports:
+    curl,
     data.table,
     futile.logger,
-    httr,
     jsonlite,
     purrr,
     stringr,

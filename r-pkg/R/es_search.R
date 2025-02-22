@@ -540,8 +540,8 @@ es_search <- function(es_host
     result <- .request(
         verb = "POST"
         , url = scroll_url
-        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = sprintf('{"scroll": "%s", "scroll_id": "%s"}', scroll, scroll_id)
+        , add_json_headers = TRUE
     )
     return(result)
 }
@@ -558,8 +558,8 @@ es_search <- function(es_host
     result <- .request(
         verb = "POST"
         , url = scroll_url
-        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = scroll_id
+        , add_json_headers = TRUE
     )
     return(result)
 }
@@ -634,8 +634,8 @@ es_search <- function(es_host
     result <- .request(
         verb = "GET"
         , url = es_host
-        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
+        , add_json_headers = TRUE
     )
     .stop_for_status(result)
 
@@ -719,8 +719,8 @@ es_search <- function(es_host
     result <- .request(
         verb = "POST"
         , url = reqURL
-        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = query_body
+        , add_json_headers = TRUE
     )
     .stop_for_status(result)
     result <- .content(result, as = "text")

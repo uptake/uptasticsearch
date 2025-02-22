@@ -211,12 +211,12 @@ futile.logger::flog.threshold(0)
         res <- .request(
             verb = "POST"
             , url = "http://127.0.0.1:9200/_aliases"
-            , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
             , body = sprintf(
                 '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'  # nolint[quotes]
                 , action
                 , alias_name
             )
+            , add_json_headers = TRUE
         )
         .stop_for_status(res)
         return(invisible(NULL))
