@@ -1,4 +1,3 @@
-
 #' @importFrom futile.logger flog.debug
 .log_debug <- function(...) {
     futile.logger::flog.debug(...)
