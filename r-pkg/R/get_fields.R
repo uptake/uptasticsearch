@@ -231,7 +231,7 @@ get_fields <- function(es_host
         verb = "GET"
         , url = url
         , body = NULL
-        , add_json_headers = FALSE
+        , add_json_headers = TRUE
     )
     .stop_for_status(result)
     resultContent <- .content(result, as = "text")
