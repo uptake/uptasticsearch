@@ -9,7 +9,7 @@
     if (isTRUE(res)) {
         return(invisible(TRUE))
     }
-    log_fatal(msg)
+    .log_fatal(msg)
 }
 
 # [title] check if an object is a count
