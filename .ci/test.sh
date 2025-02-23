@@ -5,6 +5,13 @@ set -e -u -o pipefail
 
 R CMD build ./r-pkg
 
+echo "--- POST /_aliases"
+curl \
+    -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"actions": [{"add": {"index": "shakespeare", "alias": "the_test_alias"}}]}' \
+    http://127.0.0.1:9200/_aliases
+
 echo "--- GET /_cat/aliases"
 curl -X GET http://127.0.0.1:9200/_cat/aliases
 

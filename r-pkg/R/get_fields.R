@@ -231,7 +231,9 @@ get_fields <- function(es_host
         verb = "GET"
         , url = url
         , body = NULL
-        , add_json_headers = TRUE
+        # TODO(jameslamb): add a comment here explaining why
+        # ES 1.x and 2.x are different
+        , add_json_headers = .get_es_version(es_host) < 3
     )
     .stop_for_status(result)
     resultContent <- .content(result, as = "text")
