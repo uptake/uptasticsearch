@@ -41,7 +41,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
     # If nothing was passed to hits_json, return NULL and warn
     if (is.null(hits_json)) {
         msg <- "You did not pass any input data to chomp_hits. Returning NULL."
-        log_warn(msg)
+        .log_warn(msg)
         return(invisible(NULL))
     }
 
@@ -50,7 +50,7 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
                       , "You may have passed an R list. In that case, if you already "
                       , "used jsonlite::fromJSON(), you can just call "
                       , "data.table::as.data.table().")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # Parse the input JSON to a list object
@@ -76,14 +76,14 @@ chomp_hits <- function(hits_json = NULL, keep_nested_data_cols = TRUE) {
                 , "Consider using unpack_nested_data for one:\n"
                 , toString(names(colTypes)[colTypes == "list"])
             )
-            log_info(msg)
+            .log_info(msg)
         } else {
 
             msg <- paste(
                 "Deleting the following nested data columns:\n"
                 , toString(names(colTypes)[colTypes == "list"])
             )
-            log_warn(msg)
+            .log_warn(msg)
             batchDT <- batchDT[, !names(colTypes[colTypes == "list"]), with = FALSE]
         }
     }

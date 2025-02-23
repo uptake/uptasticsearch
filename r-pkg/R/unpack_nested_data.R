@@ -42,15 +42,15 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     # Input checks
     if (!data.table::is.data.table(chomped_df)) {
         msg <- "For unpack_nested_data, chomped_df must be a data.table"
-        log_fatal(msg)
+        .log_fatal(msg)
     }
     if (!.is_string(col_to_unpack)) {
         msg <- "For unpack_nested_data, col_to_unpack must be a character of length 1"
-        log_fatal(msg)
+        .log_fatal(msg)
     }
     if (!(col_to_unpack %in% names(chomped_df))) {
         msg <- "For unpack_nested_data, col_to_unpack must be one of the column names"
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     inDT <- data.table::copy(chomped_df)
@@ -71,7 +71,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
     # Check for empty column
     if (all(purrr::map_int(listDT, NROW) == 0)) {
         msg <- "The column given to unpack_nested_data had no data in it."
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     listDT[lengths(listDT) == 0] <- NA
@@ -101,7 +101,7 @@ unpack_nested_data <- function(chomped_df, col_to_unpack)  {
         newDT <- data.table::rbindlist(newDT, fill = TRUE, idcol = joinCol)
     } else {
         msg <- paste0("Each row in column ", col_to_unpack, " must be a data frame or a vector.")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # Join it back in

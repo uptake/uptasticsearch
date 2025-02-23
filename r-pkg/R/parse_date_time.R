@@ -44,7 +44,7 @@ parse_date_time <- function(input_df
                      , "You provided an object of class"
                      , toString(class(input_df))
                      , "to input_df.")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # Break if date_cols is not a character vector
@@ -52,7 +52,7 @@ parse_date_time <- function(input_df
         msg <- paste("The date_cols argument in parse_date_time expects",
                      "a character vector of column names. You gave an object",
                      "of class", toString(class(date_cols)))
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # Break if any of the date_cols are not actually in this DT
@@ -61,7 +61,7 @@ parse_date_time <- function(input_df
         msg <- paste("The following columns, which you passed to date_cols,",
                      "do not actually exist in input_df:",
                      toString(not_there))
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # Other input checks we don't have explicit error messages for
