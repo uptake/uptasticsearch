@@ -27,14 +27,14 @@ chomp_aggs <- function(aggs_json = NULL) {
     # If nothing was passed to aggs_json, return NULL and warn
     if (is.null(aggs_json)) {
         msg <- "You did not pass any input data to chomp_aggs. Returning NULL."
-        log_warn(msg)
+        .log_warn(msg)
         return(invisible(NULL))
     }
 
     if (!is.character(aggs_json)) {
         msg <- paste0("The first argument of chomp_aggs must be a character vector."
                       , "You may have passed an R list. Try querying with uptasticsearch:::.search_request()")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # Parse the input JSON to a list object
@@ -49,7 +49,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 
     # Gross special-case handler for one-level extended_stats aggregation
     if (.IsExtendedStatsAgg(jsonList[["aggregations"]][[aggNames]])) {
-        log_info("es_search is assuming that this result is a one-level 'extended_stats' result.")
+        .log_info("es_search is assuming that this result is a one-level 'extended_stats' result.")
         jsonList[["aggregations"]][[1]][["std_deviation_bounds.upper"]] <- jsonList[["aggregations"]][[1]][["std_deviation_bounds"]][["upper"]]
         jsonList[["aggregations"]][[1]][["std_deviation_bounds.lower"]] <- jsonList[["aggregations"]][[1]][["std_deviation_bounds"]][["lower"]]
         jsonList[["aggregations"]][[1]][["std_deviation_bounds"]] <- NULL
@@ -57,7 +57,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 
     # Gross special-case handler for one-level percentiles aggregation
     if (.IsPercentilesAgg(jsonList[["aggregations"]][[aggNames]])) {
-        log_info("es_search is assuming that this result is a one-level 'percentiles' result.")
+        .log_info("es_search is assuming that this result is a one-level 'percentiles' result.")
 
         # Replace names like `25.0` with something that will be easier for users to understand
         # Doing this changes column names like thing.values.25.0 to thing.percentile_25.0
@@ -67,7 +67,7 @@ chomp_aggs <- function(aggs_json = NULL) {
     }
 
     if (.IsSigTermsAgg(jsonList[["aggregations"]][[aggNames]])) {
-        log_info("es_search is assuming that this result is a one-level 'significant terms' result.")
+        .log_info("es_search is assuming that this result is a one-level 'significant terms' result.")
 
         # We can grab that nested data.frame and break out right now
         outDT <- data.table::as.data.table(jsonList[["aggregations"]][[aggNames]][["buckets"]])
@@ -77,7 +77,7 @@ chomp_aggs <- function(aggs_json = NULL) {
 
     # check for an empty result
     if (identical(jsonList[["aggregations"]][[aggNames]][["buckets"]], list())) {
-        log_info("this aggregation result was empty. Returning NULL")
+        .log_info("this aggregation result was empty. Returning NULL")
         return(invisible(NULL))
     }
 

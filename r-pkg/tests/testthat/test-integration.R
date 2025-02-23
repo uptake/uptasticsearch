@@ -472,5 +472,44 @@ futile.logger::flog.threshold(0)
         expect_true(fieldDT[, length(unique(index))] >= 2)
     })
 
+#--- HTTP request helpers
+test_that(".request() works", {
+    testthat::skip_on_cran()
+    response <- uptasticsearch:::.request(
+        verb = "POST"
+        , url = "https://httpbin.org/status/201"
+        , body = NULL
+        , add_json_headers = FALSE
+    )
+    expect_true(response$method == "POST")
+    expect_true(response$status_code == 201L)
+    expect_true(response$url == "https://httpbin.org/status/201")
+})
+
+test_that("retry logic works as expected", {
+    testthat::skip_on_cran()
+    futile.logger::flog.threshold(futile.logger::DEBUG)
+    log_lines <- testthat::capture_output({
+        response <- .request(
+            verb = "GET"
+            , url = "https://httpbin.org/status/502"
+            , body = NULL
+            , add_json_headers = FALSE
+        )
+    })
+    futile.logger::flog.threshold(0)
+
+    # should log the failures and sleep times
+    expect_true(grepl("DEBUG.*Request failed.*status code 502.*Sleeping for", log_lines))
+
+    # should perform retry with backoff
+    expect_true(grepl(".*Sleeping for 1\\.[0-9]+ seconds.*Sleeping for 2\\.[0-9]+ seconds", log_lines))
+
+    # should return the response
+    expect_true(response$method == "GET")
+    expect_true(response$status_code == 502L)
+    expect_true(response$url == "https://httpbin.org/status/502")
+})
+
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)

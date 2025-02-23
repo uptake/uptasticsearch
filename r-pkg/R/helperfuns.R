@@ -58,12 +58,61 @@
     return(response$status_code %in% retryable_error_codes)
 }
 
+# [title] Retry an HTTP requests a couple times (if necessary)
+# [name] .retry
+# [description] Implements exponential backoff with jitter, around failed requests.
+#               See .should_retry() for details on which status codes are considered retryable.
+#               This is here because {curl} does not have a built-in retry API.
+#' @importFrom curl curl_fetch_memory
+.retry <- function(handle, url) {
+
+    max_retries <- 3L
+    attempt_count <- 1L
+    while (attempt_count <= max_retries) {
+
+        # if this isn't the 1st attempt, apply backoff
+        if (attempt_count > 1L) {
+            # exponential backoff with jitter
+            #
+            #   1.45s + {jitter}
+            #   2.10s + {jitter}
+            #   3.05s + {jitter}
+            #   etc., etc.
+            #
+            # ref: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
+            sleep_seconds <- 1.45 ** (attempt_count - 1L) + runif(n = 1L, min = 0.1, max = 0.5)
+            .log_debug(sprintf("Sleeping for %.2f seconds before retrying.", sleep_seconds))
+            Sys.sleep(sleep_seconds)
+        }
+
+        # execute request
+        response <- curl::curl_fetch_memory(
+            url = url
+            , handle = handle
+        )
+
+        # check if the response should be retried
+        if (.should_retry(response)) {
+            .log_debug(sprintf(
+                "Request failed (status code %i): '%s %s'"
+                , response$status_code
+                , response$method
+                , response$url
+            ))
+            attempt_count <- attempt_count + 1L
+        } else {
+            break
+        }
+    }
+    return(response)
+}
+
 # [title] Execute an HTTP request and return the result
 # [name] .request
 # [description] Mainly here to making mocking easier in testing, but this
 #               also centralizes the mechanism for HTTP request execution in one place.
 # [references] https://testthat.r-lib.org/reference/local_mocked_bindings.html#namespaced-calls
-#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom curl handle_setheaders handle_setopt new_handle
 .request <- function(verb, url, body, add_json_headers) {
     handle <- curl::new_handle()
 
@@ -71,8 +120,8 @@
     if (isTRUE(add_json_headers)) {
         curl::handle_setheaders(
             handle = handle
-            , "Accept" = "application/json"
-            , "Content-Type" = "application/json"
+            , "Accept" = "application/json"        # nolint[non_portable_path]
+            , "Content-Type" = "application/json"  # nolint[non_portable_path]
         )
     }
 
@@ -88,13 +137,12 @@
     }
 
     # actually execute request
-    result <- curl::curl_fetch_memory(
-        url = url
-        , handle = handle
+    response <- .retry(
+        handle = handle
+        , url = url
     )
 
-    # TODO(jameslamb): add retries
-    return(result)
+    return(invisible(response))
 }
 
 # [title] Raise an exception if an HTTP response indicates an error
@@ -107,7 +155,7 @@
     if (response$status_code <= 300L) {
         return(invisible(NULL))
     }
-    log_fatal(sprintf(
+    .log_fatal(sprintf(
         "Request failed (status code %i): '%s %s'"
         , response$status_code
         , response$method

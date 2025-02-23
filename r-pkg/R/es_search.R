@@ -91,7 +91,7 @@ es_search <- function(es_host
         msg <- sprintf(paste0("query_body should be a single string. ",
                               "You gave an object of length %s")
                        , length(query_body))
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # prevent NULL index
@@ -100,13 +100,13 @@ es_search <- function(es_host
             "You passed NULL to es_index. This is not supported. If you want to "
             , "search across all indices, use es_index = '_all'."
         )
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # assign 1 core by default, if the number of cores is NA
     if (is.na(n_cores) || !.is_count(n_cores)) {
       msg <- "detectCores() returned NA. Assigning number of cores to be 1."
-      log_warn(msg)
+      .log_warn(msg)
       n_cores <- 1
     }
 
@@ -126,7 +126,7 @@ es_search <- function(es_host
 
         # Let them know
         msg <- "es_search detected that this is an aggs request and will only return aggregation results."
-        log_info(msg)
+        .log_info(msg)
 
         # Get result
         # NOTE: setting size to 0 so we don't spend time getting hits
@@ -141,7 +141,7 @@ es_search <- function(es_host
     }
 
     # Normal search request
-    log_info("Executing search request")
+    .log_info("Executing search request")
     return(.fetch_all(es_host = es_host
                       , es_index = es_index
                       , size = size
@@ -240,7 +240,7 @@ es_search <- function(es_host
                       "ignore_scroll_restriction = TRUE.\n",
                       "\nPlease see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html ",
                       "for more information.")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # If max_hits < size, we should just request exactly that many hits
@@ -251,7 +251,7 @@ es_search <- function(es_host
         msg <- paste0(sprintf("You requested a maximum of %s hits", max_hits),
                       sprintf(" and a page size of %s.", size),
                       sprintf(" Resetting size to %s for efficiency.", max_hits))
-        log_warn(msg)
+        .log_warn(msg)
 
         size <- max_hits
     }
@@ -260,7 +260,7 @@ es_search <- function(es_host
     if (!is.infinite(max_hits) && max_hits %% size != 0) {
         msg <- paste0("When max_hits is not an exact multiple of size, it is ",
                       "possible to get a few more than max_hits results back.")
-        log_warn(msg)
+        .log_warn(msg)
     }
 
     # Find a safe path to write to and create it
@@ -301,7 +301,7 @@ es_search <- function(es_host
 
     if (hits_pulled == 0) {
       msg <- "Query is syntactically valid but 0 documents were matched. Returning NULL"
-      log_warn(msg)
+      .log_warn(msg)
       return(invisible(NULL))
     }
 
@@ -334,11 +334,11 @@ es_search <- function(es_host
 
     # Calculate number of hits to pull
     msg <- paste0("Total hits to pull: ", hits_to_pull)
-    log_info(msg)
+    .log_info(msg)
 
     # Pull all the results (single-threaded)
     msg <- "Scrolling over additional pages of results..."
-    log_info(msg)
+    .log_info(msg)
     .keep_on_pullin(
         scroll_id = scroll_id
         , out_path = out_path
@@ -349,9 +349,9 @@ es_search <- function(es_host
         , hits_to_pull = hits_to_pull
     )
 
-    log_info("Done scrolling over results.")
+    .log_info("Done scrolling over results.")
 
-    log_info("Reading and parsing pulled records...")
+    .log_info("Reading and parsing pulled records...")
 
     # Find the temp files we wrote out above
     tempFiles <- list.files(
@@ -397,7 +397,7 @@ es_search <- function(es_host
         parallel::stopCluster(cl)
     }
 
-    log_info("Done reading and parsing pulled records.")
+    .log_info("Done reading and parsing pulled records.")
 
     # It's POSSIBLE that the parallel process gave us duplicates. Correct for that
     data.table::setkeyv(outDT, NULL)
@@ -410,7 +410,7 @@ es_search <- function(es_host
                       " File collisions are unlikely but possible with this function.",
                       " Try increasing the value of the scroll param.",
                       " Then try re-running and hopefully you won't see this error.")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     return(outDT)
@@ -519,7 +519,7 @@ es_search <- function(es_host
 
         # Tell the people
         msg <- sprintf("Pulled %s of %s results", hits_pulled, hits_to_pull)
-        log_info(msg)
+        .log_info(msg)
 
     }
 
@@ -574,7 +574,7 @@ es_search <- function(es_host
     if (! is.character(es_host)) {
         msg <- paste0("es_host should be a string. You gave an object of type"
                       , paste(class(es_host), collapse = "/"))
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # es_host is length 1
@@ -582,7 +582,7 @@ es_search <- function(es_host
         msg <- paste0("es_host should be length 1."
                       , " You provided an object of length "
                       , length(es_host))
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # Does not end in a slash
@@ -598,14 +598,14 @@ es_search <- function(es_host
         msg <- paste0("No port found in es_host! es_host should be a string of the"
                       , "form [transfer_protocol][hostname]:[port]). for "
                       , "example: 'http://myindex.mysite.com:9200'")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     # es_host has a valid transfer protocol
     protocolPattern <- "^[A-Za-z]+://"
     if (! grepl(protocolPattern, es_host) == 1) {
         msg <- "You did not provide a transfer protocol (e.g. http://) with es_host. Assuming http://..."
-        log_warn(msg)
+        .log_warn(msg)
 
         # Doing this to avoid cases where you just missed a slash or something,
         # e.g. "http:/es.thing.com:9200" --> 'es.thing.com:9200'
@@ -630,7 +630,7 @@ es_search <- function(es_host
 .get_es_version <- function(es_host) {
 
     # Hit the cluster root to get metadata
-    log_info("Checking Elasticsearch version...")
+    .log_info("Checking Elasticsearch version...")
     result <- .request(
         verb = "GET"
         , url = es_host
@@ -641,7 +641,7 @@ es_search <- function(es_host
 
     # Extract version number from the result
     version <- .content(result, as = "parsed")[["version"]][["number"]]
-    log_info(sprintf("uptasticsearch thinks you are running Elasticsearch %s", version))
+    .log_info(sprintf("uptasticsearch thinks you are running Elasticsearch %s", version))
 
     # Parse out just the major version. We can adjust this if we find
     # API differences that occurred at the minor version level
@@ -765,7 +765,7 @@ es_search <- function(es_host
                           "minutes (m), hours (h), days (d), or weeks (w) ",
                           "are supported. You provided: ",
                           duration_string)
-            log_fatal(msg)
+            .log_fatal(msg)
         }
     )
 

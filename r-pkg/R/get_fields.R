@@ -21,7 +21,7 @@
         return(indices)
     }
 
-    log_warn(paste0(
+    .log_warn(paste0(
         "Excluding the following indices assumed to be internal 'system' indices: ["
         , toString(indices)
         , "]. To suppress this warning and/or to query these indices, pass a vector of index names "  # nolint[non_portable_path]
@@ -71,7 +71,7 @@ get_fields <- function(es_host
         msg <- paste("get_fields must be passed a valid es_indices."
                      , "You provided", toString(es_indices)
                      , "which resulted in an empty string")
-        log_fatal(msg)
+        .log_fatal(msg)
     }
 
     major_version <- .get_es_version(
@@ -80,7 +80,7 @@ get_fields <- function(es_host
 
     # The use of "_all" to indicate "all indices" was removed in Elasticsearch 7.
     if (as.integer(major_version) > 6 && indices == "_all") {
-        log_warn(sprintf(
+        .log_warn(sprintf(
             paste0(
                 "You are running Elasticsearch version '%s.x'. _all is not supported in this version."
                 , " Pulling all indices with 'GET /_cat/indices' for you."  # nolint[non_portable_path]
@@ -107,7 +107,7 @@ get_fields <- function(es_host
     es_url <- sprintf("%s/%s/_mapping", es_url, indices)  # nolint[non_portable_path]
 
     ########################## make the query ################################
-    log_info(paste("Getting indexed fields for indices:", indices))
+    .log_info(paste("Getting indexed fields for indices:", indices))
 
     result <- .request(
         verb = "GET"
@@ -147,7 +147,7 @@ get_fields <- function(es_host
     rawAliasDT <- .get_aliases(es_host = es_host)
     if (!is.null(rawAliasDT)) {
 
-        log_info("Replacing index names with aliases")
+        .log_info("Replacing index names with aliases")
 
         # duplicate the mapping results for every alias. Idea is that you should be able to rely
         # on the results of get_fields to programmatically generate queries, and you should have a
@@ -179,7 +179,7 @@ get_fields <- function(es_host
     # log some information about this request to the user
     numFields <- nrow(mappingDT)
     numIndex <- mappingDT[, data.table::uniqueN(index)]
-    log_info(paste("Retrieved", numFields, "fields across", numIndex, "indices"))
+    .log_info(paste("Retrieved", numFields, "fields across", numIndex, "indices"))
 
     return(mappingDT)
 }
