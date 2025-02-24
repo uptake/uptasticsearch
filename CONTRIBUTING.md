@@ -153,11 +153,7 @@ Add a section for this release to `NEWS.md`.  This file details the new features
 
 Add a section for this release to `cran-comments.md`. This file holds details of our submission comments to CRAN and their responses to our submissions.
 
-Change the `Version:` field in `DESCRIPTION` to the official version you want on CRAN (should not have a trailing `.9000`).
-
-This project uses GitHub Pages to host a documentation site:
-
-https://uptake.github.io/uptasticsearch/
+Change the `Version:` field in `DESCRIPTION` to the official version you want on CRAN (should not have a trailing `.9999`).
 
 **Submit to CRAN**
 

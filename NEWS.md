@@ -1,9 +1,65 @@
-# uptasticsearch development version
+# uptasticsearch 0.5.0
+
+## Breaking Changes
+
+### Removed support for Elasticsearch 1.0.3
+
+- [#224](https://github.com/uptake/uptasticsearch/pull/224) The oldest support version is now 1.7.6.
 
 ## Features
 
-### Changed R package to use retry logic for HTTP requests
-- Changed all code in the R package to retry failed HTTP requests. This should make `uptasticsearch` more resilient to transient network issues.
+### Added support for Elasticsearch 7 and 8
+
+- [#204](https://github.com/uptake/uptasticsearch/pull/204), [#209](https://github.com/uptake/uptasticsearch/pull/209), [#213](https://github.com/uptake/uptasticsearch/pull/213), [#220](https://github.com/uptake/uptasticsearch/pull/220), [#245](https://github.com/uptake/uptasticsearch/pull/245) Added support for Elasticsearch 7.3.2 through 8.17.2. Later versions will hopefully still work, "support" here just means "validation via testing".
+
+### Added retry logic for all HTTP requests
+
+- [#172](https://github.com/uptake/uptasticsearch/pull/172) Changed all code in the R package to retry failed HTTP requests. This should make `{uptasticsearch}` more resilient to transient network issues.
+
+### Reduced set of required dependencies
+
+- [#249](https://github.com/uptake/uptasticsearch/pull/249) Dropped `{httr}` from `Imports` dependencies, replaced it with `{curl}`. Note that `{curl}` was already a hard runtime dependency of `{httr}`, so this is a net reduction in the set of dependencies required to install `{uptasticsearch}`.
+- [#243](https://github.com/uptake/uptasticsearch/pull/243) Dropped `{assertthat}` from `Imports` dependencies.
+- [#240](https://github.com/uptake/uptasticsearch/pull/240) Dropped `{uuid}` from `Imports` dependencies.
+- [#236](https://github.com/uptake/uptasticsearch/pull/236) Switched vignettes from `{rmarkdown}` to `{markdown}`.
+- [#235](https://github.com/uptake/uptasticsearch/pull/235) Removed `{covr}` from `Suggests` dependencies.
+- [#211](https://github.com/uptake/uptasticsearch/pull/211) Removed `{devtools}` from development workflows, in favor of the underlying libraries its entrypoints called. `{devtools}` was not listed as a dependency in `DESCRIPTION`, so this only affects building from sources pulled from version control.
+
+### Added compatibility with `{testthat}` 3.x
+
+- [#237](https://github.com/uptake/uptasticsearch/pull/237) Removed uses of `testthat::with_mock()`, to avoid compatibility issues with R 4.5.0 and beyond.
+- [#232](https://github.com/uptake/uptasticsearch/pull/232) Removed uses of `testthat::context()`, switched to `testthat::SummaryReporter`, some other cleanup.
+
+### Refreshed docs website
+
+- [#244](https://github.com/uptake/uptasticsearch/pull/244), [#246](https://github.com/uptake/uptasticsearch/pull/246) Rebuilt the docs site with the latest version of `{pkgdown}`, `{roxygen2}`, and everything they pull in.
+
+
+### Added a `conda-forge` package
+
+- [#210](https://github.com/uptake/uptasticsearch/pull/210) It's now possible to install the package with `conda`. See https://github.com/conda-forge/r-uptasticsearch-feedstock for packaging details.
+
+```shell
+conda install -c conda-forge r-uptasticsearch
+```
+
+## Bugfixes
+
+### Fixed some small `R CMD check` issues.
+
+- [#252](https://github.com/uptake/uptasticsearch/pull/252) Fixed NOTEs about URLs that redirect to other locations.
+- [#219](https://github.com/uptake/uptasticsearch/pull/219) Fixed this:
+
+```text
+Version: 0.4.0
+Check: LazyData
+Result: NOTE
+     'LazyData' is specified without a 'data' directory
+```
+
+### Fixed validation of `es_indices` in `get_fields()`
+
+- [#243](https://github.com/uptake/uptasticsearch/pull/243) The type of argument `es_indices` to `get_fields()` was previously not checked, which could lead to confusing errors. `{uptasticsearch}` now correctly checks it and raises an informative error if it is not a non-empty string.
 
 # uptasticsearch 0.4.0
 

@@ -17,10 +17,6 @@ echo "Starting up Elasticsearch..."
 
 case "${ES_VERSION}" in
 
-1.0.3)
-    docker run --rm -d -p "${ES_PORT}:9200" barnybug/elasticsearch:1.0.3
-    MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
-    ;;
 1.7.6)
     docker run --rm -d -p "${ES_PORT}:9200" elasticsearch:1.7.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json

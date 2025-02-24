@@ -131,3 +131,9 @@ In this submission, we changed maintainer from `james.lamb@uptake.com` to `jayla
 
 ### CRAN Response
 * No issues. v0.4.0 released to CRAN!
+
+## v1.0.0 - Submission 1 - (TBD)
+
+### `R CMD check` results
+
+### CRAN Response
