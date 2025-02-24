@@ -14,6 +14,8 @@ if (!identical(loggerOptions, list())) {
 }
 futile.logger::flog.threshold(0)
 
+ES_HOST <- "http://127.0.0.1:9200"
+
 #--- es_search
 
     # search request
@@ -21,7 +23,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         outDT <- es_search(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_index = "shakespeare"
             , max_hits = 100
             , size = 100
@@ -34,7 +36,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         outDT <- es_search(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_index = "shakespeare"
             , max_hits = 30
             , size = 2
@@ -47,7 +49,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         outDT <- es_search(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_index = "shakespeare"
             , max_hits = 30
             , size = 2
@@ -62,7 +64,7 @@ futile.logger::flog.threshold(0)
 
         expect_error({
             outDT <- es_search(
-                es_host = "http://127.0.0.1:9200"
+                es_host = ES_HOST
                 , es_index = "shakespeare"
                 , max_hits = 100
                 , size = 100
@@ -77,7 +79,7 @@ futile.logger::flog.threshold(0)
 
         expect_warning({
             outDT <- es_search(
-                es_host = "http://127.0.0.1:9200"
+                es_host = ES_HOST
                 , es_index = "shakespeare"
                 , max_hits = 9999
             )
@@ -91,7 +93,7 @@ futile.logger::flog.threshold(0)
 
         expect_warning({
             outDT <- es_search(
-                es_host = "http://127.0.0.1:9200"
+                es_host = ES_HOST
                 , es_index = "shakespeare"
                 , max_hits = 12
                 , size = 7
@@ -108,7 +110,7 @@ futile.logger::flog.threshold(0)
         #       and I want to avoid exposing our tests to changes in the query DSL
         expect_warning({
             outDT <- es_search(
-                es_host = "http://127.0.0.1:9200"
+                es_host = ES_HOST
                 , es_index = "empty_index"
             )
         }, regexp = "Query is syntactically valid but 0 documents were matched")
@@ -120,7 +122,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         outDT <- es_search(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_index = "shakespeare"
             , max_hits = 100
             , query = '{"aggs": {"thing": {"terms": {"field": "speaker", "size": 12}}}}'  # nolint[quotes]
@@ -150,7 +152,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         outDT <- es_search(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_index = "shakespeare"
             , max_hits = 100
             , query = '{"aggs": {"name_i_picked": {"terms": {"field": "speaker", "size": 12}}}}'  # nolint[quotes]
@@ -178,7 +180,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         outDT <- es_search(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_index = "shakespeare"
             , max_hits = 100
             , query = '{"aggs": {"blegh": {"terms": {"field": "nonsense_field"}}}}'  # nolint[quotes]
@@ -191,7 +193,7 @@ futile.logger::flog.threshold(0)
     test_that(".get_es_version works", {
         testthat::skip_on_cran()
 
-        ver <- uptasticsearch:::.get_es_version(es_host = "http://127.0.0.1:9200")
+        ver <- uptasticsearch:::.get_es_version(es_host = ES_HOST)
 
         # is a string
         expect_true(.is_string(ver), info = paste0("returned version: ", ver))
@@ -225,7 +227,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         result <- .get_aliases(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
         )
         expect_null(result)
     })
@@ -234,7 +236,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         fieldDT <- get_fields(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_indices = "_all"
         )
         expect_true(data.table::is.data.table(fieldDT))
@@ -275,7 +277,7 @@ futile.logger::flog.threshold(0)
 
         # get_fields should work
         fieldDT <- get_fields(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_indices = "_all"
         )
 
@@ -335,7 +337,7 @@ futile.logger::flog.threshold(0)
         #       Elasticsearch 7, but we use it here so that old uptasticsearch code
         #       continues to work
         fieldDT <- get_fields(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_indices = "_all"
         )
 
@@ -372,7 +374,7 @@ futile.logger::flog.threshold(0)
 
         # get_fields should work targeting a specific index with aliases
         fieldDT <- get_fields(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_indices = "shakespeare"
         )
 
@@ -422,7 +424,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         fieldDT <- get_fields(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_indices = "empty_index"
         )
         expect_true(data.table::is.data.table(fieldDT))
@@ -449,7 +451,7 @@ futile.logger::flog.threshold(0)
         testthat::skip_on_cran()
 
         fieldDT <- get_fields(
-            es_host = "http://127.0.0.1:9200"
+            es_host = ES_HOST
             , es_indices = c("empty_index", "shakespeare")
         )
         expect_true(data.table::is.data.table(fieldDT))
