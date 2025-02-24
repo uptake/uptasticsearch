@@ -8,7 +8,7 @@
 #'                 as it has pulled this many hits. Default is \code{Inf}, meaning that
 #'                 all possible hits will be pulled.
 #' @param size Number of records per page of results.
-#'             See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
+#'             See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-from-size}{Elasticsearch docs} for more.
 #'             Note that this will be reset to 0 if you submit a \code{query_body} with
 #'             an "aggs" request in it. Also see \code{max_hits}.
 #' @param query_body String with a valid Elasticsearch query. Default is an empty query.
@@ -17,7 +17,7 @@
 #'               The scroll context will be refreshed every time you ask Elasticsearch
 #'               for another record, so this parameter should just be the amount of
 #'               time you expect to pass between requests. See the
-#'               \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
+#'               \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll}{Elasticsearch scroll/pagination docs}
 #'               for more information.
 #' @param n_cores Number of cores to distribute fetching and processing over.
 #' @param break_on_duplicates Boolean, defaults to TRUE. \code{es_search} uses the size of the
@@ -72,7 +72,7 @@
 #'                       , es_index = 'ticket_sales'
 #'                       , query_body = query_body)
 #' }
-#' @references \href{https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html}{Elasticsearch 6 scrolling strategy}
+#' @references \href{https://www.elastic.co/guide/en/elasticsearch/reference/6.7/search-request-scroll.html}{Elasticsearch 6 scrolling strategy}
 # nolint end
 es_search <- function(es_host
                       , es_index
@@ -162,7 +162,7 @@ es_search <- function(es_host
 # [param] es_host A string identifying an Elasticsearch host. This should be of the form
 #        [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
 # [param] es_index The name of an Elasticsearch index to be queried.
-# [param] size Number of records per page of results. See \href{https://www.elastic.co/guide/en/Elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more
+# [param] size Number of records per page of results. See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-from-size}{Elasticsearch docs} for more
 # [param] query_body String with a valid Elasticsearch query to be passed to \code{\link[elastic]{Search}}.
 #                  Default is an empty query.
 # [param] scroll How long should the scroll context be held open? This should be a
@@ -205,7 +205,7 @@ es_search <- function(es_host
 # See the links below for more information on how scrolling in Elasticsearch works
 # and why certain design decisions were made in this function.
 # \itemize{
-# \item \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch documentation on scrolling search}
+# \item \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll}{Elasticsearch documentation on scrolling search}
 # \item \href{https://github.com/elastic/elasticsearch/issues/14954}{GitHub issue thread explaining why this function does not parallelize requests}
 # \item \href{https://github.com/elastic/elasticsearch/issues/11419}{GitHub issue thread explaining common symptoms that the scroll_id has changed and you are not using the correct Id}
 # \item \href{http://stackoverflow.com/questions/25453872/why-does-this-elasticsearch-scan-and-scroll-keep-returning-the-same-scroll-id}{More background on how/why Elasticsearch generates and changes the scroll_id}
@@ -238,7 +238,7 @@ es_search <- function(es_host
                       "\n\nIf you understand the costs and would like to make requests ",
                       "with a longer-lived context, re-run this function with ",
                       "ignore_scroll_restriction = TRUE.\n",
-                      "\nPlease see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html ",
+                      "\nPlease see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll ",  # nolint[line_length]
                       "for more information.")
         .log_fatal(msg)
     }
@@ -530,7 +530,7 @@ es_search <- function(es_host
 # [title] Make a scroll request with the strategy supported by Elasticsearch 5.x and later
 # [name] .new_scroll_request
 # [description] Make a scrolling request and return the result
-# [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html
+# [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.7/search-request-scroll.html
 .new_scroll_request <- function(es_host, scroll, scroll_id) {
 
     # Set up scroll_url
