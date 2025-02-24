@@ -238,7 +238,7 @@ es_search <- function(es_host
                       "\n\nIf you understand the costs and would like to make requests ",
                       "with a longer-lived context, re-run this function with ",
                       "ignore_scroll_restriction = TRUE.\n",
-                      "\nPlease see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll ",
+                      "\nPlease see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll ",  # nolint[line_length]
                       "for more information.")
         .log_fatal(msg)
     }
