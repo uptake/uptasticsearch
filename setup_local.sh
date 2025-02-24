@@ -25,7 +25,7 @@ case "${ES_VERSION}" in
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 2.4.6)
-    docker run --platform linux/amd64 -d -p 9200:9200 elasticsearch:2.4.6
+    docker run -d -p 9200:9200 elasticsearch:2.4.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 5.6.16)
