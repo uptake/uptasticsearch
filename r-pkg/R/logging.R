@@ -1,3 +1,8 @@
+#' @importFrom futile.logger flog.debug
+.log_debug <- function(...) {
+    futile.logger::flog.debug(...)
+}
+
 #' @importFrom futile.logger flog.info
 .log_info <- function(...) {
     futile.logger::flog.info(...)

@@ -90,7 +90,6 @@ get_fields <- function(es_host
         res <- .request(
             verb = "GET"
             , url = sprintf("%s/_cat/indices?format=json", es_url)
-            , headers = character()
             , body = NULL
         )
         indexDT <- data.table::as.data.table(
@@ -112,7 +111,6 @@ get_fields <- function(es_host
     result <- .request(
         verb = "GET"
         , url = es_url
-        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
     .stop_for_status(result)
@@ -221,6 +219,8 @@ get_fields <- function(es_host
 
 # [title] Get a data.table containing names of indices and aliases
 # [es_host] A string identifying an Elasticsearch host.
+#' @importFrom data.table as.data.table
+#' @importFrom jsonlite fromJSON
 .get_aliases <- function(es_host) {
 
     # construct the url to the alias endpoint
@@ -230,7 +230,6 @@ get_fields <- function(es_host
     result <- .request(
         verb = "GET"
         , url = url
-        , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
         , body = NULL
     )
     .stop_for_status(result)
@@ -243,52 +242,13 @@ get_fields <- function(es_host
         # there are no aliases in this Elasticsearch cluster
         return(invisible(NULL))
     } else {
-        major_version <- .get_es_version(es_host)
-        process_alias <- switch(
-            major_version
-            , "1" = .process_legacy_alias
-            , "2" = .process_legacy_alias
-            , "5" = .process_new_alias
-            , "6" = .process_new_alias
-            , .process_new_alias
+        aliasDT <- data.table::as.data.table(
+            jsonlite::fromJSON(
+                resultContent
+                , simplifyDataFrame = TRUE
+                , flatten = TRUE
+            )
         )
-        return(process_alias(alias_string = resultContent))
+        return(aliasDT[, .(alias, index)])
     }
-}
-
-
-# [title] Process the string returned by the GET alias API into a data.table
-# [description] Older version of Elasticsearch (pre-5.x) had a slightly different return
-#               format for aliases. This handles those
-# [alias_string] A string returned by the alias API with index and alias name
-#' @importFrom data.table as.data.table
-#' @importFrom jsonlite fromJSON
-.process_legacy_alias <- function(alias_string) {
-    aliasDT <- data.table::as.data.table(
-        jsonlite::fromJSON(
-            alias_string
-            , simplifyDataFrame = TRUE
-            , flatten = TRUE
-        )
-    )
-    return(aliasDT[, .(alias, index)])
-}
-
-# [title] Process the string returned by the GET alias API into a data.table
-# [description] This only works for Elasticsearch 5 and up
-# [alias_string] A string returned by the alias API with index and alias name
-#' @importFrom data.table data.table
-#' @importFrom utils read.table
-.process_new_alias <- function(alias_string) {
-
-    # process the string provided by the /_cat/aliases API into a data.frame and then a data.table
-    aliasDT <- data.table::data.table(
-        utils::read.table(
-            text = alias_string
-            , stringsAsFactors = FALSE
-        )
-    )
-
-    # return only the first two columns
-    return(aliasDT[, .(alias = V1, index = V2)])
 }

@@ -4,11 +4,11 @@ Title: Get Data Frame Representations of 'Elasticsearch' Results
 Version: 1.0.0
 Authors@R: c(
     person("James", "Lamb", email = "jaylamb20@gmail.com", role = c("aut", "cre")),
-    person("Nick", "Paras", email = "nick.paras@uptake.com", role = c("aut")),
-    person("Austin", "Dickey", email = "austin.dickey@uptake.com", role = c("aut")),
+    person("Nick", "Paras", role = c("aut")),
+    person("Austin", "Dickey", role = c("aut")),
     person("Michael", "Frasco", email = "mfrasco6@gmail.com", role = c("ctb")),
-    person("Weiwen", "Gu", email = "weiwen.gu@uptake.com", role = c("ctb")),
-    person("Will", "Dearden", email = "william.dearden@uptake.com", role = c("ctb")),
+    person("Weiwen", "Gu", role = c("ctb")),
+    person("Will", "Dearden", role = c("ctb")),
     person("Uptake Technologies Inc.", role = c("cph")))
 Maintainer: James Lamb <jaylamb20@gmail.com>
 Description:
@@ -22,13 +22,13 @@ Description:
 Depends:
     R (>= 3.3.0)
 Imports:
+    curl,
     data.table,
     futile.logger,
-    httr,
     jsonlite,
     purrr,
-    stringr,
-    utils
+    stats,
+    stringr
 Suggests:
     knitr,
     markdown,
