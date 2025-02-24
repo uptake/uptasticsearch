@@ -1,4 +1,4 @@
-# uptasticsearch 0.5.0
+# uptasticsearch 1.0.0
 
 ## Breaking Changes
 
