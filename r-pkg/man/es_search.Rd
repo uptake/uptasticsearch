@@ -29,7 +29,7 @@ uptasticsearch forbids this. If you want to execute a query over
 all indexes in the cluster, set this argument to \code{"_all"}.}
 
 \item{size}{Number of records per page of results.
-See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html}{Elasticsearch docs} for more.
+See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-from-size}{Elasticsearch docs} for more.
 Note that this will be reset to 0 if you submit a \code{query_body} with
 an "aggs" request in it. Also see \code{max_hits}.}
 
@@ -40,7 +40,7 @@ duration string like "1m" (for one minute) or "15s" (for 15 seconds).
 The scroll context will be refreshed every time you ask Elasticsearch
 for another record, so this parameter should just be the amount of
 time you expect to pass between requests. See the
-\href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html}{Elasticsearch scroll/pagination docs}
+\href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll}{Elasticsearch scroll/pagination docs}
 for more information.}
 
 \item{max_hits}{Integer. If specified, \code{es_search} will stop pulling data as soon
@@ -108,5 +108,5 @@ resultDT <- es_search(es_host = "http://es.custdb.mycompany.com:9200"
 }
 }
 \references{
-\href{https://www.elastic.co/guide/en/elasticsearch/reference/6.x/search-request-scroll.html}{Elasticsearch 6 scrolling strategy}
+\href{https://www.elastic.co/guide/en/elasticsearch/reference/6.7/search-request-scroll.html}{Elasticsearch 6 scrolling strategy}
 }
