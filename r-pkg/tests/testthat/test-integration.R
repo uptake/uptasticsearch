@@ -213,7 +213,6 @@ ES_HOST <- "http://127.0.0.1:9200"
         res <- .request(
             verb = "POST"
             , url = "http://127.0.0.1:9200/_aliases"
-            , headers = c("Content-Type" = "application/json")  # nolint[non_portable_path]
             , body = sprintf(
                 '{"actions": [{"%s": {"index": "shakespeare", "alias": "%s"}}]}'  # nolint[quotes]
                 , action
@@ -473,6 +472,81 @@ ES_HOST <- "http://127.0.0.1:9200"
         expect_true(fieldDT[, any(index == "empty_index")])
         expect_true(fieldDT[, length(unique(index))] >= 2)
     })
+
+#--- HTTP request helpers
+test_that(".request() works for requests without a body", {
+    testthat::skip_on_cran()
+    response <- uptasticsearch:::.request(
+        verb = "POST"
+        , url = "https://httpbin.org/status/201"
+        , body = NULL
+    )
+    expect_true(response$method == "POST")
+    expect_true(response$status_code == 201L)
+    expect_true(response$url == "https://httpbin.org/status/201")
+})
+
+test_that(".request() works for requests with a body", {
+    testthat::skip_on_cran()
+    response <- uptasticsearch:::.request(
+        verb = "POST"
+        , url = "https://httpbin.org/anything"
+        , body = '{"data": {"cool_numbers": [312, 708, 773]}}'
+    )
+    expect_true(response$method == "POST")
+    expect_true(response$status_code == 200L)
+    expect_true(response$url == "https://httpbin.org/anything")
+    response_content <- jsonlite::fromJSON(rawToChar(response$content))
+    expect_true(identical(response_content[["json"]][["data"]][["cool_numbers"]], c(312L, 708L, 773L)))
+})
+
+test_that("retry logic works as expected", {
+    testthat::skip_on_cran()
+    futile.logger::flog.threshold(futile.logger::DEBUG)
+    log_lines <- testthat::capture_output({
+        response <- .request(
+            verb = "GET"
+            , url = "https://httpbin.org/status/502"
+            , body = NULL
+        )
+    })
+    futile.logger::flog.threshold(0)
+
+    # should log the failures and sleep times
+    expect_true(grepl("DEBUG.*Request failed.*status code 502.*Sleeping for", log_lines))
+
+    # should perform retry with backoff
+    expect_true(grepl(".*Sleeping for 1\\.[0-9]+ seconds.*Sleeping for 2\\.[0-9]+ seconds", log_lines))
+
+    # should return the response
+    expect_true(response$method == "GET")
+    expect_true(response$status_code == 502L)
+    expect_true(response$url == "https://httpbin.org/status/502")
+})
+
+test_that("retry logic works as expected for requests with a body", {
+    testthat::skip_on_cran()
+    futile.logger::flog.threshold(futile.logger::DEBUG)
+    log_lines <- testthat::capture_output({
+        response <- .request(
+            verb = "POST"
+            , url = "https://httpbin.org/status/429"
+            , body = '{"some_key": 708}'
+        )
+    })
+    futile.logger::flog.threshold(0)
+
+    # should log the failures and sleep times
+    expect_true(grepl("DEBUG.*Request failed.*status code 429.*Sleeping for", log_lines))
+
+    # should perform retry with backoff
+    expect_true(grepl(".*Sleeping for 1\\.[0-9]+ seconds.*Sleeping for 2\\.[0-9]+ seconds", log_lines))
+
+    # should return the response
+    expect_true(response$method == "POST")
+    expect_true(response$status_code == 429L)
+    expect_true(response$url == "https://httpbin.org/status/429")
+})
 
 ##### TEST TEAR DOWN #####
 futile.logger::flog.threshold(origLogThreshold)
