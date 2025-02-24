@@ -216,7 +216,6 @@ futile.logger::flog.threshold(0)
                 , action
                 , alias_name
             )
-            , add_json_headers = TRUE
         )
         .stop_for_status(res)
         return(invisible(NULL))
@@ -479,7 +478,6 @@ test_that(".request() works", {
         verb = "POST"
         , url = "https://httpbin.org/status/201"
         , body = NULL
-        , add_json_headers = FALSE
     )
     expect_true(response$method == "POST")
     expect_true(response$status_code == 201L)
@@ -494,7 +492,6 @@ test_that("retry logic works as expected", {
             verb = "GET"
             , url = "https://httpbin.org/status/502"
             , body = NULL
-            , add_json_headers = FALSE
         )
     })
     futile.logger::flog.threshold(0)

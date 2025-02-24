@@ -91,7 +91,6 @@ get_fields <- function(es_host
             verb = "GET"
             , url = sprintf("%s/_cat/indices?format=json", es_url)
             , body = NULL
-            , add_json_headers = TRUE
         )
         indexDT <- data.table::as.data.table(
             jsonlite::fromJSON(
@@ -113,7 +112,6 @@ get_fields <- function(es_host
         verb = "GET"
         , url = es_url
         , body = NULL
-        , add_json_headers = TRUE
     )
     .stop_for_status(result)
     resultContent <- .content(result, as = "parsed")
@@ -233,7 +231,6 @@ get_fields <- function(es_host
         verb = "GET"
         , url = url
         , body = NULL
-        , add_json_headers = TRUE
     )
     .stop_for_status(result)
     resultContent <- .content(result, as = "text")

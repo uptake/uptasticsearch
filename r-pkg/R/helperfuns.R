@@ -64,6 +64,7 @@
 #               See .should_retry() for details on which status codes are considered retryable.
 #               This is here because {curl} does not have a built-in retry API.
 #' @importFrom curl curl_fetch_memory
+#' @importFrom stats runif
 .retry <- function(handle, url) {
 
     max_retries <- 3L
@@ -80,7 +81,7 @@
             #   etc., etc.
             #
             # ref: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
-            sleep_seconds <- 1.45 ** (attempt_count - 1L) + runif(n = 1L, min = 0.1, max = 0.5)
+            sleep_seconds <- 1.45 ** (attempt_count - 1L) + stats::runif(n = 1L, min = 0.1, max = 0.5)
             .log_debug(sprintf("Sleeping for %.2f seconds before retrying.", sleep_seconds))
             Sys.sleep(sleep_seconds)
         }
@@ -113,17 +114,18 @@
 #               also centralizes the mechanism for HTTP request execution in one place.
 # [references] https://testthat.r-lib.org/reference/local_mocked_bindings.html#namespaced-calls
 #' @importFrom curl handle_setheaders handle_setopt new_handle
-.request <- function(verb, url, body, add_json_headers) {
+.request <- function(verb, url, body) {
     handle <- curl::new_handle()
 
     # set headers
-    if (isTRUE(add_json_headers)) {
-        curl::handle_setheaders(
-            handle = handle
-            , "Accept" = "application/json"        # nolint[non_portable_path]
-            , "Content-Type" = "application/json"  # nolint[non_portable_path]
-        )
-    }
+    #
+    # This can safely be hard-coded here because every payload this library
+    # posts and every response body it receives is JSON data.
+    curl::handle_setheaders(
+        handle = handle
+        , "Accept" = "application/json"        # nolint[non_portable_path]
+        , "Content-Type" = "application/json"  # nolint[non_portable_path]
+    )
 
     # set HTTP method
     curl::handle_setopt(handle = handle, customrequest = verb)
