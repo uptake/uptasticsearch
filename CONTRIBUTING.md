@@ -28,7 +28,7 @@ If you are reporting a bug, please describe as many as possible of the following
 The text of your issue should answer the question "what did you expect `uptasticsearch` to do and what did it actually do?".
 
 We welcome any and all bug reports.
-However, we'll be best able to help you if you can reduce the bug down to a **minimum working example**
+However, we'll be best able to help you if you can reduce the bug down to a **minimum working example**.
 A **minimal working example (MWE)** is the minimal code needed to reproduce the incorrect behavior you are reporting.
 Please consider the [stackoverflow guide on MWE authoring](https://stackoverflow.com/help/mcve).
 
