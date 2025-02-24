@@ -11,38 +11,39 @@ WDIR=$(pwd)
 TESTDIR=${WDIR}/sandbox
 SAMPLE_DATA_FILE=$(pwd)/test-data/sample.json
 ES_HOST="127.0.0.1"
+ES_PORT="9200"
 
 echo "Starting up Elasticsearch..."
 
 case "${ES_VERSION}" in
 
 1.0.3)
-    docker run -d -p 9200:9200 barnybug/elasticsearch:1.0.3
+    docker run --rm -d -p "${ES_PORT}:9200" barnybug/elasticsearch:1.0.3
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 1.7.6)
-    docker run -d -p 9200:9200 elasticsearch:1.7.6
+    docker run --rm -d -p "${ES_PORT}:9200" elasticsearch:1.7.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 2.4.6)
-    docker run -d -p 9200:9200 elasticsearch:2.4.6
+    docker run --rm -d -p "${ES_PORT}:9200" elasticsearch:2.4.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 5.6.16)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:5.6.16
     MAPPING_FILE=$(pwd)/test-data/es5_shakespeare_mapping.json
     ;;
 6.8.15)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:6.8.15
     MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
     ;;
 7.0.1)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:7.0.1
@@ -50,7 +51,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 7.17.22)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:7.17.22
@@ -58,7 +59,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.0.1)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.0.1
@@ -66,7 +67,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.5.3)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.5.3
@@ -74,7 +75,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.10.4)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.10.4
@@ -82,7 +83,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.15.5)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.15.5
@@ -90,7 +91,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.17.2)
-    docker run -d -p 9200:9200 \
+    docker run --rm -d -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.17.2
