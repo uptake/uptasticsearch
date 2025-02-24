@@ -132,7 +132,12 @@ In this submission, we changed maintainer from `james.lamb@uptake.com` to `jayla
 ### CRAN Response
 * No issues. v0.4.0 released to CRAN!
 
-## v1.0.0 - Submission 1 - (TBD)
+## v1.0.0 - Submission 1 - (February 24, 2025)
+
+Submitted with the following comments.
+
+> This is the first release of 'uptasticsearch' since 2019.
+> It mainly seeks to preserve the package on CRAN by removing use of deprecated-and-soon-to-be-removed functionality in 'testthat' (https://github.com/uptake/uptasticsearch/issues/223).
 
 ### `R CMD check` results
 
