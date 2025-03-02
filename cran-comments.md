@@ -141,4 +141,8 @@ Submitted with the following comments.
 
 ### `R CMD check` results
 
+* No issues
+
 ### CRAN Response
+
+* No issues. v1.0.0 released to CRAN!
