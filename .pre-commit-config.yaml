@@ -10,7 +10,7 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/maxwinterstein/shfmt-py
-    rev: v3.7.0.1
+    rev: v3.11.0.2
     hooks:
       - id: shfmt
         args: ["--indent=4", "--space-redirects", "--write"]
@@ -23,5 +23,3 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
-        # additional_dependencies: [tomli]
-        # args: ["--toml", "pyproject.toml"]
