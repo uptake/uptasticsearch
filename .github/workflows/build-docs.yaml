@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: set up R
@@ -30,7 +30,7 @@ jobs:
       - name: build docs
         run: |
           .ci/build-docs.sh
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: ./r-pkg/docs
 
