@@ -19,5 +19,5 @@ sudo apt-get install \
     tidy \
     qpdf
 
-Rscript -e "install.packages(c('covr', 'curl', 'data.table', 'futile.logger', 'jsonlite', 'knitr', 'lintr', 'markdown', 'purrr', 'stringr', 'testthat'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"
+Rscript -e "install.packages(c('covr', 'curl', 'data.table', 'jsonlite', 'knitr', 'lintr', 'markdown', 'purrr', 'stringr', 'testthat'), repos = 'https://cran.r-project.org', Ncpus = parallel::detectCores())"
 cp test-data/* r-pkg/inst/testdata/

@@ -1,13 +1,3 @@
-# Configure logger (suppress all logs in testing)
-loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][["threshold"]]
-} else {
-    origLogThreshold <- futile.logger::INFO
-}
-futile.logger::flog.threshold(0)
-
-
 #--- get_fields
 
     # Gives an informative error if es_indices is NULL or an empty string
@@ -95,6 +85,3 @@ test_that("get_fields works as expected when mocked", {
                   )
                   expect_identical(mappingDT, expected)
     })
-
-##### TEST TEAR DOWN #####
-futile.logger::flog.threshold(origLogThreshold)

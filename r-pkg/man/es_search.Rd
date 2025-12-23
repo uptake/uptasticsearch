@@ -14,7 +14,8 @@ es_search(
   n_cores = ceiling(parallel::detectCores()/2),
   break_on_duplicates = TRUE,
   ignore_scroll_restriction = FALSE,
-  intermediates_dir = getwd()
+  intermediates_dir = getwd(),
+  verbose = FALSE
 )
 }
 \arguments{
@@ -70,6 +71,8 @@ intermediate results to disk. By default, `es_search` will create a temporary
 directory in whatever working directory the function is called from. If you
 want to change this behavior, provide a path here. `es_search` will create
 and write to a temporary directory under whatever path you provide.}
+
+\item{verbose}{\code{TRUE} if verbose logs should be printed. \code{FALSE} by default.}
 }
 \description{
 Given a query and some optional parameters, \code{es_search} gets results

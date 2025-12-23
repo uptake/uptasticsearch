@@ -52,6 +52,7 @@
 #' }
 get_fields <- function(es_host
                        , es_indices = "_all"
+                       , verbose = FALSE
 ) {
 
     # Input checking
@@ -76,6 +77,7 @@ get_fields <- function(es_host
 
     major_version <- .get_es_version(
         es_host = es_host
+        , verbose = verbose
     )
 
     # The use of "_all" to indicate "all indices" was removed in Elasticsearch 7.
@@ -91,6 +93,7 @@ get_fields <- function(es_host
             verb = "GET"
             , url = sprintf("%s/_cat/indices?format=json", es_url)
             , body = NULL
+            , verbose = verbose
         )
         indexDT <- data.table::as.data.table(
             jsonlite::fromJSON(
@@ -112,6 +115,7 @@ get_fields <- function(es_host
         verb = "GET"
         , url = es_url
         , body = NULL
+        , verbose = verbose
     )
     .stop_for_status(result)
     resultContent <- .content(result, as = "parsed")
@@ -142,7 +146,7 @@ get_fields <- function(es_host
     }
 
     ##################### get aliases for index names #########################
-    rawAliasDT <- .get_aliases(es_host = es_host)
+    rawAliasDT <- .get_aliases(es_host = es_host, verbose = verbose)
     if (!is.null(rawAliasDT)) {
 
         .log_info("Replacing index names with aliases")
@@ -221,7 +225,7 @@ get_fields <- function(es_host
 # [es_host] A string identifying an Elasticsearch host.
 #' @importFrom data.table as.data.table
 #' @importFrom jsonlite fromJSON
-.get_aliases <- function(es_host) {
+.get_aliases <- function(es_host, verbose) {
 
     # construct the url to the alias endpoint
     url <- paste0(es_host, "/_cat/aliases")  # nolint[absolute_path, non_portable_path]
@@ -231,6 +235,7 @@ get_fields <- function(es_host
         verb = "GET"
         , url = url
         , body = NULL
+        , verbose = verbose
     )
     .stop_for_status(result)
     resultContent <- .content(result, as = "text")

@@ -1,21 +1,20 @@
-#' @importFrom futile.logger flog.debug
-.log_debug <- function(...) {
-    futile.logger::flog.debug(...)
+.log_debug <- function(msg) {
+    write(sprintf("[DEBUG] %s", msg), stdout())
+    return(invisible(NULL))
 }
 
-#' @importFrom futile.logger flog.info
-.log_info <- function(...) {
-    futile.logger::flog.info(...)
+.log_info <- function(msg) {
+    write(sprintf("[INFO] %s", msg), stdout())
+    return(invisible(NULL))
 }
 
-#' @importFrom futile.logger flog.warn
-.log_warn <- function(...) {
-    futile.logger::flog.warn(...)
-    warning(...)
+.log_warn <- function(msg) {
+    write(sprintf("[WARN] %s", msg), stdout())
+    warning(msg)
+    return(invisible(NULL))
 }
 
-#' @importFrom futile.logger flog.fatal
-.log_fatal <- function(...) {
-    futile.logger::flog.fatal(...)
-    stop(...)
+.log_fatal <- function(msg) {
+    write(sprintf("[FATAL] %s", msg), stdout())
+    stop(msg)
 }

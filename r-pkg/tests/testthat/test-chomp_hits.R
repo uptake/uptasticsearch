@@ -1,13 +1,3 @@
-
-# Configure logger (suppress all logs in testing)
-loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][["threshold"]]
-} else {
-    origLogThreshold <- futile.logger::INFO
-}
-futile.logger::flog.threshold(0)
-
 # This is effectively a test of running elastic::Search(raw = TRUE) and passing it through chomp_hits()
 test_that("chomp_hits should work from a one-element character vector", {
           # nolint start
@@ -129,6 +119,3 @@ test_that("chomp_hits should warn and delete if the resulting data is nested wit
     }, regexp = "Deleting the following nested data columns:")
     expect_equal(names(chomped), "test2")
 })
-
-##### TEST TEAR DOWN #####
-futile.logger::flog.threshold(origLogThreshold)

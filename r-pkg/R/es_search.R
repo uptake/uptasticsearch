@@ -84,6 +84,7 @@ es_search <- function(es_host
                       , break_on_duplicates = TRUE
                       , ignore_scroll_restriction = FALSE
                       , intermediates_dir = getwd()
+                      , verbose = FALSE
 ) {
 
     # Check if this is an aggs or straight-up search query
@@ -135,6 +136,7 @@ es_search <- function(es_host
             , es_index = es_index
             , trailing_args = "size=0"
             , query_body = query_body
+            , verbose = verbose
         )
 
         return(chomp_aggs(aggs_json = result))
@@ -151,7 +153,8 @@ es_search <- function(es_host
                       , n_cores = n_cores
                       , break_on_duplicates = break_on_duplicates
                       , ignore_scroll_restriction = ignore_scroll_restriction
-                      , intermediates_dir = intermediates_dir))
+                      , intermediates_dir = intermediates_dir
+                      , verbose = verbose))
 }
 
 # nolint start
@@ -190,6 +193,7 @@ es_search <- function(es_host
 #                                value longer than an hour, set \code{ignore_scroll_restriction}
 #                                to \code{TRUE}.
 # [param] intermediates_dir passed through from es_search. See es_search docs.
+# [param] verbose TRUE to print DEBUG-level logs.
 # [examples]
 # \dontrun{
 #
@@ -224,6 +228,7 @@ es_search <- function(es_host
                      , break_on_duplicates
                      , ignore_scroll_restriction
                      , intermediates_dir
+                     , verbose
 ) {
 
     # Check es_host
@@ -284,12 +289,13 @@ es_search <- function(es_host
         , es_index = es_index
         , trailing_args = paste0("size=", size, "&scroll=", scroll)
         , query_body = query_body
+        , verbose = verbose
     )
 
     # Parse to JSON to get total number of documents matching the query
     firstResult <- jsonlite::fromJSON(firstResultJSON, simplifyVector = FALSE)
 
-    major_version <- .get_es_version(es_host)
+    major_version <- .get_es_version(es_host, verbose = verbose)
     if (as.integer(major_version) > 6) {
       hits_to_pull <- min(firstResult[["hits"]][["total"]][["value"]], max_hits)
     } else {
@@ -458,6 +464,7 @@ es_search <- function(es_host
 #          hits_to_pull - Total hits to be pulled (documents matching user's query).
 #                       Or, in the case where max_hits < number of matching docs,
 #                       max_hits.
+#          verbose - TRUE to print DEBUG-level logs.
 #' @importFrom jsonlite fromJSON
 .keep_on_pullin <- function(scroll_id
                             , out_path
@@ -466,11 +473,12 @@ es_search <- function(es_host
                             , scroll
                             , hits_pulled
                             , hits_to_pull
+                            , verbose
 ) {
 
     # Note that the old scrolling strategy was deprecated in Elasticsearch 5.x and
     # officially dropped in Elasticsearch 6.x. Need to grab the correct method here
-    major_version <- .get_es_version(es_host)
+    major_version <- .get_es_version(es_host, verbose = verbose)
     scrolling_request <- switch(
         major_version
         , "1" = .legacy_scroll_request
@@ -487,6 +495,7 @@ es_search <- function(es_host
             es_host = es_host
             , scroll = scroll
             , scroll_id = scroll_id
+            , verbose = verbose
         )
         .stop_for_status(result)
         resultJSON <- .content(result, as = "text")
@@ -531,7 +540,7 @@ es_search <- function(es_host
 # [name] .new_scroll_request
 # [description] Make a scrolling request and return the result
 # [references] https://www.elastic.co/guide/en/elasticsearch/reference/6.7/search-request-scroll.html
-.new_scroll_request <- function(es_host, scroll, scroll_id) {
+.new_scroll_request <- function(es_host, scroll, scroll_id, verbose) {
 
     # Set up scroll_url
     scroll_url <- paste0(es_host, "/_search/scroll")  # nolint[absolute_path,non_portable_path]
@@ -541,6 +550,7 @@ es_search <- function(es_host
         verb = "POST"
         , url = scroll_url
         , body = sprintf('{"scroll": "%s", "scroll_id": "%s"}', scroll, scroll_id)
+        , verbose = verbose
     )
     return(result)
 }
@@ -548,7 +558,7 @@ es_search <- function(es_host
 # [title] Make a scroll request with the strategy supported by Elasticsearch 1.x and Elasticsearch 2.x
 # [name] .legacy_scroll_request
 # [description] Make a scrolling request and return the result
-.legacy_scroll_request <- function(es_host, scroll, scroll_id) {
+.legacy_scroll_request <- function(es_host, scroll, scroll_id, verbose) {
 
     # Set up scroll_url
     scroll_url <- paste0(es_host, "/_search/scroll?scroll=", scroll)
@@ -558,6 +568,7 @@ es_search <- function(es_host
         verb = "POST"
         , url = scroll_url
         , body = scroll_id
+        , verbose = verbose
     )
     return(result)
 }
@@ -625,7 +636,7 @@ es_search <- function(es_host
 #               version of Elasticsearch.
 # [param] es_host A string identifying an Elasticsearch host. This should be of the form
 #         [transfer_protocol][hostname]:[port]. For example, 'http://myindex.thing.com:9200'.
-.get_es_version <- function(es_host) {
+.get_es_version <- function(es_host, verbose) {
 
     # Hit the cluster root to get metadata
     .log_info("Checking Elasticsearch version...")
@@ -633,6 +644,7 @@ es_search <- function(es_host
         verb = "GET"
         , url = es_host
         , body = NULL
+        , verbose = verbose
     )
     .stop_for_status(result)
 
@@ -669,6 +681,7 @@ es_search <- function(es_host
 #         For example, to limit the size of the returned results, you might pass
 #         "size=0". This can be a single string or a character vector of params, e.g.
 #         \code{c('size=0', 'scroll=5m')}
+# [param] verbose TRUE to print DEBUG-level logs.
 # [param] query_body A JSON string with valid Elasticsearch DSL
 # [examples]
 # \dontrun{
@@ -701,6 +714,7 @@ es_search <- function(es_host
                           , es_index
                           , trailing_args = NULL
                           , query_body
+                          , verbose
 ) {
 
     # Input checking
@@ -717,6 +731,7 @@ es_search <- function(es_host
         verb = "POST"
         , url = reqURL
         , body = query_body
+        , verbose = verbose
     )
     .stop_for_status(result)
     result <- .content(result, as = "text")

@@ -26,6 +26,7 @@ utils::globalVariables(c(
 #'                 To be sure that this very expensive query is not executed by accident,
 #'                 uptasticsearch forbids this. If you want to execute a query over
 #'                 all indexes in the cluster, set this argument to \code{"_all"}.
+#' @param verbose \code{TRUE} if verbose logs should be printed. \code{FALSE} by default.
 #' @name doc_shared
 #' @title NULL Object For Common Documentation
 #' @description This is a NULL object with documentation so that later functions can call

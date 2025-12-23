@@ -5,15 +5,6 @@
 # Sample data from:
 # - https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html
 
-# Configure logger (suppress all logs in testing)
-loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][["threshold"]]
-} else {
-    origLogThreshold <- futile.logger::INFO
-}
-futile.logger::flog.threshold(0)
-
 ES_HOST <- "http://127.0.0.1:9200"
 
 #--- es_search
@@ -218,6 +209,7 @@ ES_HOST <- "http://127.0.0.1:9200"
                 , action
                 , alias_name
             )
+            , verbose = FALSE
         )
         .stop_for_status(res)
         return(invisible(NULL))
@@ -252,7 +244,7 @@ ES_HOST <- "http://127.0.0.1:9200"
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_false(anyNA(fieldDT[, .(index, field, data_type)]))
     })
 
     test_that(".get_aliases and get_fields work as expected when exactly one alias exists for one index in the cluster", {
@@ -293,7 +285,7 @@ ES_HOST <- "http://127.0.0.1:9200"
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_false(anyNA(fieldDT[, .(index, field, data_type)]))
 
         # get_fields should replace index names with their aliases
         expect_true(fieldDT[, sum(index == "the_test_alias")] > 0)
@@ -353,7 +345,7 @@ ES_HOST <- "http://127.0.0.1:9200"
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_false(anyNA(fieldDT[, .(index, field, data_type)]))
 
         # get_fields should replace index names with their aliases
         expect_true(fieldDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% index)])
@@ -390,7 +382,7 @@ ES_HOST <- "http://127.0.0.1:9200"
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_false(anyNA(fieldDT[, .(index, field, data_type)]))
 
         # get_fields should replace index names with their aliases
         expect_true(fieldDT[, all(c("the_best_alias", "the_nest_alias", "the_test_alias") %in% index)])
@@ -439,7 +431,7 @@ ES_HOST <- "http://127.0.0.1:9200"
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_false(anyNA(fieldDT[, .(index, field, data_type)]))
 
         # should only give us back records on the one index we requested
         expect_true(fieldDT[, all(index == "empty_index")])
@@ -466,7 +458,7 @@ ES_HOST <- "http://127.0.0.1:9200"
         expect_true(is.character(fieldDT$type))
         expect_true(is.character(fieldDT$field))
         expect_true(is.character(fieldDT$data_type))
-        expect_true(sum(is.na(fieldDT[, .(index, field, data_type)])) == 0)
+        expect_false(anyNA(fieldDT[, .(index, field, data_type)]))
 
         # should only give us back records on indexes we requested
         expect_true(fieldDT[, any(index == "empty_index")])
@@ -480,6 +472,7 @@ test_that(".request() works for requests without a body", {
         verb = "POST"
         , url = "https://httpbin.org/status/201"
         , body = NULL
+        , verbose = FALSE
     )
     expect_true(response$method == "POST")
     expect_true(response$status_code == 201L)
@@ -492,6 +485,7 @@ test_that(".request() works for requests with a body", {
         verb = "POST"
         , url = "https://httpbin.org/anything"
         , body = '{"data": {"cool_numbers": [312, 708, 773]}}'
+        , verbose = FALSE
     )
     expect_true(response$method == "POST")
     expect_true(response$status_code == 200L)
@@ -502,15 +496,14 @@ test_that(".request() works for requests with a body", {
 
 test_that("retry logic works as expected", {
     testthat::skip_on_cran()
-    futile.logger::flog.threshold(futile.logger::DEBUG)
     log_lines <- testthat::capture_output({
         response <- .request(
             verb = "GET"
             , url = "https://httpbin.org/status/502"
             , body = NULL
+            , verbose = TRUE
         )
     })
-    futile.logger::flog.threshold(0)
 
     # should log the failures and sleep times
     expect_true(grepl("DEBUG.*Request failed.*status code 502.*Sleeping for", log_lines))
@@ -526,15 +519,14 @@ test_that("retry logic works as expected", {
 
 test_that("retry logic works as expected for requests with a body", {
     testthat::skip_on_cran()
-    futile.logger::flog.threshold(futile.logger::DEBUG)
     log_lines <- testthat::capture_output({
         response <- .request(
             verb = "POST"
             , url = "https://httpbin.org/status/429"
             , body = '{"some_key": 708}'
+            , verbose = TRUE
         )
     })
-    futile.logger::flog.threshold(0)
 
     # should log the failures and sleep times
     expect_true(grepl("DEBUG.*Request failed.*status code 429.*Sleeping for", log_lines))
@@ -547,6 +539,3 @@ test_that("retry logic works as expected for requests with a body", {
     expect_true(response$status_code == 429L)
     expect_true(response$url == "https://httpbin.org/status/429")
 })
-
-##### TEST TEAR DOWN #####
-futile.logger::flog.threshold(origLogThreshold)

@@ -1,13 +1,3 @@
-
-# Configure logger (suppress all logs in testing)
-loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][["threshold"]]
-} else {
-    origLogThreshold <- futile.logger::INFO
-}
-futile.logger::flog.threshold(0)
-
 # Works with 1 variable from an R string
 test_that("chomp_aggs should work from an R string with one grouping variable", {
     # nolint start
@@ -576,6 +566,3 @@ test_that("chomp_aggs should work for an empty terms result", {
     chompDT <- chomp_aggs(aggs_json = result)
     expect_null(chompDT)
 })
-
-##### TEST TEAR DOWN #####
-futile.logger::flog.threshold(origLogThreshold)
