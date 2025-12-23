@@ -605,7 +605,7 @@ es_search <- function(es_host
     portPattern <- ":[0-9]+$"
     if (! grepl(portPattern, es_host) == 1) {
         msg <- paste0("No port found in es_host! es_host should be a string of the"
-                      , "form [transfer_protocol][hostname]:[port]). for "
+                      , " form [transfer_protocol][hostname]:[port]. For "
                       , "example: 'http://myindex.mysite.com:9200'")
         .log_fatal(msg)
     }
