@@ -14,7 +14,8 @@ es_search(
   n_cores = ceiling(parallel::detectCores()/2),
   break_on_duplicates = TRUE,
   ignore_scroll_restriction = FALSE,
-  intermediates_dir = getwd()
+  intermediates_dir = getwd(),
+  verbose = FALSE
 )
 }
 \arguments{
@@ -29,7 +30,7 @@ uptasticsearch forbids this. If you want to execute a query over
 all indexes in the cluster, set this argument to \code{"_all"}.}
 
 \item{size}{Number of records per page of results.
-See \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-from-size}{Elasticsearch docs} for more.
+See \href{https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll}{Elasticsearch docs} for more.
 Note that this will be reset to 0 if you submit a \code{query_body} with
 an "aggs" request in it. Also see \code{max_hits}.}
 
@@ -40,7 +41,7 @@ duration string like "1m" (for one minute) or "15s" (for 15 seconds).
 The scroll context will be refreshed every time you ask Elasticsearch
 for another record, so this parameter should just be the amount of
 time you expect to pass between requests. See the
-\href{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll}{Elasticsearch scroll/pagination docs}
+\href{https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll}{Elasticsearch scroll/pagination docs}
 for more information.}
 
 \item{max_hits}{Integer. If specified, \code{es_search} will stop pulling data as soon
@@ -70,6 +71,8 @@ intermediate results to disk. By default, `es_search` will create a temporary
 directory in whatever working directory the function is called from. If you
 want to change this behavior, provide a path here. `es_search` will create
 and write to a temporary directory under whatever path you provide.}
+
+\item{verbose}{\code{TRUE} if verbose logs should be printed. \code{FALSE} by default.}
 }
 \description{
 Given a query and some optional parameters, \code{es_search} gets results

@@ -1,21 +1,29 @@
-#' @importFrom futile.logger flog.debug
-.log_debug <- function(...) {
-    futile.logger::flog.debug(...)
+.format_log_msg <- function(log_level, msg) {
+    return(sprintf(
+        "%s [%s] %s"
+        , log_level
+        , strftime(Sys.time(), format = "%Y-%m-%d %H:%M:%S")
+        , msg
+    ))
 }
 
-#' @importFrom futile.logger flog.info
-.log_info <- function(...) {
-    futile.logger::flog.info(...)
+.log_debug <- function(msg) {
+    write(.format_log_msg("DEBUG", msg), stdout())
+    return(invisible(NULL))
 }
 
-#' @importFrom futile.logger flog.warn
-.log_warn <- function(...) {
-    futile.logger::flog.warn(...)
-    warning(...)
+.log_info <- function(msg) {
+    write(.format_log_msg("INFO", msg), stdout())
+    return(invisible(NULL))
 }
 
-#' @importFrom futile.logger flog.fatal
-.log_fatal <- function(...) {
-    futile.logger::flog.fatal(...)
-    stop(...)
+.log_warn <- function(msg) {
+    write(.format_log_msg("WARN", msg), stdout())
+    warning(msg)
+    return(invisible(NULL))
+}
+
+.log_fatal <- function(msg) {
+    write(.format_log_msg("FATAL", msg), stdout())
+    stop(msg)
 }

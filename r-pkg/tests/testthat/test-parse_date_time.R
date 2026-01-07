@@ -1,12 +1,3 @@
-# Configure logger (suppress all logs in testing)
-loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][["threshold"]]
-} else {
-    origLogThreshold <- futile.logger::INFO
-}
-futile.logger::flog.threshold(0)
-
 # Correctly adjusts UTC date-times
 test_that("parse_date_time should transform the indicated date_cols to POSIXct with timezone UTC if they're given in UTC", {
     testDT <- data.table::data.table(
@@ -170,6 +161,3 @@ test_that("parse_date_time should leave the original DT unchanged", {
 
     expect_identical(newDT[id == "a", dateTime], as.POSIXct("2016-07-16 21:15:00", tz = "UTC"))
 })
-
-##### TEST TEAR DOWN #####
-futile.logger::flog.threshold(origLogThreshold)

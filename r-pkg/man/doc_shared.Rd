@@ -13,6 +13,8 @@ to Elasticsearch is legal and results in searching over all indexes.
 To be sure that this very expensive query is not executed by accident,
 uptasticsearch forbids this. If you want to execute a query over
 all indexes in the cluster, set this argument to \code{"_all"}.}
+
+\item{verbose}{\code{TRUE} if verbose logs should be printed. \code{FALSE} by default.}
 }
 \description{
 This is a NULL object with documentation so that later functions can call

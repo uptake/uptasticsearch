@@ -1,13 +1,3 @@
-
-# Configure logger (suppress all logs in testing)
-loggerOptions <- futile.logger::logger.options()
-if (!identical(loggerOptions, list())) {
-    origLogThreshold <- loggerOptions[[1]][["threshold"]]
-} else {
-    origLogThreshold <- futile.logger::INFO
-}
-futile.logger::flog.threshold(0)
-
 #--- unpack_nested_data
 
     # Should work with result of chomp_hits
@@ -110,7 +100,3 @@ futile.logger::flog.threshold(0)
         expect_equal(unpack_nested_data(DT, col_to_unpack = "y"), unpackedDT)
         expect_equal(unpack_nested_data(DT2, col_to_unpack = "y"), unpackedDT)
     })
-
-
-##### TEST TEAR DOWN #####
-futile.logger::flog.threshold(origLogThreshold)

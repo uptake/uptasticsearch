@@ -127,6 +127,9 @@ Look at the source code of `setup_local.sh` for a list of the valid arguments.
 # Start up Elasticsearch on localhost:9200 and seed it with data
 ./setup_local.sh 8.17.2
 
+# enable the integration tests
+export NOT_CRAN=true
+
 # Run tests
 make test
 

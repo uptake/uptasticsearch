@@ -4,7 +4,7 @@
 \alias{get_fields}
 \title{Get the names and data types of the indexed fields in an index}
 \usage{
-get_fields(es_host, es_indices = "_all")
+get_fields(es_host, es_indices = "_all", verbose = FALSE)
 }
 \arguments{
 \item{es_host}{A string identifying an Elasticsearch host. This should be of the form
@@ -14,6 +14,8 @@ get_fields(es_host, es_indices = "_all")
 which to get mappings. Default is \code{'_all'}, which means
 get the mapping for all indices. Names of indices can be
 treated as regular expressions.}
+
+\item{verbose}{\code{TRUE} if verbose logs should be printed. \code{FALSE} by default.}
 }
 \value{
 A data.table containing four columns: index, type, field, and data_type

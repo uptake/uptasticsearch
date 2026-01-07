@@ -65,7 +65,7 @@
 #               This is here because {curl} does not have a built-in retry API.
 #' @importFrom curl curl_fetch_memory
 #' @importFrom stats runif
-.retry <- function(handle, url) {
+.retry <- function(handle, url, verbose) {
 
     max_retries <- 3L
     attempt_count <- 1L
@@ -82,7 +82,9 @@
             #
             # ref: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
             sleep_seconds <- 1.45 ** (attempt_count - 1L) + stats::runif(n = 1L, min = 0.1, max = 0.5)
-            .log_debug(sprintf("Sleeping for %.2f seconds before retrying.", sleep_seconds))
+            if (isTRUE(verbose)) {
+                .log_debug(sprintf("Sleeping for %.2f seconds before retrying.", sleep_seconds))
+            }
             Sys.sleep(sleep_seconds)
         }
 
@@ -94,12 +96,14 @@
 
         # check if the response should be retried
         if (.should_retry(response)) {
-            .log_debug(sprintf(
-                "Request failed (status code %i): '%s %s'"
-                , response$status_code
-                , response$method
-                , response$url
-            ))
+            if (isTRUE(verbose)) {
+                .log_debug(sprintf(
+                    "Request failed (status code %i): '%s %s'"
+                    , response$status_code
+                    , response$method
+                    , response$url
+                ))
+            }
             attempt_count <- attempt_count + 1L
         } else {
             break
@@ -114,7 +118,7 @@
 #               also centralizes the mechanism for HTTP request execution in one place.
 # [references] https://testthat.r-lib.org/reference/local_mocked_bindings.html#namespaced-calls
 #' @importFrom curl handle_setheaders handle_setopt new_handle
-.request <- function(verb, url, body) {
+.request <- function(verb, url, body, verbose) {
     handle <- curl::new_handle()
 
     # set headers
@@ -142,6 +146,7 @@
     response <- .retry(
         handle = handle
         , url = url
+        , verbose = verbose
     )
 
     return(invisible(response))
