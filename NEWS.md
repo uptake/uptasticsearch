@@ -1,3 +1,11 @@
+# uptasticsearch 1.1.0
+
+## Bugfixes
+
+### Removed dependency on `{futile.logger}`
+
+- [#260](https://github.com/uptake/uptasticsearch/pull/260) CRAN warned us that `{futile.logger}` was set to be archived, so it was removed as a dependency of `{uptasticsearch}`. Verbose logs can be enabled by passing `verbose = TRUE` to `es_search()` and friends.
+
 # uptasticsearch 1.0.0
 
 ## Breaking Changes

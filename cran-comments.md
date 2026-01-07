@@ -146,3 +146,17 @@ Submitted with the following comments.
 ### CRAN Response
 
 * No issues. v1.0.0 released to CRAN!
+
+## v1.1.0 - Submission 1 - (date TBD)
+
+Submitted with the following comments.
+
+> This release removes the dependency on {futile.logger}, in response to an email from the CRAN admins warning that it was likely to be archived.
+
+### `R CMD check` results
+
+TBD
+
+### CRAN Response
+
+TBD
