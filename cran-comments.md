@@ -147,7 +147,7 @@ Submitted with the following comments.
 
 * No issues. v1.0.0 released to CRAN!
 
-## v1.1.0 - Submission 1 - (date TBD)
+## v1.1.0 - Submission 1 - (January 7, 2026)
 
 Submitted with the following comments.
 
