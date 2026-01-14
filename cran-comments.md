@@ -155,8 +155,8 @@ Submitted with the following comments.
 
 ### `R CMD check` results
 
-TBD
+* No issues
 
 ### CRAN Response
 
-TBD
+* No issues. v1.1.0 released to CRAN!
