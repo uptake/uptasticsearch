@@ -4,6 +4,10 @@ concurrency:
   group: docs-build-on-${{ github.event_name }}-from-${{ github.ref_name }}
   cancel-in-progress: true
 
+# default to 0 permissions
+# (job-level overrides add the minimal permissions needed)
+permissions:
+  contents: none
 
 on:
   # run only when called by other workflows
