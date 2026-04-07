@@ -32,8 +32,6 @@ env:
 jobs:
   build-docs:
     uses: ./.github/workflows/build-docs.yaml
-    permissions:
-      contents: read
     with:
       deploy: ${{ (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'workflow_dispatch' && inputs.deploy-docs == true) }}
   lint:
