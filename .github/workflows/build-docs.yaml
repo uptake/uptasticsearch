@@ -4,6 +4,11 @@ concurrency:
   group: docs-build-on-${{ github.event_name }}-from-${{ github.ref_name }}
   cancel-in-progress: true
 
+# default to 0 permissions
+# (job-level overrides add the minimal permissions needed)
+permissions:
+  contents: none
+
 on:
   # run only when called by other workflows
   workflow_call:
@@ -17,21 +22,23 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: set up R
-        uses: r-lib/actions/setup-r@v2
+        uses: r-lib/actions/setup-r@6f6e5bc62fba3a704f74e7ad7ef7676c5c6a2590 #v2.11.4
         with:
           r-version: release
       - name: set up pandoc
-        uses: r-lib/actions/setup-pandoc@v2
+        uses: r-lib/actions/setup-pandoc@6f6e5bc62fba3a704f74e7ad7ef7676c5c6a2590 #v2.11.4
       - name: build docs
         run: |
           .ci/build-docs.sh
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
           path: ./r-pkg/docs
 
@@ -54,4 +61,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

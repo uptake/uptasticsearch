@@ -1,7 +1,6 @@
 # uptasticsearch
 
 [![GitHub Actions Build Status](https://github.com/uptake/uptasticsearch/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/uptake/uptasticsearch/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/uptake/uptasticsearch/branch/main/graph/badge.svg)](https://app.codecov.io/gh/uptake/uptasticsearch)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch)
 [![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/grand-total/uptasticsearch)](https://cran.r-project.org/package=uptasticsearch)
 

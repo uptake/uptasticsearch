@@ -20,6 +20,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# default to 0 permissions
+# (job-level overrides add the minimal permissions needed)
+permissions:
+  contents: none
+
 env:
   # parallelize compilation (extra important for Linux, where CRAN doesn't supply pre-compiled binaries)
   MAKEFLAGS: "-j4"
@@ -27,22 +32,27 @@ env:
 jobs:
   build-docs:
     uses: ./.github/workflows/build-docs.yaml
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
     with:
       deploy: ${{ (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'workflow_dispatch' && inputs.deploy-docs == true) }}
-    secrets: inherit
   lint:
     name: lint
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
     steps:
       - name: checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: pre-commit/action@v3.0.1
+      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
       - name: set up R
-        uses: r-lib/actions/setup-r@v2
+        uses: &setup_r r-lib/actions/setup-r@6f6e5bc62fba3a704f74e7ad7ef7676c5c6a2590 # v2.11.4
       - name: run lintr
         run: |
           Rscript -e "install.packages('lintr')"
@@ -68,15 +78,16 @@ jobs:
           - 8.17.2
     steps:
       - name: checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 1
+          persist-credentials: false
       - name: set up R
-        uses: r-lib/actions/setup-r@v2
+        uses: *setup_r
         with:
           r-version: release
       - name: set up pandoc
-        uses: r-lib/actions/setup-pandoc@v2
+        uses: r-lib/actions/setup-pandoc@6f6e5bc62fba3a704f74e7ad7ef7676c5c6a2590 # v2.11.4
       - name: run tests
         shell: bash
         run: |
@@ -85,7 +96,6 @@ jobs:
           $GITHUB_WORKSPACE/.ci/install.sh
           $GITHUB_WORKSPACE/setup_local.sh ${{ matrix.es_version }}
           $GITHUB_WORKSPACE/.ci/test.sh
-          $GITHUB_WORKSPACE/.ci/report_to_covr.sh
   all-successful:
     if: always()
     runs-on: ubuntu-latest
@@ -93,8 +103,10 @@ jobs:
       - build-docs
       - lint
       - test
+    permissions:
+      statuses: read
     steps:
       - name: Decide whether the needed jobs succeeded or failed
-        uses: re-actors/alls-green@v1.2.2
+        uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2
         with:
           jobs: ${{ toJSON(needs) }}
