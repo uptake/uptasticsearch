@@ -12,6 +12,7 @@ sudo apt-get install \
     libcurl4-openssl-dev \
     curl \
     devscripts \
+    libuv1-dev \
     texinfo \
     texlive-latex-recommended \
     texlive-fonts-recommended \
