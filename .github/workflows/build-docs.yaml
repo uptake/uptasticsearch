@@ -30,15 +30,15 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: set up R
-        uses: r-lib/actions/setup-r@6f6e5bc62fba3a704f74e7ad7ef7676c5c6a2590 #v2.11.4
+        uses: r-lib/actions/setup-r@a51a8012b0aab7c32ef9d19bf54da93f3254335e #v2.12.0
         with:
           r-version: release
       - name: set up pandoc
-        uses: r-lib/actions/setup-pandoc@6f6e5bc62fba3a704f74e7ad7ef7676c5c6a2590 #v2.11.4
+        uses: r-lib/actions/setup-pandoc@a51a8012b0aab7c32ef9d19bf54da93f3254335e #v2.12.0
       - name: build docs
         run: |
           .ci/build-docs.sh
-      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ./r-pkg/docs
 
