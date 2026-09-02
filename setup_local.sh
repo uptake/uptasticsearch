@@ -18,28 +18,28 @@ echo "Starting up Elasticsearch..."
 case "${ES_VERSION}" in
 
 1.7.6)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" elasticsearch:1.7.6
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" elasticsearch:1.7.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 2.4.6)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" elasticsearch:2.4.6
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" elasticsearch:2.4.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 5.6.16)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:5.6.16
     MAPPING_FILE=$(pwd)/test-data/es5_shakespeare_mapping.json
     ;;
 6.8.15)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:6.8.15
     MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
     ;;
 7.0.1)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:7.0.1
@@ -47,7 +47,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 7.17.22)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:7.17.22
@@ -64,7 +64,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.5.3)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.5.3
@@ -72,7 +72,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.10.4)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.10.4
@@ -80,7 +80,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.15.5)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.15.5
@@ -88,7 +88,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.17.2)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.17.2
@@ -113,7 +113,7 @@ cp "${MAPPING_FILE}" "${TESTDIR}/shakespeare_mapping.json"
 cp "${SAMPLE_DATA_FILE}" "${TESTDIR}/sample.json"
 cd "${TESTDIR}"
 
-# wait for the cluster to be reachable (max 5 minutes)
+# wait for the cluster to be reachable
 echo "waiting for Elasticsearch to come up..."
 SECONDS=0
 until curl -s -I --show-error "http://${ES_HOST}:9200" > /dev/null 2>&1; do
@@ -122,7 +122,7 @@ until curl -s -I --show-error "http://${ES_HOST}:9200" > /dev/null 2>&1; do
         echo ""
         echo "--- docker ps ---"
         echo ""
-        docker logs uptasticsearch
+        docker ps
         echo ""
         echo "--- docker logs ---"
         echo ""
@@ -130,7 +130,7 @@ until curl -s -I --show-error "http://${ES_HOST}:9200" > /dev/null 2>&1; do
         exit 1
     fi
     echo "not up, sleeping 5 seconds"
-    sleep 5
+    sleep 2
 done
 echo "Elasticsearch is up (after ${SECONDS}s), seeding test data"
 
