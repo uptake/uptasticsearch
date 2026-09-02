@@ -116,8 +116,12 @@ cd "${TESTDIR}"
 echo "waiting for Elasticsearch to come up..."
 SECONDS=0
 until curl -s -I --show-error "http://${ES_HOST}:9200" > /dev/null 2>&1; do
-    if ((SECONDS >= 60)); then
-        echo "Elasticsearch did not become reachable within 1 minute" >&2
+    if ((SECONDS >= 30)); then
+        echo "Elasticsearch did not become reachable within 30 seconds" >&2
+        echo ""
+        echo "--- docker ps ---"
+        echo ""
+        docker logs uptasticsearch
         echo ""
         echo "--- docker logs ---"
         echo ""
