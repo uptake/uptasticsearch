@@ -8,6 +8,6 @@ rm -r ./sandbox
 
 # Kill the running container
 echo "killing running container"
-docker kill "$(docker ps -ql)"
+docker kill uptasticsearch
 
 echo "done cleaning up test environment"

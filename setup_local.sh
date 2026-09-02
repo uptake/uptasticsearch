@@ -18,28 +18,28 @@ echo "Starting up Elasticsearch..."
 case "${ES_VERSION}" in
 
 1.7.6)
-    docker run --rm -d -p "${ES_PORT}:9200" elasticsearch:1.7.6
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" elasticsearch:1.7.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 2.4.6)
-    docker run --rm -d -p "${ES_PORT}:9200" elasticsearch:2.4.6
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" elasticsearch:2.4.6
     MAPPING_FILE=$(pwd)/test-data/legacy_shakespeare_mapping.json
     ;;
 5.6.16)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:5.6.16
     MAPPING_FILE=$(pwd)/test-data/es5_shakespeare_mapping.json
     ;;
 6.8.15)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:6.8.15
     MAPPING_FILE=$(pwd)/test-data/es6_shakespeare_mapping.json
     ;;
 7.0.1)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:7.0.1
@@ -47,7 +47,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 7.17.22)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:7.17.22
@@ -55,7 +55,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.0.1)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.0.1
@@ -63,7 +63,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.5.3)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.5.3
@@ -71,7 +71,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.10.4)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.10.4
@@ -79,7 +79,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.15.5)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.15.5
@@ -87,7 +87,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.17.2)
-    docker run --rm -d -p "${ES_PORT}:9200" \
+    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.17.2
@@ -116,8 +116,12 @@ cd "${TESTDIR}"
 echo "waiting for Elasticsearch to come up..."
 SECONDS=0
 until curl -s -I --show-error "http://${ES_HOST}:9200" > /dev/null 2>&1; do
-    if ((SECONDS >= 300)); then
-        echo "Elasticsearch did not become reachable within 5 minutes" >&2
+    if ((SECONDS >= 60)); then
+        echo "Elasticsearch did not become reachable within 1 minute" >&2
+        echo ""
+        echo "--- docker logs ---"
+        echo ""
+        docker logs uptasticsearch
         exit 1
     fi
     echo "not up, sleeping 5 seconds"
