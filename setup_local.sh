@@ -112,8 +112,18 @@ cp "${MAPPING_FILE}" "${TESTDIR}/shakespeare_mapping.json"
 cp "${SAMPLE_DATA_FILE}" "${TESTDIR}/sample.json"
 cd "${TESTDIR}"
 
-# give the cluster a chance
-sleep 30
+# wait for the cluster to be reachable (max 5 minutes)
+echo "waiting for Elasticsearch to come up..."
+SECONDS=0
+until curl -s -I --show-error "http://${ES_HOST}:9200" > /dev/null 2>&1; do
+    if ((SECONDS >= 300)); then
+        echo "Elasticsearch did not become reachable within 5 minutes" >&2
+        exit 1
+    fi
+    echo "not up, sleeping 5 seconds"
+    sleep 5
+done
+echo "Elasticsearch is up (after ${SECONDS}s), seeding test data"
 
 # Create shakespeare index and shakespeare mapping
 curl -X PUT "http://${ES_HOST}:9200/shakespeare" \
