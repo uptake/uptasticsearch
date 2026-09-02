@@ -58,7 +58,7 @@ case "${ES_VERSION}" in
     docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
-        -e "ES_JAVA_OPTS=-XX:-UseContainerSupport" \
+        -e "JDK_JAVA_OPTIONS=-XX:-UseContainerSupport" \
         docker.elastic.co/elasticsearch/elasticsearch:8.0.1
     MAPPING_FILE=$(pwd)/test-data/es7_shakespeare_mapping.json
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
