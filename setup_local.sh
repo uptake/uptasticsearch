@@ -55,7 +55,7 @@ case "${ES_VERSION}" in
     SAMPLE_DATA_FILE=$(pwd)/test-data/sample_es7.json
     ;;
 8.0.1)
-    docker run --rm -d --name uptasticsearch -p "${ES_PORT}:9200" \
+    docker run -d --name uptasticsearch -p "${ES_PORT}:9200" \
         -e "discovery.type=single-node" \
         -e "xpack.security.enabled=false" \
         docker.elastic.co/elasticsearch/elasticsearch:8.0.1
