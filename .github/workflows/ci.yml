@@ -31,7 +31,7 @@ env:
 
 jobs:
   build-docs:
-    uses: ./.github/workflows/build-docs.yaml
+    uses: $/.github/workflows/build-docs.yaml
     permissions:
       contents: read
       id-token: write
